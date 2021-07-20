@@ -47,7 +47,7 @@ public class ShopController {
 
     @PostMapping("/updateShopByShopId/{shopId}")
     public RestObject<String> updateShopByShopId(@PathVariable int shopId,@RequestBody Shop shop){
-        shop.setId(shopId);
+        shop.setShopId(shopId);
         boolean b = iShopService.updateById(shop);
         if (b){
             return RestResponse.makeOKRsp("修改成功！");

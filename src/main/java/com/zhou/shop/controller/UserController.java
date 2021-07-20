@@ -48,7 +48,7 @@ public class UserController {
 
     @PostMapping("/updateUserByUserId/{userId}")
     public RestObject<String> updateUserByUserId(@PathVariable int userId,@RequestBody User user){
-        user.setId(userId);
+        user.setUserId(userId);
         boolean b = iUserService.updateById(user);
         if (b){
             return RestResponse.makeOKRsp("修改成功！");

@@ -30,16 +30,16 @@ public class Shop implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商家表id")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "shop_id", type = IdType.AUTO)
+    private Integer shopId;
 
     @ApiModelProperty(value = "商家店铺，超市名字")
-    @TableField("s_name")
-    private String sName;
+    @TableField("shop_name")
+    private String shopName;
 
     @ApiModelProperty(value = "地址")
-    @TableField("address")
-    private String address;
+    @TableField("shop_address")
+    private String shopAddress;
 
 
 }

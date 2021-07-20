@@ -14,24 +14,13 @@ import java.util.List;
 @SpringBootTest
 class ShopApplicationTests {
 
-    @Autowired
-    UserMapper userMapper;
-
-    @Autowired
-    ItemMapper itemMapper;
 
     @Test
     void contextLoads() {
-        List<User> users = userMapper.selectList(null);
-        users.forEach(System.out::println);
     }
 
     @Test
     void contextLoads2() {
-        Item item = new Item();
-        item.setIName("海飞丝洗发水（小）");
-        item.setPrice(BigDecimal.valueOf(20));
-        itemMapper.insert(item);
     }
 
 }

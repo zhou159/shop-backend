@@ -1,8 +1,10 @@
 package com.zhou.shop.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.zhou.shop.dto.ItemDto;
 import com.zhou.shop.entity.Item;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,4 +32,8 @@ public interface IItemService extends IService<Item> {
 
     @Override
     List<Item> list(Wrapper<Item> queryWrapper);
+
+    List<ItemDto> retrieveAllItem();
+
+    List<ItemDto> retrieveByItemName(String itemName);
 }

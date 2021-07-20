@@ -30,12 +30,12 @@ public class Flag implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "标签价格")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "flag_id", type = IdType.AUTO)
+    private Integer flagId;
 
     @ApiModelProperty(value = "标签名字")
-    @TableField("f_name")
-    private String fName;
+    @TableField("flag_name")
+    private String flagName;
 
 
 }

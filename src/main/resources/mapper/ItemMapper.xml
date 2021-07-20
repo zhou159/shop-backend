@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhou.shop.mapper.ItemMapper">
+    <resultMap id="itemMap" type="com.zhou.shop.dto.ItemDto">
+        <result column="aii" property="itemId"/>
+        <result column="aic" property="itemCreateTime"/>
+        <result column="aiu" property="itemUpdateTime"/>
+        <result column="ain" property="itemName"/>
+        <result column="ap" property="price"/>
+        <result column="bsn" property="shopName"/>
+        <result column="asi" property="shopId"/>
+    </resultMap>
 
+    <select id="retrieveAllItem" resultMap="itemMap">
+        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.shop_id asi,b.shop_name bsn
+        from shop.item a,shop.shop b where a.shop_id = b.shop_id
+    </select>
+
+    <select id="retrieveByItemName" resultMap="itemMap">
+        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.shop_id asi,b.shop_name bsn
+        from shop.item a,shop.shop b where a.shop_id = b.shop_id and a.item_name like '%${itemName}%'
+    </select>
 </mapper>

@@ -4,6 +4,7 @@ import com.zhou.shop.entity.Flag;
 import com.zhou.shop.result.RestObject;
 import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IFlagService;
+import com.zhou.shop.service.impl.FlagServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,10 @@ import java.util.List;
 @RequestMapping("/flag")
 public class FlagController {
 
+
+
     @Autowired
-    IFlagService iFlagService;
+    IFlagService iFlagService = new FlagServiceImpl();
 
     @PostMapping("/createFlag")
     public RestObject<String> createFlag(@RequestBody Flag flag){
@@ -48,7 +51,7 @@ public class FlagController {
 
     @PostMapping("/updateFlagByFlagId/{flagId}")
     public RestObject<String> updateFlagByFlagId(@PathVariable int flagId,@RequestBody Flag flag){
-        flag.setId(flagId);
+        flag.setFlagId(flagId);
         boolean b = iFlagService.updateById(flag);
         if (b){
             return RestResponse.makeOKRsp("修改成功！");
