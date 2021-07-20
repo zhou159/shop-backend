@@ -39,6 +39,20 @@ public class ItemDto {
     @TableField("price")
     private BigDecimal price;
 
+    @ApiModelProperty(value = "规格id")
+    @TableField("specification_id")
+    private Integer specificationId;
+
+    @ApiModelProperty(value = "规格名字")
+    private String specificationName;
+
+    @ApiModelProperty(value = "一单位所含的数量")
+    @TableField("item_unit_quantity")
+    private Double itemUnitQuantity;
+
+    @ApiModelProperty(value = "展示的数据 规格+数量")
+    private String showQuantity;
+
     @TableField(fill = FieldFill.UPDATE)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemUpdateTime;

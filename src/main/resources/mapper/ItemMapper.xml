@@ -11,14 +11,19 @@
         <result column="asi" property="shopId"/>
         <result column="cun" property="unitName" />
         <result column="aui" property="unitId"/>
+        <result column="aspi" property="specificationId" />
+        <result column="dsn" property="specificationName" />
+        <result column="sq" property="showQuantity" />
+        <result column="aiuq" property="itemUnitQuantity" />
     </resultMap>
 
     <select id="retrieveAllItem" resultMap="itemMap">
-        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,
+        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.item_unit_quantity aiuq,
                a.shop_id asi,b.shop_name bsn,
-               a.unit_id aui,c.unit_name cun
-        from shop.item a,shop.shop b,shop.unit c
-        where a.shop_id = b.shop_id and a.unit_id = c.unit_id
+               a.unit_id aui,c.unit_name cun,
+               a.specification_id aspi,d.specification_name dsn,concat(a.item_unit_quantity,d.specification_name) sq
+        from shop.item a,shop.shop b,shop.unit c,shop.specification d
+        where a.shop_id = b.shop_id and a.unit_id = c.unit_id and a.specification_id = d.specification_id
     </select>
 
     <select id="retrieveByItemName" resultMap="itemMap">

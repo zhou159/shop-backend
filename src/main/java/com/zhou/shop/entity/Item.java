@@ -41,11 +41,19 @@ public class Item implements Serializable {
 
     @ApiModelProperty(value = "商店id")
     @TableField("shop_id")
-    private String shopId;
+    private Integer shopId;
 
     @ApiModelProperty(value = "单位id")
     @TableField("unit_id")
-    private String unitId;
+    private Integer unitId;
+
+    @ApiModelProperty(value = "规格id")
+    @TableField("specification_id")
+    private Integer specificationId;
+
+    @ApiModelProperty(value = "一单位所含的数量")
+    @TableField("item_unit_quantity")
+    private Double itemUnitQuantity;
 
     @ApiModelProperty(value = "商品价格")
     @TableField("price")
