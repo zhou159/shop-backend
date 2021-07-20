@@ -21,12 +21,19 @@ public class ItemDto {
     @TableField("item_name")
     private String itemName;
 
-    @ApiModelProperty(value = "商店名字")
+    @ApiModelProperty(value = "商店id")
     @TableField("shop_id")
     private Integer shopId;
 
     @ApiModelProperty(value = "商店名字")
     private String shopName;
+
+    @ApiModelProperty(value = "单位id")
+    @TableField("unit_id")
+    private Integer unitId;
+
+    @ApiModelProperty(value = "单位名字")
+    private String unitName;
 
     @ApiModelProperty(value = "商品价格")
     @TableField("price")

@@ -43,6 +43,10 @@ public class Item implements Serializable {
     @TableField("shop_id")
     private String shopId;
 
+    @ApiModelProperty(value = "单位id")
+    @TableField("unit_id")
+    private String unitId;
+
     @ApiModelProperty(value = "商品价格")
     @TableField("price")
     private BigDecimal price;

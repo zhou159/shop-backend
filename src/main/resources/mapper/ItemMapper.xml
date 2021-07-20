@@ -9,15 +9,23 @@
         <result column="ap" property="price"/>
         <result column="bsn" property="shopName"/>
         <result column="asi" property="shopId"/>
+        <result column="cun" property="unitName" />
+        <result column="aui" property="unitId"/>
     </resultMap>
 
     <select id="retrieveAllItem" resultMap="itemMap">
-        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.shop_id asi,b.shop_name bsn
-        from shop.item a,shop.shop b where a.shop_id = b.shop_id
+        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,
+               a.shop_id asi,b.shop_name bsn,
+               a.unit_id aui,c.unit_name cun
+        from shop.item a,shop.shop b,shop.unit c
+        where a.shop_id = b.shop_id and a.unit_id = c.unit_id
     </select>
 
     <select id="retrieveByItemName" resultMap="itemMap">
-        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.shop_id asi,b.shop_name bsn
-        from shop.item a,shop.shop b where a.shop_id = b.shop_id and a.item_name like '%${itemName}%'
+        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,
+               a.shop_id asi,b.shop_name bsn,
+               a.unit_id aui,c.unit_name cun
+        from shop.item a,shop.shop b,shop.unit c
+        where a.shop_id = b.shop_id and a.unit_id = c.unit_id and a.item_name like '%${itemName}%'
     </select>
 </mapper>

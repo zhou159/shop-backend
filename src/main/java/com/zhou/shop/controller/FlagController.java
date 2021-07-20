@@ -25,7 +25,7 @@ public class FlagController {
 
 
     @Autowired
-    IFlagService iFlagService = new FlagServiceImpl();
+    IFlagService iFlagService;
 
     @PostMapping("/createFlag")
     public RestObject<String> createFlag(@RequestBody Flag flag){
