@@ -1,9 +1,12 @@
 package com.zhou.shop.controller;
 
+import com.zhou.shop.dto.ItemDto;
+import com.zhou.shop.entity.Item;
 import com.zhou.shop.entity.Shop;
 import com.zhou.shop.result.RestObject;
 import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IShopService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,5 +67,12 @@ public class ShopController {
         }else {
             return RestResponse.makeErrRsp("删除失败！");
         }
+    }
+
+    @ApiOperation("按商店名称查询")
+    @PostMapping("/retrieveByShopName")
+    public RestObject<List<Shop>> retrieveShopByShopName (@RequestBody Shop shop){
+        List<Shop> list = iShopService.retrieveByShopName(shop.getShopName());
+        return RestResponse.makeOKRsp(list);
     }
 }

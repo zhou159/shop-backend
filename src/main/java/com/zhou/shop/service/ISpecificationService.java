@@ -2,6 +2,7 @@ package com.zhou.shop.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhou.shop.entity.Shop;
 import com.zhou.shop.entity.Specification;
 
 import java.io.Serializable;
@@ -31,4 +32,6 @@ public interface ISpecificationService extends IService<Specification> {
 
     @Override
     List<Specification> list(Wrapper<Specification> queryWrapper);
+
+    List<Specification> retrieveBySpecificationName(String specificationName);
 }

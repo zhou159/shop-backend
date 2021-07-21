@@ -32,4 +32,6 @@ public interface IUnitService extends IService<Unit> {
 
     @Override
     List<Unit> list(Wrapper<Unit> queryWrapper);
+
+    List<Unit> retrieveByUnitName(String unitName);
 }

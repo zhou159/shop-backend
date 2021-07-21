@@ -79,7 +79,7 @@ public class ItemController {
         }
     }
 
-    @ApiOperation("按商品id查询")
+    @ApiOperation("按商品名称查询")
     @PostMapping("/retrieveByItemName")
     public RestObject<List<ItemDto>> retrieveItemByItemName (@RequestBody Item item){
         List<ItemDto> list = iItemService.retrieveByItemName(item.getItemName());

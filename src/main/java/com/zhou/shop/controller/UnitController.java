@@ -1,9 +1,11 @@
 package com.zhou.shop.controller;
 
+import com.zhou.shop.entity.Shop;
 import com.zhou.shop.entity.Unit;
 import com.zhou.shop.result.RestObject;
 import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IUnitService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,5 +66,12 @@ public class UnitController {
         }else {
             return RestResponse.makeErrRsp("删除失败！");
         }
+    }
+
+    @ApiOperation("按商店名称查询")
+    @PostMapping("/retrieveByUnitName")
+    public RestObject<List<Unit>> retrieveUnitByShopName (@RequestBody Unit unit){
+        List<Unit> list = iUnitService.retrieveByUnitName(unit.getUnitName());
+        return RestResponse.makeOKRsp(list);
     }
 }

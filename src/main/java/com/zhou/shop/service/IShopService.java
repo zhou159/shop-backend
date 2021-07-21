@@ -1,6 +1,7 @@
 package com.zhou.shop.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.zhou.shop.dto.ItemDto;
 import com.zhou.shop.entity.Flag;
 import com.zhou.shop.entity.Shop;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -33,4 +34,6 @@ public interface IShopService extends IService<Shop> {
 
     @Override
     List<Shop> list(Wrapper<Shop> queryWrapper);
+
+    List<Shop> retrieveByShopName(String shopName);
 }
