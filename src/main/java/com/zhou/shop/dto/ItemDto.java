@@ -28,6 +28,12 @@ public class ItemDto {
     @ApiModelProperty(value = "商店名字")
     private String shopName;
 
+    @ApiModelProperty(value = "商店地址")
+    private String shopAddress;
+
+    @ApiModelProperty(value = "商品备注")
+    private String itemRemark;
+
     @ApiModelProperty(value = "单位id")
     @TableField("unit_id")
     private Integer unitId;

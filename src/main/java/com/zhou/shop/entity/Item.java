@@ -55,6 +55,10 @@ public class Item implements Serializable {
     @TableField("item_unit_quantity")
     private Double itemUnitQuantity;
 
+    @ApiModelProperty(value = "商品备注")
+    @TableField("item_remark")
+    private String itemRemark;
+
     @ApiModelProperty(value = "商品价格")
     @TableField("price")
     private BigDecimal price;

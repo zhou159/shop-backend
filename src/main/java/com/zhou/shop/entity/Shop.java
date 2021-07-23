@@ -41,5 +41,13 @@ public class Shop implements Serializable {
     @TableField("shop_address")
     private String shopAddress;
 
+    @ApiModelProperty(value = "备注")
+    @TableField("shop_remark")
+    private String shopRemark;
+
+    @ApiModelProperty(value = "地址")
+    @TableField("shop_status")
+    private String shopStatus;
+
 
 }
