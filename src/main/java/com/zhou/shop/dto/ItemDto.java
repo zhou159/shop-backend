@@ -1,14 +1,20 @@
 package com.zhou.shop.dto;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+/**
+ * 商品数据返回对象
+ *
+ * @author 周雄
+ */
 public class ItemDto {
 
     private static final long serialVersionUID = 1L;
@@ -60,14 +66,230 @@ public class ItemDto {
     private String showQuantity;
 
     @TableField(fill = FieldFill.UPDATE)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemUpdateTime;
 
     @TableField(fill = FieldFill.INSERT)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemCreateTime;
 
+    @ApiModelProperty(value = "商品图片")
+    private String itemPicture;
+
+    public ItemDto() {}
+
+    public ItemDto(
+            Integer itemId,
+            String itemName,
+            Integer shopId,
+            String shopName,
+            String shopAddress,
+            String itemRemark,
+            Integer unitId,
+            String unitName,
+            BigDecimal price,
+            Integer specificationId,
+            String specificationName,
+            Double itemUnitQuantity,
+            String showQuantity,
+            LocalDateTime itemUpdateTime,
+            LocalDateTime itemCreateTime,
+            String itemPicture) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.shopId = shopId;
+        this.shopName = shopName;
+        this.shopAddress = shopAddress;
+        this.itemRemark = itemRemark;
+        this.unitId = unitId;
+        this.unitName = unitName;
+        this.price = price;
+        this.specificationId = specificationId;
+        this.specificationName = specificationName;
+        this.itemUnitQuantity = itemUnitQuantity;
+        this.showQuantity = showQuantity;
+        this.itemUpdateTime = itemUpdateTime;
+        this.itemCreateTime = itemCreateTime;
+        this.itemPicture = itemPicture;
+    }
 
 
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getItemPicture() {
+        return itemPicture;
+    }
+
+    public void setItemPicture(String itemPicture) {
+        this.itemPicture = itemPicture;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getShopAddress() {
+        return shopAddress;
+    }
+
+    public void setShopAddress(String shopAddress) {
+        this.shopAddress = shopAddress;
+    }
+
+    public String getItemRemark() {
+        return itemRemark;
+    }
+
+    public void setItemRemark(String itemRemark) {
+        this.itemRemark = itemRemark;
+    }
+
+    public Integer getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Integer unitId) {
+        this.unitId = unitId;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getSpecificationId() {
+        return specificationId;
+    }
+
+    public void setSpecificationId(Integer specificationId) {
+        this.specificationId = specificationId;
+    }
+
+    public String getSpecificationName() {
+        return specificationName;
+    }
+
+    public void setSpecificationName(String specificationName) {
+        this.specificationName = specificationName;
+    }
+
+    public Double getItemUnitQuantity() {
+        return itemUnitQuantity;
+    }
+
+    public void setItemUnitQuantity(Double itemUnitQuantity) {
+        this.itemUnitQuantity = itemUnitQuantity;
+    }
+
+    public String getShowQuantity() {
+        return showQuantity;
+    }
+
+    public void setShowQuantity(String showQuantity) {
+        this.showQuantity = showQuantity;
+    }
+
+    public LocalDateTime getItemUpdateTime() {
+        return itemUpdateTime;
+    }
+
+    public void setItemUpdateTime(LocalDateTime itemUpdateTime) {
+        this.itemUpdateTime = itemUpdateTime;
+    }
+
+    public LocalDateTime getItemCreateTime() {
+        return itemCreateTime;
+    }
+
+    public void setItemCreateTime(LocalDateTime itemCreateTime) {
+        this.itemCreateTime = itemCreateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemDto{"
+                + "itemId="
+                + itemId
+                + ", itemName='"
+                + itemName
+                + '\''
+                + ", shopId="
+                + shopId
+                + ", shopName='"
+                + shopName
+                + '\''
+                + ", shopAddress='"
+                + shopAddress
+                + '\''
+                + ", itemRemark='"
+                + itemRemark
+                + '\''
+                + ", unitId="
+                + unitId
+                + ", unitName='"
+                + unitName
+                + '\''
+                + ", price="
+                + price
+                + ", specificationId="
+                + specificationId
+                + ", specificationName='"
+                + specificationName
+                + '\''
+                + ", itemUnitQuantity="
+                + itemUnitQuantity
+                + ", showQuantity='"
+                + showQuantity
+                + '\''
+                + ", itemUpdateTime="
+                + itemUpdateTime
+                + ", itemCreateTime="
+                + itemCreateTime
+                + ", itemPicture='"
+                + itemPicture
+                + '\''
+                + '}';
+    }
 }

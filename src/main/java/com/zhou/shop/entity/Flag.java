@@ -1,16 +1,13 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -20,11 +17,9 @@ import lombok.experimental.Accessors;
  * @author 周雄
  * @since 2021-06-24
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+
 @TableName("flag")
-@ApiModel(value="Flag对象", description="")
+@ApiModel(value="Flag对象")
 public class Flag implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,5 +32,39 @@ public class Flag implements Serializable {
     @TableField("flag_name")
     private String flagName;
 
+    public Flag() {
+    }
 
+    public Flag(Integer flagId, String flagName) {
+        this.flagId = flagId;
+        this.flagName = flagName;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getFlagId() {
+        return flagId;
+    }
+
+    public void setFlagId(Integer flagId) {
+        this.flagId = flagId;
+    }
+
+    public String getFlagName() {
+        return flagName;
+    }
+
+    public void setFlagName(String flagName) {
+        this.flagName = flagName;
+    }
+
+    @Override
+    public String toString() {
+        return "Flag{" +
+                "flagId=" + flagId +
+                ", flagName='" + flagName + '\'' +
+                '}';
+    }
 }

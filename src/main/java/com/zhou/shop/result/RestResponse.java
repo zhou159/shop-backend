@@ -2,31 +2,27 @@ package com.zhou.shop.result;
 
 import com.zhou.shop.enums.RestCode;
 
+/**
+ * 返回调用对象
+ * @author Administrator
+ */
 public class RestResponse {
     private final static String SUCCESS = "success";
-    private final static String FAil = "fail";
+    private final static String FAIL = "fail";
 
-    public static <T> RestObject<T> makeOKRsp() {
+    public static <T> RestObject<T> makeOkRsp() {
         return new RestObject<T>().setCode(RestCode.SUCCESS).setMsg(SUCCESS);
     }
 
-    public static <T> RestObject<T> makeOKRsp(T data) {
+    public static <T> RestObject<T> makeOkRsp(T data) {
         return new RestObject<T>().setCode(RestCode.SUCCESS).setMsg(SUCCESS).setData(data);
     }
 
     public static <T> RestObject<T> makeErrRsp(T data) {
-        return new RestObject<T>().setCode(RestCode.ERROR).setMsg(FAil).setData(data);
+        return new RestObject<T>().setCode(RestCode.ERROR).setMsg(FAIL).setData(data);
     }
 
-//    public static <T> RestObject<T> makeUserNotLoginRsp(T data) {
-//        return new RestObject<T>().setCode(RestCode.NO_USERINFO).setMsg("no user login").setData(data);
-//    }
-//
-//    public static <T> RestObject<T> UserErrRsp(T data) {
-//        return new RestObject<T>().setCode(RestCode.NO_USERINFO).setMsg("user error").setData(data);
-//    }
-
-    public static <T> RestObject<T> ErrRsp(int code,String msg,T data) {
+    public static <T> RestObject<T> errRsp(int code,String msg,T data) {
         return new RestObject<T>().setCode(code).setMsg(msg).setData(data);
     }
 

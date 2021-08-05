@@ -1,12 +1,10 @@
 package com.zhou.shop.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.dto.ItemDto;
 import com.zhou.shop.entity.Item;
 import com.zhou.shop.mapper.ItemMapper;
 import com.zhou.shop.service.IItemService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +20,11 @@ import java.util.List;
 @Service
 public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements IItemService {
 
-    @Autowired
-    ItemMapper itemMapper;
+    final ItemMapper itemMapper;
+
+    public ItemServiceImpl(ItemMapper itemMapper) {
+        this.itemMapper = itemMapper;
+    }
 
     @Override
     public List<ItemDto> retrieveAllItem() {

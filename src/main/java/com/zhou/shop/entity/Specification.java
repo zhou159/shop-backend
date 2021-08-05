@@ -6,9 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -18,11 +15,9 @@ import lombok.experimental.Accessors;
  * @author 周雄
  * @since 2021-07-20
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+
 @TableName("specification")
-@ApiModel(value="Specification对象", description="")
+@ApiModel(value="Specification对象")
 public class Specification {
     private static final long serialVersionUID = 1L;
 
@@ -37,4 +32,50 @@ public class Specification {
     @ApiModelProperty(value = "规格说明")
     @TableField("specification_label")
     private String specificationLabel;
+
+    public Specification() {
+    }
+
+    public Specification(Integer specificationId, String specificationName, String specificationLabel) {
+        this.specificationId = specificationId;
+        this.specificationName = specificationName;
+        this.specificationLabel = specificationLabel;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getSpecificationId() {
+        return specificationId;
+    }
+
+    public void setSpecificationId(Integer specificationId) {
+        this.specificationId = specificationId;
+    }
+
+    public String getSpecificationName() {
+        return specificationName;
+    }
+
+    public void setSpecificationName(String specificationName) {
+        this.specificationName = specificationName;
+    }
+
+    public String getSpecificationLabel() {
+        return specificationLabel;
+    }
+
+    public void setSpecificationLabel(String specificationLabel) {
+        this.specificationLabel = specificationLabel;
+    }
+
+    @Override
+    public String toString() {
+        return "Specification{" +
+                "specificationId=" + specificationId +
+                ", specificationName='" + specificationName + '\'' +
+                ", specificationLabel='" + specificationLabel + '\'' +
+                '}';
+    }
 }

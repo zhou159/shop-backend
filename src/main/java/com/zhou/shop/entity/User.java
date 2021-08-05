@@ -6,9 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -20,11 +17,9 @@ import java.io.Serializable;
  * @author 周雄
  * @since 2021-06-24
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+
 @TableName("user")
-@ApiModel(value="User对象", description="")
+@ApiModel(value="User对象")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,5 +40,69 @@ public class User implements Serializable {
     @TableField("role")
     private String role;
 
+    @ApiModelProperty(value = "用户头像")
+    @TableField("user_picture")
+    private String userPicture;
 
+    public User() {
+    }
+
+    public User(Integer userId, String username, String password, String role, String userPicture) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.userPicture = userPicture;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getUserPicture() {
+        return userPicture;
+    }
+
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", userPicture='" + userPicture + '\'' +
+                '}';
+    }
 }

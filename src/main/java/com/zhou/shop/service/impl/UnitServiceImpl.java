@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.entity.Unit;
 import com.zhou.shop.mapper.UnitMapper;
 import com.zhou.shop.service.IUnitService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +19,11 @@ import java.util.List;
 @Service
 public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IUnitService {
 
-    @Autowired
-    UnitMapper unitMapper;
+    final UnitMapper unitMapper;
+
+    public UnitServiceImpl(UnitMapper unitMapper) {
+        this.unitMapper = unitMapper;
+    }
 
     @Override
     public List<Unit> retrieveByUnitName(String unitName) {

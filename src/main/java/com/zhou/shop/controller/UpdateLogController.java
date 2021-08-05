@@ -25,12 +25,14 @@ public class UpdateLogController {
     @Autowired
     IUpdateLogService iUpdateLogService;
 
+
+
     @PostMapping("/createUpdateLog")
     public RestObject<String> createUpdateLog(@RequestBody UpdateLog updateLog){
         updateLog.setUpdateLogCreateTime(LocalDate.now());
         boolean save = iUpdateLogService.save(updateLog);
         if (save){
-            return RestResponse.makeOKRsp("新增成功！");
+            return RestResponse.makeOkRsp("新增成功！");
         }else {
             return RestResponse.makeErrRsp("新增成功！");
         }
@@ -39,13 +41,13 @@ public class UpdateLogController {
     @GetMapping("/retrieveByUpdateLogId/{updateLogId}")
     public RestObject<UpdateLog> retrieveByUpdateId(@PathVariable int updateLogId){
         UpdateLog updateLog = iUpdateLogService.getById(updateLogId);
-        return RestResponse.makeOKRsp(updateLog);
+        return RestResponse.makeOkRsp(updateLog);
     }
 
     @GetMapping("/retrieveAllUpdateLog")
     public RestObject<List<UpdateLog>> retrieveAllUpdateLog (){
         List<UpdateLog> list = iUpdateLogService.list();
-        return RestResponse.makeOKRsp(list);
+        return RestResponse.makeOkRsp(list);
     }
 
     @PostMapping("/updateUpdateByUpdateLogId/{updateLogId}")
@@ -54,7 +56,7 @@ public class UpdateLogController {
         updateLog.setUpdateLogCreateTime(LocalDate.now());
         boolean b = iUpdateLogService.updateById(updateLog);
         if (b){
-            return RestResponse.makeOKRsp("修改成功！");
+            return RestResponse.makeOkRsp("修改成功！");
         }else {
             return RestResponse.makeErrRsp("修改失败！");
         }
@@ -64,7 +66,7 @@ public class UpdateLogController {
     public RestObject<String> deleteUpdateById(@PathVariable int updateLogId){
         boolean b = iUpdateLogService.removeById(updateLogId);
         if (b){
-            return RestResponse.makeOKRsp("删除成功！");
+            return RestResponse.makeOkRsp("删除成功！");
         }else {
             return RestResponse.makeErrRsp("删除失败！");
         }

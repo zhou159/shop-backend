@@ -17,10 +17,11 @@
         <result column="aiuq" property="itemUnitQuantity" />
         <result column="air" property="itemRemark"/>
         <result column="bsa" property="shopAddress"/>
+        <result column="aip" property="itemPicture"/>
     </resultMap>
 
     <select id="retrieveAllItem" resultMap="itemMap">
-        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.item_unit_quantity aiuq,a.item_remark air,
+        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.item_unit_quantity aiuq,a.item_remark air,a.item_picture aip,
                a.shop_id asi,b.shop_name bsn,b.shop_address bsa,
                a.unit_id aui,c.unit_name cun,
                a.specification_id aspi,d.specification_name dsn,concat(a.item_unit_quantity,concat(' ',d.specification_name)) sq
@@ -29,7 +30,7 @@
     </select>
 
     <select id="retrieveByItemName" resultMap="itemMap">
-        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.item_unit_quantity aiuq,a.item_remark air,
+        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.item_unit_quantity aiuq,a.item_remark air,a.item_picture aip,
                a.shop_id asi,b.shop_name bsn,b.shop_address bsa,
                a.unit_id aui,c.unit_name cun,
                a.specification_id aspi,d.specification_name dsn,concat(a.item_unit_quantity,concat(' ',d.specification_name)) sq

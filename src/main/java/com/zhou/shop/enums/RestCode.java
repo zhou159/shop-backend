@@ -1,9 +1,12 @@
 package com.zhou.shop.enums;
 
+/**
+ * 返回值枚举对象
+ * @author Administrator
+ */
+
 public enum RestCode {
     SUCCESS(200),
-    NOTFOUND(404),
-    FAIL(400),
     ERROR(500)
     ;
 

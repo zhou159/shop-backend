@@ -1,16 +1,13 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -20,11 +17,9 @@ import lombok.experimental.Accessors;
  * @author 周雄
  * @since 2021-06-24
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+
 @TableName("shop")
-@ApiModel(value="Shop对象", description="")
+@ApiModel(value="Shop对象")
 public class Shop implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,5 +44,84 @@ public class Shop implements Serializable {
     @TableField("shop_status")
     private String shopStatus;
 
+    @ApiModelProperty(value = "商店图片")
+    @TableField("shop_picture")
+    private String shopPicture;
+
+    public Shop() {
+    }
+
+    public Shop(Integer shopId, String shopName, String shopAddress, String shopRemark, String shopStatus, String shopPicture) {
+        this.shopId = shopId;
+        this.shopName = shopName;
+        this.shopAddress = shopAddress;
+        this.shopRemark = shopRemark;
+        this.shopStatus = shopStatus;
+        this.shopPicture = shopPicture;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getShopAddress() {
+        return shopAddress;
+    }
+
+    public void setShopAddress(String shopAddress) {
+        this.shopAddress = shopAddress;
+    }
+
+    public String getShopRemark() {
+        return shopRemark;
+    }
+
+    public void setShopRemark(String shopRemark) {
+        this.shopRemark = shopRemark;
+    }
+
+    public String getShopStatus() {
+        return shopStatus;
+    }
+
+    public void setShopStatus(String shopStatus) {
+        this.shopStatus = shopStatus;
+    }
+
+    public String getShopPicture() {
+        return shopPicture;
+    }
+
+    public void setShopPicture(String shopPicture) {
+        this.shopPicture = shopPicture;
+    }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "shopId=" + shopId +
+                ", shopName='" + shopName + '\'' +
+                ", shopAddress='" + shopAddress + '\'' +
+                ", shopRemark='" + shopRemark + '\'' +
+                ", shopStatus='" + shopStatus + '\'' +
+                ", shopPicture='" + shopPicture + '\'' +
+                '}';
+    }
 
 }

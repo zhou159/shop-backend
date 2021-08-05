@@ -1,12 +1,10 @@
 package com.zhou.shop.controller;
 
-import com.zhou.shop.entity.Shop;
 import com.zhou.shop.entity.Specification;
 import com.zhou.shop.result.RestObject;
 import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.ISpecificationService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,14 +20,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/specification")
 public class SpecificationController {
-    @Autowired
-    ISpecificationService iSpecificationService;
+    final ISpecificationService iSpecificationService;
+
+    public SpecificationController(ISpecificationService iSpecificationService) {
+        this.iSpecificationService = iSpecificationService;
+    }
 
     @PostMapping("/createSpecification")
     public RestObject<String> createSpecification(@RequestBody Specification specification){
         boolean save = iSpecificationService.save(specification);
         if (save){
-            return RestResponse.makeOKRsp("新增成功！");
+            return RestResponse.makeOkRsp("新增成功！");
         }else {
             return RestResponse.makeErrRsp("新增成功！");
         }
@@ -38,13 +39,13 @@ public class SpecificationController {
     @GetMapping("/retrieveBySpecificationId/{specificationId}")
     public RestObject<Specification> retrieveBySpecificationId(@PathVariable int specificationId){
         Specification specification = iSpecificationService.getById(specificationId);
-        return RestResponse.makeOKRsp(specification);
+        return RestResponse.makeOkRsp(specification);
     }
 
     @GetMapping("/retrieveAllSpecification")
     public RestObject<List<Specification>> retrieveAllSpecification (){
         List<Specification> list = iSpecificationService.list();
-        return RestResponse.makeOKRsp(list);
+        return RestResponse.makeOkRsp(list);
     }
 
     @PostMapping("/updateSpecificationBySpecificationId/{specificationId}")
@@ -52,7 +53,7 @@ public class SpecificationController {
         specification.setSpecificationId(specificationId);
         boolean b = iSpecificationService.updateById(specification);
         if (b){
-            return RestResponse.makeOKRsp("修改成功！");
+            return RestResponse.makeOkRsp("修改成功！");
         }else {
             return RestResponse.makeErrRsp("修改失败！");
         }
@@ -62,7 +63,7 @@ public class SpecificationController {
     public RestObject<String> deleteSpecificationById(@PathVariable int specificationId){
         boolean b = iSpecificationService.removeById(specificationId);
         if (b){
-            return RestResponse.makeOKRsp("删除成功！");
+            return RestResponse.makeOkRsp("删除成功！");
         }else {
             return RestResponse.makeErrRsp("删除失败！");
         }
@@ -72,6 +73,6 @@ public class SpecificationController {
     @PostMapping("/retrieveBySpecificationName")
     public RestObject<List<Specification>> retrieveSpecificationByShopName (@RequestBody Specification specification){
         List<Specification> list = iSpecificationService.retrieveBySpecificationName(specification.getSpecificationName());
-        return RestResponse.makeOKRsp(list);
+        return RestResponse.makeOkRsp(list);
     }
 }

@@ -2,6 +2,10 @@ package com.zhou.shop.result;
 
 import com.zhou.shop.enums.RestCode;
 
+/**
+ * 接口返回对象
+ * @author Administrator
+ */
 public class RestObject<T> {
     private int code;
     private String msg;

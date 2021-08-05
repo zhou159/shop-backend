@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/shop?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8&rewriteBatchedStatements=true
+    url: jdbc:mysql://114.55.58.31:3306/shop?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8&rewriteBatchedStatements=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
     multipart:
@@ -41,7 +41,7 @@ minio:
   accessKey: minioadmin
   secretKey: minioadmin
   secure: false #如果是true，则用的是https而不是http,默认值是true
-  bucketName: "share"
+  bucketName: "shop"
   configDir: "/usr/local/minio/data/"
 
 # 百度官网创建应用后获取

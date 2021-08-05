@@ -6,9 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -18,11 +15,9 @@ import lombok.experimental.Accessors;
  * @author 周雄
  * @since 2021-07-20
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+
 @TableName("unit")
-@ApiModel(value="Unit对象", description="")
+@ApiModel(value="Unit对象")
 public class Unit {
     private static final long serialVersionUID = 1L;
 
@@ -33,4 +28,35 @@ public class Unit {
     @ApiModelProperty(value = "单位名字")
     @TableField("unit_name")
     private String unitName;
+
+    public Unit() {
+    }
+    public Unit(Integer unitId, String unitName) {
+        this.unitId = unitId;
+        this.unitName = unitName;
+    }
+
+    public Integer getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Integer unitId) {
+        this.unitId = unitId;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "unitId=" + unitId +
+                ", unitName='" + unitName + '\'' +
+                '}';
+    }
 }
