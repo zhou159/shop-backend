@@ -26,7 +26,7 @@ public class Flag implements Serializable {
 
     @ApiModelProperty(value = "标签价格")
     @TableId(value = "flag_id", type = IdType.AUTO)
-    private Integer flagId;
+    private String flagId;
 
     @ApiModelProperty(value = "标签名字")
     @TableField("flag_name")
@@ -35,7 +35,7 @@ public class Flag implements Serializable {
     public Flag() {
     }
 
-    public Flag(Integer flagId, String flagName) {
+    public Flag(String flagId, String flagName) {
         this.flagId = flagId;
         this.flagName = flagName;
     }
@@ -44,11 +44,11 @@ public class Flag implements Serializable {
         return serialVersionUID;
     }
 
-    public Integer getFlagId() {
+    public String getFlagId() {
         return flagId;
     }
 
-    public void setFlagId(Integer flagId) {
+    public void setFlagId(String flagId) {
         this.flagId = flagId;
     }
 

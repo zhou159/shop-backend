@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -33,6 +34,7 @@ public class UserController {
 
     @PostMapping("/createUser")
     public RestObject<String> createUser(@RequestBody User user){
+        user.setUserId(UUID.randomUUID().toString().replace("-","").toUpperCase());
         boolean save = iUserService.save(user);
         if (save){
             return RestResponse.makeOkRsp("新增成功！");
@@ -42,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/retrieveByUserId/{userId}")
-    public RestObject<User> retrieveByUserId(@PathVariable int userId){
+    public RestObject<User> retrieveByUserId(@PathVariable String userId){
         User user = iUserService.getById(userId);
         return RestResponse.makeOkRsp(user);
     }
@@ -54,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/updateUserByUserId/{userId}")
-    public RestObject<String> updateUserByUserId(@PathVariable int userId,@RequestBody User user){
+    public RestObject<String> updateUserByUserId(@PathVariable String userId,@RequestBody User user){
         user.setUserId(userId);
         boolean b = iUserService.updateById(user);
         if (b){
@@ -65,7 +67,7 @@ public class UserController {
     }
 
     @PostMapping("/deleteByUserId/{userId}")
-    public RestObject<String> deleteUserById(@PathVariable int userId){
+    public RestObject<String> deleteUserById(@PathVariable String userId){
         boolean b = iUserService.removeById(userId);
         if (b){
             return RestResponse.makeOkRsp("删除成功！");

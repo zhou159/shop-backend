@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 前端控制器
@@ -32,6 +33,7 @@ public class ItemController {
     @ApiOperation("新建商品")
     @PostMapping("/createItem")
     public RestObject<String> createItem(@RequestBody Item item) {
+        item.setItemId(UUID.randomUUID().toString().replace("-","").toUpperCase());
         item.setItemCreateTime(LocalDateTime.now());
         boolean save = iItemService.save(item);
         if (save) {
@@ -43,7 +45,7 @@ public class ItemController {
 
     @ApiOperation("按商品id查询")
     @GetMapping("/retrieveByItemId/{itemId}")
-    public RestObject<Item> retrieveByItemId(@PathVariable int itemId) {
+    public RestObject<Item> retrieveByItemId(@PathVariable String itemId) {
         Item item = iItemService.getById(itemId);
         return RestResponse.makeOkRsp(item);
     }
@@ -57,7 +59,7 @@ public class ItemController {
 
     @ApiOperation("按商品id更新")
     @PostMapping("/updateItemByItemId/{itemId}")
-    public RestObject<String> updateItemByItemId(@PathVariable int itemId, @RequestBody Item item) {
+    public RestObject<String> updateItemByItemId(@PathVariable String itemId, @RequestBody Item item) {
         item.setItemId(itemId);
         item.setItemUpdateTime(LocalDateTime.now());
         boolean b = iItemService.updateById(item);
@@ -70,7 +72,7 @@ public class ItemController {
 
     @ApiOperation("按商品id删除")
     @PostMapping("/deleteByItemId/{itemId}")
-    public RestObject<String> deleteItemById(@PathVariable int itemId) {
+    public RestObject<String> deleteItemById(@PathVariable String itemId) {
         boolean b = iItemService.removeById(itemId);
         if (b) {
             return RestResponse.makeOkRsp("删除成功！");

@@ -1,6 +1,5 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -25,8 +24,8 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer userId;
+    @TableId(value = "user_id")
+    private String userId;
 
     @ApiModelProperty(value = "用户账号")
     @TableField("username")
@@ -47,7 +46,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Integer userId, String username, String password, String role, String userPicture) {
+    public User(String userId, String username, String password, String role, String userPicture) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -55,11 +54,11 @@ public class User implements Serializable {
         this.userPicture = userPicture;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -28,6 +29,7 @@ public class SpecificationController {
 
     @PostMapping("/createSpecification")
     public RestObject<String> createSpecification(@RequestBody Specification specification){
+        specification.setSpecificationId(UUID.randomUUID().toString().replace("-","").toUpperCase());
         boolean save = iSpecificationService.save(specification);
         if (save){
             return RestResponse.makeOkRsp("新增成功！");
@@ -37,7 +39,7 @@ public class SpecificationController {
     }
 
     @GetMapping("/retrieveBySpecificationId/{specificationId}")
-    public RestObject<Specification> retrieveBySpecificationId(@PathVariable int specificationId){
+    public RestObject<Specification> retrieveBySpecificationId(@PathVariable String specificationId){
         Specification specification = iSpecificationService.getById(specificationId);
         return RestResponse.makeOkRsp(specification);
     }
@@ -49,7 +51,7 @@ public class SpecificationController {
     }
 
     @PostMapping("/updateSpecificationBySpecificationId/{specificationId}")
-    public RestObject<String> updateSpecificationBySpecificationId(@PathVariable int specificationId,@RequestBody Specification specification){
+    public RestObject<String> updateSpecificationBySpecificationId(@PathVariable String specificationId,@RequestBody Specification specification){
         specification.setSpecificationId(specificationId);
         boolean b = iSpecificationService.updateById(specification);
         if (b){
@@ -60,7 +62,7 @@ public class SpecificationController {
     }
 
     @PostMapping("/deleteBySpecificationId/{specificationId}")
-    public RestObject<String> deleteSpecificationById(@PathVariable int specificationId){
+    public RestObject<String> deleteSpecificationById(@PathVariable String specificationId){
         boolean b = iSpecificationService.removeById(specificationId);
         if (b){
             return RestResponse.makeOkRsp("删除成功！");

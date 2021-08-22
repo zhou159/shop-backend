@@ -1,7 +1,6 @@
 package com.zhou.shop.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zhou.shop.entity.Shop;
 import com.zhou.shop.entity.Unit;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

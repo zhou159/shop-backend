@@ -21,7 +21,7 @@ public class ItemDto {
 
     @ApiModelProperty(value = "商品id")
     @TableId(value = "item_id", type = IdType.AUTO)
-    private Integer itemId;
+    private String itemId;
 
     @ApiModelProperty(value = "商品名字")
     @TableField("item_name")
@@ -29,7 +29,7 @@ public class ItemDto {
 
     @ApiModelProperty(value = "商店id")
     @TableField("shop_id")
-    private Integer shopId;
+    private String shopId;
 
     @ApiModelProperty(value = "商店名字")
     private String shopName;
@@ -42,7 +42,7 @@ public class ItemDto {
 
     @ApiModelProperty(value = "单位id")
     @TableField("unit_id")
-    private Integer unitId;
+    private String unitId;
 
     @ApiModelProperty(value = "单位名字")
     private String unitName;
@@ -53,7 +53,7 @@ public class ItemDto {
 
     @ApiModelProperty(value = "规格id")
     @TableField("specification_id")
-    private Integer specificationId;
+    private String specificationId;
 
     @ApiModelProperty(value = "规格名字")
     private String specificationName;
@@ -79,16 +79,16 @@ public class ItemDto {
     public ItemDto() {}
 
     public ItemDto(
-            Integer itemId,
+            String itemId,
             String itemName,
-            Integer shopId,
+            String shopId,
             String shopName,
             String shopAddress,
             String itemRemark,
-            Integer unitId,
+            String unitId,
             String unitName,
             BigDecimal price,
-            Integer specificationId,
+            String specificationId,
             String specificationName,
             Double itemUnitQuantity,
             String showQuantity,
@@ -127,11 +127,11 @@ public class ItemDto {
         this.itemPicture = itemPicture;
     }
 
-    public Integer getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
@@ -143,11 +143,11 @@ public class ItemDto {
         this.itemName = itemName;
     }
 
-    public Integer getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(Integer shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 
@@ -175,11 +175,11 @@ public class ItemDto {
         this.itemRemark = itemRemark;
     }
 
-    public Integer getUnitId() {
+    public String getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(Integer unitId) {
+    public void setUnitId(String unitId) {
         this.unitId = unitId;
     }
 
@@ -199,11 +199,11 @@ public class ItemDto {
         this.price = price;
     }
 
-    public Integer getSpecificationId() {
+    public String getSpecificationId() {
         return specificationId;
     }
 
-    public void setSpecificationId(Integer specificationId) {
+    public void setSpecificationId(String specificationId) {
         this.specificationId = specificationId;
     }
 

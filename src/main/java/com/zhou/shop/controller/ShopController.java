@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -28,6 +29,7 @@ public class ShopController {
 
     @PostMapping("/createShop")
     public RestObject<String> createShop(@RequestBody Shop shop){
+        shop.setShopId(UUID.randomUUID().toString().replace("-","").toUpperCase());
         boolean save = iShopService.save(shop);
         if (save){
             return RestResponse.makeOkRsp("新增成功！");
@@ -37,7 +39,7 @@ public class ShopController {
     }
 
     @GetMapping("/retrieveByShopId/{shopId}")
-    public RestObject<Shop> retrieveByShopId(@PathVariable int shopId){
+    public RestObject<Shop> retrieveByShopId(@PathVariable String shopId){
         Shop shop = iShopService.getById(shopId);
         return RestResponse.makeOkRsp(shop);
     }
@@ -49,7 +51,7 @@ public class ShopController {
     }
 
     @PostMapping("/updateShopByShopId/{shopId}")
-    public RestObject<String> updateShopByShopId(@PathVariable int shopId,@RequestBody Shop shop){
+    public RestObject<String> updateShopByShopId(@PathVariable String shopId,@RequestBody Shop shop){
         shop.setShopId(shopId);
         boolean b = iShopService.updateById(shop);
         if (b){
@@ -60,7 +62,7 @@ public class ShopController {
     }
 
     @PostMapping("/deleteByShopId/{shopId}")
-    public RestObject<String> deleteShopById(@PathVariable int shopId){
+    public RestObject<String> deleteShopById(@PathVariable String shopId){
         boolean b = iShopService.removeById(shopId);
         if (b){
             return RestResponse.makeOkRsp("删除成功！");

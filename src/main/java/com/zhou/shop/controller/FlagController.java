@@ -7,6 +7,7 @@ import com.zhou.shop.service.IFlagService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 前端控制器
@@ -26,6 +27,7 @@ public class FlagController {
 
     @PostMapping("/createFlag")
     public RestObject<String> createFlag(@RequestBody Flag flag) {
+        flag.setFlagId(UUID.randomUUID().toString().replace("-","").toUpperCase());
         boolean save = iFlagService.save(flag);
         if (save) {
             return RestResponse.makeOkRsp("新增成功！");
@@ -35,7 +37,7 @@ public class FlagController {
     }
 
     @GetMapping("/retrieveByFlagId/{flagId}")
-    public RestObject<Flag> retrieveByFlagId(@PathVariable int flagId) {
+    public RestObject<Flag> retrieveByFlagId(@PathVariable String flagId) {
         Flag flag = iFlagService.getById(flagId);
         return RestResponse.makeOkRsp(flag);
     }
@@ -47,7 +49,7 @@ public class FlagController {
     }
 
     @PostMapping("/updateFlagByFlagId/{flagId}")
-    public RestObject<String> updateFlagByFlagId(@PathVariable int flagId, @RequestBody Flag flag) {
+    public RestObject<String> updateFlagByFlagId(@PathVariable String flagId, @RequestBody Flag flag) {
         flag.setFlagId(flagId);
         boolean b = iFlagService.updateById(flag);
         if (b) {
@@ -58,7 +60,7 @@ public class FlagController {
     }
 
     @PostMapping("/deleteByFlagId/{flagId}")
-    public RestObject<String> deleteFlagById(@PathVariable int flagId) {
+    public RestObject<String> deleteFlagById(@PathVariable String flagId) {
         boolean b = iFlagService.removeById(flagId);
         if (b) {
             return RestResponse.makeOkRsp("删除成功！");

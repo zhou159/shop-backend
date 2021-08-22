@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -28,6 +29,7 @@ public class UnitController {
 
     @PostMapping("/createUnit")
     public RestObject<String> createUnit(@RequestBody Unit unit){
+        unit.setUnitId(UUID.randomUUID().toString().replace("-","").toUpperCase());
         boolean save = iUnitService.save(unit);
         if (save){
             return RestResponse.makeOkRsp("新增成功！");
@@ -37,7 +39,7 @@ public class UnitController {
     }
 
     @GetMapping("/retrieveByUnitId/{unitId}")
-    public RestObject<Unit> retrieveByUnitId(@PathVariable int unitId){
+    public RestObject<Unit> retrieveByUnitId(@PathVariable String unitId){
         Unit unit = iUnitService.getById(unitId);
         return RestResponse.makeOkRsp(unit);
     }
@@ -49,7 +51,7 @@ public class UnitController {
     }
 
     @PostMapping("/updateUnitByUnitId/{unitId}")
-    public RestObject<String> updateUnitByUnitId(@PathVariable int unitId,@RequestBody Unit unit){
+    public RestObject<String> updateUnitByUnitId(@PathVariable String unitId,@RequestBody Unit unit){
         unit.setUnitId(unitId);
         boolean b = iUnitService.updateById(unit);
         if (b){
@@ -60,7 +62,7 @@ public class UnitController {
     }
 
     @PostMapping("/deleteByUnitId/{unitId}")
-    public RestObject<String> deleteUnitById(@PathVariable int unitId){
+    public RestObject<String> deleteUnitById(@PathVariable String unitId){
         boolean b = iUnitService.removeById(unitId);
         if (b){
             return RestResponse.makeOkRsp("删除成功！");

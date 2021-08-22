@@ -1,6 +1,5 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -22,8 +21,8 @@ public class Specification {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "规格id")
-    @TableId(value = "specification_id", type = IdType.AUTO)
-    private Integer specificationId;
+    @TableId(value = "specification_id")
+    private String specificationId;
 
     @ApiModelProperty(value = "规格名字")
     @TableField("specification_name")
@@ -36,7 +35,7 @@ public class Specification {
     public Specification() {
     }
 
-    public Specification(Integer specificationId, String specificationName, String specificationLabel) {
+    public Specification(String specificationId, String specificationName, String specificationLabel) {
         this.specificationId = specificationId;
         this.specificationName = specificationName;
         this.specificationLabel = specificationLabel;
@@ -46,11 +45,11 @@ public class Specification {
         return serialVersionUID;
     }
 
-    public Integer getSpecificationId() {
+    public String getSpecificationId() {
         return specificationId;
     }
 
-    public void setSpecificationId(Integer specificationId) {
+    public void setSpecificationId(String specificationId) {
         this.specificationId = specificationId;
     }
 

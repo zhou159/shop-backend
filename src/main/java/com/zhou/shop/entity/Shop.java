@@ -1,6 +1,5 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -25,8 +24,8 @@ public class Shop implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商家表id")
-    @TableId(value = "shop_id", type = IdType.AUTO)
-    private Integer shopId;
+    @TableId(value = "shop_id")
+    private String shopId;
 
     @ApiModelProperty(value = "商家店铺，超市名字")
     @TableField("shop_name")
@@ -51,7 +50,7 @@ public class Shop implements Serializable {
     public Shop() {
     }
 
-    public Shop(Integer shopId, String shopName, String shopAddress, String shopRemark, String shopStatus, String shopPicture) {
+    public Shop(String shopId, String shopName, String shopAddress, String shopRemark, String shopStatus, String shopPicture) {
         this.shopId = shopId;
         this.shopName = shopName;
         this.shopAddress = shopAddress;
@@ -64,11 +63,11 @@ public class Shop implements Serializable {
         return serialVersionUID;
     }
 
-    public Integer getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(Integer shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 

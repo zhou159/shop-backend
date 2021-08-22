@@ -20,8 +20,8 @@ public class Item implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商品id")
-    @TableId(value = "item_id", type = IdType.AUTO)
-    private Integer itemId;
+    @TableId(value = "item_id")
+    private String itemId;
 
     @ApiModelProperty(value = "商品名字")
     @TableField("item_name")
@@ -29,15 +29,15 @@ public class Item implements Serializable {
 
     @ApiModelProperty(value = "商店id")
     @TableField("shop_id")
-    private Integer shopId;
+    private String shopId;
 
     @ApiModelProperty(value = "单位id")
     @TableField("unit_id")
-    private Integer unitId;
+    private String unitId;
 
     @ApiModelProperty(value = "规格id")
     @TableField("specification_id")
-    private Integer specificationId;
+    private String specificationId;
 
     @ApiModelProperty(value = "一单位所含的数量")
     @TableField("item_unit_quantity")
@@ -64,11 +64,11 @@ public class Item implements Serializable {
     private String itemPicture;
 
     public Item(
-            Integer itemId,
+            String itemId,
             String itemName,
-            Integer shopId,
-            Integer unitId,
-            Integer specificationId,
+            String shopId,
+            String unitId,
+            String specificationId,
             Double itemUnitQuantity,
             String itemRemark,
             BigDecimal price,
@@ -94,11 +94,11 @@ public class Item implements Serializable {
         return serialVersionUID;
     }
 
-    public Integer getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
@@ -110,27 +110,27 @@ public class Item implements Serializable {
         this.itemName = itemName;
     }
 
-    public Integer getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(Integer shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 
-    public Integer getUnitId() {
+    public String getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(Integer unitId) {
+    public void setUnitId(String unitId) {
         this.unitId = unitId;
     }
 
-    public Integer getSpecificationId() {
+    public String getSpecificationId() {
         return specificationId;
     }
 
-    public void setSpecificationId(Integer specificationId) {
+    public void setSpecificationId(String specificationId) {
         this.specificationId = specificationId;
     }
 
