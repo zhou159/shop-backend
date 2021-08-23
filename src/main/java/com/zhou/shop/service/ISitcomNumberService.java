@@ -55,4 +55,12 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
      */
     @Override
     SitcomNumber getById(Serializable id);
+
+    /**
+     * 根据连续剧id获取集数信息
+     *
+     * @param sitcomId 连续剧id
+     * @return 集数信息数组
+     */
+    List<SitcomNumber> retrieveBySitcomId(String sitcomId);
 }

@@ -30,7 +30,7 @@ public class SitcomController {
     @PostMapping("/createSitcom")
     public RestObject<String> createSitcom(@RequestBody Sitcom sitcom) {
         sitcom.setSitcomId(UUID.randomUUID().toString().replace("-","").toUpperCase());
-        sitcom.setSitcomWatchStartTime(LocalDate.now());
+        sitcom.setSitcomWatchStartTime((sitcom.getSitcomWatchStartTime() == null || sitcom.getSitcomWatchStartTime().equals("")) ? LocalDate.now() : sitcom.getSitcomWatchStartTime());
         boolean save = iSitcomService.save(sitcom);
         if (save) {
             return RestResponse.makeOkRsp("新增成功！");

@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * <p>
- *  前端控制器
- * </p>
+ * 前端控制器
  *
  * @author 周雄
  * @since 2021-08-21
@@ -28,7 +26,7 @@ public class SitcomNumberController {
 
     @PostMapping("/createSitcomNumber")
     public RestObject<String> createSitcomNumber(@RequestBody SitcomNumber sitcomNumber) {
-        sitcomNumber.setSitcomNumberId(UUID.randomUUID().toString().replace("-","").toUpperCase());
+        sitcomNumber.setSitcomNumberId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
         boolean save = iSitcomNumberService.save(sitcomNumber);
         if (save) {
             return RestResponse.makeOkRsp("新增成功！");
@@ -50,7 +48,8 @@ public class SitcomNumberController {
     }
 
     @PostMapping("/updateSitcomNumberBySitcomNumberId/{sitcomNumberId}")
-    public RestObject<String> updateSitcomNumberBySitcomNumberId(@PathVariable String sitcomNumberId, @RequestBody SitcomNumber sitcomNumber) {
+    public RestObject<String> updateSitcomNumberBySitcomNumberId(
+            @PathVariable String sitcomNumberId, @RequestBody SitcomNumber sitcomNumber) {
         sitcomNumber.setSitcomId(sitcomNumberId);
         boolean b = iSitcomNumberService.updateById(sitcomNumber);
         if (b) {
@@ -68,5 +67,11 @@ public class SitcomNumberController {
         } else {
             return RestResponse.makeErrRsp("删除失败！");
         }
+    }
+
+    @GetMapping("/retrieveBySitcomId/{sitcomId}")
+    public RestObject<List<SitcomNumber>> retrieveBySitcomId(@PathVariable String sitcomId) {
+        List<SitcomNumber> sitcomNumbers = iSitcomNumberService.retrieveBySitcomId(sitcomId);
+        return RestResponse.makeOkRsp(sitcomNumbers);
     }
 }
