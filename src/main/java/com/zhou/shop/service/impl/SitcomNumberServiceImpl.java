@@ -27,4 +27,9 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
     public List<SitcomNumber> retrieveBySitcomId(String sitcomId) {
         return sitcomNumberMapper.retrieveBySitcomId(sitcomId);
     }
+
+    @Override
+    public List<SitcomNumber> retrieveBySitcomNumberName(String sitcomNumberName) {
+        return sitcomNumberMapper.retrieveBySitcomNumberName(sitcomNumberName);
+    }
 }

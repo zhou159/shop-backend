@@ -4,6 +4,7 @@ import com.zhou.shop.entity.SitcomNumber;
 import com.zhou.shop.result.RestObject;
 import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.ISitcomNumberService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class SitcomNumberController {
     @PostMapping("/updateSitcomNumberBySitcomNumberId/{sitcomNumberId}")
     public RestObject<String> updateSitcomNumberBySitcomNumberId(
             @PathVariable String sitcomNumberId, @RequestBody SitcomNumber sitcomNumber) {
-        sitcomNumber.setSitcomId(sitcomNumberId);
+        sitcomNumber.setSitcomNumberId(sitcomNumberId);
         boolean b = iSitcomNumberService.updateById(sitcomNumber);
         if (b) {
             return RestResponse.makeOkRsp("修改成功！");
@@ -73,5 +74,14 @@ public class SitcomNumberController {
     public RestObject<List<SitcomNumber>> retrieveBySitcomId(@PathVariable String sitcomId) {
         List<SitcomNumber> sitcomNumbers = iSitcomNumberService.retrieveBySitcomId(sitcomId);
         return RestResponse.makeOkRsp(sitcomNumbers);
+    }
+
+    @ApiOperation("按集名查询")
+    @PostMapping("/retrieveBySitcomNumberName")
+    public RestObject<List<SitcomNumber>> retrieveItemByItemName(
+            @RequestBody SitcomNumber sitcomNumber) {
+        List<SitcomNumber> list =
+                iSitcomNumberService.retrieveBySitcomNumberName(sitcomNumber.getSitcomNumberName());
+        return RestResponse.makeOkRsp(list);
     }
 }

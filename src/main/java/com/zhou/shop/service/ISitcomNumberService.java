@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>
- *  服务类
- * </p>
+ * 服务类
  *
  * @author 周雄
  * @since 2021-08-21
@@ -18,6 +16,7 @@ import java.util.List;
 public interface ISitcomNumberService extends IService<SitcomNumber> {
     /**
      * 按id删除标签
+     *
      * @param id 标签id
      * @return 标签对象
      */
@@ -26,6 +25,7 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
 
     /**
      * 新增标签
+     *
      * @param entity 标签对象
      * @return 标签对象
      */
@@ -34,6 +34,7 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
 
     /**
      * 按id修改标签数据
+     *
      * @param entity 标签对象
      * @return 标签对象
      */
@@ -42,6 +43,7 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
 
     /**
      * 查询全部标签
+     *
      * @param queryWrapper 查询构造条件
      * @return 数组，全部标签
      */
@@ -50,6 +52,7 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
 
     /**
      * 按id查询标签
+     *
      * @param id 标签id
      * @return 标签对象
      */
@@ -63,4 +66,12 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
      * @return 集数信息数组
      */
     List<SitcomNumber> retrieveBySitcomId(String sitcomId);
+
+    /**
+     * 按集名查询集
+     *
+     * @param sitcomNumberName 集名
+     * @return 集对象
+     */
+    List<SitcomNumber> retrieveBySitcomNumberName(String sitcomNumberName);
 }

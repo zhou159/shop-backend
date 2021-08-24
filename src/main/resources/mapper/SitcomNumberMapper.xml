@@ -6,4 +6,10 @@
         from sitcom_number
         where sitcom_id = #{sitcomId}
     </select>
+
+    <select id="retrieveBySitcomNumberName" resultType="com.zhou.shop.entity.SitcomNumber">
+        select *
+        from sitcom_number
+        where sitcom_number_name like '%${sitcomNumberName}%'
+    </select>
 </mapper>
