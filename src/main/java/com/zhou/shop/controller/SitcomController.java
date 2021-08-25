@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * <p>
- *  前端控制器
- * </p>
+ * 前端控制器
  *
  * @author 周雄
  * @since 2021-08-21
@@ -29,8 +27,23 @@ public class SitcomController {
 
     @PostMapping("/createSitcom")
     public RestObject<String> createSitcom(@RequestBody Sitcom sitcom) {
-        sitcom.setSitcomId(UUID.randomUUID().toString().replace("-","").toUpperCase());
-        sitcom.setSitcomWatchStartTime((sitcom.getSitcomWatchStartTime() == null || sitcom.getSitcomWatchStartTime().equals("")) ? LocalDate.now() : sitcom.getSitcomWatchStartTime());
+        String updateStatusZero = "0";
+        String watchStatusZero = "0";
+        if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
+            return RestResponse.makeErrRsp("连续剧更新状态不能为空");
+        }
+        if ("".equals(sitcom.getSitcomWatchStatus()) || sitcom.getSitcomWatchStatus() == null) {
+            return RestResponse.makeErrRsp("连续剧观看状态不能为空");
+        }
+        if (!sitcom.getSitcomUpdateStatus().equals(updateStatusZero) && sitcom.getSitcomWatchStatus().equals(watchStatusZero)){
+            return RestResponse.makeErrRsp("当连续剧还未完结，不可能看完的哦！");
+        }
+        sitcom.setSitcomId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
+        sitcom.setSitcomWatchStartTime(
+                (sitcom.getSitcomWatchStartTime() == null
+                                || "".equals(sitcom.getSitcomWatchStartTime().toString()))
+                        ? LocalDate.now()
+                        : sitcom.getSitcomWatchStartTime());
         boolean save = iSitcomService.save(sitcom);
         if (save) {
             return RestResponse.makeOkRsp("新增成功！");
@@ -52,8 +65,24 @@ public class SitcomController {
     }
 
     @PostMapping("/updateSitcomBySitcomId/{sitcomId}")
-    public RestObject<String> updateSitcomBySitcomId(@PathVariable String sitcomId, @RequestBody Sitcom sitcom) {
+    public RestObject<String> updateSitcomBySitcomId(
+            @PathVariable String sitcomId, @RequestBody Sitcom sitcom) {
         sitcom.setSitcomId(sitcomId);
+        String updateStatusZero = "0";
+        String watchStatusZero = "0";
+        String watchEndTime = sitcom.getSitcomWatchEndTime().toString();
+        if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
+            return RestResponse.makeErrRsp("连续剧更新状态不能为空");
+        }
+        if ("".equals(sitcom.getSitcomWatchStatus()) || sitcom.getSitcomWatchStatus() == null) {
+            return RestResponse.makeErrRsp("连续剧观看状态不能为空");
+        }
+        if (!sitcom.getSitcomUpdateStatus().equals(updateStatusZero) && sitcom.getSitcomWatchStatus().equals(watchStatusZero)){
+            return RestResponse.makeErrRsp("当连续剧还未完结，不可能看完的哦！");
+        }
+//        if(!sitcom.getSitcomUpdateStatus().equals(updateStatusZero)) {
+//            sitcom.setSitcomWatchEndTime(null);
+//        }
         boolean b = iSitcomService.updateById(sitcom);
         if (b) {
             return RestResponse.makeOkRsp("修改成功！");

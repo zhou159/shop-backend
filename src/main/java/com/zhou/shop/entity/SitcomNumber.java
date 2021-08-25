@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -23,8 +23,8 @@ public class SitcomNumber {
 
     @ApiModelProperty(value = "观看时间")
     @TableId(value = "sitcom_number_watch_time")
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
-    private LocalDate sitcomNumberWatchTime;
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime sitcomNumberWatchTime;
 
     @ApiModelProperty(value = "连续剧id")
     @TableId(value = "sitcom_id")
@@ -54,7 +54,7 @@ public class SitcomNumber {
 
     public SitcomNumber(
             String sitcomNumberId,
-            LocalDate sitcomNumberWatchTime,
+            LocalDateTime sitcomNumberWatchTime,
             String sitcomId,
             String sitcomNumberName,
             String sitcomNumberUrl,
@@ -79,11 +79,11 @@ public class SitcomNumber {
         this.sitcomNumberId = sitcomNumberId;
     }
 
-    public LocalDate getSitcomNumberWatchTime() {
+    public LocalDateTime getSitcomNumberWatchTime() {
         return sitcomNumberWatchTime;
     }
 
-    public void setSitcomNumberWatchTime(LocalDate sitcomNumberWatchTime) {
+    public void setSitcomNumberWatchTime(LocalDateTime sitcomNumberWatchTime) {
         this.sitcomNumberWatchTime = sitcomNumberWatchTime;
     }
 
