@@ -29,6 +29,9 @@ public class SitcomController {
     public RestObject<String> createSitcom(@RequestBody Sitcom sitcom) {
         String updateStatusZero = "0";
         String watchStatusZero = "0";
+        if ("".equals(sitcom.getSitcomWatchStartTime()) || sitcom.getSitcomWatchStartTime() == null){
+            return RestResponse.makeErrRsp("连续剧开始观看时间不能为空");
+        }
         if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
             return RestResponse.makeErrRsp("连续剧更新状态不能为空");
         }
@@ -36,7 +39,7 @@ public class SitcomController {
             return RestResponse.makeErrRsp("连续剧观看状态不能为空");
         }
         if (!sitcom.getSitcomUpdateStatus().equals(updateStatusZero) && sitcom.getSitcomWatchStatus().equals(watchStatusZero)){
-            return RestResponse.makeErrRsp("当连续剧还未完结，不可能看完的哦！");
+            return RestResponse.makeErrRsp("连续剧还未完结，不可能看完的哦！");
         }
         sitcom.setSitcomId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
         sitcom.setSitcomWatchStartTime(
@@ -78,7 +81,7 @@ public class SitcomController {
             return RestResponse.makeErrRsp("连续剧观看状态不能为空");
         }
         if (!sitcom.getSitcomUpdateStatus().equals(updateStatusZero) && sitcom.getSitcomWatchStatus().equals(watchStatusZero)){
-            return RestResponse.makeErrRsp("当连续剧还未完结，不可能看完的哦！");
+            return RestResponse.makeErrRsp("连续剧还未完结，不可能看完的哦！");
         }
 //        if(!sitcom.getSitcomUpdateStatus().equals(updateStatusZero)) {
 //            sitcom.setSitcomWatchEndTime(null);
