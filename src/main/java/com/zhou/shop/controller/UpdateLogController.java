@@ -52,7 +52,6 @@ public class UpdateLogController {
     public RestObject<String> updateUpdateByUpdateId(
             @PathVariable int updateLogId, @RequestBody UpdateLog updateLog) {
         updateLog.setUpdateLogId(updateLogId);
-        updateLog.setUpdateLogCreateTime(LocalDate.now());
         boolean b = iUpdateLogService.updateById(updateLog);
         if (b) {
             return RestResponse.makeOkRsp("修改成功！");

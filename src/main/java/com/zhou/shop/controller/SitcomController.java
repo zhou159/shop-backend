@@ -29,7 +29,7 @@ public class SitcomController {
     public RestObject<String> createSitcom(@RequestBody Sitcom sitcom) {
         String updateStatusZero = "0";
         String watchStatusZero = "0";
-        if ("".equals(sitcom.getSitcomWatchStartTime()) || sitcom.getSitcomWatchStartTime() == null){
+        if (sitcom.getSitcomWatchStartTime() == null){
             return RestResponse.makeErrRsp("连续剧开始观看时间不能为空");
         }
         if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
@@ -73,7 +73,6 @@ public class SitcomController {
         sitcom.setSitcomId(sitcomId);
         String updateStatusZero = "0";
         String watchStatusZero = "0";
-        String watchEndTime = sitcom.getSitcomWatchEndTime().toString();
         if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
             return RestResponse.makeErrRsp("连续剧更新状态不能为空");
         }
@@ -83,9 +82,6 @@ public class SitcomController {
         if (!sitcom.getSitcomUpdateStatus().equals(updateStatusZero) && sitcom.getSitcomWatchStatus().equals(watchStatusZero)){
             return RestResponse.makeErrRsp("连续剧还未完结，不可能看完的哦！");
         }
-//        if(!sitcom.getSitcomUpdateStatus().equals(updateStatusZero)) {
-//            sitcom.setSitcomWatchEndTime(null);
-//        }
         boolean b = iSitcomService.updateById(sitcom);
         if (b) {
             return RestResponse.makeOkRsp("修改成功！");
