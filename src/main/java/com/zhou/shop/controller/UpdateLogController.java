@@ -27,7 +27,10 @@ public class UpdateLogController {
 
     @PostMapping("/createUpdateLog")
     public RestObject<String> createUpdateLog(@RequestBody UpdateLog updateLog) {
-        updateLog.setUpdateLogCreateTime(LocalDate.now());
+        LocalDate updateLogCreateTime = updateLog.getUpdateLogCreateTime();
+        if (updateLogCreateTime == null){
+            updateLog.setUpdateLogCreateTime(LocalDate.now());
+        }
         boolean save = iUpdateLogService.save(updateLog);
         if (save) {
             return RestResponse.makeOkRsp("新增成功！");

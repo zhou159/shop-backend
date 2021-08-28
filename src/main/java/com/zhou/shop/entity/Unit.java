@@ -1,5 +1,6 @@
 package com.zhou.shop.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -21,7 +22,7 @@ public class Unit {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "单位id")
-    @TableId(value = "unit_id")
+    @TableId(value = "unit_id", type = IdType.ID_WORKER_STR)
     private String unitId;
 
     @ApiModelProperty(value = "单位名字")

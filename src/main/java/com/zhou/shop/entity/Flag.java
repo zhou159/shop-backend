@@ -10,30 +10,24 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * <p>
- *
- * </p>
- *
  * @author 周雄
  * @since 2021-06-24
  */
-
 @TableName("flag")
-@ApiModel(value="Flag对象")
+@ApiModel(value = "Flag对象")
 public class Flag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "标签价格")
-    @TableId(value = "flag_id", type = IdType.AUTO)
+    @TableId(value = "flag_id", type = IdType.ID_WORKER_STR)
     private String flagId;
 
     @ApiModelProperty(value = "标签名字")
     @TableField("flag_name")
     private String flagName;
 
-    public Flag() {
-    }
+    public Flag() {}
 
     public Flag(String flagId, String flagName) {
         this.flagId = flagId;
@@ -62,9 +56,6 @@ public class Flag implements Serializable {
 
     @Override
     public String toString() {
-        return "Flag{" +
-                "flagId=" + flagId +
-                ", flagName='" + flagName + '\'' +
-                '}';
+        return "Flag{" + "flagId=" + flagId + ", flagName='" + flagName + '\'' + '}';
     }
 }

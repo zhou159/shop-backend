@@ -1,5 +1,6 @@
 package com.zhou.shop.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -20,7 +21,7 @@ public class Issue implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "问题id")
-    @TableId(value = "issue_id")
+    @TableId(value = "issue_id", type = IdType.ID_WORKER_STR)
     private String issueId;
 
     @ApiModelProperty(value = "问题创建时间")

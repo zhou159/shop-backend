@@ -7,7 +7,6 @@ import com.zhou.shop.service.IFlagService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 前端控制器
@@ -27,7 +26,7 @@ public class FlagController {
 
     @PostMapping("/createFlag")
     public RestObject<String> createFlag(@RequestBody Flag flag) {
-        flag.setFlagId(UUID.randomUUID().toString().replace("-","").toUpperCase());
+//        flag.setFlagId(UUID.randomUUID().toString().replace("-","").toUpperCase());
         boolean save = iFlagService.save(flag);
         if (save) {
             return RestResponse.makeOkRsp("新增成功！");

@@ -56,4 +56,11 @@ public interface IFlagService extends IService<Flag> {
     @Override
     Flag getById(Serializable id);
 
+    /**
+     * 根据标签名查找标签
+     * @param flagName 标签名
+     * @return 标签对象
+     */
+    Flag retrieveByFlagName(String flagName);
+
 }

@@ -1,26 +1,29 @@
-package com.zhou.shop.entity;
+package com.zhou.shop.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
+ * 商品前端传入对象
+ *
  * @author 周雄
- * @since 2021-06-24
+ * @since 2021-08-28
  */
 @TableName("item")
 @ApiModel(value = "Item对象")
-public class Item implements Serializable {
-
+public class ItemVo {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商品id")
-    @TableId(value = "item_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "item_id")
     private String itemId;
 
     @ApiModelProperty(value = "商品名字")
@@ -51,6 +54,10 @@ public class Item implements Serializable {
     @TableField("price")
     private BigDecimal price;
 
+    @ApiModelProperty(value = "标签名")
+    @TableField("flag_name")
+    private String flagName;
+
     @ApiModelProperty(value = "标签id")
     @TableField("flag_id")
     private String flagId;
@@ -67,7 +74,9 @@ public class Item implements Serializable {
     @TableField("item_picture")
     private String itemPicture;
 
-    public Item(
+    public ItemVo() {}
+
+    public ItemVo(
             String itemId,
             String itemName,
             String shopId,
@@ -76,6 +85,7 @@ public class Item implements Serializable {
             Double itemUnitQuantity,
             String itemRemark,
             BigDecimal price,
+            String flagName,
             String flagId,
             LocalDateTime itemUpdateTime,
             LocalDateTime itemCreateTime,
@@ -88,16 +98,11 @@ public class Item implements Serializable {
         this.itemUnitQuantity = itemUnitQuantity;
         this.itemRemark = itemRemark;
         this.price = price;
+        this.flagName = flagName;
         this.flagId = flagId;
         this.itemUpdateTime = itemUpdateTime;
         this.itemCreateTime = itemCreateTime;
         this.itemPicture = itemPicture;
-    }
-
-    public Item() {}
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public String getItemId() {
@@ -164,6 +169,22 @@ public class Item implements Serializable {
         this.price = price;
     }
 
+    public String getFlagName() {
+        return flagName;
+    }
+
+    public void setFlagName(String flagName) {
+        this.flagName = flagName;
+    }
+
+    public String getFlagId() {
+        return flagId;
+    }
+
+    public void setFlagId(String flagId) {
+        this.flagId = flagId;
+    }
+
     public LocalDateTime getItemUpdateTime() {
         return itemUpdateTime;
     }
@@ -188,17 +209,9 @@ public class Item implements Serializable {
         this.itemPicture = itemPicture;
     }
 
-    public String getFlagId() {
-        return flagId;
-    }
-
-    public void setFlagId(String flagId) {
-        this.flagId = flagId;
-    }
-
     @Override
     public String toString() {
-        return "Item{"
+        return "ItemVo{"
                 + "itemId='"
                 + itemId
                 + '\''
@@ -221,6 +234,9 @@ public class Item implements Serializable {
                 + '\''
                 + ", price="
                 + price
+                + ", flagName='"
+                + flagName
+                + '\''
                 + ", flagId='"
                 + flagId
                 + '\''

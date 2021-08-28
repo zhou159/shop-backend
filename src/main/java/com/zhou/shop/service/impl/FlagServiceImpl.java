@@ -16,7 +16,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FlagServiceImpl extends ServiceImpl<FlagMapper, Flag> implements IFlagService {
+    final FlagMapper flagMapper;
 
+    public FlagServiceImpl(FlagMapper flagMapper){
+        this.flagMapper = flagMapper;
+    }
 
-
+    @Override
+    public Flag retrieveByFlagName(String flagName) {
+        return flagMapper.retrieveByFlagName(flagName);
+    }
 }

@@ -1,5 +1,6 @@
 package com.zhou.shop.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -18,7 +19,7 @@ public class SitcomNumber {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "集数id")
-    @TableId(value = "sitcom_number_id")
+    @TableId(value = "sitcom_number_id", type = IdType.ID_WORKER_STR)
     private String sitcomNumberId;
 
     @ApiModelProperty(value = "观看时间")

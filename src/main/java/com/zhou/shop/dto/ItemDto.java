@@ -76,6 +76,14 @@ public class ItemDto {
     @ApiModelProperty(value = "商品图片")
     private String itemPicture;
 
+    @ApiModelProperty(value = "标签id")
+    @TableField("flag_id")
+    private String flagId;
+
+    @ApiModelProperty(value = "标签名字")
+    @TableField("flag_name")
+    private String flagName;
+
     public ItemDto() {}
 
     public ItemDto(
@@ -94,7 +102,9 @@ public class ItemDto {
             String showQuantity,
             LocalDateTime itemUpdateTime,
             LocalDateTime itemCreateTime,
-            String itemPicture) {
+            String itemPicture,
+            String flagId,
+            String flagName) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.shopId = shopId;
@@ -111,9 +121,9 @@ public class ItemDto {
         this.itemUpdateTime = itemUpdateTime;
         this.itemCreateTime = itemCreateTime;
         this.itemPicture = itemPicture;
+        this.flagId = flagId;
+        this.flagName = flagName;
     }
-
-
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -247,16 +257,34 @@ public class ItemDto {
         this.itemCreateTime = itemCreateTime;
     }
 
+    public String getFlagId() {
+        return flagId;
+    }
+
+    public void setFlagId(String flagId) {
+        this.flagId = flagId;
+    }
+
+    public String getFlagName() {
+        return flagName;
+    }
+
+    public void setFlagName(String flagName) {
+        this.flagName = flagName;
+    }
+
     @Override
     public String toString() {
         return "ItemDto{"
-                + "itemId="
+                + "itemId='"
                 + itemId
+                + '\''
                 + ", itemName='"
                 + itemName
                 + '\''
-                + ", shopId="
+                + ", shopId='"
                 + shopId
+                + '\''
                 + ", shopName='"
                 + shopName
                 + '\''
@@ -266,15 +294,17 @@ public class ItemDto {
                 + ", itemRemark='"
                 + itemRemark
                 + '\''
-                + ", unitId="
+                + ", unitId='"
                 + unitId
+                + '\''
                 + ", unitName='"
                 + unitName
                 + '\''
                 + ", price="
                 + price
-                + ", specificationId="
+                + ", specificationId='"
                 + specificationId
+                + '\''
                 + ", specificationName='"
                 + specificationName
                 + '\''
@@ -289,6 +319,12 @@ public class ItemDto {
                 + itemCreateTime
                 + ", itemPicture='"
                 + itemPicture
+                + '\''
+                + ", flagId='"
+                + flagId
+                + '\''
+                + ", flagName='"
+                + flagName
                 + '\''
                 + '}';
     }

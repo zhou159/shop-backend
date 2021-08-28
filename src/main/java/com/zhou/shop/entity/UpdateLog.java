@@ -30,7 +30,7 @@ public class UpdateLog implements Serializable {
     private Integer updateLogId;
 
     @ApiModelProperty(value = "更新日志创建时间")
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy年MM月dd日")
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd")
     @TableField("update_log_create_time")
     private LocalDate updateLogCreateTime;
 

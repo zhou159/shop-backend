@@ -9,32 +9,77 @@
         <result column="ap" property="price"/>
         <result column="bsn" property="shopName"/>
         <result column="asi" property="shopId"/>
-        <result column="cun" property="unitName" />
+        <result column="cun" property="unitName"/>
         <result column="aui" property="unitId"/>
-        <result column="aspi" property="specificationId" />
-        <result column="dsn" property="specificationName" />
-        <result column="sq" property="showQuantity" />
-        <result column="aiuq" property="itemUnitQuantity" />
+        <result column="aspi" property="specificationId"/>
+        <result column="dsn" property="specificationName"/>
+        <result column="sq" property="showQuantity"/>
+        <result column="aiuq" property="itemUnitQuantity"/>
         <result column="air" property="itemRemark"/>
         <result column="bsa" property="shopAddress"/>
         <result column="aip" property="itemPicture"/>
+        <result column="efi" property="flagId"/>
+        <result column="efn" property="flagName"/>
     </resultMap>
 
     <select id="retrieveAllItem" resultMap="itemMap">
-        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.item_unit_quantity aiuq,a.item_remark air,a.item_picture aip,
-               a.shop_id asi,b.shop_name bsn,b.shop_address bsa,
-               a.unit_id aui,c.unit_name cun,
-               a.specification_id aspi,d.specification_name dsn,concat(a.item_unit_quantity,concat(' ',d.specification_name)) sq
-        from shop.item a,shop.shop b,shop.unit c,shop.specification d
-        where a.shop_id = b.shop_id and a.unit_id = c.unit_id and a.specification_id = d.specification_id
+        select a.item_id                                                       aii,
+               a.item_create_time                                              aic,
+               a.item_update_time                                              aiu,
+               a.item_name                                                     ain,
+               a.price                                                         ap,
+               a.item_unit_quantity                                            aiuq,
+               a.item_remark                                                   air,
+               a.item_picture                                                  aip,
+               a.shop_id                                                       asi,
+               b.shop_name                                                     bsn,
+               b.shop_address                                                  bsa,
+               a.unit_id                                                       aui,
+               c.unit_name                                                     cun,
+               a.specification_id                                              aspi,
+               d.specification_name                                            dsn,
+               concat(a.item_unit_quantity, concat(' ', d.specification_name)) sq,
+               e.flag_id                                                       efi,
+               e.flag_name                                                     efn
+        from shop.item a,
+             shop.shop b,
+             shop.unit c,
+             shop.specification d,
+             shop.flag e
+        where a.shop_id = b.shop_id
+          and a.unit_id = c.unit_id
+          and a.specification_id = d.specification_id
+          and a.flag_id = e.flag_id
     </select>
 
     <select id="retrieveByItemName" resultMap="itemMap">
-        select a.item_id aii,a.item_create_time aic,a.item_update_time aiu,a.item_name ain,a.price ap,a.item_unit_quantity aiuq,a.item_remark air,a.item_picture aip,
-               a.shop_id asi,b.shop_name bsn,b.shop_address bsa,
-               a.unit_id aui,c.unit_name cun,
-               a.specification_id aspi,d.specification_name dsn,concat(a.item_unit_quantity,concat(' ',d.specification_name)) sq
-        from shop.item a,shop.shop b,shop.unit c,shop.specification d
-        where a.shop_id = b.shop_id and a.unit_id = c.unit_id and a.specification_id = d.specification_id and a.item_name like '%${itemName}%'
+        select a.item_id                                                       aii,
+               a.item_create_time                                              aic,
+               a.item_update_time                                              aiu,
+               a.item_name                                                     ain,
+               a.price                                                         ap,
+               a.item_unit_quantity                                            aiuq,
+               a.item_remark                                                   air,
+               a.item_picture                                                  aip,
+               a.shop_id                                                       asi,
+               b.shop_name                                                     bsn,
+               b.shop_address                                                  bsa,
+               a.unit_id                                                       aui,
+               c.unit_name                                                     cun,
+               a.specification_id                                              aspi,
+               d.specification_name                                            dsn,
+               concat(a.item_unit_quantity, concat(' ', d.specification_name)) sq,
+               e.flag_id                                                       efi,
+               e.flag_name                                                     efn
+        from shop.item a,
+             shop.shop b,
+             shop.unit c,
+             shop.specification d,
+             shop.flag e
+        where a.shop_id = b.shop_id
+          and a.unit_id = c.unit_id
+          and a.specification_id = d.specification_id
+          and a.flag_id = e.flag_id
+          and a.item_name like '%${itemName}%'
     </select>
 </mapper>
