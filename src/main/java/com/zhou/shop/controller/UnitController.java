@@ -34,7 +34,6 @@ public class UnitController {
     @ApiOperation("新增单位")
     @PostMapping("/createUnit")
     public RestObject<String> createUnit(@RequestBody Unit unit) {
-        unit.setUnitId(UUID.randomUUID().toString().replace("-","").toUpperCase());
         boolean save = iUnitService.save(unit);
         if (save){
             logUtil.log("新增单位成功", LogStatus.INFO.info);

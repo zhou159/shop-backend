@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 前端控制器
@@ -34,7 +33,6 @@ public class IssueController {
     @ApiOperation("新增问题")
     @PostMapping("/createIssue")
     public RestObject<String> createIssue(@RequestBody Issue issue) {
-        issue.setIssueId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
         issue.setIssueCreateTime(LocalDateTime.now());
         issue.setIssueStatus("0");
         boolean save = iIssueService.save(issue);

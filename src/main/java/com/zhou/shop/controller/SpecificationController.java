@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 前端控制器
@@ -32,8 +31,6 @@ public class SpecificationController {
     @ApiOperation("新增规格")
     @PostMapping("/createSpecification")
     public RestObject<String> createSpecification(@RequestBody Specification specification) {
-        specification.setSpecificationId(
-                UUID.randomUUID().toString().replace("-", "").toUpperCase());
         boolean save = iSpecificationService.save(specification);
         if (save) {
             logUtil.log("新增规格成功", LogStatus.INFO.info);

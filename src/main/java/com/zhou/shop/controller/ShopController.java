@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 前端控制器
@@ -32,7 +31,6 @@ public class ShopController {
     @ApiOperation("新增商店")
     @PostMapping("/createShop")
     public RestObject<String> createShop(@RequestBody Shop shop) {
-        shop.setShopId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
         boolean save = iShopService.save(shop);
         if (save) {
             logUtil.log("新增商店成功", LogStatus.INFO.info);
