@@ -8,15 +8,12 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * <p>
- *  Mapper 接口
- * </p>
+ * Mapper 接口
  *
  * @author 周雄
  * @since 2021-07-20
  */
-
 @Mapper
 public interface UnitMapper extends BaseMapper<Unit> {
-    List<Unit> retrieveByUnitName(@Param("unitName")String unitName);
+    List<Unit> retrieveByUnitName(@Param("unitName") String unitName);
 }

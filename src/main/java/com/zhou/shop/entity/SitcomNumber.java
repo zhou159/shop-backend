@@ -24,7 +24,7 @@ public class SitcomNumber {
 
     @ApiModelProperty(value = "观看时间")
     @TableId(value = "sitcom_number_watch_time")
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime sitcomNumberWatchTime;
 
     @ApiModelProperty(value = "连续剧id")

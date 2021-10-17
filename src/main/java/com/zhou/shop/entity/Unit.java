@@ -8,16 +8,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * <p>
- *
- * </p>
- *
  * @author 周雄
  * @since 2021-07-20
  */
-
 @TableName("unit")
-@ApiModel(value="Unit对象")
+@ApiModel(value = "Unit对象")
 public class Unit {
     private static final long serialVersionUID = 1L;
 
@@ -29,8 +24,8 @@ public class Unit {
     @TableField("unit_name")
     private String unitName;
 
-    public Unit() {
-    }
+    public Unit() {}
+
     public Unit(String unitId, String unitName) {
         this.unitId = unitId;
         this.unitName = unitName;
@@ -54,9 +49,6 @@ public class Unit {
 
     @Override
     public String toString() {
-        return "Unit{" +
-                "unitId=" + unitId +
-                ", unitName='" + unitName + '\'' +
-                '}';
+        return "Unit{" + "unitId=" + unitId + ", unitName='" + unitName + '\'' + '}';
     }
 }

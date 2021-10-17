@@ -10,16 +10,11 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * <p>
- *
- * </p>
- *
  * @author 周雄
  * @since 2021-06-24
  */
-
 @TableName("user")
-@ApiModel(value="User对象")
+@ApiModel(value = "User对象")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,8 +39,7 @@ public class User implements Serializable {
     @TableField("user_picture")
     private String userPicture;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String userId, String username, String password, String role, String userPicture) {
         this.userId = userId;
@@ -97,12 +91,21 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", userPicture='" + userPicture + '\'' +
-                '}';
+        return "User{"
+                + "userId="
+                + userId
+                + ", username='"
+                + username
+                + '\''
+                + ", password='"
+                + password
+                + '\''
+                + ", role='"
+                + role
+                + '\''
+                + ", userPicture='"
+                + userPicture
+                + '\''
+                + '}';
     }
 }

@@ -12,16 +12,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
- * <p>
- *
- * </p>
- *
  * @author 周雄
  * @since 2021-07-24
  */
-
 @TableName("updateLog")
-@ApiModel(value="update对象")
+@ApiModel(value = "update对象")
 public class UpdateLog implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +25,7 @@ public class UpdateLog implements Serializable {
     private Integer updateLogId;
 
     @ApiModelProperty(value = "更新日志创建时间")
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @TableField("update_log_create_time")
     private LocalDate updateLogCreateTime;
 
@@ -42,10 +37,13 @@ public class UpdateLog implements Serializable {
     @TableField("update_log_description")
     private String updateLogDescription;
 
-    public UpdateLog() {
-    }
+    public UpdateLog() {}
 
-    public UpdateLog(Integer updateLogId, LocalDate updateLogCreateTime, String updateLogVersion, String updateLogDescription) {
+    public UpdateLog(
+            Integer updateLogId,
+            LocalDate updateLogCreateTime,
+            String updateLogVersion,
+            String updateLogDescription) {
         this.updateLogId = updateLogId;
         this.updateLogCreateTime = updateLogCreateTime;
         this.updateLogVersion = updateLogVersion;
@@ -86,11 +84,17 @@ public class UpdateLog implements Serializable {
 
     @Override
     public String toString() {
-        return "UpdateLog{" +
-                "updateLogId=" + updateLogId +
-                ", updateLogCreateTime=" + updateLogCreateTime +
-                ", updateLogVersion='" + updateLogVersion + '\'' +
-                ", updateLogDescription='" + updateLogDescription + '\'' +
-                '}';
+        return "UpdateLog{"
+                + "updateLogId="
+                + updateLogId
+                + ", updateLogCreateTime="
+                + updateLogCreateTime
+                + ", updateLogVersion='"
+                + updateLogVersion
+                + '\''
+                + ", updateLogDescription='"
+                + updateLogDescription
+                + '\''
+                + '}';
     }
 }

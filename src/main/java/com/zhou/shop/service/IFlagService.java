@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>
- *  服务类
- * </p>
+ * 服务类
  *
  * @author 周雄
  * @since 2021-06-24
@@ -18,6 +16,7 @@ import java.util.List;
 public interface IFlagService extends IService<Flag> {
     /**
      * 按id删除标签
+     *
      * @param id 标签id
      * @return 标签对象
      */
@@ -26,6 +25,7 @@ public interface IFlagService extends IService<Flag> {
 
     /**
      * 新增标签
+     *
      * @param entity 标签对象
      * @return 标签对象
      */
@@ -34,6 +34,7 @@ public interface IFlagService extends IService<Flag> {
 
     /**
      * 按id修改标签数据
+     *
      * @param entity 标签对象
      * @return 标签对象
      */
@@ -42,6 +43,7 @@ public interface IFlagService extends IService<Flag> {
 
     /**
      * 查询全部标签
+     *
      * @param queryWrapper 查询构造条件
      * @return 数组，全部标签
      */
@@ -50,6 +52,7 @@ public interface IFlagService extends IService<Flag> {
 
     /**
      * 按id查询标签
+     *
      * @param id 标签id
      * @return 标签对象
      */
@@ -58,9 +61,9 @@ public interface IFlagService extends IService<Flag> {
 
     /**
      * 根据标签名查找标签
+     *
      * @param flagName 标签名
      * @return 标签对象
      */
     Flag retrieveByFlagName(String flagName);
-
 }

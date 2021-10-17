@@ -1,16 +1,14 @@
 package com.zhou.shop.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.zhou.shop.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhou.shop.entity.User;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>
- *  服务类
- * </p>
+ * 服务类
  *
  * @author 周雄
  * @since 2021-06-24
@@ -18,6 +16,7 @@ import java.util.List;
 public interface IUserService extends IService<User> {
     /**
      * 新增用户
+     *
      * @param entity 用户对象
      * @return 布尔值
      */
@@ -26,6 +25,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 按id删除用户
+     *
      * @param id 用户id
      * @return 布尔值
      */
@@ -34,6 +34,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 按id修改用户信息
+     *
      * @param entity 用户对象
      * @return 布尔值
      */
@@ -42,6 +43,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 按id查询用户
+     *
      * @param id 用户id
      * @return 用户对象
      */
@@ -50,11 +52,10 @@ public interface IUserService extends IService<User> {
 
     /**
      * 查询全部用户
+     *
      * @param queryWrapper 查询构造条件
      * @return 数组，全部用户
      */
     @Override
     List<User> list(Wrapper<User> queryWrapper);
-
-
 }

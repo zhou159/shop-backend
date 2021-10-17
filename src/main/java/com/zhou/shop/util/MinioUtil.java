@@ -13,22 +13,23 @@ import java.util.UUID;
 
 /**
  * minio工具类
+ *
  * @author Administrator
  */
 @Component
 public class MinioUtil {
     private static final Integer DEFAULT_EXPIRY_TIME = 7 * 24 * 3600;
-    @Autowired
-    private MinioClient minioClient;
+    @Autowired private MinioClient minioClient;
 
     @Value("${minio.bucketName}")
     private String bucketName;
 
     /**
      * 检测桶是否存在
+     *
      * @param bucketName 桶名称
      */
-    public boolean bucketExists(String bucketName){
+    public boolean bucketExists(String bucketName) {
         boolean flag = false;
         try {
             flag = minioClient.bucketExists(bucketName);
@@ -57,14 +58,18 @@ public class MinioUtil {
      *
      * @param bucketName 存储桶名称
      * @param objectName 存储桶里的对象名称
-     * @param stream     要上传的流
+     * @param stream 要上传的流
      * @return
      */
     public boolean putObject(String bucketName, String objectName, InputStream stream) {
         boolean flag = bucketExists(bucketName);
         if (flag) {
             try {
-                minioClient.putObject(bucketName, objectName, stream, new PutObjectOptions(stream.available(), -1));
+                minioClient.putObject(
+                        bucketName,
+                        objectName,
+                        stream,
+                        new PutObjectOptions(stream.available(), -1));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -134,11 +139,9 @@ public class MinioUtil {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return url;
     }
-
 
     /**
      * 文件访问路径
@@ -156,8 +159,11 @@ public class MinioUtil {
                 makeBucket(bucketName);
             }
             String fileName = file.getOriginalFilename();
-            String newName = foldername + "/" + UUID.randomUUID().toString().replaceAll("-", "")
-                    + fileName.substring(fileName.lastIndexOf("."));
+            String newName =
+                    foldername
+                            + "/"
+                            + UUID.randomUUID().toString().replaceAll("-", "")
+                            + fileName.substring(fileName.lastIndexOf("."));
 
             InputStream inputStream = file.getInputStream();
             putObject(bucketName, newName, inputStream);

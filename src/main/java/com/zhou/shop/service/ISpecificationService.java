@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>
- *  服务类
- * </p>
+ * 服务类
  *
  * @author 周雄
  * @since 2021-07-20
@@ -19,6 +17,7 @@ public interface ISpecificationService extends IService<Specification> {
 
     /**
      * 新增规格
+     *
      * @param entity 规格对象
      * @return 布尔值
      */
@@ -27,6 +26,7 @@ public interface ISpecificationService extends IService<Specification> {
 
     /**
      * 按id删除规格
+     *
      * @param id 规格id
      * @return 布尔值
      */
@@ -35,6 +35,7 @@ public interface ISpecificationService extends IService<Specification> {
 
     /**
      * 按id修改规格信息
+     *
      * @param entity 规格对象
      * @return 布尔值
      */
@@ -43,6 +44,7 @@ public interface ISpecificationService extends IService<Specification> {
 
     /**
      * 按id查询规格
+     *
      * @param id 规格id
      * @return 规格对象
      */
@@ -51,6 +53,7 @@ public interface ISpecificationService extends IService<Specification> {
 
     /**
      * 查询全部规格
+     *
      * @param queryWrapper 查询构造条件
      * @return 数组，全部规格
      */
@@ -59,6 +62,7 @@ public interface ISpecificationService extends IService<Specification> {
 
     /**
      * 按规格名查询规格
+     *
      * @param specificationName 规格名
      * @return 数组，规格对象
      */

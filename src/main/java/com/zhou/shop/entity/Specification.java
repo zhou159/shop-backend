@@ -8,16 +8,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * <p>
- *
- * </p>
- *
  * @author 周雄
  * @since 2021-07-20
  */
-
 @TableName("specification")
-@ApiModel(value="Specification对象")
+@ApiModel(value = "Specification对象")
 public class Specification {
     private static final long serialVersionUID = 1L;
 
@@ -33,10 +28,10 @@ public class Specification {
     @TableField("specification_label")
     private String specificationLabel;
 
-    public Specification() {
-    }
+    public Specification() {}
 
-    public Specification(String specificationId, String specificationName, String specificationLabel) {
+    public Specification(
+            String specificationId, String specificationName, String specificationLabel) {
         this.specificationId = specificationId;
         this.specificationName = specificationName;
         this.specificationLabel = specificationLabel;
@@ -72,10 +67,15 @@ public class Specification {
 
     @Override
     public String toString() {
-        return "Specification{" +
-                "specificationId=" + specificationId +
-                ", specificationName='" + specificationName + '\'' +
-                ", specificationLabel='" + specificationLabel + '\'' +
-                '}';
+        return "Specification{"
+                + "specificationId="
+                + specificationId
+                + ", specificationName='"
+                + specificationName
+                + '\''
+                + ", specificationLabel='"
+                + specificationLabel
+                + '\''
+                + '}';
     }
 }

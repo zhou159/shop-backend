@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>
- *  服务类
- * </p>
+ * 服务类
  *
  * @author 周雄
  * @since 2021-06-24
@@ -18,6 +16,7 @@ import java.util.List;
 public interface IShopService extends IService<Shop> {
     /**
      * 新增商店
+     *
      * @param entity 商店对象
      * @return 布尔值
      */
@@ -26,6 +25,7 @@ public interface IShopService extends IService<Shop> {
 
     /**
      * 按id删除商店
+     *
      * @param id 商店id
      * @return 布尔值
      */
@@ -34,6 +34,7 @@ public interface IShopService extends IService<Shop> {
 
     /**
      * 按id修改商店数据
+     *
      * @param entity 商品对象
      * @return 布尔值
      */
@@ -42,6 +43,7 @@ public interface IShopService extends IService<Shop> {
 
     /**
      * 按id查询商店
+     *
      * @param id 商店id
      * @return 商店对象
      */
@@ -50,6 +52,7 @@ public interface IShopService extends IService<Shop> {
 
     /**
      * 查询全部商店
+     *
      * @param queryWrapper 查询构造条件
      * @return 数组，全部商店
      */
@@ -58,6 +61,7 @@ public interface IShopService extends IService<Shop> {
 
     /**
      * 按商店名查询商品
+     *
      * @param shopName 商店名
      * @return 商店对象
      */

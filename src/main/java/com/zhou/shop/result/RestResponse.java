@@ -4,11 +4,12 @@ import com.zhou.shop.enums.RestCode;
 
 /**
  * 返回调用对象
+ *
  * @author Administrator
  */
 public class RestResponse {
-    private final static String SUCCESS = "success";
-    private final static String FAIL = "fail";
+    private static final String SUCCESS = "success";
+    private static final String FAIL = "fail";
 
     public static <T> RestObject<T> makeOkRsp() {
         return new RestObject<T>().setCode(RestCode.SUCCESS).setMsg(SUCCESS);
@@ -22,7 +23,7 @@ public class RestResponse {
         return new RestObject<T>().setCode(RestCode.ERROR).setMsg(FAIL).setData(data);
     }
 
-    public static <T> RestObject<T> errRsp(int code,String msg,T data) {
+    public static <T> RestObject<T> errRsp(int code, String msg, T data) {
         return new RestObject<T>().setCode(code).setMsg(msg).setData(data);
     }
 
@@ -34,4 +35,3 @@ public class RestResponse {
         return new RestObject<T>().setCode(code).setMsg(msg).setData(data);
     }
 }
-

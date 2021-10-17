@@ -7,13 +7,11 @@ import com.zhou.shop.service.ISitcomService;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>
- *  服务实现类
- * </p>
+ * 服务实现类
  *
  * @author 周雄
  * @since 2021-08-21
  */
 @Service
-public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> implements ISitcomService {
-}
+public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom>
+        implements ISitcomService {}

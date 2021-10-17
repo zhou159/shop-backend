@@ -29,12 +29,12 @@ public class Sitcom {
 
     @ApiModelProperty(value = "开始观看日期")
     @TableId(value = "sitcom_watch_start_time")
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate sitcomWatchStartTime;
 
     @ApiModelProperty(value = "结束观看时间")
     @TableId(value = "sitcom_watch_end_time")
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime sitcomWatchEndTime;
 
     @ApiModelProperty(value = "连续剧更新状态（0：完结；1：连载；2：断更）")

@@ -13,6 +13,8 @@
     </select>
 
     <select id="retrieveByIssueDescription" resultType="com.zhou.shop.entity.Issue">
-        select * from issue where issue_description like '%${issueDescription}%'
+        select *
+        from issue
+        where issue_description like '%${issueDescription}%'
     </select>
 </mapper>

@@ -69,6 +69,7 @@ public interface IIssueService extends IService<Issue> {
 
     /**
      * 根据问题描述模糊查询
+     *
      * @param issueDescription 问题描述
      * @return 问题数组
      */

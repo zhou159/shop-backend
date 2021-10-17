@@ -4,6 +4,7 @@ import com.zhou.shop.enums.RestCode;
 
 /**
  * 接口返回对象
+ *
  * @author Administrator
  */
 public class RestObject<T> {
@@ -11,13 +12,13 @@ public class RestObject<T> {
     private String msg;
     private T data;
 
-    public RestObject<T> setCode(RestCode restCode){
-        this.code = restCode.code;
-        return this;
-    }
-
     public int getCode() {
         return code;
+    }
+
+    public RestObject<T> setCode(RestCode restCode) {
+        this.code = restCode.code;
+        return this;
     }
 
     public RestObject<T> setCode(int code) {

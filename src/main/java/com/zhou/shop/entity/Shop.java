@@ -10,16 +10,11 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * <p>
- *
- * </p>
- *
  * @author 周雄
  * @since 2021-06-24
  */
-
 @TableName("shop")
-@ApiModel(value="Shop对象")
+@ApiModel(value = "Shop对象")
 public class Shop implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,10 +43,15 @@ public class Shop implements Serializable {
     @TableField("shop_picture")
     private String shopPicture;
 
-    public Shop() {
-    }
+    public Shop() {}
 
-    public Shop(String shopId, String shopName, String shopAddress, String shopRemark, String shopStatus, String shopPicture) {
+    public Shop(
+            String shopId,
+            String shopName,
+            String shopAddress,
+            String shopRemark,
+            String shopStatus,
+            String shopPicture) {
         this.shopId = shopId;
         this.shopName = shopName;
         this.shopAddress = shopAddress;
@@ -114,14 +114,24 @@ public class Shop implements Serializable {
 
     @Override
     public String toString() {
-        return "Shop{" +
-                "shopId=" + shopId +
-                ", shopName='" + shopName + '\'' +
-                ", shopAddress='" + shopAddress + '\'' +
-                ", shopRemark='" + shopRemark + '\'' +
-                ", shopStatus='" + shopStatus + '\'' +
-                ", shopPicture='" + shopPicture + '\'' +
-                '}';
+        return "Shop{"
+                + "shopId="
+                + shopId
+                + ", shopName='"
+                + shopName
+                + '\''
+                + ", shopAddress='"
+                + shopAddress
+                + '\''
+                + ", shopRemark='"
+                + shopRemark
+                + '\''
+                + ", shopStatus='"
+                + shopStatus
+                + '\''
+                + ", shopPicture='"
+                + shopPicture
+                + '\''
+                + '}';
     }
-
 }

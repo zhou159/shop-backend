@@ -7,16 +7,11 @@ import com.zhou.shop.service.IUpdateLogService;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>
- *  服务实现类
- * </p>
+ * 服务实现类
  *
  * @author 周雄
  * @since 2021-07-24
  */
 @Service
-public class UpdateLogServiceImpl extends ServiceImpl<UpdateLogMapper, UpdateLog> implements IUpdateLogService {
-
-
-
-}
+public class UpdateLogServiceImpl extends ServiceImpl<UpdateLogMapper, UpdateLog>
+        implements IUpdateLogService {}

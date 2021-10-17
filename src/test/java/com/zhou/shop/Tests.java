@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class Tests {
-    @Autowired
-    UserMapper userMapper;
-
+    @Autowired UserMapper userMapper;
 
     @Test
-    public void selectAll(){
+    public void selectAll() {
         List<User> users = userMapper.selectList(null);
         users.forEach(System.out::println);
     }
