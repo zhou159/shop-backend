@@ -26,4 +26,11 @@ public interface SitcomNumberMapper extends BaseMapper<SitcomNumber> {
      */
     List<SitcomNumber> retrieveBySitcomNumberName(
             @Param("sitcomNumberName") String sitcomNumberName);
+
+    /**
+     * 根据连续剧id删除所有剧集
+     * @param sitcomId 连续剧id
+     * @return 整数
+     */
+    int deleteBySitcomId(@Param("sitcomId")String sitcomId);
 }

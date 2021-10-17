@@ -9,8 +9,8 @@ import com.zhou.shop.util.LogUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 前端控制器
@@ -32,7 +32,9 @@ public class SitcomNumberController {
     @ApiOperation("新增剧集")
     @PostMapping("/createSitcomNumber")
     public RestObject<String> createSitcomNumber(@RequestBody SitcomNumber sitcomNumber) {
-        sitcomNumber.setSitcomNumberId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
+        if (sitcomNumber.getSitcomNumberWatchTime() == null){
+            sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now());
+        }
         boolean save = iSitcomNumberService.save(sitcomNumber);
         if (save) {
             logUtil.log("新增剧集成功", LogStatus.INFO.info);

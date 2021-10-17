@@ -12,4 +12,10 @@
         from sitcom_number
         where sitcom_number_name like '%${sitcomNumberName}%'
     </select>
+
+    <delete id="deleteBySitcomId">
+        delete
+        from sitcom_number
+        where sitcom_id = #{sitcomId}
+    </delete>
 </mapper>

@@ -4,6 +4,7 @@ import com.zhou.shop.entity.Sitcom;
 import com.zhou.shop.enums.LogStatus;
 import com.zhou.shop.result.RestObject;
 import com.zhou.shop.result.RestResponse;
+import com.zhou.shop.service.ISitcomNumberService;
 import com.zhou.shop.service.ISitcomService;
 import com.zhou.shop.util.LogUtil;
 import io.swagger.annotations.ApiOperation;
@@ -23,11 +24,13 @@ import java.util.UUID;
 @RequestMapping("/sitcom")
 public class SitcomController {
     final ISitcomService iSitcomService;
+    final ISitcomNumberService iSitcomNumberService;
     final LogUtil logUtil;
 
-    public SitcomController(ISitcomService iSitcomService, LogUtil logUtil) {
+    public SitcomController(ISitcomService iSitcomService, LogUtil logUtil,ISitcomNumberService iSitcomNumberService) {
         this.iSitcomService = iSitcomService;
         this.logUtil = logUtil;
+        this.iSitcomNumberService = iSitcomNumberService;
     }
 
     @ApiOperation("新增连续剧")
@@ -36,7 +39,7 @@ public class SitcomController {
         String updateStatusZero = "0";
         String watchStatusZero = "0";
         if (sitcom.getSitcomWatchStartTime() == null) {
-            return RestResponse.makeErrRsp("连续剧开始观看时间不能为空");
+            sitcom.setSitcomWatchStartTime(LocalDate.now());
         }
         if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
             return RestResponse.makeErrRsp("连续剧更新状态不能为空");
@@ -107,15 +110,16 @@ public class SitcomController {
         }
     }
 
-    @ApiOperation("按id删除连续剧")
+    @ApiOperation("按id删除连续剧及其剧集")
     @PostMapping("/deleteBySitcomId/{sitcomId}")
     public RestObject<String> deleteSitcomById(@PathVariable String sitcomId) {
         boolean b = iSitcomService.removeById(sitcomId);
-        if (b) {
-            logUtil.log("成功删除了连续剧信息，连续剧ID：" + sitcomId, LogStatus.INFO.info);
+        int i = iSitcomNumberService.deleteBySitcomId(sitcomId);
+        if (b && i != 0) {
+            logUtil.log("成功删除了连续剧及其剧集信息，连续剧ID：" + sitcomId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("删除成功！");
         } else {
-            logUtil.log("删除连续剧信息时失败，连续剧ID：" + sitcomId, LogStatus.ERROR.info);
+            logUtil.log("删除连续剧信息及其剧集时失败，连续剧ID：" + sitcomId, LogStatus.ERROR.info);
             return RestResponse.makeErrRsp("删除失败！");
         }
     }

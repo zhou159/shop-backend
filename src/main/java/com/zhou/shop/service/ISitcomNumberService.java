@@ -74,4 +74,12 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
      * @return 集对象
      */
     List<SitcomNumber> retrieveBySitcomNumberName(String sitcomNumberName);
+
+    /**
+     * 根据连续剧id删除所有剧集
+     * @param sitcomId 连续剧id
+     * @return 整数
+     */
+    int deleteBySitcomId(String sitcomId);
+
 }
