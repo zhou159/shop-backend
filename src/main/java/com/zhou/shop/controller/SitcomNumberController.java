@@ -32,7 +32,7 @@ public class SitcomNumberController {
     @ApiOperation("新增剧集")
     @PostMapping("/createSitcomNumber")
     public RestObject<String> createSitcomNumber(@RequestBody SitcomNumber sitcomNumber) {
-        if (sitcomNumber.getSitcomNumberWatchTime() == null){
+        if (sitcomNumber.getSitcomNumberWatchTime() == null) {
             sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now());
         }
         boolean save = iSitcomNumberService.save(sitcomNumber);

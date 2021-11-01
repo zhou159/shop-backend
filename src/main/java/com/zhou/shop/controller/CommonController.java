@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class CommonController {
     final MinioUtil minioUtil;
 
-    public CommonController(MinioUtil minioUtil){
+    public CommonController(MinioUtil minioUtil) {
         this.minioUtil = minioUtil;
     }
 

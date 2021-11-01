@@ -29,11 +29,12 @@ public class UpdateLogController {
         this.iUpdateLogService = iUpdateLogService;
         this.logUtil = logUtil;
     }
+
     @ApiOperation("新增更新日志")
     @PostMapping("/createUpdateLog")
     public RestObject<String> createUpdateLog(@RequestBody UpdateLog updateLog) {
         LocalDate updateLogCreateTime = updateLog.getUpdateLogCreateTime();
-        if (updateLogCreateTime == null){
+        if (updateLogCreateTime == null) {
             updateLog.setUpdateLogCreateTime(LocalDate.now());
         }
         boolean save = iUpdateLogService.save(updateLog);
@@ -45,6 +46,7 @@ public class UpdateLogController {
             return RestResponse.makeErrRsp("新增失败！");
         }
     }
+
     @ApiOperation("按id查询更新日志")
     @GetMapping("/retrieveByUpdateLogId/{updateLogId}")
     public RestObject<UpdateLog> retrieveByUpdateId(@PathVariable int updateLogId) {
@@ -52,6 +54,7 @@ public class UpdateLogController {
         logUtil.log("查询了更新日志信息，更新日志ID：" + updateLogId, LogStatus.INFO.info);
         return RestResponse.makeOkRsp(updateLog);
     }
+
     @ApiOperation("查询全部更新日志信息")
     @GetMapping("/retrieveAllUpdateLog")
     public RestObject<List<UpdateLog>> retrieveAllUpdateLog() {
@@ -59,6 +62,7 @@ public class UpdateLogController {
         logUtil.log("查询了全部更新日志信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
+
     @ApiOperation("按id修改更新日志")
     @PostMapping("/updateUpdateByUpdateLogId/{updateLogId}")
     public RestObject<String> updateUpdateByUpdateId(
