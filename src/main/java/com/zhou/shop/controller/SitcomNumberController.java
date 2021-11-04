@@ -66,6 +66,9 @@ public class SitcomNumberController {
     public RestObject<String> updateSitcomNumberBySitcomNumberId(
             @PathVariable String sitcomNumberId, @RequestBody SitcomNumber sitcomNumber) {
         sitcomNumber.setSitcomNumberId(sitcomNumberId);
+        if (sitcomNumber.getSitcomNumberWatchTime() == null) {
+            sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now());
+        }
         boolean b = iSitcomNumberService.updateById(sitcomNumber);
         if (b) {
             logUtil.log("成功修改了剧集信息，剧集ID：" + sitcomNumberId, LogStatus.INFO.info);
