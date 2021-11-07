@@ -35,10 +35,9 @@ public class ShopController {
         if (save) {
             logUtil.log("新增商店成功", LogStatus.INFO.info);
             return RestResponse.makeOkRsp("新增成功！");
-        } else {
-            logUtil.log("新增商店出现异常", LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("新增失败！");
         }
+        logUtil.log("新增商店出现异常", LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("新增失败！");
     }
 
     @ApiOperation("按id查询商店")
@@ -59,17 +58,15 @@ public class ShopController {
 
     @ApiOperation("按id修改商店")
     @PostMapping("/updateShopByShopId/{shopId}")
-    public RestObject<String> updateShopByShopId(
-            @PathVariable String shopId, @RequestBody Shop shop) {
+    public RestObject<String> updateShopByShopId(@PathVariable String shopId, @RequestBody Shop shop) {
         shop.setShopId(shopId);
         boolean b = iShopService.updateById(shop);
         if (b) {
             logUtil.log("成功修改了商店信息，商店ID：" + shopId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("修改成功！");
-        } else {
-            logUtil.log("修改商店信息时失败，商店ID：" + shopId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("修改失败！");
         }
+        logUtil.log("修改商店信息时失败，商店ID：" + shopId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("修改失败！");
     }
 
     @ApiOperation("按id删除商店")
@@ -79,10 +76,9 @@ public class ShopController {
         if (b) {
             logUtil.log("成功删除了商店信息，商店ID：" + shopId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("删除成功！");
-        } else {
-            logUtil.log("删除商店信息时失败，商店ID：" + shopId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("删除失败！");
         }
+        logUtil.log("删除商店信息时失败，商店ID：" + shopId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("删除失败！");
     }
 
     @ApiOperation("按商店名称查询")

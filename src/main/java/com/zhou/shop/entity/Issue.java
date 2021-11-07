@@ -41,7 +41,7 @@ public class Issue implements Serializable {
     @TableField("issue_module")
     private String issueModule;
 
-    @ApiModelProperty(value = "问题状态（0：未解决；1：已解决；2：无法解决）")
+    @ApiModelProperty(value = "问题状态（0：未解决；1：已解决；2：无法解决；3：暂缓解决）")
     @TableField("issue_status")
     private String issueStatus;
 

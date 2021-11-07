@@ -31,4 +31,18 @@ public interface IssueMapper extends BaseMapper<Issue> {
      * @return 问题数组
      */
     List<Issue> retrieveByIssueDescription(@Param("issueDescription") String issueDescription);
+
+    /**
+     * 查询未解决的问题
+     * @return 问题数组
+     */
+    List<Issue> readEffectiveIssue();
+
+    /**
+     * 修改问题状态
+     * @param issueId 问题ID
+     * @param issueStatus 问题状态
+     * @return 布尔值
+     */
+    int updateIssueStatus(@Param("issueId")String issueId,@Param("issueStatus")String issueStatus);
 }

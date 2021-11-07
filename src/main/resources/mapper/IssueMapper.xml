@@ -17,4 +17,16 @@
         from issue
         where issue_description like '%${issueDescription}%'
     </select>
+
+    <select id="readEffectiveIssue" resultType="com.zhou.shop.entity.Issue">
+        select *
+        from issue
+        where issue_status = '0'
+    </select>
+
+    <update id="updateIssueStatus">
+        update issue
+        set issue_status = #{issueStatus}
+        where issue_id = #{issueId};
+    </update>
 </mapper>

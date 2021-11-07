@@ -18,4 +18,12 @@
         from sitcom_number
         where sitcom_id = #{sitcomId}
     </delete>
+
+    <resultMap id="readMaxSitcomNumberNumberMap" type="com.zhou.shop.dto.SitcomNumberDto">
+        <result column="mx" property="maxNumber"/>
+    </resultMap>
+
+    <select id="readMaxSitcomNumberNumber" resultMap="readMaxSitcomNumberNumberMap">
+        select max(sitcom_number_number) mx from sitcom_number where sitcom_id = #{sitcomId};
+    </select>
 </mapper>

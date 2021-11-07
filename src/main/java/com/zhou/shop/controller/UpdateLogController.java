@@ -41,10 +41,9 @@ public class UpdateLogController {
         if (save) {
             logUtil.log("新增更新日志成功", LogStatus.INFO.info);
             return RestResponse.makeOkRsp("新增成功！");
-        } else {
-            logUtil.log("新增更新日志出现异常", LogStatus.INFO.info);
-            return RestResponse.makeErrRsp("新增失败！");
         }
+        logUtil.log("新增更新日志出现异常", LogStatus.INFO.info);
+        return RestResponse.makeErrRsp("新增失败！");
     }
 
     @ApiOperation("按id查询更新日志")
@@ -65,17 +64,15 @@ public class UpdateLogController {
 
     @ApiOperation("按id修改更新日志")
     @PostMapping("/updateUpdateByUpdateLogId/{updateLogId}")
-    public RestObject<String> updateUpdateByUpdateId(
-            @PathVariable int updateLogId, @RequestBody UpdateLog updateLog) {
+    public RestObject<String> updateUpdateByUpdateId(@PathVariable int updateLogId, @RequestBody UpdateLog updateLog) {
         updateLog.setUpdateLogId(updateLogId);
         boolean b = iUpdateLogService.updateById(updateLog);
         if (b) {
             logUtil.log("成功修改了更新日志信息，更新日志ID：" + updateLogId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("修改成功！");
-        } else {
-            logUtil.log("修改更新日志信息时失败，更新日志ID：" + updateLogId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("修改失败！");
         }
+        logUtil.log("修改更新日志信息时失败，更新日志ID：" + updateLogId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("修改失败！");
     }
 
     @ApiOperation("按id删除更新日志")
@@ -85,9 +82,8 @@ public class UpdateLogController {
         if (b) {
             logUtil.log("成功删除了更新日志信息，更新日志ID：" + updateLogId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("删除成功！");
-        } else {
-            logUtil.log("删除更新日志信息时失败，更新日志ID：" + updateLogId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("删除失败！");
         }
+        logUtil.log("删除更新日志信息时失败，更新日志ID：" + updateLogId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("删除失败！");
     }
 }

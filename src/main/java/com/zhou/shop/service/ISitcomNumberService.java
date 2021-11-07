@@ -2,6 +2,7 @@ package com.zhou.shop.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhou.shop.dto.SitcomNumberDto;
 import com.zhou.shop.entity.SitcomNumber;
 
 import java.io.Serializable;
@@ -82,4 +83,10 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
      */
     int deleteBySitcomId(String sitcomId);
 
+    /**
+     * 查询最大的集号
+     * @param sitcomId
+     * @return 最大的集号
+     */
+    SitcomNumberDto readMaxSitcomNumberNumber(String sitcomId);
 }

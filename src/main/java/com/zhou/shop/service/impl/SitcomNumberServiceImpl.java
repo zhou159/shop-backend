@@ -1,6 +1,7 @@
 package com.zhou.shop.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhou.shop.dto.SitcomNumberDto;
 import com.zhou.shop.entity.SitcomNumber;
 import com.zhou.shop.mapper.SitcomNumberMapper;
 import com.zhou.shop.service.ISitcomNumberService;
@@ -36,5 +37,10 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
     @Override
     public int deleteBySitcomId(String sitcomId) {
         return sitcomNumberMapper.deleteBySitcomId(sitcomId);
+    }
+
+    @Override
+    public SitcomNumberDto readMaxSitcomNumberNumber(String sitcomId) {
+        return sitcomNumberMapper.readMaxSitcomNumberNumber(sitcomId);
     }
 }

@@ -39,10 +39,9 @@ public class UserController {
         if (save) {
             logUtil.log("新增用户成功", LogStatus.INFO.info);
             return RestResponse.makeOkRsp("新增成功！");
-        } else {
-            logUtil.log("新增用户出现异常", LogStatus.INFO.info);
-            return RestResponse.makeErrRsp("新增失败！");
         }
+        logUtil.log("新增用户出现异常", LogStatus.INFO.info);
+        return RestResponse.makeErrRsp("新增失败！");
     }
 
     @ApiOperation("按id查询用户")
@@ -63,17 +62,15 @@ public class UserController {
 
     @ApiOperation("按id修改用户")
     @PostMapping("/updateUserByUserId/{userId}")
-    public RestObject<String> updateUserByUserId(
-            @PathVariable String userId, @RequestBody User user) {
+    public RestObject<String> updateUserByUserId(@PathVariable String userId, @RequestBody User user) {
         user.setUserId(userId);
         boolean b = iUserService.updateById(user);
         if (b) {
             logUtil.log("成功修改了用户信息，用户ID：" + userId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("修改成功！");
-        } else {
-            logUtil.log("修改用户信息时失败，用户ID：" + userId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("修改失败！");
         }
+        logUtil.log("修改用户信息时失败，用户ID：" + userId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("修改失败！");
     }
 
     @ApiOperation("按id删除用户")
@@ -83,9 +80,8 @@ public class UserController {
         if (b) {
             logUtil.log("成功删除了用户信息，用户ID：" + userId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("删除成功！");
-        } else {
-            logUtil.log("删除用户信息时失败，用户ID：" + userId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("删除失败！");
         }
+        logUtil.log("删除用户信息时失败，用户ID：" + userId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("删除失败！");
     }
 }

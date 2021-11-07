@@ -67,10 +67,9 @@ public class ItemController {
         if (save) {
             logUtil.log("新增商品成功", LogStatus.INFO.info);
             return RestResponse.makeOkRsp("新增成功！");
-        } else {
-            logUtil.log("新增商品失败", LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("新增失败！");
         }
+        logUtil.log("新增商品失败", LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("新增失败！");
     }
 
     @ApiOperation("按商品id查询")
@@ -91,8 +90,7 @@ public class ItemController {
 
     @ApiOperation("按商品id更新")
     @PostMapping("/updateItemByItemId/{itemId}")
-    public RestObject<String> updateItemByItemId(
-            @PathVariable String itemId, @RequestBody ItemVo itemVo) {
+    public RestObject<String> updateItemByItemId(@PathVariable String itemId, @RequestBody ItemVo itemVo) {
         String flagName = itemVo.getFlagName();
         Flag flag = iFlagService.retrieveByFlagName(flagName);
         String flagId;
@@ -119,10 +117,9 @@ public class ItemController {
         if (b) {
             logUtil.log("成功修改了商品信息，商品ID：" + itemId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("修改成功！");
-        } else {
-            logUtil.log("修改商品信息时失败，商品ID：" + itemId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("修改失败！");
         }
+        logUtil.log("修改商品信息时失败，商品ID：" + itemId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("修改失败！");
     }
 
     @ApiOperation("按商品id删除")
@@ -132,10 +129,9 @@ public class ItemController {
         if (b) {
             logUtil.log("成功删除了商品信息，商品ID：" + itemId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("删除成功！");
-        } else {
-            logUtil.log("删除商品信息时失败，商品ID：" + itemId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("删除失败！");
         }
+        logUtil.log("删除商品信息时失败，商品ID：" + itemId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("删除失败！");
     }
 
     @ApiOperation("按商品名称查询")

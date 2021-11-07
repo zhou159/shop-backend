@@ -30,10 +30,7 @@ public class SitcomController {
     String updateStatusZero = "0";
     String watchStatusZero = "0";
 
-    public SitcomController(
-            ISitcomService iSitcomService,
-            LogUtil logUtil,
-            ISitcomNumberService iSitcomNumberService) {
+    public SitcomController(ISitcomService iSitcomService, LogUtil logUtil, ISitcomNumberService iSitcomNumberService) {
         this.iSitcomService = iSitcomService;
         this.logUtil = logUtil;
         this.iSitcomNumberService = iSitcomNumberService;
@@ -42,9 +39,6 @@ public class SitcomController {
     @ApiOperation("新增连续剧")
     @PostMapping("/createSitcom")
     public RestObject<String> createSitcom(@RequestBody Sitcom sitcom) {
-        //        if (sitcom.getSitcomWatchStartTime() == null) {
-        //            sitcom.setSitcomWatchStartTime(LocalDate.now());
-        //        }
         if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
             return RestResponse.makeErrRsp("连续剧更新状态不能为空");
         }
@@ -65,10 +59,9 @@ public class SitcomController {
         if (save) {
             logUtil.log("新增连续剧成功", LogStatus.INFO.info);
             return RestResponse.makeOkRsp("新增成功！");
-        } else {
-            logUtil.log("新增连续剧出现异常", LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("新增成功！");
         }
+        logUtil.log("新增连续剧出现异常", LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("新增成功！");
     }
 
     @ApiOperation("按id查询连续剧")
@@ -89,8 +82,7 @@ public class SitcomController {
 
     @ApiOperation("按id修改连续剧")
     @PostMapping("/updateSitcomBySitcomId/{sitcomId}")
-    public RestObject<String> updateSitcomBySitcomId(
-            @PathVariable String sitcomId, @RequestBody Sitcom sitcom) {
+    public RestObject<String> updateSitcomBySitcomId(@PathVariable String sitcomId, @RequestBody Sitcom sitcom) {
         sitcom.setSitcomId(sitcomId);
         if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
             return RestResponse.makeErrRsp("连续剧更新状态不能为空");
@@ -106,10 +98,9 @@ public class SitcomController {
         if (b) {
             logUtil.log("成功修改了连续剧信息，连续剧ID：" + sitcomId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("修改成功！");
-        } else {
-            logUtil.log("修改连续剧信息时失败，连续剧ID：" + sitcomId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("修改失败！");
         }
+        logUtil.log("修改连续剧信息时失败，连续剧ID：" + sitcomId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("修改失败！");
     }
 
     @ApiOperation("按id删除连续剧及其剧集")
@@ -120,9 +111,8 @@ public class SitcomController {
         if (b && i != 0) {
             logUtil.log("成功删除了连续剧及其剧集信息，连续剧ID：" + sitcomId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("删除成功！");
-        } else {
-            logUtil.log("删除连续剧信息及其剧集时失败，连续剧ID：" + sitcomId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("删除失败！");
         }
+        logUtil.log("删除连续剧信息及其剧集时失败，连续剧ID：" + sitcomId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("删除失败！");
     }
 }

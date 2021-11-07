@@ -33,4 +33,14 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
     public List<IssueModuleDto> getIssueModule() {
         return issueMapper.getIssueModule();
     }
+
+    @Override
+    public List<Issue> readEffectiveIssue() {
+        return issueMapper.readEffectiveIssue();
+    }
+
+    @Override
+    public int updateIssueStatus(String issueId, String issueStatus) {
+        return issueMapper.updateIssueStatus(issueId,issueStatus);
+    }
 }

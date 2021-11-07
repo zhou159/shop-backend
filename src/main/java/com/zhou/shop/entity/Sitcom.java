@@ -73,6 +73,10 @@ public class Sitcom {
     @TableId(value = "sitcom_style")
     private String sitcomStyle;
 
+    @ApiModelProperty(value = "连续剧简介")
+    @TableId(value = "sitcom_intro")
+    private String sitcomIntro;
+
     public Sitcom() {}
 
     public Sitcom(
@@ -88,7 +92,8 @@ public class Sitcom {
             String sitcomCountry,
             String sitcomDirector,
             String sitcomType,
-            String sitcomStyle) {
+            String sitcomStyle,
+            String sitcomIntro) {
         this.sitcomId = sitcomId;
         this.sitcomName = sitcomName;
         this.sitcomWatchStartTime = sitcomWatchStartTime;
@@ -102,6 +107,7 @@ public class Sitcom {
         this.sitcomDirector = sitcomDirector;
         this.sitcomType = sitcomType;
         this.sitcomStyle = sitcomStyle;
+        this.sitcomIntro = sitcomIntro;
     }
 
     public String getSitcomId() {
@@ -208,6 +214,14 @@ public class Sitcom {
         this.sitcomStyle = sitcomStyle;
     }
 
+    public String getSitcomIntro() {
+        return sitcomIntro;
+    }
+
+    public void setSitcomIntro(String sitcomIntro) {
+        this.sitcomIntro = sitcomIntro;
+    }
+
     @Override
     public String toString() {
         return "Sitcom{"
@@ -247,6 +261,9 @@ public class Sitcom {
                 + '\''
                 + ", sitcomStyle='"
                 + sitcomStyle
+                + '\''
+                + ", sitcomIntro='"
+                + sitcomIntro
                 + '\''
                 + '}';
     }

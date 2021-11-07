@@ -39,10 +39,9 @@ public class IssueController {
         if (save) {
             logUtil.log("新增了一个问题", LogStatus.INFO.info);
             return RestResponse.makeOkRsp("新增成功！");
-        } else {
-            logUtil.log("新增问题出现异常", LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("新增成功！");
         }
+        logUtil.log("新增问题出现异常", LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("新增成功！");
     }
 
     @ApiOperation("按id查询问题")
@@ -53,27 +52,25 @@ public class IssueController {
         return RestResponse.makeOkRsp(issue);
     }
 
-    @ApiOperation("查询全部问题")
+    @ApiOperation("查询全部未解决的问题")
     @GetMapping("/retrieveAllIssue")
     public RestObject<List<Issue>> retrieveAllIssue() {
-        List<Issue> list = iIssueService.list();
-        logUtil.log("查询了全部问题信息", LogStatus.INFO.info);
+        List<Issue> list = iIssueService.readEffectiveIssue();
+        logUtil.log("查询了全部未解决的问题信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 
     @ApiOperation("按id修改问题")
     @PostMapping("/updateIssueByIssueId/{issueId}")
-    public RestObject<String> updateIssueByIssueId(
-            @PathVariable String issueId, @RequestBody Issue issue) {
+    public RestObject<String> updateIssueByIssueId(@PathVariable String issueId, @RequestBody Issue issue) {
         issue.setIssueId(issueId);
         boolean b = iIssueService.updateById(issue);
         if (b) {
             logUtil.log("成功修改了信息信息，信息ID：" + issueId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("修改成功！");
-        } else {
-            logUtil.log("修改信息信息时失败，信息ID：" + issueId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("修改失败！");
         }
+        logUtil.log("修改信息信息时失败，信息ID：" + issueId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("修改失败！");
     }
 
     @ApiOperation("按id删除问题")
@@ -83,10 +80,9 @@ public class IssueController {
         if (b) {
             logUtil.log("成功删除了信息信息，信息ID：" + issueId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("删除成功！");
-        } else {
-            logUtil.log("删除信息信息时失败，信息ID：" + issueId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("删除失败！");
         }
+        logUtil.log("删除信息信息时失败，信息ID：" + issueId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("删除失败！");
     }
 
     @ApiOperation("查询全部问题板块")
@@ -102,5 +98,17 @@ public class IssueController {
         logUtil.log("根据问题描述模糊查询了问题，问题描述：" + issue.getIssueDescription(), LogStatus.INFO.info);
         return RestResponse.makeOkRsp(
                 iIssueService.retrieveByIssueDescription(issue.getIssueDescription()));
+    }
+
+    @ApiOperation("修改问题状态")
+    @PostMapping("/updateIssueStatus/{issueId}")
+    public RestObject<String> updateIssueStatus(@PathVariable String issueId, @RequestBody Issue issue) {
+        int i = iIssueService.updateIssueStatus(issueId, issue.getIssueStatus());
+        if (i == 1) {
+            logUtil.log("修改了问题状态，问题ID：" + issueId, LogStatus.INFO.info);
+            return RestResponse.makeOkRsp("修改成功！");
+        }
+        logUtil.log("修改问题状态出现异常，问题ID：" + issueId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("修改失败！");
     }
 }

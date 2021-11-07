@@ -1,6 +1,7 @@
 package com.zhou.shop.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zhou.shop.dto.SitcomNumberDto;
 import com.zhou.shop.entity.SitcomNumber;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -33,4 +34,11 @@ public interface SitcomNumberMapper extends BaseMapper<SitcomNumber> {
      * @return 整数
      */
     int deleteBySitcomId(@Param("sitcomId")String sitcomId);
+
+    /**
+     * 查询最大的集号
+     * @param sitcomId
+     * @return 最大的集号
+     */
+    SitcomNumberDto readMaxSitcomNumberNumber(@Param("sitcomId")String sitcomId);
 }

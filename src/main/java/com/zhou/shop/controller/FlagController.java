@@ -35,10 +35,9 @@ public class FlagController {
         if (save) {
             logUtil.log("新增了一个标签", LogStatus.INFO.info);
             return RestResponse.makeOkRsp("新增成功！");
-        } else {
-            logUtil.log("新增标签出现异常", LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("新增失败！");
         }
+        logUtil.log("新增标签出现异常", LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("新增失败！");
     }
 
     @ApiOperation("按id查询标签")
@@ -59,17 +58,15 @@ public class FlagController {
 
     @ApiOperation("按id修改标签")
     @PostMapping("/updateFlagByFlagId/{flagId}")
-    public RestObject<String> updateFlagByFlagId(
-            @PathVariable String flagId, @RequestBody Flag flag) {
+    public RestObject<String> updateFlagByFlagId(@PathVariable String flagId, @RequestBody Flag flag) {
         flag.setFlagId(flagId);
         boolean b = iFlagService.updateById(flag);
         if (b) {
             logUtil.log("成功修改了标签信息，标签ID：" + flagId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("修改成功！");
-        } else {
-            logUtil.log("修改标签信息时失败，标签ID：" + flagId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("修改失败！");
         }
+        logUtil.log("修改标签信息时失败，标签ID：" + flagId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("修改失败！");
     }
 
     @ApiOperation("按id删除标签")
@@ -79,9 +76,8 @@ public class FlagController {
         if (b) {
             logUtil.log("成功删除了标签信息，标签ID：" + flagId, LogStatus.INFO.info);
             return RestResponse.makeOkRsp("删除成功！");
-        } else {
-            logUtil.log("删除标签信息时失败，标签ID：" + flagId, LogStatus.ERROR.info);
-            return RestResponse.makeErrRsp("删除失败！");
         }
+        logUtil.log("删除标签信息时失败，标签ID：" + flagId, LogStatus.ERROR.info);
+        return RestResponse.makeErrRsp("删除失败！");
     }
 }
