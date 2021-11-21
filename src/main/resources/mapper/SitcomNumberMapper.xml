@@ -24,6 +24,6 @@
     </resultMap>
 
     <select id="readMaxSitcomNumberNumber" resultMap="readMaxSitcomNumberNumberMap">
-        select max(sitcom_number_number) mx from sitcom_number where sitcom_id = #{sitcomId};
+        select max(sitcom_number_number+0) mx from sitcom_number where sitcom_id = #{sitcomId};
     </select>
 </mapper>

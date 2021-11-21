@@ -30,7 +30,7 @@ public class SitcomNumberController {
     final ISitcomService iSitcomService;
     final LogUtil logUtil;
 
-    private final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
+    private final Pattern NUMBER_PATTERN = Pattern.compile("\\d+\\.");
 
     public SitcomNumberController(ISitcomNumberService iSitcomNumberService, ISitcomService iSitcomService, LogUtil logUtil) {
         this.iSitcomNumberService = iSitcomNumberService;
@@ -66,14 +66,13 @@ public class SitcomNumberController {
         if(maxNumber == null){
             maxNumber = "0";
         }
-
         Matcher matcher = NUMBER_PATTERN.matcher(maxNumber);
         String group = null;
         while (matcher.find()){
             group  = matcher.group();
         }
 
-        String sitcomNumberNumber = String.valueOf(Integer.parseInt(group) + 1);
+        String sitcomNumberNumber = String.valueOf(Integer.parseInt(group.replace(".","")) + 1);
         String sitcomNumberName = "第" + sitcomNumberNumber + "集";
 
         sitcomNumber.setSitcomNumberNumber(sitcomNumberNumber);
