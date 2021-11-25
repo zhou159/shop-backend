@@ -70,11 +70,11 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
 
     /**
      * 按集名查询集
-     *
+     * @param sitcomId 连续剧ID
      * @param sitcomNumberName 集名
      * @return 集对象
      */
-    List<SitcomNumber> retrieveBySitcomNumberName(String sitcomNumberName);
+    List<SitcomNumber> retrieveBySitcomNumberName(String sitcomNumberName,String sitcomId);
 
     /**
      * 根据连续剧id删除所有剧集

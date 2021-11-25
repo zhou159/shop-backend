@@ -11,6 +11,7 @@
         select *
         from sitcom_number
         where sitcom_number_name like '%${sitcomNumberName}%'
+        and sitcom_id = #{sitcomId}
     </select>
 
     <delete id="deleteBySitcomId">

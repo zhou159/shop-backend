@@ -32,7 +32,10 @@ public class SitcomNumberController {
 
     private final Pattern NUMBER_PATTERN = Pattern.compile("\\d+\\.");
 
-    public SitcomNumberController(ISitcomNumberService iSitcomNumberService, ISitcomService iSitcomService, LogUtil logUtil) {
+    public SitcomNumberController(
+            ISitcomNumberService iSitcomNumberService,
+            ISitcomService iSitcomService,
+            LogUtil logUtil) {
         this.iSitcomNumberService = iSitcomNumberService;
         this.iSitcomService = iSitcomService;
         this.logUtil = logUtil;
@@ -57,22 +60,23 @@ public class SitcomNumberController {
     @PostMapping("/createSitcomNumberFast")
     public RestObject<String> createSitcomNumberFast(@RequestBody SitcomNumber sitcomNumber) {
         Sitcom byId = iSitcomService.getById(sitcomNumber.getSitcomId());
-        if (!"1".equals(byId.getSitcomWatchStatus())){
+        if (!"1".equals(byId.getSitcomWatchStatus())) {
             return RestResponse.makeErrRsp("这部连续剧已经看完了！");
         }
-        SitcomNumberDto sitcomNumberDto = iSitcomNumberService.readMaxSitcomNumberNumber(sitcomNumber.getSitcomId());
+        SitcomNumberDto sitcomNumberDto =
+                iSitcomNumberService.readMaxSitcomNumberNumber(sitcomNumber.getSitcomId());
 
         String maxNumber = sitcomNumberDto.getMaxNumber();
-        if(maxNumber == null){
+        if (maxNumber == null) {
             maxNumber = "0";
         }
         Matcher matcher = NUMBER_PATTERN.matcher(maxNumber);
         String group = null;
-        while (matcher.find()){
-            group  = matcher.group();
+        while (matcher.find()) {
+            group = matcher.group();
         }
 
-        String sitcomNumberNumber = String.valueOf(Integer.parseInt(group.replace(".","")) + 1);
+        String sitcomNumberNumber = String.valueOf(Integer.parseInt(group.replace(".", "")) + 1);
         String sitcomNumberName = "第" + sitcomNumberNumber + "集";
 
         sitcomNumber.setSitcomNumberNumber(sitcomNumberNumber);
@@ -105,7 +109,8 @@ public class SitcomNumberController {
 
     @ApiOperation("按id修改剧集")
     @PostMapping("/updateSitcomNumberBySitcomNumberId/{sitcomNumberId}")
-    public RestObject<String> updateSitcomNumberBySitcomNumberId(@PathVariable String sitcomNumberId, @RequestBody SitcomNumber sitcomNumber) {
+    public RestObject<String> updateSitcomNumberBySitcomNumberId(
+            @PathVariable String sitcomNumberId, @RequestBody SitcomNumber sitcomNumber) {
         sitcomNumber.setSitcomNumberId(sitcomNumberId);
         if (sitcomNumber.getSitcomNumberWatchTime() == null) {
             sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now());
@@ -141,9 +146,11 @@ public class SitcomNumberController {
 
     @ApiOperation("按集名查询")
     @PostMapping("/retrieveBySitcomNumberName")
-    public RestObject<List<SitcomNumber>> retrieveItemByItemName(@RequestBody SitcomNumber sitcomNumber) {
+    public RestObject<List<SitcomNumber>> retrieveItemByItemName(
+            @RequestBody SitcomNumber sitcomNumber) {
         List<SitcomNumber> list =
-                iSitcomNumberService.retrieveBySitcomNumberName(sitcomNumber.getSitcomNumberName());
+                iSitcomNumberService.retrieveBySitcomNumberName(
+                        sitcomNumber.getSitcomNumberName(), sitcomNumber.getSitcomId());
         logUtil.log("按剧集名查询了全部剧集信息，剧集名：" + sitcomNumber.getSitcomNumberName(), LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
