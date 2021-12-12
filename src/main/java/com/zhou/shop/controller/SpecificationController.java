@@ -44,7 +44,7 @@ public class SpecificationController {
     @GetMapping("/retrieveBySpecificationId/{specificationId}")
     public RestObject<Specification> retrieveBySpecificationId(@PathVariable String specificationId) {
         Specification specification = iSpecificationService.getById(specificationId);
-        logUtil.log("查询了规格信息，规格ID：" + specificationId, LogStatus.INFO.info);
+//        logUtil.log("查询了规格信息，规格ID：" + specificationId, LogStatus.INFO.info);
         return RestResponse.makeOkRsp(specification);
     }
 
@@ -52,7 +52,7 @@ public class SpecificationController {
     @GetMapping("/retrieveAllSpecification")
     public RestObject<List<Specification>> retrieveAllSpecification() {
         List<Specification> list = iSpecificationService.list();
-        logUtil.log("查询了全部规格信息", LogStatus.INFO.info);
+//        logUtil.log("查询了全部规格信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 
@@ -85,7 +85,7 @@ public class SpecificationController {
     @PostMapping("/retrieveBySpecificationName")
     public RestObject<List<Specification>> retrieveSpecificationByShopName(@RequestBody Specification specification) {
         List<Specification> list = iSpecificationService.retrieveBySpecificationName(specification.getSpecificationName());
-        logUtil.log("按规格名查询了全部规格信息，规格名：" + specification.getSpecificationName(), LogStatus.INFO.info);
+//        logUtil.log("按规格名查询了全部规格信息，规格名：" + specification.getSpecificationName(), LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 }

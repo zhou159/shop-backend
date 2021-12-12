@@ -63,8 +63,24 @@ public class SitcomNumberController {
         if (!"1".equals(byId.getSitcomWatchStatus())) {
             return RestResponse.makeErrRsp("这部连续剧已经看完了！");
         }
-        SitcomNumberDto sitcomNumberDto =
-                iSitcomNumberService.readMaxSitcomNumberNumber(sitcomNumber.getSitcomId());
+        SitcomNumberDto sitcomNumberDto2 = iSitcomNumberService.readSitcomNumberCnt(sitcomNumber.getSitcomId());
+        System.out.println(sitcomNumberDto2.getCount());
+        if(sitcomNumberDto2.getCount() == 0){
+            sitcomNumber.setSitcomNumberNumber("1");
+            sitcomNumber.setSitcomNumberName("第1集");
+            sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now());
+
+            boolean save = iSitcomNumberService.save(sitcomNumber);
+            if (save) {
+                logUtil.log("新增剧集成功", LogStatus.INFO.info);
+                return RestResponse.makeOkRsp("新增成功！");
+            }else{
+                logUtil.log("新增剧集出现异常", LogStatus.ERROR.info);
+                return RestResponse.makeErrRsp("新增失败！");
+            }
+        }
+
+        SitcomNumberDto sitcomNumberDto = iSitcomNumberService.readMaxSitcomNumberNumber(sitcomNumber.getSitcomId());
 
         String maxNumber = sitcomNumberDto.getMaxNumber();
         if (maxNumber == null) {
@@ -95,7 +111,7 @@ public class SitcomNumberController {
     @GetMapping("/retrieveBySitcomNumberId/{sitcomNumberId}")
     public RestObject<SitcomNumber> retrieveBySitcomNumberId(@PathVariable String sitcomNumberId) {
         SitcomNumber sitcomNumber = iSitcomNumberService.getById(sitcomNumberId);
-        logUtil.log("查询了剧集信息，剧集ID：" + sitcomNumberId, LogStatus.INFO.info);
+//        logUtil.log("查询了剧集信息，剧集ID：" + sitcomNumberId, LogStatus.INFO.info);
         return RestResponse.makeOkRsp(sitcomNumber);
     }
 
@@ -103,7 +119,7 @@ public class SitcomNumberController {
     @GetMapping("/retrieveAllSitcomNumber")
     public RestObject<List<SitcomNumber>> retrieveAllSitcomNumber() {
         List<SitcomNumber> list = iSitcomNumberService.list();
-        logUtil.log("查询了全部剧集信息", LogStatus.INFO.info);
+//        logUtil.log("查询了全部剧集信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 
@@ -140,7 +156,7 @@ public class SitcomNumberController {
     @GetMapping("/retrieveBySitcomId/{sitcomId}")
     public RestObject<List<SitcomNumber>> retrieveBySitcomId(@PathVariable String sitcomId) {
         List<SitcomNumber> sitcomNumbers = iSitcomNumberService.retrieveBySitcomId(sitcomId);
-        logUtil.log("查询了连续剧的全部剧集信息，连续剧ID：" + sitcomId, LogStatus.INFO.info);
+//        logUtil.log("查询了连续剧的全部剧集信息，连续剧ID：" + sitcomId, LogStatus.INFO.info);
         return RestResponse.makeOkRsp(sitcomNumbers);
     }
 
@@ -151,7 +167,7 @@ public class SitcomNumberController {
         List<SitcomNumber> list =
                 iSitcomNumberService.retrieveBySitcomNumberName(
                         sitcomNumber.getSitcomNumberName(), sitcomNumber.getSitcomId());
-        logUtil.log("按剧集名查询了全部剧集信息，剧集名：" + sitcomNumber.getSitcomNumberName(), LogStatus.INFO.info);
+//        logUtil.log("按剧集名查询了全部剧集信息，剧集名：" + sitcomNumber.getSitcomNumberName(), LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 }

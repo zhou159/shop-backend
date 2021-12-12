@@ -40,4 +40,11 @@ public interface SitcomNumberMapper extends BaseMapper<SitcomNumber> {
      * @return 最大的集号
      */
     SitcomNumberDto readMaxSitcomNumberNumber(@Param("sitcomId")String sitcomId);
+
+    /**
+     * 查询集的数量
+     * @param sitcomId
+     * @return 集数
+     */
+    SitcomNumberDto readSitcomNumberCnt(@Param("sitcomId")String sitcomId);
 }

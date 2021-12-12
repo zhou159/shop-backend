@@ -43,4 +43,9 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
     public SitcomNumberDto readMaxSitcomNumberNumber(String sitcomId) {
         return sitcomNumberMapper.readMaxSitcomNumberNumber(sitcomId);
     }
+
+    @Override
+    public SitcomNumberDto readSitcomNumberCnt(String sitcomId) {
+        return sitcomNumberMapper.readSitcomNumberCnt(sitcomId);
+    }
 }

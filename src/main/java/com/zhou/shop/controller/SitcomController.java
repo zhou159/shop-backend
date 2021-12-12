@@ -68,7 +68,7 @@ public class SitcomController {
     @GetMapping("/retrieveBySitcomId/{sitcomId}")
     public RestObject<Sitcom> retrieveBySitcomId(@PathVariable String sitcomId) {
         Sitcom sitcom = iSitcomService.getById(sitcomId);
-        logUtil.log("查询了连续剧信息，连续剧ID：" + sitcomId, LogStatus.INFO.info);
+//        logUtil.log("查询了连续剧信息，连续剧ID：" + sitcomId, LogStatus.INFO.info);
         return RestResponse.makeOkRsp(sitcom);
     }
 
@@ -76,7 +76,7 @@ public class SitcomController {
     @GetMapping("/retrieveAllSitcom")
     public RestObject<List<Sitcom>> retrieveAllSitcom() {
         List<Sitcom> list = iSitcomService.list();
-        logUtil.log("查询了全部连续剧信息", LogStatus.INFO.info);
+//        logUtil.log("查询了全部连续剧信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 

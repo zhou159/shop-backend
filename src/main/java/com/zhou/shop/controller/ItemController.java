@@ -76,7 +76,7 @@ public class ItemController {
     @GetMapping("/retrieveByItemId/{itemId}")
     public RestObject<Item> retrieveByItemId(@PathVariable String itemId) {
         Item item = iItemService.getById(itemId);
-        logUtil.log("查询了商品信息，商品ID：" + itemId, LogStatus.INFO.info);
+//        logUtil.log("查询了商品信息，商品ID：" + itemId, LogStatus.INFO.info);
         return RestResponse.makeOkRsp(item);
     }
 
@@ -84,7 +84,7 @@ public class ItemController {
     @GetMapping("/retrieveAllItem")
     public RestObject<List<ItemDto>> retrieveAllItem() {
         List<ItemDto> list = iItemService.retrieveAllItem();
-        logUtil.log("查询了全部商品信息", LogStatus.INFO.info);
+//        logUtil.log("查询了全部商品信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 
@@ -138,7 +138,7 @@ public class ItemController {
     @PostMapping("/retrieveByItemName")
     public RestObject<List<ItemDto>> retrieveItemByItemName(@RequestBody Item item) {
         List<ItemDto> list = iItemService.retrieveByItemName(item.getItemName());
-        logUtil.log("按名查询了商品信息，商品名：" + item.getItemName(), LogStatus.INFO.info);
+//        logUtil.log("按名查询了商品信息，商品名：" + item.getItemName(), LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 }

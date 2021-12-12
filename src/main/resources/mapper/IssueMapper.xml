@@ -16,6 +16,7 @@
         select *
         from issue
         where issue_description like '%${issueDescription}%'
+        and issue_status = '0'
     </select>
 
     <select id="readEffectiveIssue" resultType="com.zhou.shop.entity.Issue">

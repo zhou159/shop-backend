@@ -89,4 +89,11 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
      * @return 最大的集号
      */
     SitcomNumberDto readMaxSitcomNumberNumber(String sitcomId);
+
+    /**
+     * 查询集的数量
+     * @param sitcomId
+     * @return 集数
+     */
+    SitcomNumberDto readSitcomNumberCnt(String sitcomId);
 }

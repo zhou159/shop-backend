@@ -44,7 +44,7 @@ public class ShopController {
     @GetMapping("/retrieveByShopId/{shopId}")
     public RestObject<Shop> retrieveByShopId(@PathVariable String shopId) {
         Shop shop = iShopService.getById(shopId);
-        logUtil.log("查询了商店信息，商店ID：" + shopId, LogStatus.INFO.info);
+//        logUtil.log("查询了商店信息，商店ID：" + shopId, LogStatus.INFO.info);
         return RestResponse.makeOkRsp(shop);
     }
 
@@ -52,7 +52,7 @@ public class ShopController {
     @GetMapping("/retrieveAllShop")
     public RestObject<List<Shop>> retrieveAllShop() {
         List<Shop> list = iShopService.list();
-        logUtil.log("查询了全部商店信息", LogStatus.INFO.info);
+//        logUtil.log("查询了全部商店信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 
@@ -85,7 +85,7 @@ public class ShopController {
     @PostMapping("/retrieveByShopName")
     public RestObject<List<Shop>> retrieveShopByShopName(@RequestBody Shop shop) {
         List<Shop> list = iShopService.retrieveByShopName(shop.getShopName());
-        logUtil.log("按名查询了商店信息，商店名：" + shop.getShopName(), LogStatus.INFO.info);
+//        logUtil.log("按名查询了商店信息，商店名：" + shop.getShopName(), LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 }

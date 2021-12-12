@@ -11,7 +11,7 @@
         select *
         from sitcom_number
         where sitcom_number_name like '%${sitcomNumberName}%'
-        and sitcom_id = #{sitcomId}
+          and sitcom_id = #{sitcomId}
     </select>
 
     <delete id="deleteBySitcomId">
@@ -22,9 +22,18 @@
 
     <resultMap id="readMaxSitcomNumberNumberMap" type="com.zhou.shop.dto.SitcomNumberDto">
         <result column="mx" property="maxNumber"/>
+        <result column="cnt" property="count"/>
     </resultMap>
 
     <select id="readMaxSitcomNumberNumber" resultMap="readMaxSitcomNumberNumberMap">
-        select max(sitcom_number_number+0) mx from sitcom_number where sitcom_id = #{sitcomId};
+        select max(sitcom_number_number + 0) mx
+        from sitcom_number
+        where sitcom_id = #{sitcomId};
+    </select>
+
+    <select id="readSitcomNumberCnt" resultMap="readMaxSitcomNumberNumberMap">
+        select count(*) cnt
+        from sitcom_number
+        where sitcom_id = #{sitcomId}
     </select>
 </mapper>

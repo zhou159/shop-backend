@@ -58,7 +58,7 @@ public class UpdateLogController {
     @GetMapping("/retrieveAllUpdateLog")
     public RestObject<List<UpdateLog>> retrieveAllUpdateLog() {
         List<UpdateLog> list = iUpdateLogService.list();
-        logUtil.log("查询了全部更新日志信息", LogStatus.INFO.info);
+//        logUtil.log("查询了全部更新日志信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 

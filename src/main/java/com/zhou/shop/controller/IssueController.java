@@ -48,7 +48,7 @@ public class IssueController {
     @GetMapping("/retrieveByIssueId/{issueId}")
     public RestObject<Issue> retrieveByIssueId(@PathVariable String issueId) {
         Issue issue = iIssueService.getById(issueId);
-        logUtil.log("查询了问题信息，问题ID：" + issueId, LogStatus.INFO.info);
+//        logUtil.log("查询了问题信息，问题ID：" + issueId, LogStatus.INFO.info);
         return RestResponse.makeOkRsp(issue);
     }
 
@@ -56,7 +56,7 @@ public class IssueController {
     @GetMapping("/retrieveAllIssue")
     public RestObject<List<Issue>> retrieveAllIssue() {
         List<Issue> list = iIssueService.readEffectiveIssue();
-        logUtil.log("查询了全部未解决的问题信息", LogStatus.INFO.info);
+//        logUtil.log("查询了全部未解决的问题信息", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(list);
     }
 
@@ -88,14 +88,14 @@ public class IssueController {
     @ApiOperation("查询全部问题板块")
     @GetMapping("/issueModule")
     public RestObject<List<IssueModuleDto>> getIssueModule() {
-        logUtil.log("查询了全部问题板块", LogStatus.INFO.info);
+//        logUtil.log("查询了全部问题板块", LogStatus.INFO.info);
         return RestResponse.makeOkRsp(iIssueService.getIssueModule());
     }
 
     @ApiOperation("根据问题描述模糊查询")
     @PostMapping("/retrieveByIssueDescription")
     public RestObject<List<Issue>> retrieveByIssueDescription(@RequestBody Issue issue) {
-        logUtil.log("根据问题描述模糊查询了问题，问题描述：" + issue.getIssueDescription(), LogStatus.INFO.info);
+//        logUtil.log("根据问题描述模糊查询了问题，问题描述：" + issue.getIssueDescription(), LogStatus.INFO.info);
         return RestResponse.makeOkRsp(
                 iIssueService.retrieveByIssueDescription(issue.getIssueDescription()));
     }
