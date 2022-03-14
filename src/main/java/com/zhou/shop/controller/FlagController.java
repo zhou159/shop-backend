@@ -44,7 +44,7 @@ public class FlagController {
     @GetMapping("/retrieveByFlagId/{flagId}")
     public RestObject<Flag> retrieveByFlagId(@PathVariable String flagId) {
         Flag flag = iFlagService.getById(flagId);
-//        logUtil.log("查询了标签信息，标签ID：" + flagId, LogStatus.INFO.info);
+        /* logUtil.log("查询了标签信息，标签ID：" + flagId, LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(flag);
     }
 
@@ -52,7 +52,7 @@ public class FlagController {
     @GetMapping("/retrieveAllFlag")
     public RestObject<List<Flag>> retrieveAllFlag() {
         List<Flag> list = iFlagService.list();
-//        logUtil.log("查询了全部标签信息", LogStatus.INFO.info);
+        /* logUtil.log("查询了全部标签信息", LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(list);
     }
 

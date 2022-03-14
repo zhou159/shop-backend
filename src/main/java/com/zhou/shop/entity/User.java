@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -30,10 +29,6 @@ public class User implements Serializable {
     @TableField("username")
     private String username;
 
-    @ApiModelProperty(value = "用户密码")
-    @TableField("password")
-    private String password;
-
     @ApiModelProperty(value = "用户角色")
     @TableField("role")
     private String role;
@@ -44,10 +39,9 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(String userId, String username, String password, String role, String userPicture) {
+    public User(String userId, String username, String role, String userPicture) {
         this.userId = userId;
         this.username = username;
-        this.password = password;
         this.role = role;
         this.userPicture = userPicture;
     }
@@ -66,14 +60,6 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRole() {
@@ -100,9 +86,6 @@ public class User implements Serializable {
                 + ", username='"
                 + username
                 + '\''
-                + ", password='"
-                + password
-                + '\''
                 + ", role='"
                 + role
                 + '\''
@@ -112,12 +95,4 @@ public class User implements Serializable {
                 + '}';
     }
 
-    public static void main(String[] args) {
-        Matcher matcher = NUMBER_PATTERN.matcher("1");
-        String group = null;
-        while (matcher.find()){
-            group  = matcher.group();
-        }
-        System.out.println(group);
-    }
 }

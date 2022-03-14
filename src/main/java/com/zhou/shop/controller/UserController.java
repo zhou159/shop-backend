@@ -2,15 +2,23 @@ package com.zhou.shop.controller;
 
 import com.zhou.shop.entity.User;
 import com.zhou.shop.enums.LogStatus;
+import com.zhou.shop.enums.Source;
 import com.zhou.shop.result.RestObject;
 import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IUserService;
 import com.zhou.shop.util.LogUtil;
 import com.zhou.shop.util.MinioUtil;
+import com.zhou.shop.util.RandomUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
+
+import static com.zhou.shop.util.RandomUtil.createImage;
 
 /**
  * 前端控制器
@@ -48,7 +56,7 @@ public class UserController {
     @GetMapping("/retrieveByUserId/{userId}")
     public RestObject<User> retrieveByUserId(@PathVariable String userId) {
         User user = iUserService.getById(userId);
-//        logUtil.log("查询了用户信息，用户ID：" + userId, LogStatus.INFO.info);
+        /* logUtil.log("查询了用户信息，用户ID：" + userId, LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(user);
     }
 
@@ -56,7 +64,7 @@ public class UserController {
     @GetMapping("/retrieveAllUser")
     public RestObject<List<User>> retrieveAllUser() {
         List<User> list = iUserService.list();
-//        logUtil.log("查询了全部用户信息", LogStatus.INFO.info);
+        /* logUtil.log("查询了全部用户信息", LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(list);
     }
 
@@ -83,5 +91,33 @@ public class UserController {
         }
         logUtil.log("删除用户信息时失败，用户ID：" + userId, LogStatus.ERROR.info);
         return RestResponse.makeErrRsp("删除失败！");
+    }
+
+    @ApiOperation(value = "图形验证码")
+    @GetMapping("/verifyCode")
+    public void verifyCode(HttpSession session, HttpServletResponse response) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            String code = RandomUtil.createRandom(4, Source.numLetter,Source.numLetter.getSources().length());
+            createImage(code,baos);
+            //将VerifyCode绑定session
+            session.setAttribute("VerifyCode",code);
+            System.out.println(session.getId());
+            //设置响应头
+            response.setHeader("Pragma", "no-cache");
+            //设置响应头
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Access-Control-Allow-Origin","true");
+            //在代理服务器端防止缓冲
+            response.setDateHeader("Expires", 0);
+            //设置响应内容类型
+            response.setContentType("image/jpeg");
+
+            response.getOutputStream().write(baos.toByteArray());
+            response.getOutputStream().flush();
+            baos.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 }

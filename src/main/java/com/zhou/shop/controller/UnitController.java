@@ -44,7 +44,7 @@ public class UnitController {
     @GetMapping("/retrieveByUnitId/{unitId}")
     public RestObject<Unit> retrieveByUnitId(@PathVariable String unitId) {
         Unit unit = iUnitService.getById(unitId);
-//        logUtil.log("查询了单位信息，单位ID：" + unitId, LogStatus.INFO.info);
+        /* logUtil.log("查询了单位信息，单位ID：" + unitId, LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(unit);
     }
 
@@ -52,7 +52,7 @@ public class UnitController {
     @GetMapping("/retrieveAllUnit")
     public RestObject<List<Unit>> retrieveAllUnit() {
         List<Unit> list = iUnitService.list();
-//        logUtil.log("查询了全部单位信息", LogStatus.INFO.info);
+        /* logUtil.log("查询了全部单位信息", LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(list);
     }
 
@@ -85,7 +85,7 @@ public class UnitController {
     @PostMapping("/retrieveByUnitName")
     public RestObject<List<Unit>> retrieveUnitByShopName(@RequestBody Unit unit) {
         List<Unit> list = iUnitService.retrieveByUnitName(unit.getUnitName());
-//        logUtil.log("按单位名查询了全部单位信息，单位名：" + unit.getUnitName(), LogStatus.INFO.info);
+        /* logUtil.log("按单位名查询了全部单位信息，单位名：" + unit.getUnitName(), LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(list);
     }
 }
