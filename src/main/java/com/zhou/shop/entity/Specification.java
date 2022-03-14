@@ -17,7 +17,7 @@ public class Specification {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "规格id")
-    @TableId(value = "specification_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "specification_id", type = IdType.ASSIGN_ID)
     private String specificationId;
 
     @ApiModelProperty(value = "规格名字")

@@ -1,6 +1,7 @@
 package com.zhou.shop.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -20,61 +21,61 @@ public class Sitcom {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "连续剧id")
-    @TableId(value = "sitcom_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "sitcom_id", type = IdType.ASSIGN_ID)
     private String sitcomId;
 
     @ApiModelProperty(value = "连续剧名称")
-    @TableId(value = "sitcom_name")
+    @TableField(value = "sitcom_name")
     private String sitcomName;
 
     @ApiModelProperty(value = "开始观看日期")
-    @TableId(value = "sitcom_watch_start_time")
+    @TableField(value = "sitcom_watch_start_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate sitcomWatchStartTime;
 
     @ApiModelProperty(value = "结束观看时间")
-    @TableId(value = "sitcom_watch_end_time")
+    @TableField(value = "sitcom_watch_end_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime sitcomWatchEndTime;
 
     @ApiModelProperty(value = "连续剧更新状态（0：完结；1：连载；2：断更）")
-    @TableId(value = "sitcom_update_status")
+    @TableField(value = "sitcom_update_status")
     private String sitcomUpdateStatus;
 
     @ApiModelProperty(value = "连续剧封面图")
-    @TableId(value = "sitcom_picture")
+    @TableField(value = "sitcom_picture")
     private String sitcomPicture;
 
     @ApiModelProperty(value = "连续剧链接")
-    @TableId(value = "sitcom_url")
+    @TableField(value = "sitcom_url")
     private String sitcomUrl;
 
     @ApiModelProperty(value = "备注")
-    @TableId(value = "sitcom_remark")
+    @TableField(value = "sitcom_remark")
     private String sitcomRemark;
 
     @ApiModelProperty(value = "连续剧观看状态（0：看完；1：观看中；2：放弃）")
-    @TableId(value = "sitcom_watch_status")
+    @TableField(value = "sitcom_watch_status")
     private String sitcomWatchStatus;
 
     @ApiModelProperty(value = "连续剧国家")
-    @TableId(value = "sitcom_country")
+    @TableField(value = "sitcom_country")
     private String sitcomCountry;
 
     @ApiModelProperty(value = "连续剧导演")
-    @TableId(value = "sitcom_director")
+    @TableField(value = "sitcom_director")
     private String sitcomDirector;
 
     @ApiModelProperty(value = "连续剧类型")
-    @TableId(value = "sitcom_type")
+    @TableField(value = "sitcom_type")
     private String sitcomType;
 
     @ApiModelProperty(value = "连续剧风格")
-    @TableId(value = "sitcom_style")
+    @TableField(value = "sitcom_style")
     private String sitcomStyle;
 
     @ApiModelProperty(value = "连续剧简介")
-    @TableId(value = "sitcom_intro")
+    @TableField(value = "sitcom_intro")
     private String sitcomIntro;
 
     public Sitcom() {}

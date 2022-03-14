@@ -20,7 +20,7 @@ public class Flag implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "标签价格")
-    @TableId(value = "flag_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "flag_id", type = IdType.ASSIGN_ID)
     private String flagId;
 
     @ApiModelProperty(value = "标签名字")

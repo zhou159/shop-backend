@@ -17,7 +17,7 @@ public class Unit {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "单位id")
-    @TableId(value = "unit_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "unit_id", type = IdType.ASSIGN_ID)
     private String unitId;
 
     @ApiModelProperty(value = "单位名字")

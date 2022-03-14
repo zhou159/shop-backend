@@ -1,8 +1,5 @@
 package com.zhou.shop.vo;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -23,55 +20,42 @@ public class ItemVo {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商品id")
-    @TableId(value = "item_id")
     private String itemId;
 
     @ApiModelProperty(value = "商品名字")
-    @TableField("item_name")
     private String itemName;
 
     @ApiModelProperty(value = "商店id")
-    @TableField("shop_id")
     private String shopId;
 
     @ApiModelProperty(value = "单位id")
-    @TableField("unit_id")
     private String unitId;
 
     @ApiModelProperty(value = "规格id")
-    @TableField("specification_id")
     private String specificationId;
 
     @ApiModelProperty(value = "一单位所含的数量")
-    @TableField("item_unit_quantity")
     private Double itemUnitQuantity;
 
     @ApiModelProperty(value = "商品备注")
-    @TableField("item_remark")
     private String itemRemark;
 
     @ApiModelProperty(value = "商品价格")
-    @TableField("price")
     private BigDecimal price;
 
     @ApiModelProperty(value = "标签名")
-    @TableField("flag_name")
     private String flagName;
 
     @ApiModelProperty(value = "标签id")
-    @TableField("flag_id")
     private String flagId;
 
-    @TableField(fill = FieldFill.UPDATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemUpdateTime;
 
-    @TableField(fill = FieldFill.INSERT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemCreateTime;
 
     @ApiModelProperty(value = "商品图片")
-    @TableField("item_picture")
     private String itemPicture;
 
     public ItemVo() {}

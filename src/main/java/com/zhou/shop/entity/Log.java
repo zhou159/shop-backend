@@ -20,7 +20,7 @@ public class Log implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "日志主键")
-    @TableId(value = "log_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "log_id", type = IdType.ASSIGN_ID)
     private String logId;
 
     @ApiModelProperty(value = "日志状态")

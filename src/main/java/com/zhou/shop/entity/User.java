@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.regex.Pattern;
 
 /**
  * @author 周雄
@@ -19,10 +18,9 @@ import java.util.regex.Pattern;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
 
     @ApiModelProperty(value = "用户id")
-    @TableId(value = "user_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String userId;
 
     @ApiModelProperty(value = "用户账号")

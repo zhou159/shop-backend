@@ -1,6 +1,7 @@
 package com.zhou.shop.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,36 +20,36 @@ public class SitcomNumber {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "集数id")
-    @TableId(value = "sitcom_number_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "sitcom_number_id", type = IdType.ASSIGN_ID)
     private String sitcomNumberId;
 
     @ApiModelProperty(value = "观看时间")
-    @TableId(value = "sitcom_number_watch_time")
+    @TableField(value = "sitcom_number_watch_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime sitcomNumberWatchTime;
 
     @ApiModelProperty(value = "连续剧id")
-    @TableId(value = "sitcom_id")
+    @TableField(value = "sitcom_id")
     private String sitcomId;
 
     @ApiModelProperty(value = "集数名")
-    @TableId(value = "sitcom_number_name")
+    @TableField(value = "sitcom_number_name")
     private String sitcomNumberName;
 
     @ApiModelProperty(value = "集数链接")
-    @TableId(value = "sitcom_number_url")
+    @TableField(value = "sitcom_number_url")
     private String sitcomNumberUrl;
 
     @ApiModelProperty(value = "集数链接备注")
-    @TableId(value = "sitcom_number_url_remark")
+    @TableField(value = "sitcom_number_url_remark")
     private String sitcomNumberUrlRemark;
 
     @ApiModelProperty(value = "集数备注")
-    @TableId(value = "sitcom_number_remark")
+    @TableField(value = "sitcom_number_remark")
     private String sitcomNumberRemark;
 
     @ApiModelProperty(value = "集数")
-    @TableId(value = "sitcom_number_number")
+    @TableField(value = "sitcom_number_number")
     private String sitcomNumberNumber;
 
     public SitcomNumber() {}

@@ -21,7 +21,7 @@ public class Issue implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "问题id")
-    @TableId(value = "issue_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "issue_id", type = IdType.ASSIGN_ID)
     private String issueId;
 
     @ApiModelProperty(value = "问题创建时间")

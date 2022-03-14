@@ -1,5 +1,6 @@
 package com.zhou.shop.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.dto.SitcomNumberDto;
 import com.zhou.shop.entity.SitcomNumber;
@@ -7,6 +8,7 @@ import com.zhou.shop.mapper.SitcomNumberMapper;
 import com.zhou.shop.service.ISitcomNumberService;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -22,6 +24,31 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
 
     public SitcomNumberServiceImpl(SitcomNumberMapper sitcomNumberMapper) {
         this.sitcomNumberMapper = sitcomNumberMapper;
+    }
+
+    @Override
+    public boolean save(SitcomNumber entity) {
+        return false;
+    }
+
+    @Override
+    public boolean removeById(SitcomNumber entity) {
+        return super.removeById(entity);
+    }
+
+    @Override
+    public boolean updateById(SitcomNumber entity) {
+        return false;
+    }
+
+    @Override
+    public List<SitcomNumber> list(Wrapper<SitcomNumber> queryWrapper){
+        return super.list(queryWrapper);
+    }
+
+    @Override
+    public SitcomNumber getById(Serializable id){
+        return super.getById(id);
     }
 
     @Override

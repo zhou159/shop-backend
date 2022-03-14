@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class UserLogin implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "user_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String userId;
 
     @TableField("user_account")

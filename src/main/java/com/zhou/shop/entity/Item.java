@@ -20,7 +20,7 @@ public class Item implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商品id")
-    @TableId(value = "item_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "item_id", type = IdType.ASSIGN_ID)
     private String itemId;
 
     @ApiModelProperty(value = "商品名字")
