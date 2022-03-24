@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Override
     public boolean save(User entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean updateById(User entity) {
-        return false;
+        return super.updateById(entity) ;
     }
 
     @Override

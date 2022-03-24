@@ -21,7 +21,7 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom>
         implements ISitcomService {
     @Override
     public boolean save(Sitcom entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom>
 
     @Override
     public boolean updateById(Sitcom entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
     @Override
     public boolean save(Item entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
     @Override
     public boolean updateById(Item entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

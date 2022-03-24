@@ -26,7 +26,7 @@ public class Issue implements Serializable {
 
     @ApiModelProperty(value = "问题创建时间")
     @TableField("issue_create_time")
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime issueCreateTime;
 
     @ApiModelProperty(value = "问题描述")
@@ -45,19 +45,37 @@ public class Issue implements Serializable {
     @TableField("issue_status")
     private String issueStatus;
 
+    @ApiModelProperty(value = "问题解决时间")
+    @TableField("issue_solve_time")
+    private LocalDateTime issueSolveTime;
+
+    @ApiModelProperty(value = "问题关闭时间")
+    @TableField("issue_close_time")
+    private LocalDateTime issueCloseTime;
+
+    @ApiModelProperty(value = "问题提出人")
+    @TableField("issue_create_by")
+    private String issueCreateBy;
+
     public Issue(
             String issueId,
             LocalDateTime issueCreateTime,
             String issueDescription,
             String issueType,
             String issueModule,
-            String issueStatus) {
+            String issueStatus,
+            LocalDateTime issueSolveTime,
+            LocalDateTime issueCloseTime,
+            String issueCreateBy) {
         this.issueId = issueId;
         this.issueCreateTime = issueCreateTime;
         this.issueDescription = issueDescription;
         this.issueType = issueType;
         this.issueModule = issueModule;
         this.issueStatus = issueStatus;
+        this.issueSolveTime = issueSolveTime;
+        this.issueCloseTime = issueCloseTime;
+        this.issueCreateBy = issueCreateBy;
     }
 
     public Issue() {}
@@ -110,6 +128,30 @@ public class Issue implements Serializable {
         this.issueModule = issueModule;
     }
 
+    public LocalDateTime getIssueSolveTime() {
+        return issueSolveTime;
+    }
+
+    public void setIssueSolveTime(LocalDateTime issueSolveTime) {
+        this.issueSolveTime = issueSolveTime;
+    }
+
+    public LocalDateTime getIssueCloseTime() {
+        return issueCloseTime;
+    }
+
+    public void setIssueCloseTime(LocalDateTime issueCloseTime) {
+        this.issueCloseTime = issueCloseTime;
+    }
+
+    public String getIssueCreateBy() {
+        return issueCreateBy;
+    }
+
+    public void setIssueCreateBy(String issueCreateBy) {
+        this.issueCreateBy = issueCreateBy;
+    }
+
     @Override
     public String toString() {
         return "Issue{"
@@ -129,6 +171,13 @@ public class Issue implements Serializable {
                 + '\''
                 + ", issueStatus='"
                 + issueStatus
+                + '\''
+                + ", issueSolveTime="
+                + issueSolveTime
+                + ", issueCloseTime="
+                + issueCloseTime
+                + ", issueCreateBy='"
+                + issueCreateBy
                 + '\''
                 + '}';
     }

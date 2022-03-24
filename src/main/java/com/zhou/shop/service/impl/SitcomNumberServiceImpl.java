@@ -28,7 +28,7 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
 
     @Override
     public boolean save(SitcomNumber entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
 
     @Override
     public boolean updateById(SitcomNumber entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

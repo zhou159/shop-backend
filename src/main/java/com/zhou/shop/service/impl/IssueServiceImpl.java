@@ -33,7 +33,7 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
 
     @Override
     public boolean save(Issue entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
 
     @Override
     public boolean updateById(Issue entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

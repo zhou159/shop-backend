@@ -8,7 +8,6 @@ import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IUserLoginService;
 import com.zhou.shop.vo.UserLoginVo;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +19,11 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/userLogin")
 public class UserLoginController {
 
-    @Autowired private IUserLoginService userLoginService;
+    private final IUserLoginService userLoginService;
+
+    public UserLoginController(IUserLoginService userLoginService) {
+        this.userLoginService = userLoginService;
+    }
 
     @PostMapping("/login")
     public RestObject<String> login(@RequestBody UserLoginVo userLoginVo, HttpSession session) {
@@ -55,7 +58,7 @@ public class UserLoginController {
         // 获取验证码，验证码来源另一个接口
         Object code = session.getAttribute("VerifyCode");
 
-        // 获取用户输入的验证码并将小写字母转成大写字母
+        // 获取前端输入的验证码并将小写字母转成大写字母
         String userCode = userVo.getCheckCode().toUpperCase();
         if ("".equals(userVo.getUsername())
                 || "".equals(userVo.getPassword())

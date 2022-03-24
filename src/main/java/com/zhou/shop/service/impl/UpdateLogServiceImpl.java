@@ -21,7 +21,7 @@ public class UpdateLogServiceImpl extends ServiceImpl<UpdateLogMapper, UpdateLog
         implements IUpdateLogService {
     @Override
     public boolean save(UpdateLog entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class UpdateLogServiceImpl extends ServiceImpl<UpdateLogMapper, UpdateLog
 
     @Override
     public boolean updateById(UpdateLog entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

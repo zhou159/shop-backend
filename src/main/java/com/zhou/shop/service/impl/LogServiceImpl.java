@@ -20,7 +20,7 @@ import java.util.List;
 public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogService {
     @Override
     public boolean save(Log entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
 
     @Override
     public boolean updateById(Log entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

@@ -27,7 +27,7 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IU
 
     @Override
     public boolean save(Unit entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IU
 
     @Override
     public boolean updateById(Unit entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -59,40 +58,16 @@ public class SitcomNumberController {
     @ApiOperation("快速新增剧集")
     @PostMapping("/createSitcomNumberFast")
     public RestObject<String> createSitcomNumberFast(@RequestBody SitcomNumber sitcomNumber) {
+        System.out.println(sitcomNumber.toString());
         Sitcom byId = iSitcomService.getById(sitcomNumber.getSitcomId());
         if (!"1".equals(byId.getSitcomWatchStatus())) {
             return RestResponse.makeErrRsp("这部连续剧已经看完了！");
         }
+        /*获取当前电视剧集数*/
         SitcomNumberDto sitcomNumberDto2 = iSitcomNumberService.readSitcomNumberCnt(sitcomNumber.getSitcomId());
         System.out.println(sitcomNumberDto2.getCount());
-        if(sitcomNumberDto2.getCount() == 0){
-            sitcomNumber.setSitcomNumberNumber("1");
-            sitcomNumber.setSitcomNumberName("第1集");
-            sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now());
 
-            boolean save = iSitcomNumberService.save(sitcomNumber);
-            if (save) {
-                logUtil.log("新增剧集成功", LogStatus.INFO.info);
-                return RestResponse.makeOkRsp("新增成功！");
-            }else{
-                logUtil.log("新增剧集出现异常", LogStatus.ERROR.info);
-                return RestResponse.makeErrRsp("新增失败！");
-            }
-        }
-
-        SitcomNumberDto sitcomNumberDto = iSitcomNumberService.readMaxSitcomNumberNumber(sitcomNumber.getSitcomId());
-
-        String maxNumber = sitcomNumberDto.getMaxNumber();
-        if (maxNumber == null) {
-            maxNumber = "0";
-        }
-        Matcher matcher = NUMBER_PATTERN.matcher(maxNumber);
-        String group = null;
-        while (matcher.find()) {
-            group = matcher.group();
-        }
-
-        String sitcomNumberNumber = String.valueOf(Integer.parseInt(group.replace(".", "")) + 1);
+        String sitcomNumberNumber = String.valueOf(sitcomNumberDto2.getCount() + 1);
         String sitcomNumberName = "第" + sitcomNumberNumber + "集";
 
         sitcomNumber.setSitcomNumberNumber(sitcomNumberNumber);

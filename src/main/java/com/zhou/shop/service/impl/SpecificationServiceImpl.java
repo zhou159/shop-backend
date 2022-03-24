@@ -28,7 +28,7 @@ public class SpecificationServiceImpl extends ServiceImpl<SpecificationMapper, S
 
     @Override
     public boolean save(Specification entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class SpecificationServiceImpl extends ServiceImpl<SpecificationMapper, S
 
     @Override
     public boolean updateById(Specification entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

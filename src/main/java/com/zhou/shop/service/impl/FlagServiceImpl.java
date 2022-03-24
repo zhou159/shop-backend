@@ -26,7 +26,7 @@ public class FlagServiceImpl extends ServiceImpl<FlagMapper, Flag> implements IF
 
     @Override
     public boolean save(Flag entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class FlagServiceImpl extends ServiceImpl<FlagMapper, Flag> implements IF
 
     @Override
     public boolean updateById(Flag entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override

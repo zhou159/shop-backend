@@ -27,7 +27,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public boolean save(Shop entity) {
-        return false;
+        return super.save(entity);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public boolean updateById(Shop entity) {
-        return false;
+        return super.updateById(entity);
     }
 
     @Override
