@@ -8,6 +8,4 @@ import com.zhou.shop.entity.UserLogin;
  * @Date 2022/3/14 17:41
  * @Description
  */
-public interface IUserLoginService extends IService<UserLogin> {
-
-}
+public interface IUserLoginService extends IService<UserLogin> {}

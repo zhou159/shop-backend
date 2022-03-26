@@ -138,7 +138,6 @@ public class ItemController {
     @PostMapping("/retrieveByItemName")
     public RestObject<List<ItemDto>> retrieveItemByItemName(@RequestBody Item item) {
         List<ItemDto> list = iItemService.retrieveByItemName(item.getItemName());
-        /* logUtil.log("按名查询了商品信息，商品名：" + item.getItemName(), LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(list);
     }
 }

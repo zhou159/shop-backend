@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * 前端控制器
@@ -28,8 +27,6 @@ public class SitcomNumberController {
     final ISitcomNumberService iSitcomNumberService;
     final ISitcomService iSitcomService;
     final LogUtil logUtil;
-
-    private final Pattern NUMBER_PATTERN = Pattern.compile("\\d+\\.");
 
     public SitcomNumberController(
             ISitcomNumberService iSitcomNumberService,
@@ -86,7 +83,6 @@ public class SitcomNumberController {
     @GetMapping("/retrieveBySitcomNumberId/{sitcomNumberId}")
     public RestObject<SitcomNumber> retrieveBySitcomNumberId(@PathVariable String sitcomNumberId) {
         SitcomNumber sitcomNumber = iSitcomNumberService.getById(sitcomNumberId);
-        /* logUtil.log("查询了剧集信息，剧集ID：" + sitcomNumberId, LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(sitcomNumber);
     }
 
@@ -94,7 +90,6 @@ public class SitcomNumberController {
     @GetMapping("/retrieveAllSitcomNumber")
     public RestObject<List<SitcomNumber>> retrieveAllSitcomNumber() {
         List<SitcomNumber> list = iSitcomNumberService.list();
-        /* logUtil.log("查询了全部剧集信息", LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(list);
     }
 
@@ -131,7 +126,6 @@ public class SitcomNumberController {
     @GetMapping("/retrieveBySitcomId/{sitcomId}")
     public RestObject<List<SitcomNumber>> retrieveBySitcomId(@PathVariable String sitcomId) {
         List<SitcomNumber> sitcomNumbers = iSitcomNumberService.retrieveBySitcomId(sitcomId);
-        /* logUtil.log("查询了连续剧的全部剧集信息，连续剧ID：" + sitcomId, LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(sitcomNumbers);
     }
 
@@ -142,7 +136,6 @@ public class SitcomNumberController {
         List<SitcomNumber> list =
                 iSitcomNumberService.retrieveBySitcomNumberName(
                         sitcomNumber.getSitcomNumberName(), sitcomNumber.getSitcomId());
-        /* logUtil.log("按剧集名查询了全部剧集信息，剧集名：" + sitcomNumber.getSitcomNumberName(), LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(list);
     }
 }

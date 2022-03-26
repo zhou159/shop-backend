@@ -1,6 +1,5 @@
 package com.zhou.shop.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.dto.ItemDto;
 import com.zhou.shop.entity.Item;
@@ -8,7 +7,6 @@ import com.zhou.shop.mapper.ItemMapper;
 import com.zhou.shop.service.IItemService;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,31 +22,6 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
     public ItemServiceImpl(ItemMapper itemMapper) {
         this.itemMapper = itemMapper;
-    }
-
-    @Override
-    public boolean save(Item entity) {
-        return super.save(entity);
-    }
-
-    @Override
-    public boolean removeById(Item entity) {
-        return super.removeById(entity);
-    }
-
-    @Override
-    public boolean updateById(Item entity) {
-        return super.updateById(entity);
-    }
-
-    @Override
-    public List<Item> list(Wrapper<Item> queryWrapper){
-        return super.list(queryWrapper);
-    }
-
-    @Override
-    public Item getById(Serializable id){
-        return super.getById(id);
     }
 
     @Override

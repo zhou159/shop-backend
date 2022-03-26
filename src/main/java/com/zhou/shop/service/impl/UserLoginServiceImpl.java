@@ -12,6 +12,4 @@ import org.springframework.stereotype.Service;
  * @Description
  */
 @Service
-public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin> implements IUserLoginService {
-
-}
+public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin> implements IUserLoginService {}

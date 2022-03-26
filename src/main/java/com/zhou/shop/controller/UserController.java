@@ -56,7 +56,6 @@ public class UserController {
     @GetMapping("/retrieveByUserId/{userId}")
     public RestObject<User> retrieveByUserId(@PathVariable String userId) {
         User user = iUserService.getById(userId);
-        /* logUtil.log("查询了用户信息，用户ID：" + userId, LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(user);
     }
 
@@ -64,7 +63,6 @@ public class UserController {
     @GetMapping("/retrieveAllUser")
     public RestObject<List<User>> retrieveAllUser() {
         List<User> list = iUserService.list();
-        /* logUtil.log("查询了全部用户信息", LogStatus.INFO.info); */
         return RestResponse.makeOkRsp(list);
     }
 
