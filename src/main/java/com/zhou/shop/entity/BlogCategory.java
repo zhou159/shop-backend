@@ -18,7 +18,7 @@ public class BlogCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("博客栏目id")
-    @TableId(value = "blog_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "blog_category_id", type = IdType.ASSIGN_ID)
     private String blogCategoryId;
 
     @ApiModelProperty("博客栏目名字")
@@ -29,13 +29,21 @@ public class BlogCategory implements Serializable {
     @TableField("blog_category_created_by")
     private String blogCategoryCreatedBy;
 
+    @ApiModelProperty("博客栏目简介")
+    @TableField("blog_category_description")
+    private String blogCategoryDescription;
+
     public BlogCategory() {}
 
     public BlogCategory(
-            String blogCategoryId, String blogCategoryName, String blogCategoryCreatedBy) {
+            String blogCategoryId,
+            String blogCategoryName,
+            String blogCategoryCreatedBy,
+            String blogCategoryDescription) {
         this.blogCategoryId = blogCategoryId;
         this.blogCategoryName = blogCategoryName;
         this.blogCategoryCreatedBy = blogCategoryCreatedBy;
+        this.blogCategoryDescription = blogCategoryDescription;
     }
 
     public static long getSerialVersionUID() {
@@ -66,6 +74,14 @@ public class BlogCategory implements Serializable {
         this.blogCategoryCreatedBy = blogCategoryCreatedBy;
     }
 
+    public String getBlogCategoryDescription() {
+        return blogCategoryDescription;
+    }
+
+    public void setBlogCategoryDescription(String blogCategoryDescription) {
+        this.blogCategoryDescription = blogCategoryDescription;
+    }
+
     @Override
     public String toString() {
         return "BlogCategory{"
@@ -77,6 +93,9 @@ public class BlogCategory implements Serializable {
                 + '\''
                 + ", blogCategoryCreatedBy='"
                 + blogCategoryCreatedBy
+                + '\''
+                + ", blogCategoryDescription='"
+                + blogCategoryDescription
                 + '\''
                 + '}';
     }
