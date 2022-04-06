@@ -67,64 +67,67 @@ public class Blog implements Serializable {
         this.blogFlag = blogFlag;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getBlogId() {
         return blogId;
     }
 
-    public void setBlogId(String blogId) {
+    public Blog setBlogId(String blogId) {
         this.blogId = blogId;
+        return this;
     }
 
     public LocalDateTime getBlogCreateTime() {
         return blogCreateTime;
     }
 
-    public void setBlogCreateTime(LocalDateTime blogCreateTime) {
+    public Blog setBlogCreateTime(LocalDateTime blogCreateTime) {
         this.blogCreateTime = blogCreateTime;
+        return this;
     }
 
     public String getBlogTitle() {
         return blogTitle;
     }
 
-    public void setBlogTitle(String blogTitle) {
+    public Blog setBlogTitle(String blogTitle) {
         this.blogTitle = blogTitle;
+        return this;
     }
 
     public String getBlogCreatedBy() {
         return blogCreatedBy;
     }
 
-    public void setBlogCreatedBy(String blogCreatedBy) {
+    public Blog setBlogCreatedBy(String blogCreatedBy) {
         this.blogCreatedBy = blogCreatedBy;
+        return this;
     }
 
     public String getBlogText() {
         return blogText;
     }
 
-    public void setBlogText(String blogText) {
+    public Blog setBlogText(String blogText) {
         this.blogText = blogText;
+        return this;
     }
 
     public String getBlogCategory() {
         return blogCategory;
     }
 
-    public void setBlogCategory(String blogCategory) {
+    public Blog setBlogCategory(String blogCategory) {
         this.blogCategory = blogCategory;
+        return this;
     }
 
     public String getBlogFlag() {
         return blogFlag;
     }
 
-    public void setBlogFlag(String blogFlag) {
+    public Blog setBlogFlag(String blogFlag) {
         this.blogFlag = blogFlag;
+        return this;
     }
 
     @Override

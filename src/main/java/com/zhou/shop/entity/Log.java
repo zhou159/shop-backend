@@ -48,32 +48,36 @@ public class Log implements Serializable {
         return logId;
     }
 
-    public void setLogId(String logId) {
+    public Log setLogId(String logId) {
         this.logId = logId;
+        return this;
     }
 
     public String getLogStatus() {
         return logStatus;
     }
 
-    public void setLogStatus(String logStatus) {
+    public Log setLogStatus(String logStatus) {
         this.logStatus = logStatus;
+        return this;
     }
 
     public String getLogInfo() {
         return logInfo;
     }
 
-    public void setLogInfo(String logInfo) {
+    public Log setLogInfo(String logInfo) {
         this.logInfo = logInfo;
+        return this;
     }
 
     public LocalDateTime getLogTime() {
         return logTime;
     }
 
-    public void setLogTime(LocalDateTime logTime) {
+    public Log setLogTime(LocalDateTime logTime) {
         this.logTime = logTime;
+        return this;
     }
 
     @Override

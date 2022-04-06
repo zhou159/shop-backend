@@ -46,40 +46,40 @@ public class BlogCategory implements Serializable {
         this.blogCategoryDescription = blogCategoryDescription;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getBlogCategoryId() {
         return blogCategoryId;
     }
 
-    public void setBlogCategoryId(String blogCategoryId) {
+    public BlogCategory setBlogCategoryId(String blogCategoryId) {
         this.blogCategoryId = blogCategoryId;
+        return this;
     }
 
     public String getBlogCategoryName() {
         return blogCategoryName;
     }
 
-    public void setBlogCategoryName(String blogCategoryName) {
+    public BlogCategory setBlogCategoryName(String blogCategoryName) {
         this.blogCategoryName = blogCategoryName;
+        return this;
     }
 
     public String getBlogCategoryCreatedBy() {
         return blogCategoryCreatedBy;
     }
 
-    public void setBlogCategoryCreatedBy(String blogCategoryCreatedBy) {
+    public BlogCategory setBlogCategoryCreatedBy(String blogCategoryCreatedBy) {
         this.blogCategoryCreatedBy = blogCategoryCreatedBy;
+        return this;
     }
 
     public String getBlogCategoryDescription() {
         return blogCategoryDescription;
     }
 
-    public void setBlogCategoryDescription(String blogCategoryDescription) {
+    public BlogCategory setBlogCategoryDescription(String blogCategoryDescription) {
         this.blogCategoryDescription = blogCategoryDescription;
+        return this;
     }
 
     @Override

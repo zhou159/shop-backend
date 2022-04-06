@@ -35,16 +35,18 @@ public class Unit {
         return unitId;
     }
 
-    public void setUnitId(String unitId) {
+    public Unit setUnitId(String unitId) {
         this.unitId = unitId;
+        return this;
     }
 
     public String getUnitName() {
         return unitName;
     }
 
-    public void setUnitName(String unitName) {
+    public Unit setUnitName(String unitName) {
         this.unitName = unitName;
+        return this;
     }
 
     @Override

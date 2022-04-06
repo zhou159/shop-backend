@@ -96,104 +96,112 @@ public class Item implements Serializable {
 
     public Item() {}
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
+    public Item setItemId(String itemId) {
         this.itemId = itemId;
+        return this;
     }
 
     public String getItemName() {
         return itemName;
     }
 
-    public void setItemName(String itemName) {
+    public Item setItemName(String itemName) {
         this.itemName = itemName;
+        return this;
     }
 
     public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(String shopId) {
+    public Item setShopId(String shopId) {
         this.shopId = shopId;
+        return this;
     }
 
     public String getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(String unitId) {
+    public Item setUnitId(String unitId) {
         this.unitId = unitId;
+        return this;
     }
 
     public String getSpecificationId() {
         return specificationId;
     }
 
-    public void setSpecificationId(String specificationId) {
+    public Item setSpecificationId(String specificationId) {
         this.specificationId = specificationId;
+        return this;
     }
 
     public Double getItemUnitQuantity() {
         return itemUnitQuantity;
     }
 
-    public void setItemUnitQuantity(Double itemUnitQuantity) {
+    public Item setItemUnitQuantity(Double itemUnitQuantity) {
         this.itemUnitQuantity = itemUnitQuantity;
+        return this;
     }
 
     public String getItemRemark() {
         return itemRemark;
     }
 
-    public void setItemRemark(String itemRemark) {
+    public Item setItemRemark(String itemRemark) {
         this.itemRemark = itemRemark;
+        return this;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public Item setPrice(BigDecimal price) {
         this.price = price;
+        return this;
     }
 
     public LocalDateTime getItemUpdateTime() {
         return itemUpdateTime;
     }
 
-    public void setItemUpdateTime(LocalDateTime itemUpdateTime) {
+    public Item setItemUpdateTime(LocalDateTime itemUpdateTime) {
         this.itemUpdateTime = itemUpdateTime;
+        return this;
     }
 
     public LocalDateTime getItemCreateTime() {
         return itemCreateTime;
     }
 
-    public void setItemCreateTime(LocalDateTime itemCreateTime) {
+    public Item setItemCreateTime(LocalDateTime itemCreateTime) {
         this.itemCreateTime = itemCreateTime;
+        return this;
     }
 
     public String getItemPicture() {
         return itemPicture;
     }
 
-    public void setItemPicture(String itemPicture) {
+    public Item setItemPicture(String itemPicture) {
         this.itemPicture = itemPicture;
+        return this;
     }
 
     public String getFlagId() {
         return flagId;
     }
 
-    public void setFlagId(String flagId) {
+    public Item setFlagId(String flagId) {
         this.flagId = flagId;
+        return this;
     }
 
     @Override

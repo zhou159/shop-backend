@@ -115,112 +115,126 @@ public class Sitcom {
         return sitcomId;
     }
 
-    public void setSitcomId(String sitcomId) {
+    public Sitcom setSitcomId(String sitcomId) {
         this.sitcomId = sitcomId;
+        return this;
     }
 
     public String getSitcomName() {
         return sitcomName;
     }
 
-    public void setSitcomName(String sitcomName) {
+    public Sitcom setSitcomName(String sitcomName) {
         this.sitcomName = sitcomName;
+        return this;
     }
 
     public LocalDate getSitcomWatchStartTime() {
         return sitcomWatchStartTime;
     }
 
-    public void setSitcomWatchStartTime(LocalDate sitcomWatchStartTime) {
+    public Sitcom setSitcomWatchStartTime(LocalDate sitcomWatchStartTime) {
         this.sitcomWatchStartTime = sitcomWatchStartTime;
+        return this;
     }
 
     public LocalDateTime getSitcomWatchEndTime() {
         return sitcomWatchEndTime;
     }
 
-    public void setSitcomWatchEndTime(LocalDateTime sitcomWatchEndTime) {
+    public Sitcom setSitcomWatchEndTime(LocalDateTime sitcomWatchEndTime) {
         this.sitcomWatchEndTime = sitcomWatchEndTime;
+        return this;
     }
 
     public String getSitcomUpdateStatus() {
         return sitcomUpdateStatus;
     }
 
-    public void setSitcomUpdateStatus(String sitcomUpdateStatus) {
+    public Sitcom setSitcomUpdateStatus(String sitcomUpdateStatus) {
         this.sitcomUpdateStatus = sitcomUpdateStatus;
+        return this;
     }
 
     public String getSitcomPicture() {
         return sitcomPicture;
     }
 
-    public void setSitcomPicture(String sitcomPicture) {
+    public Sitcom setSitcomPicture(String sitcomPicture) {
         this.sitcomPicture = sitcomPicture;
+        return this;
     }
 
     public String getSitcomUrl() {
         return sitcomUrl;
     }
 
-    public void setSitcomUrl(String sitcomUrl) {
+    public Sitcom setSitcomUrl(String sitcomUrl) {
         this.sitcomUrl = sitcomUrl;
+        return this;
     }
 
     public String getSitcomRemark() {
         return sitcomRemark;
     }
 
-    public void setSitcomRemark(String sitcomRemark) {
+    public Sitcom setSitcomRemark(String sitcomRemark) {
         this.sitcomRemark = sitcomRemark;
+        return this;
     }
 
     public String getSitcomWatchStatus() {
         return sitcomWatchStatus;
     }
 
-    public void setSitcomWatchStatus(String sitcomWatchStatus) {
+    public Sitcom setSitcomWatchStatus(String sitcomWatchStatus) {
         this.sitcomWatchStatus = sitcomWatchStatus;
+        return this;
     }
 
     public String getSitcomCountry() {
         return sitcomCountry;
     }
 
-    public void setSitcomCountry(String sitcomCountry) {
+    public Sitcom setSitcomCountry(String sitcomCountry) {
         this.sitcomCountry = sitcomCountry;
+        return this;
     }
 
     public String getSitcomDirector() {
         return sitcomDirector;
     }
 
-    public void setSitcomDirector(String sitcomDirector) {
+    public Sitcom setSitcomDirector(String sitcomDirector) {
         this.sitcomDirector = sitcomDirector;
+        return this;
     }
 
     public String getSitcomType() {
         return sitcomType;
     }
 
-    public void setSitcomType(String sitcomType) {
+    public Sitcom setSitcomType(String sitcomType) {
         this.sitcomType = sitcomType;
+        return this;
     }
 
     public String getSitcomStyle() {
         return sitcomStyle;
     }
 
-    public void setSitcomStyle(String sitcomStyle) {
+    public Sitcom setSitcomStyle(String sitcomStyle) {
         this.sitcomStyle = sitcomStyle;
+        return this;
     }
 
     public String getSitcomIntro() {
         return sitcomIntro;
     }
 
-    public void setSitcomIntro(String sitcomIntro) {
+    public Sitcom setSitcomIntro(String sitcomIntro) {
         this.sitcomIntro = sitcomIntro;
+        return this;
     }
 
     @Override

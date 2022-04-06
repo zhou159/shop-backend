@@ -27,20 +27,15 @@ public class User implements Serializable {
     @TableField("username")
     private String username;
 
-    @ApiModelProperty(value = "用户角色")
-    @TableField("role")
-    private String role;
-
     @ApiModelProperty(value = "用户头像")
     @TableField("user_picture")
     private String userPicture;
 
     public User() {}
 
-    public User(String userId, String username, String role, String userPicture) {
+    public User(String userId, String username, String userPicture) {
         this.userId = userId;
         this.username = username;
-        this.role = role;
         this.userPicture = userPicture;
     }
 
@@ -48,32 +43,27 @@ public class User implements Serializable {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public User setUserId(String userId) {
         this.userId = userId;
+        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+        return this;
     }
 
     public String getUserPicture() {
         return userPicture;
     }
 
-    public void setUserPicture(String userPicture) {
+    public User setUserPicture(String userPicture) {
         this.userPicture = userPicture;
+        return this;
     }
 
     @Override
@@ -83,9 +73,6 @@ public class User implements Serializable {
                 + userId
                 + ", username='"
                 + username
-                + '\''
-                + ", role='"
-                + role
                 + '\''
                 + ", userPicture='"
                 + userPicture

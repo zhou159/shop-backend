@@ -34,24 +34,22 @@ public class Flag implements Serializable {
         this.flagName = flagName;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getFlagId() {
         return flagId;
     }
 
-    public void setFlagId(String flagId) {
+    public Flag setFlagId(String flagId) {
         this.flagId = flagId;
+        return this;
     }
 
     public String getFlagName() {
         return flagName;
     }
 
-    public void setFlagName(String flagName) {
+    public Flag setFlagName(String flagName) {
         this.flagName = flagName;
+        return this;
     }
 
     @Override

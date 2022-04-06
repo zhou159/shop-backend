@@ -54,32 +54,36 @@ public class UpdateLog implements Serializable {
         return updateLogId;
     }
 
-    public void setUpdateLogId(Integer updateLogId) {
+    public UpdateLog setUpdateLogId(Integer updateLogId) {
         this.updateLogId = updateLogId;
+        return this;
     }
 
     public LocalDate getUpdateLogCreateTime() {
         return updateLogCreateTime;
     }
 
-    public void setUpdateLogCreateTime(LocalDate updateLogCreateTime) {
+    public UpdateLog setUpdateLogCreateTime(LocalDate updateLogCreateTime) {
         this.updateLogCreateTime = updateLogCreateTime;
+        return this;
     }
 
     public String getUpdateLogVersion() {
         return updateLogVersion;
     }
 
-    public void setUpdateLogVersion(String updateLogVersion) {
+    public UpdateLog setUpdateLogVersion(String updateLogVersion) {
         this.updateLogVersion = updateLogVersion;
+        return this;
     }
 
     public String getUpdateLogDescription() {
         return updateLogDescription;
     }
 
-    public void setUpdateLogDescription(String updateLogDescription) {
+    public UpdateLog setUpdateLogDescription(String updateLogDescription) {
         this.updateLogDescription = updateLogDescription;
+        return this;
     }
 
     @Override

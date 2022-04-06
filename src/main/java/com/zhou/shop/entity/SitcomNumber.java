@@ -77,64 +77,72 @@ public class SitcomNumber {
         return sitcomNumberId;
     }
 
-    public void setSitcomNumberId(String sitcomNumberId) {
+    public SitcomNumber setSitcomNumberId(String sitcomNumberId) {
         this.sitcomNumberId = sitcomNumberId;
+        return this;
     }
 
     public LocalDateTime getSitcomNumberWatchTime() {
         return sitcomNumberWatchTime;
     }
 
-    public void setSitcomNumberWatchTime(LocalDateTime sitcomNumberWatchTime) {
+    public SitcomNumber setSitcomNumberWatchTime(LocalDateTime sitcomNumberWatchTime) {
         this.sitcomNumberWatchTime = sitcomNumberWatchTime;
+        return this;
     }
 
     public String getSitcomId() {
         return sitcomId;
     }
 
-    public void setSitcomId(String sitcomId) {
+    public SitcomNumber setSitcomId(String sitcomId) {
         this.sitcomId = sitcomId;
+        return this;
     }
 
     public String getSitcomNumberName() {
         return sitcomNumberName;
     }
 
-    public void setSitcomNumberName(String sitcomNumberName) {
+    public SitcomNumber setSitcomNumberName(String sitcomNumberName) {
         this.sitcomNumberName = sitcomNumberName;
+        return this;
     }
 
     public String getSitcomNumberUrl() {
         return sitcomNumberUrl;
     }
 
-    public void setSitcomNumberUrl(String sitcomNumberUrl) {
+    public SitcomNumber setSitcomNumberUrl(String sitcomNumberUrl) {
         this.sitcomNumberUrl = sitcomNumberUrl;
+        return this;
     }
 
     public String getSitcomNumberUrlRemark() {
         return sitcomNumberUrlRemark;
     }
 
-    public void setSitcomNumberUrlRemark(String sitcomNumberUrlRemark) {
+    public SitcomNumber setSitcomNumberUrlRemark(String sitcomNumberUrlRemark) {
         this.sitcomNumberUrlRemark = sitcomNumberUrlRemark;
+        return this;
     }
 
     public String getSitcomNumberRemark() {
         return sitcomNumberRemark;
     }
 
-    public void setSitcomNumberRemark(String sitcomNumberRemark) {
+    public SitcomNumber setSitcomNumberRemark(String sitcomNumberRemark) {
         this.sitcomNumberRemark = sitcomNumberRemark;
+        return this;
     }
 
     public String getSitcomNumberNumber() {
         return sitcomNumberNumber;
     }
 
-    public void setSitcomNumberNumber(String sitcomNumberNumber) {
+    public SitcomNumber setSitcomNumberNumber(String sitcomNumberNumber) {
         this.sitcomNumberNumber = sitcomNumberNumber;
+        return this;
     }
 
     @Override

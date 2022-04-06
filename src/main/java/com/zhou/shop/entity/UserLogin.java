@@ -33,24 +33,27 @@ public class UserLogin implements Serializable {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public UserLogin setUserId(String userId) {
         this.userId = userId;
+        return this;
     }
 
     public String getUserAccount() {
         return userAccount;
     }
 
-    public void setUserAccount(String userAccount) {
+    public UserLogin setUserAccount(String userAccount) {
         this.userAccount = userAccount;
+        return this;
     }
 
     public String getUserPassword() {
         return userPassword;
     }
 
-    public void setUserPassword(String userPassword) {
+    public UserLogin setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+        return this;
     }
 
     @Override

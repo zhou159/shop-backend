@@ -46,23 +46,18 @@ public class ItemController {
         Flag flag = iFlagService.retrieveByFlagName(flagName);
         String flagId;
         if (flag == null) {
-            Flag flag1 = new Flag();
-            flag1.setFlagName(flagName);
-            boolean save = iFlagService.save(flag1);
+            boolean save = iFlagService.save(new Flag().setFlagName(flagName));
             if (!save) {
                 logUtil.log("新增标签出现异常", LogStatus.ERROR.info);
                 return RestResponse.makeErrRsp("新增标签时出现异常！");
             }
-            Flag flag2 = iFlagService.retrieveByFlagName(flagName);
-            flagId = flag2.getFlagId();
+            flagId = iFlagService.retrieveByFlagName(flagName).getFlagId();
         } else {
-            Flag flag1 = iFlagService.retrieveByFlagName(flagName);
-            flagId = flag1.getFlagId();
+            flagId = iFlagService.retrieveByFlagName(flagName).getFlagId();
         }
         Item item = new Item();
         BeanUtils.copyProperties(itemVo, item);
-        item.setFlagId(flagId);
-        item.setItemCreateTime(LocalDateTime.now());
+        item.setFlagId(flagId).setItemCreateTime(LocalDateTime.now());
         boolean save = iItemService.save(item);
         if (save) {
             logUtil.log("新增商品成功", LogStatus.INFO.info);
@@ -95,24 +90,20 @@ public class ItemController {
         Flag flag = iFlagService.retrieveByFlagName(flagName);
         String flagId;
         if (flag == null) {
-            Flag flag1 = new Flag();
-            flag1.setFlagName(flagName);
-            boolean save = iFlagService.save(flag1);
+            boolean save = iFlagService.save(new Flag().setFlagName(flagName));
             if (!save) {
                 logUtil.log("新增标签出现异常", LogStatus.ERROR.info);
                 return RestResponse.makeErrRsp("新增标签时出现异常！");
             }
-            Flag flag2 = iFlagService.retrieveByFlagName(flagName);
-            flagId = flag2.getFlagId();
+            flagId = iFlagService.retrieveByFlagName(flagName).getFlagId();
         } else {
-            Flag flag1 = iFlagService.retrieveByFlagName(flagName);
-            flagId = flag1.getFlagId();
+            flagId = iFlagService.retrieveByFlagName(flagName).getFlagId();
         }
         Item item = new Item();
         BeanUtils.copyProperties(itemVo, item);
-        item.setFlagId(flagId);
-        item.setItemId(itemId);
-        item.setItemUpdateTime(LocalDateTime.now());
+        item.setFlagId(flagId)
+                .setItemId(itemId)
+                .setItemUpdateTime(LocalDateTime.now());
         boolean b = iItemService.updateById(item);
         if (b) {
             logUtil.log("成功修改了商品信息，商品ID：" + itemId, LogStatus.INFO.info);

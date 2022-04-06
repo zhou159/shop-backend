@@ -24,4 +24,11 @@ public interface IBlogService extends IService<Blog> {
      * @return
      */
     List<Blog> queryBlogByBlogCategoryId(String blogCategoryId);
+
+    /**
+     * 根据博客id获取对象
+     * @param id
+     * @return
+     */
+    BlogDto queryById(String id);
 }

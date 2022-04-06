@@ -46,4 +46,14 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         List<Blog> blogs = blogMapper.selectList(new QueryWrapper<Blog>().eq("blog_category", blogCategoryId));
         return blogs;
     }
+
+    @Override
+    public BlogDto queryById(String id) {
+        Blog blog = blogMapper.selectById(id);
+        BlogDto blogDto = new BlogDto();
+        BeanUtils.copyProperties(blog, blogDto);
+        blogDto.setBlogCreatedName(userMapper.selectById(blogDto.getBlogCreatedBy()).getUsername());
+        return blogDto;
+    }
+
 }

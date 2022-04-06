@@ -8,6 +8,7 @@ import com.zhou.shop.service.ISitcomNumberService;
 import com.zhou.shop.service.ISitcomService;
 import com.zhou.shop.util.LogUtil;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -39,10 +40,10 @@ public class SitcomController {
     @ApiOperation("新增连续剧")
     @PostMapping("/createSitcom")
     public RestObject<String> createSitcom(@RequestBody Sitcom sitcom) {
-        if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
+        if (!StringUtils.isNotBlank(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
             return RestResponse.makeErrRsp("连续剧更新状态不能为空");
         }
-        if ("".equals(sitcom.getSitcomWatchStatus()) || sitcom.getSitcomWatchStatus() == null) {
+        if (!StringUtils.isNotBlank(sitcom.getSitcomWatchStatus()) || sitcom.getSitcomWatchStatus() == null) {
             return RestResponse.makeErrRsp("连续剧观看状态不能为空");
         }
         if (!sitcom.getSitcomUpdateStatus().equals(updateStatusZero)
@@ -82,10 +83,10 @@ public class SitcomController {
     @PostMapping("/updateSitcomBySitcomId/{sitcomId}")
     public RestObject<String> updateSitcomBySitcomId(@PathVariable String sitcomId, @RequestBody Sitcom sitcom) {
         sitcom.setSitcomId(sitcomId);
-        if ("".equals(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
+        if (!StringUtils.isNotBlank(sitcom.getSitcomUpdateStatus()) || sitcom.getSitcomUpdateStatus() == null) {
             return RestResponse.makeErrRsp("连续剧更新状态不能为空");
         }
-        if ("".equals(sitcom.getSitcomWatchStatus()) || sitcom.getSitcomWatchStatus() == null) {
+        if (!StringUtils.isNotBlank(sitcom.getSitcomWatchStatus()) || sitcom.getSitcomWatchStatus() == null) {
             return RestResponse.makeErrRsp("连续剧观看状态不能为空");
         }
         if (!sitcom.getSitcomUpdateStatus().equals(updateStatusZero)

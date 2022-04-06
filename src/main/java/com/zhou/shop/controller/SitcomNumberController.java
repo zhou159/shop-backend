@@ -67,9 +67,9 @@ public class SitcomNumberController {
         String sitcomNumberNumber = String.valueOf(sitcomNumberDto2.getCount() + 1);
         String sitcomNumberName = "第" + sitcomNumberNumber + "集";
 
-        sitcomNumber.setSitcomNumberNumber(sitcomNumberNumber);
-        sitcomNumber.setSitcomNumberName(sitcomNumberName);
-        sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now());
+        sitcomNumber.setSitcomNumberNumber(sitcomNumberNumber)
+                    .setSitcomNumberName(sitcomNumberName)
+                    .setSitcomNumberWatchTime(LocalDateTime.now());
         boolean save = iSitcomNumberService.save(sitcomNumber);
         if (save) {
             logUtil.log("新增剧集成功", LogStatus.INFO.info);

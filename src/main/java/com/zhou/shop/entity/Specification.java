@@ -37,32 +37,31 @@ public class Specification {
         this.specificationLabel = specificationLabel;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getSpecificationId() {
         return specificationId;
     }
 
-    public void setSpecificationId(String specificationId) {
+    public Specification setSpecificationId(String specificationId) {
         this.specificationId = specificationId;
+        return this;
     }
 
     public String getSpecificationName() {
         return specificationName;
     }
 
-    public void setSpecificationName(String specificationName) {
+    public Specification setSpecificationName(String specificationName) {
         this.specificationName = specificationName;
+        return this;
     }
 
     public String getSpecificationLabel() {
         return specificationLabel;
     }
 
-    public void setSpecificationLabel(String specificationLabel) {
+    public Specification setSpecificationLabel(String specificationLabel) {
         this.specificationLabel = specificationLabel;
+        return this;
     }
 
     @Override

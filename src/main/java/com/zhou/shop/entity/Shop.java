@@ -60,56 +60,58 @@ public class Shop implements Serializable {
         this.shopPicture = shopPicture;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(String shopId) {
+    public Shop setShopId(String shopId) {
         this.shopId = shopId;
+        return this;
     }
 
     public String getShopName() {
         return shopName;
     }
 
-    public void setShopName(String shopName) {
+    public Shop setShopName(String shopName) {
         this.shopName = shopName;
+        return this;
     }
 
     public String getShopAddress() {
         return shopAddress;
     }
 
-    public void setShopAddress(String shopAddress) {
+    public Shop setShopAddress(String shopAddress) {
         this.shopAddress = shopAddress;
+        return this;
     }
 
     public String getShopRemark() {
         return shopRemark;
     }
 
-    public void setShopRemark(String shopRemark) {
+    public Shop setShopRemark(String shopRemark) {
         this.shopRemark = shopRemark;
+        return this;
     }
 
     public String getShopStatus() {
         return shopStatus;
     }
 
-    public void setShopStatus(String shopStatus) {
+    public Shop setShopStatus(String shopStatus) {
         this.shopStatus = shopStatus;
+        return this;
     }
 
     public String getShopPicture() {
         return shopPicture;
     }
 
-    public void setShopPicture(String shopPicture) {
+    public Shop setShopPicture(String shopPicture) {
         this.shopPicture = shopPicture;
+        return this;
     }
 
     @Override

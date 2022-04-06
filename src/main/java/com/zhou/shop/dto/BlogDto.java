@@ -23,6 +23,8 @@ public class BlogDto {
 
     private String blogText;
 
+    private String blogCategory;
+
     public BlogDto() {}
 
     public BlogDto(
@@ -31,13 +33,15 @@ public class BlogDto {
             String blogTitle,
             String blogCreatedBy,
             String blogCreatedName,
-            String blogText) {
+            String blogText,
+            String blogCategory) {
         this.blogId = blogId;
         this.blogCreateTime = blogCreateTime;
         this.blogTitle = blogTitle;
         this.blogCreatedBy = blogCreatedBy;
         this.blogCreatedName = blogCreatedName;
         this.blogText = blogText;
+        this.blogCategory = blogCategory;
     }
 
     public String getBlogId() {
@@ -88,6 +92,14 @@ public class BlogDto {
         this.blogText = blogText;
     }
 
+    public String getBlogCategory() {
+        return blogCategory;
+    }
+
+    public void setBlogCategory(String blogCategory) {
+        this.blogCategory = blogCategory;
+    }
+
     @Override
     public String toString() {
         return "BlogDto{"
@@ -107,6 +119,9 @@ public class BlogDto {
                 + '\''
                 + ", blogText='"
                 + blogText
+                + '\''
+                + ", blogCategory='"
+                + blogCategory
                 + '\''
                 + '}';
     }

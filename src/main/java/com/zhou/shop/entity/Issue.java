@@ -84,72 +84,81 @@ public class Issue implements Serializable {
         return issueStatus;
     }
 
-    public void setIssueStatus(String issueStatus) {
+    public Issue setIssueStatus(String issueStatus) {
         this.issueStatus = issueStatus;
+        return this;
     }
 
     public String getIssueId() {
         return issueId;
     }
 
-    public void setIssueId(String issueId) {
+    public Issue setIssueId(String issueId) {
         this.issueId = issueId;
+        return this;
     }
 
     public LocalDateTime getIssueCreateTime() {
         return issueCreateTime;
     }
 
-    public void setIssueCreateTime(LocalDateTime issueCreateTime) {
+    public Issue setIssueCreateTime(LocalDateTime issueCreateTime) {
         this.issueCreateTime = issueCreateTime;
+        return this;
     }
 
     public String getIssueDescription() {
         return issueDescription;
     }
 
-    public void setIssueDescription(String issueDescription) {
+    public Issue setIssueDescription(String issueDescription) {
         this.issueDescription = issueDescription;
+        return this;
     }
 
     public String getIssueType() {
         return issueType;
     }
 
-    public void setIssueType(String issueType) {
+    public Issue setIssueType(String issueType) {
         this.issueType = issueType;
+        return this;
     }
 
     public String getIssueModule() {
         return issueModule;
     }
 
-    public void setIssueModule(String issueModule) {
+    public Issue setIssueModule(String issueModule) {
         this.issueModule = issueModule;
+        return this;
     }
 
     public LocalDateTime getIssueSolveTime() {
         return issueSolveTime;
     }
 
-    public void setIssueSolveTime(LocalDateTime issueSolveTime) {
+    public Issue setIssueSolveTime(LocalDateTime issueSolveTime) {
         this.issueSolveTime = issueSolveTime;
+        return this;
     }
 
     public LocalDateTime getIssueCloseTime() {
         return issueCloseTime;
     }
 
-    public void setIssueCloseTime(LocalDateTime issueCloseTime) {
+    public Issue setIssueCloseTime(LocalDateTime issueCloseTime) {
         this.issueCloseTime = issueCloseTime;
+        return this;
     }
 
     public String getIssueCreateBy() {
         return issueCreateBy;
     }
 
-    public void setIssueCreateBy(String issueCreateBy) {
+    public Issue setIssueCreateBy(String issueCreateBy) {
         this.issueCreateBy = issueCreateBy;
+        return this;
     }
 
     @Override

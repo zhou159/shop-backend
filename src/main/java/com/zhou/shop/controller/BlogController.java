@@ -32,8 +32,8 @@ public class BlogController {
     }
 
     @GetMapping("/getBlogById/{blogId}")
-    public RestObject<Blog> queryById(@PathVariable("blogId") String id){
-        return RestResponse.makeOkRsp(blogService.getById(id));
+    public RestObject<BlogDto> queryById(@PathVariable("blogId") String id){
+        return RestResponse.makeOkRsp(blogService.queryById(id));
     }
 
     @GetMapping("/getBlogByBlogCategoryId/{blogCategoryId}")
