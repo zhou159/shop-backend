@@ -91,7 +91,6 @@ public class UserController {
         return RestResponse.makeErrRsp("删除失败！");
     }
 
-    @CrossOrigin(origins = {"http://114.55.58.31:8080", "null"})
     @ApiOperation(value = "图形验证码")
     @GetMapping("/verifyCode")
     public void verifyCode(HttpSession session, HttpServletResponse response) {
