@@ -33,8 +33,7 @@ public class IssueController {
     @ApiOperation("新增问题")
     @PostMapping("/createIssue")
     public RestObject<String> createIssue(@RequestBody Issue issue) {
-        issue.setIssueCreateTime(LocalDateTime.now());
-        issue.setIssueStatus("0");
+        issue.setIssueCreateTime(LocalDateTime.now()).setIssueStatus("0");
         boolean save = iIssueService.save(issue);
         if (save) {
             logUtil.log("新增了一个问题", LogStatus.INFO.info);
