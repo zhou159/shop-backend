@@ -1,15 +1,8 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -30,13 +23,13 @@ public class Sitcom {
 
     @ApiModelProperty(value = "开始观看日期")
     @TableField(value = "sitcom_watch_start_time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate sitcomWatchStartTime;
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private String sitcomWatchStartTime;
 
     @ApiModelProperty(value = "结束观看时间")
-    @TableField(value = "sitcom_watch_end_time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime sitcomWatchEndTime;
+    @TableField(value = "sitcom_watch_end_time", updateStrategy = FieldStrategy.IGNORED)
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private String sitcomWatchEndTime;
 
     @ApiModelProperty(value = "连续剧更新状态（0：完结；1：连载；2：断更）")
     @TableField(value = "sitcom_update_status")
@@ -78,13 +71,18 @@ public class Sitcom {
     @TableField(value = "sitcom_intro")
     private String sitcomIntro;
 
+    @TableLogic
+    @ApiModelProperty(value = "连续剧逻辑删除")
+    @TableField(value = "sitcom_deleted")
+    private Integer sitcomDeleted;
+
     public Sitcom() {}
 
     public Sitcom(
             String sitcomId,
             String sitcomName,
-            LocalDate sitcomWatchStartTime,
-            LocalDateTime sitcomWatchEndTime,
+            String sitcomWatchStartTime,
+            String sitcomWatchEndTime,
             String sitcomUpdateStatus,
             String sitcomPicture,
             String sitcomUrl,
@@ -129,20 +127,20 @@ public class Sitcom {
         return this;
     }
 
-    public LocalDate getSitcomWatchStartTime() {
+    public String getSitcomWatchStartTime() {
         return sitcomWatchStartTime;
     }
 
-    public Sitcom setSitcomWatchStartTime(LocalDate sitcomWatchStartTime) {
+    public Sitcom setSitcomWatchStartTime(String sitcomWatchStartTime) {
         this.sitcomWatchStartTime = sitcomWatchStartTime;
         return this;
     }
 
-    public LocalDateTime getSitcomWatchEndTime() {
+    public String getSitcomWatchEndTime() {
         return sitcomWatchEndTime;
     }
 
-    public Sitcom setSitcomWatchEndTime(LocalDateTime sitcomWatchEndTime) {
+    public Sitcom setSitcomWatchEndTime(String sitcomWatchEndTime) {
         this.sitcomWatchEndTime = sitcomWatchEndTime;
         return this;
     }

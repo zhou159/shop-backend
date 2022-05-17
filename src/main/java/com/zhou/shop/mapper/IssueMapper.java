@@ -40,9 +40,10 @@ public interface IssueMapper extends BaseMapper<Issue> {
 
     /**
      * 修改问题状态
+     *
      * @param issueId 问题ID
-     * @param issueStatus 问题状态
+     * @param issue 问题对象
      * @return 布尔值
      */
-    int updateIssueStatus(@Param("issueId")String issueId,@Param("issueStatus")String issueStatus);
+    int updateIssueStatus(@Param("issueId") String issueId, @Param("issue") Issue issue);
 }

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 /**表示这个Controller不处理http请求，只处理当其他controller抛出异常时，进行处理。*/
 public class Handler {
-    @ExceptionHandler(ShareException.class)  //就是定义处理什么异常
+    @ExceptionHandler(ShopException.class) // 就是定义处理什么异常
     @ResponseBody
-    @ResponseStatus(HttpStatus.OK) //服务器的异常
-    public RestObject<String> handlerShareException(Exception e){
+    @ResponseStatus(HttpStatus.OK) // 服务器的异常
+    public RestObject<String> handlerShareException(Exception e) {
         return RestResponse.makeErrRsp(e.getMessage());
     }
 

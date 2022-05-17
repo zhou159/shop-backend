@@ -3,6 +3,8 @@ package com.zhou.shop.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.dto.ItemDto;
 import com.zhou.shop.entity.Item;
+import com.zhou.shop.result.RestObject;
+import com.zhou.shop.vo.ItemVo;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public interface IItemService extends IService<Item> {
      *
      * @return 商品dto对象
      */
-    List<ItemDto> retrieveAllItem();
+    RestObject<List<ItemDto>> retrieveAllItem();
 
     /**
      * 按商品名查询商品
@@ -26,5 +28,38 @@ public interface IItemService extends IService<Item> {
      * @param itemName 商品名
      * @return 商品dto对象
      */
-    List<ItemDto> retrieveByItemName(String itemName);
+    RestObject<List<ItemDto>> retrieveByItemName(String itemName);
+
+    /**
+     * 新增
+     *
+     * @param itemVo 前端传入对象
+     * @return
+     */
+    RestObject<String> createItem(ItemVo itemVo);
+
+    /**
+     * 根据id查询
+     *
+     * @param itemId id
+     * @return
+     */
+    RestObject<Item> retrieveByItemId(String itemId);
+
+    /**
+     * 根据id修改
+     *
+     * @param itemId id
+     * @param itemVo 前端对象
+     * @return
+     */
+    RestObject<String> updateItemByItemId(String itemId, ItemVo itemVo);
+
+    /**
+     * 根据id删除
+     *
+     * @param itemId id
+     * @return
+     */
+    RestObject<String> deleteItemById(String itemId);
 }

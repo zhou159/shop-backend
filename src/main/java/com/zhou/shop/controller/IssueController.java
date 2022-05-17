@@ -2,15 +2,11 @@ package com.zhou.shop.controller;
 
 import com.zhou.shop.dto.IssueModuleDto;
 import com.zhou.shop.entity.Issue;
-import com.zhou.shop.enums.LogStatus;
 import com.zhou.shop.result.RestObject;
-import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IIssueService;
-import com.zhou.shop.util.LogUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -22,88 +18,57 @@ import java.util.List;
 @RestController
 @RequestMapping("/issue")
 public class IssueController {
-    final LogUtil logUtil;
-    final IIssueService iIssueService;
+    private final IIssueService iIssueService;
 
-    public IssueController(IIssueService iIssueService, LogUtil logUtil) {
+    public IssueController(IIssueService iIssueService) {
         this.iIssueService = iIssueService;
-        this.logUtil = logUtil;
     }
 
     @ApiOperation("新增问题")
     @PostMapping("/createIssue")
     public RestObject<String> createIssue(@RequestBody Issue issue) {
-        issue.setIssueCreateTime(LocalDateTime.now()).setIssueStatus("0");
-        boolean save = iIssueService.save(issue);
-        if (save) {
-            logUtil.log("新增了一个问题", LogStatus.INFO.info);
-            return RestResponse.makeOkRsp("新增成功！");
-        }
-        logUtil.log("新增问题出现异常", LogStatus.ERROR.info);
-        return RestResponse.makeErrRsp("新增成功！");
+        return iIssueService.createIssue(issue);
     }
 
     @ApiOperation("按id查询问题")
     @GetMapping("/retrieveByIssueId/{issueId}")
     public RestObject<Issue> retrieveByIssueId(@PathVariable String issueId) {
-        Issue issue = iIssueService.getById(issueId);
-        return RestResponse.makeOkRsp(issue);
+        return iIssueService.retrieveByIssueId(issueId);
     }
 
     @ApiOperation("查询全部未解决的问题")
     @GetMapping("/retrieveAllIssue")
     public RestObject<List<Issue>> retrieveAllIssue() {
-        List<Issue> list = iIssueService.readEffectiveIssue();
-        return RestResponse.makeOkRsp(list);
+        return iIssueService.retrieveAllIssue();
     }
 
     @ApiOperation("按id修改问题")
     @PostMapping("/updateIssueByIssueId/{issueId}")
     public RestObject<String> updateIssueByIssueId(@PathVariable String issueId, @RequestBody Issue issue) {
-        issue.setIssueId(issueId);
-        boolean b = iIssueService.updateById(issue);
-        if (b) {
-            logUtil.log("成功修改了信息信息，信息ID：" + issueId, LogStatus.INFO.info);
-            return RestResponse.makeOkRsp("修改成功！");
-        }
-        logUtil.log("修改信息信息时失败，信息ID：" + issueId, LogStatus.ERROR.info);
-        return RestResponse.makeErrRsp("修改失败！");
+        return iIssueService.updateIssueByIssueId(issueId, issue);
     }
 
     @ApiOperation("按id删除问题")
     @PostMapping("/deleteByIssueId/{issueId}")
     public RestObject<String> deleteIssueById(@PathVariable String issueId) {
-        boolean b = iIssueService.removeById(issueId);
-        if (b) {
-            logUtil.log("成功删除了信息信息，信息ID：" + issueId, LogStatus.INFO.info);
-            return RestResponse.makeOkRsp("删除成功！");
-        }
-        logUtil.log("删除信息信息时失败，信息ID：" + issueId, LogStatus.ERROR.info);
-        return RestResponse.makeErrRsp("删除失败！");
+        return iIssueService.deleteIssueById(issueId);
     }
 
     @ApiOperation("查询全部问题板块")
     @GetMapping("/issueModule")
     public RestObject<List<IssueModuleDto>> getIssueModule() {
-        return RestResponse.makeOkRsp(iIssueService.getIssueModule());
+        return iIssueService.getIssueModule();
     }
 
     @ApiOperation("根据问题描述模糊查询")
     @PostMapping("/retrieveByIssueDescription")
     public RestObject<List<Issue>> retrieveByIssueDescription(@RequestBody Issue issue) {
-        return RestResponse.makeOkRsp(
-                iIssueService.retrieveByIssueDescription(issue.getIssueDescription()));
+        return iIssueService.retrieveByIssueDescription(issue.getIssueDescription());
     }
 
     @ApiOperation("修改问题状态")
     @PostMapping("/updateIssueStatus/{issueId}")
     public RestObject<String> updateIssueStatus(@PathVariable String issueId, @RequestBody Issue issue) {
-        int i = iIssueService.updateIssueStatus(issueId, issue.getIssueStatus());
-        if (i == 1) {
-            logUtil.log("修改了问题状态，问题ID：" + issueId, LogStatus.INFO.info);
-            return RestResponse.makeOkRsp("修改成功！");
-        }
-        logUtil.log("修改问题状态出现异常，问题ID：" + issueId, LogStatus.ERROR.info);
-        return RestResponse.makeErrRsp("修改失败！");
+        return iIssueService.updateIssueStatus(issueId, issue.getIssueStatus());
     }
 }

@@ -1,9 +1,6 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -27,6 +24,11 @@ public class Specification {
     @ApiModelProperty(value = "规格说明")
     @TableField("specification_label")
     private String specificationLabel;
+
+    @TableLogic
+    @ApiModelProperty(value = "规格说明")
+    @TableField("specification_deleted")
+    private Integer specificationDeleted;
 
     public Specification() {}
 

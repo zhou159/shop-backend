@@ -67,6 +67,11 @@ public class Item implements Serializable {
     @TableField("item_picture")
     private String itemPicture;
 
+    @TableLogic
+    @ApiModelProperty(value = "商品逻辑删除")
+    @TableField("item_deleted")
+    private Integer itemDeleted;
+
     public Item(
             String itemId,
             String itemName,

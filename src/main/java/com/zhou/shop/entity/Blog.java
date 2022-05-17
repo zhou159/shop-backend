@@ -1,9 +1,6 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -47,6 +44,11 @@ public class Blog implements Serializable {
     @ApiModelProperty(value = "博客标签")
     @TableField("blog_flag")
     private String blogFlag;
+
+    @TableLogic
+    @ApiModelProperty(value = "博客逻辑删除")
+    @TableField("blog_deleted")
+    private Integer blogDeleted;
 
     public Blog() {}
 

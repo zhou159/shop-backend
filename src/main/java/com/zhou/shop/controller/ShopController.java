@@ -1,11 +1,8 @@
 package com.zhou.shop.controller;
 
 import com.zhou.shop.entity.Shop;
-import com.zhou.shop.enums.LogStatus;
 import com.zhou.shop.result.RestObject;
-import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IShopService;
-import com.zhou.shop.util.LogUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,69 +17,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/shop")
 public class ShopController {
-    final IShopService iShopService;
-    final LogUtil logUtil;
+    private final IShopService iShopService;
 
-    public ShopController(IShopService iShopService, LogUtil logUtil) {
+    public ShopController(IShopService iShopService) {
         this.iShopService = iShopService;
-        this.logUtil = logUtil;
     }
 
     @ApiOperation("新增商店")
     @PostMapping("/createShop")
     public RestObject<String> createShop(@RequestBody Shop shop) {
-        boolean save = iShopService.save(shop);
-        if (save) {
-            logUtil.log("新增商店成功", LogStatus.INFO.info);
-            return RestResponse.makeOkRsp("新增成功！");
-        }
-        logUtil.log("新增商店出现异常", LogStatus.ERROR.info);
-        return RestResponse.makeErrRsp("新增失败！");
+        return iShopService.createShop(shop);
     }
 
     @ApiOperation("按id查询商店")
     @GetMapping("/retrieveByShopId/{shopId}")
     public RestObject<Shop> retrieveByShopId(@PathVariable String shopId) {
-        Shop shop = iShopService.getById(shopId);
-        return RestResponse.makeOkRsp(shop);
+        return iShopService.retrieveByShopId(shopId);
     }
 
     @ApiOperation("查询全部商店")
     @GetMapping("/retrieveAllShop")
     public RestObject<List<Shop>> retrieveAllShop() {
-        List<Shop> list = iShopService.list();
-        return RestResponse.makeOkRsp(list);
+        return iShopService.retrieveAllShop();
     }
 
     @ApiOperation("按id修改商店")
     @PostMapping("/updateShopByShopId/{shopId}")
     public RestObject<String> updateShopByShopId(@PathVariable String shopId, @RequestBody Shop shop) {
-        shop.setShopId(shopId);
-        boolean b = iShopService.updateById(shop);
-        if (b) {
-            logUtil.log("成功修改了商店信息，商店ID：" + shopId, LogStatus.INFO.info);
-            return RestResponse.makeOkRsp("修改成功！");
-        }
-        logUtil.log("修改商店信息时失败，商店ID：" + shopId, LogStatus.ERROR.info);
-        return RestResponse.makeErrRsp("修改失败！");
+        return iShopService.updateShopByShopId(shopId, shop);
     }
 
     @ApiOperation("按id删除商店")
     @PostMapping("/deleteByShopId/{shopId}")
     public RestObject<String> deleteShopById(@PathVariable String shopId) {
-        boolean b = iShopService.removeById(shopId);
-        if (b) {
-            logUtil.log("成功删除了商店信息，商店ID：" + shopId, LogStatus.INFO.info);
-            return RestResponse.makeOkRsp("删除成功！");
-        }
-        logUtil.log("删除商店信息时失败，商店ID：" + shopId, LogStatus.ERROR.info);
-        return RestResponse.makeErrRsp("删除失败！");
+        return iShopService.deleteShopById(shopId);
     }
 
     @ApiOperation("按商店名称查询")
     @PostMapping("/retrieveByShopName")
     public RestObject<List<Shop>> retrieveShopByShopName(@RequestBody Shop shop) {
-        List<Shop> list = iShopService.retrieveByShopName(shop.getShopName());
-        return RestResponse.makeOkRsp(list);
+        return iShopService.retrieveByShopName(shop.getShopName());
     }
 }

@@ -1,9 +1,6 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -42,6 +39,11 @@ public class Shop implements Serializable {
     @ApiModelProperty(value = "商店图片")
     @TableField("shop_picture")
     private String shopPicture;
+
+    @TableLogic
+    @ApiModelProperty(value = "商店逻辑删除")
+    @TableField("shop_deleted")
+    private Integer shopDeleted;
 
     public Shop() {}
 

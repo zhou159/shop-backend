@@ -1,14 +1,9 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -26,7 +21,7 @@ public class SitcomNumber {
     @ApiModelProperty(value = "观看时间")
     @TableField(value = "sitcom_number_watch_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime sitcomNumberWatchTime;
+    private String sitcomNumberWatchTime;
 
     @ApiModelProperty(value = "连续剧id")
     @TableField(value = "sitcom_id")
@@ -52,11 +47,16 @@ public class SitcomNumber {
     @TableField(value = "sitcom_number_number")
     private String sitcomNumberNumber;
 
+    @TableLogic
+    @ApiModelProperty(value = "集逻辑删除")
+    @TableField(value = "sitcom_number_deleted")
+    private Integer sitcomNumberDeleted;
+
     public SitcomNumber() {}
 
     public SitcomNumber(
             String sitcomNumberId,
-            LocalDateTime sitcomNumberWatchTime,
+            String sitcomNumberWatchTime,
             String sitcomId,
             String sitcomNumberName,
             String sitcomNumberUrl,
@@ -82,11 +82,11 @@ public class SitcomNumber {
         return this;
     }
 
-    public LocalDateTime getSitcomNumberWatchTime() {
+    public String getSitcomNumberWatchTime() {
         return sitcomNumberWatchTime;
     }
 
-    public SitcomNumber setSitcomNumberWatchTime(LocalDateTime sitcomNumberWatchTime) {
+    public SitcomNumber setSitcomNumberWatchTime(String sitcomNumberWatchTime) {
         this.sitcomNumberWatchTime = sitcomNumberWatchTime;
         return this;
     }

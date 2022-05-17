@@ -12,14 +12,6 @@ import java.util.List;
 @Mapper
 public interface SitcomNumberMapper extends BaseMapper<SitcomNumber> {
     /**
-     * 根据连续剧id获取集数信息
-     *
-     * @param sitcomId 连续剧id
-     * @return 集数信息数组
-     */
-    List<SitcomNumber> retrieveBySitcomId(@Param("sitcomId") String sitcomId);
-
-    /**
      * 根据集名模糊查询
      *
      * @param sitcomNumberName 集名

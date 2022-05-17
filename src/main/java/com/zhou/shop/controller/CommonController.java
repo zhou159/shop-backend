@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/common")
 public class CommonController {
-    final MinioUtil minioUtil;
+    private final MinioUtil minioUtil;
 
     public CommonController(MinioUtil minioUtil) {
         this.minioUtil = minioUtil;

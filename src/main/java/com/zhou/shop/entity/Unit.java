@@ -1,9 +1,6 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -23,6 +20,11 @@ public class Unit {
     @ApiModelProperty(value = "单位名字")
     @TableField("unit_name")
     private String unitName;
+
+    @TableLogic
+    @ApiModelProperty(value = "单位逻辑删除")
+    @TableField("unit_deleted")
+    private Integer unitDeleted;
 
     public Unit() {}
 

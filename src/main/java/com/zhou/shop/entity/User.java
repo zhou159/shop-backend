@@ -1,9 +1,6 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -30,6 +27,11 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户头像")
     @TableField("user_picture")
     private String userPicture;
+
+    @TableLogic
+    @ApiModelProperty(value = "用户逻辑删除")
+    @TableField("user_deleted")
+    private Integer userDeleted;
 
     public User() {}
 

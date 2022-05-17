@@ -1,9 +1,6 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -32,6 +29,11 @@ public class BlogCategory implements Serializable {
     @ApiModelProperty("博客栏目简介")
     @TableField("blog_category_description")
     private String blogCategoryDescription;
+
+    @TableLogic
+    @ApiModelProperty("博客栏目逻辑删除")
+    @TableField("blog_category_deleted")
+    private Integer blogCategoryDeleted;
 
     public BlogCategory() {}
 

@@ -7,7 +7,11 @@ import com.zhou.shop.entity.Blog;
 import com.zhou.shop.entity.BlogCategory;
 import com.zhou.shop.mapper.BlogCategoryMapper;
 import com.zhou.shop.mapper.BlogMapper;
+import com.zhou.shop.result.RestObject;
+import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IBlogCategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +27,10 @@ import java.util.List;
 @Service
 public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, BlogCategory> implements IBlogCategoryService {
 
-    final BlogCategoryMapper blogCategoryMapper;
-    final BlogMapper blogMapper;
+    private final BlogCategoryMapper blogCategoryMapper;
+    private final BlogMapper blogMapper;
+
+    private final Logger log = LoggerFactory.getLogger(BlogCategoryServiceImpl.class);
 
     public BlogCategoryServiceImpl(BlogCategoryMapper blogCategoryMapper, BlogMapper blogMapper) {
         this.blogCategoryMapper = blogCategoryMapper;
@@ -32,7 +38,7 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
     }
 
     @Override
-    public List<BlogCategoryListDto> queryCategoryList(String userId) {
+    public RestObject<List<BlogCategoryListDto>> queryCategoryList(String userId) {
         QueryWrapper<BlogCategory> blogCategoryQueryWrapper = new QueryWrapper<>();
         blogCategoryQueryWrapper.eq("blog_category_created_by", userId);
         List<BlogCategory> blogCategories = blogCategoryMapper.selectList(blogCategoryQueryWrapper);
@@ -46,6 +52,11 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
             blogCategoryListTreeDto.setBlogCount(aLong.toString() + "篇");
             blogCategoriesListTree.add(blogCategoryListTreeDto);
         }
-        return blogCategoriesListTree;
+        return RestResponse.makeOkRsp(blogCategoriesListTree);
+    }
+
+    @Override
+    public RestObject<BlogCategory> queryBlogCategoryById(String blogCategoryId) {
+        return RestResponse.makeOkRsp(blogCategoryMapper.selectById(blogCategoryId));
     }
 }

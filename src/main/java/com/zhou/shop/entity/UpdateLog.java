@@ -1,9 +1,6 @@
 package com.zhou.shop.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,6 +33,11 @@ public class UpdateLog implements Serializable {
     @ApiModelProperty(value = "更新日志描述")
     @TableField("update_log_description")
     private String updateLogDescription;
+
+    @ApiModelProperty(value = "更新日志逻辑删除")
+    @TableLogic
+    @TableField("update_log_deleted")
+    private Integer updateLogDeleted;
 
     public UpdateLog() {}
 

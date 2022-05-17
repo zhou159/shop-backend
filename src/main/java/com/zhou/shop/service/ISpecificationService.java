@@ -2,6 +2,7 @@ package com.zhou.shop.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.entity.Specification;
+import com.zhou.shop.result.RestObject;
 
 import java.util.List;
 
@@ -18,5 +19,45 @@ public interface ISpecificationService extends IService<Specification> {
      * @param specificationName 规格名
      * @return 数组，规格对象
      */
-    List<Specification> retrieveBySpecificationName(String specificationName);
+    RestObject<List<Specification>> retrieveBySpecificationName(String specificationName);
+
+    /**
+     * 新增
+     *
+     * @param specification
+     */
+    RestObject<String> createSpecification(Specification specification);
+
+    /**
+     * 根据id查询
+     *
+     * @param specificationId id
+     * @return
+     */
+    RestObject<Specification> retrieveBySpecificationId(String specificationId);
+
+    /**
+     * 查询全部
+     *
+     * @return
+     */
+    RestObject<List<Specification>> retrieveAllSpecification();
+
+    /**
+     * 根据id修改
+     *
+     * @param specificationId id
+     * @param specification 对象
+     * @return
+     */
+    RestObject<String> updateSpecificationBySpecificationId(
+            String specificationId, Specification specification);
+
+    /**
+     * 根据id删除
+     *
+     * @param specificationId id
+     * @return
+     */
+    RestObject<String> deleteSpecificationById(String specificationId);
 }

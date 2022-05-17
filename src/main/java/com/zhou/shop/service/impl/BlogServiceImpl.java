@@ -6,7 +6,11 @@ import com.zhou.shop.dto.BlogDto;
 import com.zhou.shop.entity.Blog;
 import com.zhou.shop.mapper.BlogMapper;
 import com.zhou.shop.mapper.UserMapper;
+import com.zhou.shop.result.RestObject;
+import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IBlogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +25,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IBlogService {
-    final BlogMapper blogMapper;
-    final UserMapper userMapper;
+    private final BlogMapper blogMapper;
+    private final UserMapper userMapper;
+
+    private final Logger log = LoggerFactory.getLogger(BlogServiceImpl.class);
 
     public BlogServiceImpl(BlogMapper blogMapper, UserMapper userMapper) {
         this.blogMapper = blogMapper;
@@ -30,30 +36,37 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
     @Override
-    public List<BlogDto> queryListDto() {
-        List<Blog> blogs = blogMapper.selectList(new QueryWrapper<Blog>().eq("1", "1"));
-        List<BlogDto> collect = blogs.stream().map(it -> {
-            BlogDto blogDto = new BlogDto();
-            BeanUtils.copyProperties(it, blogDto);
-            blogDto.setBlogCreatedName(userMapper.selectById(it.getBlogCreatedBy()).getUsername());
-            return blogDto;
-        }).collect(Collectors.toList());
-        return collect;
+    public RestObject<List<BlogDto>> queryListDto() {
+        List<Blog> blogs = blogMapper.selectList(null);
+        return RestResponse.makeOkRsp(
+                blogs.stream()
+                        .map(
+                                it -> {
+                                    BlogDto blogDto = new BlogDto();
+                                    BeanUtils.copyProperties(it, blogDto);
+                                    blogDto.setBlogCreatedName(
+                                            userMapper
+                                                    .selectById(it.getBlogCreatedBy())
+                                                    .getUsername());
+                                    return blogDto;
+                                })
+                        .collect(Collectors.toList()));
     }
 
     @Override
-    public List<Blog> queryBlogByBlogCategoryId(String blogCategoryId) {
-        List<Blog> blogs = blogMapper.selectList(new QueryWrapper<Blog>().eq("blog_category", blogCategoryId));
-        return blogs;
+    public RestObject<List<Blog>> queryBlogByBlogCategoryId(String blogCategoryId) {
+        return RestResponse.makeOkRsp(
+                blogMapper.selectList(
+                        new QueryWrapper<Blog>().eq("blog_category", blogCategoryId)));
     }
 
     @Override
-    public BlogDto queryById(String id) {
+    public RestObject<BlogDto> queryById(String id) {
         Blog blog = blogMapper.selectById(id);
         BlogDto blogDto = new BlogDto();
         BeanUtils.copyProperties(blog, blogDto);
         blogDto.setBlogCreatedName(userMapper.selectById(blogDto.getBlogCreatedBy()).getUsername());
-        return blogDto;
+        return RestResponse.makeOkRsp(blogDto);
     }
 
 }

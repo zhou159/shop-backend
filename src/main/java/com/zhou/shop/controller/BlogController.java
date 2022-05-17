@@ -3,7 +3,6 @@ package com.zhou.shop.controller;
 import com.zhou.shop.dto.BlogDto;
 import com.zhou.shop.entity.Blog;
 import com.zhou.shop.result.RestObject;
-import com.zhou.shop.result.RestResponse;
 import com.zhou.shop.service.IBlogService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/blog")
 public class BlogController {
-    final IBlogService blogService;
+    private final IBlogService blogService;
 
     public BlogController(IBlogService blogService){
         this.blogService = blogService;
@@ -28,16 +27,16 @@ public class BlogController {
 
     @GetMapping("/getAllBlog")
     public RestObject<List<BlogDto>> queryAllBlog(){
-        return RestResponse.makeOkRsp(blogService.queryListDto());
+        return blogService.queryListDto();
     }
 
     @GetMapping("/getBlogById/{blogId}")
-    public RestObject<BlogDto> queryById(@PathVariable("blogId") String id){
-        return RestResponse.makeOkRsp(blogService.queryById(id));
+    public RestObject<BlogDto> queryById(@PathVariable("blogId") String blogId) {
+        return blogService.queryById(blogId);
     }
 
     @GetMapping("/getBlogByBlogCategoryId/{blogCategoryId}")
     public RestObject<List<Blog>> queryBlogByBlogCategoryId(@PathVariable("blogCategoryId") String blogCategoryId){
-        return RestResponse.makeOkRsp(blogService.queryBlogByBlogCategoryId(blogCategoryId));
+        return blogService.queryBlogByBlogCategoryId(blogCategoryId);
     }
 }

@@ -3,6 +3,7 @@ package com.zhou.shop.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.dto.BlogDto;
 import com.zhou.shop.entity.Blog;
+import com.zhou.shop.result.RestObject;
 
 import java.util.List;
 
@@ -14,21 +15,24 @@ import java.util.List;
 public interface IBlogService extends IService<Blog> {
     /**
      * 根据用户id获取Dto对象列表
+     *
      * @return
      */
-    List<BlogDto> queryListDto();
+    RestObject<List<BlogDto>> queryListDto();
 
     /**
      * 根据栏目id获取blogDto对象列表
+     *
      * @param blogCategoryId
      * @return
      */
-    List<Blog> queryBlogByBlogCategoryId(String blogCategoryId);
+    RestObject<List<Blog>> queryBlogByBlogCategoryId(String blogCategoryId);
 
     /**
      * 根据博客id获取对象
+     *
      * @param id
      * @return
      */
-    BlogDto queryById(String id);
+    RestObject<BlogDto> queryById(String id);
 }
