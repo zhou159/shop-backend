@@ -15,7 +15,7 @@ public interface IPubCodeService extends IService<PubCode> {
     /**
      * 根据classid查询
      *
-     * @param pubCode
+     * @param pubcodeClassId
      * @return
      */
     RestObject<List<PubCode>> retrieveSitcomByClassId(String pubcodeClassId);
