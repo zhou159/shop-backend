@@ -1,14 +1,14 @@
 package com.zhou.shop.util;
 
-import io.minio.MinioClient;
-import io.minio.ObjectStat;
-import io.minio.PutObjectOptions;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.minio.*;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -19,31 +19,55 @@ import java.util.UUID;
 @Component
 public class MinioUtil {
     private static final Integer DEFAULT_EXPIRY_TIME = 7 * 24 * 3600;
-    @Autowired private MinioClient minioClient;
+
+    @ApiModelProperty("协议://域名(IP地址):端口号")
+    @Value("${minio.endpoint}")
+    private String endpoint;
+
+    @Value("${minio.accessKey}")
+    @ApiModelProperty("minio的登录名")
+    private String accessKey;
+
+    @Value("${minio.secretKey}")
+    @ApiModelProperty("minio的密码")
+    private String secretKey;
 
     @Value("${minio.bucketName}")
     private String bucketName;
 
-    /**
-     * 检测桶是否存在
-     *
-     * @param bucketName 桶名称
-     */
-    public boolean bucketExists(String bucketName) {
+    private MinioClient minioClient;
+
+    private MinioClient getMinioClient() {
+        if (Objects.nonNull(minioClient)) {
+            return minioClient;
+        } else {
+            minioClient =
+                    MinioClient.builder()
+                            .endpoint(this.endpoint)
+                            .credentials(this.accessKey, this.secretKey)
+                            .build();
+        }
+        return minioClient;
+    }
+
+    /** 检测桶是否存在 */
+    public boolean bucketExists() {
         boolean flag = false;
         try {
-            flag = minioClient.bucketExists(bucketName);
+            flag =
+                    getMinioClient()
+                            .bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return flag;
     }
 
-    public boolean makeBucket(String bucketName) {
-        boolean flag = bucketExists(bucketName);
+    public boolean makeBucket() {
+        boolean flag = bucketExists();
         if (!flag) {
             try {
-                minioClient.makeBucket(bucketName);
+                getMinioClient().makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -56,25 +80,26 @@ public class MinioUtil {
     /**
      * 通过InputStream上传对象
      *
-     * @param bucketName 存储桶名称
      * @param objectName 存储桶里的对象名称
      * @param stream 要上传的流
      * @return
      */
-    public boolean putObject(String bucketName, String objectName, InputStream stream) {
-        boolean flag = bucketExists(bucketName);
+    public boolean putObject(String objectName, InputStream stream) {
+        boolean flag = bucketExists();
         if (flag) {
             try {
-                minioClient.putObject(
-                        bucketName,
-                        objectName,
-                        stream,
-                        new PutObjectOptions(stream.available(), -1));
+                getMinioClient()
+                        .putObject(
+                                PutObjectArgs.builder()
+                                        .bucket(bucketName)
+                                        .object(objectName)
+                                        .stream(stream, stream.available(), -1)
+                                        .build());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            ObjectStat statObject = statObject(bucketName, objectName);
-            return statObject != null && statObject.length() > 0;
+            StatObjectResponse statObject = statObject(objectName);
+            return statObject != null;
         }
         return false;
     }
@@ -87,13 +112,19 @@ public class MinioUtil {
      * @return
      */
     public InputStream getObject(String bucketName, String objectName) {
-        boolean flag = bucketExists(bucketName);
+        boolean flag = bucketExists();
         if (flag) {
-            ObjectStat statObject = statObject(bucketName, objectName);
-            if (statObject != null && statObject.length() > 0) {
+            StatObjectResponse statObject = statObject(objectName);
+            if (statObject != null) {
                 InputStream stream = null;
                 try {
-                    stream = minioClient.getObject(bucketName, objectName);
+                    stream =
+                            getMinioClient()
+                                    .getObject(
+                                            GetObjectArgs.builder()
+                                                    .bucket(bucketName)
+                                                    .object(objectName)
+                                                    .build());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -102,19 +133,25 @@ public class MinioUtil {
         }
         return null;
     }
+
     /**
      * 获取对象的元数据
      *
-     * @param bucketName 存储桶名称
      * @param objectName 存储桶里的对象名称
      * @return
      */
-    public ObjectStat statObject(String bucketName, String objectName) {
-        boolean flag = bucketExists(bucketName);
+    public StatObjectResponse statObject(String objectName) {
+        boolean flag = bucketExists();
         if (flag) {
-            ObjectStat statObject = null;
+            StatObjectResponse statObject = null;
             try {
-                statObject = minioClient.statObject(bucketName, objectName);
+                statObject =
+                        getMinioClient()
+                                .statObject(
+                                        StatObjectArgs.builder()
+                                                .bucket(bucketName)
+                                                .object(objectName)
+                                                .build());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -126,16 +163,22 @@ public class MinioUtil {
     /**
      * 文件访问路径
      *
-     * @param bucketName 存储桶名称
      * @param objectName 存储桶里的对象名称
      * @return
      */
-    public String getObjectUrl(String bucketName, String objectName) {
-        boolean flag = bucketExists(bucketName);
+    public String getObjectUrl(String objectName) {
+        boolean flag = bucketExists();
         String url = "";
         if (flag) {
             try {
-                url = minioClient.getObjectUrl(bucketName, objectName);
+                GetObjectResponse object =
+                        getMinioClient()
+                                .getObject(
+                                        GetObjectArgs.builder()
+                                                .bucket(bucketName)
+                                                .object(objectName)
+                                                .build());
+                url = object.object();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -147,30 +190,30 @@ public class MinioUtil {
      * 文件访问路径
      *
      * @param file 上传的文件
-     * @param foldername 文件夹名字
+     * @param folderName 文件夹名字
      * @return 文件访问路径
      */
-    public String upload(MultipartFile file, String foldername) {
+    public String upload(MultipartFile file, String folderName) {
         if (file.isEmpty() || file.getSize() == 0) {
             return "文件为空";
         }
         try {
-            if (!bucketExists(bucketName)) {
-                makeBucket(bucketName);
+            if (!bucketExists()) {
+                makeBucket();
             }
             String fileName = file.getOriginalFilename();
+            Assert.notNull(fileName, "文件名不能为空！");
             String newName =
-                    foldername
+                    folderName
                             + "/"
                             + UUID.randomUUID().toString().replaceAll("-", "")
                             + fileName.substring(fileName.lastIndexOf("."));
 
             InputStream inputStream = file.getInputStream();
-            putObject(bucketName, newName, inputStream);
+            putObject(newName, inputStream);
             inputStream.close();
 
-            String url = getObjectUrl(bucketName, newName);
-            return url;
+            return getObjectUrl(newName);
         } catch (Exception e) {
             e.printStackTrace();
             return "上传失败";
