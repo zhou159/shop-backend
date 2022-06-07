@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhou.shop.apiServer.mapper.SitcomNumberMapper">
+    <select id="retrieveBySitcomNumberName" resultType="com.zhou.shop.api.entity.SitcomNumber">
+        select *
+        from sitcom_number
+        where sitcom_number_name like '%${sitcomNumberName}%'
+          and sitcom_id = #{sitcomId}
+    </select>
+
+    <delete id="deleteBySitcomId">
+        delete
+        from sitcom_number
+        where sitcom_id = #{sitcomId}
+    </delete>
+
+    <resultMap id="readMaxSitcomNumberNumberMap" type="com.zhou.shop.api.dto.SitcomNumberDto">
+        <result column="mx" property="maxNumber"/>
+        <result column="cnt" property="count"/>
+    </resultMap>
+
+    <select id="readMaxSitcomNumberNumber" resultMap="readMaxSitcomNumberNumberMap">
+        select max(sitcom_number_number + 0) mx
+        from sitcom_number
+        where sitcom_id = #{sitcomId};
+    </select>
+
+    <select id="readSitcomNumberCnt" resultMap="readMaxSitcomNumberNumberMap">
+        select count(*) cnt
+        from sitcom_number
+        where sitcom_id = #{sitcomId}
+    </select>
+</mapper>
