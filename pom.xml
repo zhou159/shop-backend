@@ -142,9 +142,6 @@
             <artifactId>junit</artifactId>
         </dependency>
 
-<!--        minio-->
-
-
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
