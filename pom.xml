@@ -19,6 +19,11 @@
     <modules>
         <module>shop-api</module>
         <module>shop-application</module>
+        <module>shop-api-server</module>
+        <module>shop-apply</module>
+        <module>shop-common</module>
+        <module>shop-oss</module>
+        <module>shop-util</module>
     </modules>
 
     <packaging>pom</packaging>
