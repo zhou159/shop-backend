@@ -4,6 +4,7 @@ import com.zhou.shop.api.entity.Flag;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.oss.minio.MinioUtil;
+import com.zhou.shop.util.RedisUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/common")
 public class CommonController {
     private final MinioUtil minioUtil;
+    private final RedisUtil redisUtil;
 
-    public CommonController(MinioUtil minioUtil) {
+    public CommonController(MinioUtil minioUtil, RedisUtil redisUtil, RedisUtil redisUtil1) {
         this.minioUtil = minioUtil;
+        this.redisUtil = redisUtil1;
     }
 
     @ApiOperation("文件上传")
@@ -36,6 +39,12 @@ public class CommonController {
         System.out.println(item);
         System.out.println(flag.toString());
         return RestResponse.makeOkRsp();
+    }
+
+    @ApiOperation("test")
+    @GetMapping("/redisTest")
+    public void RedisTest(){
+        redisUtil.set("1","1");
     }
 
     private String uploadFile(MultipartFile file,String folderName){
