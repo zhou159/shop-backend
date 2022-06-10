@@ -1,6 +1,6 @@
 package com.zhou.shop.apply.controller;
 
-import com.zhou.shop.api.entity.Sitcom;
+import com.zhou.shop.api.entity.privates.Sitcom;
 import com.zhou.shop.apiServer.service.ISitcomService;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.ApiOperation;

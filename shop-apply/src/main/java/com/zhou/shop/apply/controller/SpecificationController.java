@@ -1,6 +1,6 @@
 package com.zhou.shop.apply.controller;
 
-import com.zhou.shop.api.entity.Specification;
+import com.zhou.shop.api.entity.privates.Specification;
 import com.zhou.shop.apiServer.service.ISpecificationService;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.ApiOperation;

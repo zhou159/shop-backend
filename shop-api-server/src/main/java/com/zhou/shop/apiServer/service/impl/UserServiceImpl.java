@@ -1,7 +1,7 @@
 package com.zhou.shop.apiServer.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhou.shop.api.entity.User;
+import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.apiServer.mapper.UserMapper;
 import com.zhou.shop.apiServer.service.IUserService;
 import com.zhou.shop.common.RestObject;

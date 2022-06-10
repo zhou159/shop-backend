@@ -1,12 +1,11 @@
 package com.zhou.shop.apply.controller;
 
+import com.zhou.shop.api.entity.Flag;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.oss.minio.MinioUtil;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -24,10 +23,23 @@ public class CommonController {
         this.minioUtil = minioUtil;
     }
 
-    @ApiOperation("上传图片")
+    @ApiOperation("文件上传")
     @PostMapping("/upload")
     public RestObject<String> upload(MultipartFile file) {
-        String item = minioUtil.upload(file, "item");
-        return RestResponse.makeOkRsp(item);
+        return RestResponse.makeOkRsp(uploadFile(file, "item"));
     }
+
+    @ApiOperation("test")
+    @PostMapping("/test")
+    public RestObject<String> test(@RequestPart("file")MultipartFile file, @RequestPart("flag") Flag flag){
+        final String item = uploadFile(file, "item");
+        System.out.println(item);
+        System.out.println(flag.toString());
+        return RestResponse.makeOkRsp();
+    }
+
+    private String uploadFile(MultipartFile file,String folderName){
+        return minioUtil.upload(file, folderName);
+    }
+
 }

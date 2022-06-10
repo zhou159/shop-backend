@@ -2,8 +2,8 @@ package com.zhou.shop.apiServer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhou.shop.api.entity.Sitcom;
-import com.zhou.shop.api.entity.SitcomNumber;
+import com.zhou.shop.api.entity.privates.Sitcom;
+import com.zhou.shop.api.entity.privates.SitcomNumber;
 import com.zhou.shop.apiServer.mapper.SitcomMapper;
 import com.zhou.shop.apiServer.mapper.SitcomNumberMapper;
 import com.zhou.shop.apiServer.service.ISitcomService;

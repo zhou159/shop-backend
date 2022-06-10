@@ -3,7 +3,7 @@ package com.zhou.shop.apiServer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.BlogDto;
-import com.zhou.shop.api.entity.Blog;
+import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.apiServer.mapper.BlogMapper;
 import com.zhou.shop.apiServer.mapper.UserMapper;
 import com.zhou.shop.apiServer.service.IBlogService;

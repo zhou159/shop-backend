@@ -1,7 +1,7 @@
 package com.zhou.shop.apiServer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zhou.shop.api.entity.Sitcom;
+import com.zhou.shop.api.entity.privates.Sitcom;
 import com.zhou.shop.common.RestObject;
 import org.springframework.web.bind.annotation.PathVariable;
 

@@ -1,6 +1,6 @@
 package com.zhou.shop.apply.controller;
 
-import com.zhou.shop.api.entity.SitcomNumber;
+import com.zhou.shop.api.entity.privates.SitcomNumber;
 import com.zhou.shop.apiServer.service.ISitcomNumberService;
 import com.zhou.shop.apiServer.service.ISitcomService;
 import com.zhou.shop.common.RestObject;

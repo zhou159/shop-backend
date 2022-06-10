@@ -1,4 +1,4 @@
-package com.zhou.shop.api.entity;
+package com.zhou.shop.api.entity.user;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;

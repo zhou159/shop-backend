@@ -2,7 +2,7 @@ package com.zhou.shop.apiServer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhou.shop.api.entity.UserLogin;
+import com.zhou.shop.api.entity.user.UserLogin;
 import com.zhou.shop.api.vo.UserLoginVo;
 import com.zhou.shop.apiServer.mapper.UserLoginMapper;
 import com.zhou.shop.apiServer.service.IUserLoginService;

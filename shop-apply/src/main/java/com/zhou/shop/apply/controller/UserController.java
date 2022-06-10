@@ -1,6 +1,6 @@
 package com.zhou.shop.apply.controller;
 
-import com.zhou.shop.api.entity.User;
+import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.apiServer.service.IUserService;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.ApiOperation;

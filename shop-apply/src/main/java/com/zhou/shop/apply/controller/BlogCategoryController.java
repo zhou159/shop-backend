@@ -1,7 +1,7 @@
 package com.zhou.shop.apply.controller;
 
 import com.zhou.shop.api.dto.BlogCategoryListDto;
-import com.zhou.shop.api.entity.BlogCategory;
+import com.zhou.shop.api.entity.blog.BlogCategory;
 import com.zhou.shop.apiServer.service.IBlogCategoryService;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.Api;

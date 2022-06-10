@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhou.shop.apiServer.mapper.SitcomNumberMapper">
-    <select id="retrieveBySitcomNumberName" resultType="com.zhou.shop.api.entity.SitcomNumber">
+    <select id="retrieveBySitcomNumberName" resultType="com.zhou.shop.api.entity.privates.SitcomNumber">
         select *
         from sitcom_number
         where sitcom_number_name like '%${sitcomNumberName}%'

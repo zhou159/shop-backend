@@ -1,7 +1,7 @@
 package com.zhou.shop.apiServer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zhou.shop.api.entity.Unit;
+import com.zhou.shop.api.entity.privates.Unit;
 import com.zhou.shop.common.RestObject;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.zhou.shop.apiServer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.dto.BlogDto;
-import com.zhou.shop.api.entity.Blog;
+import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.common.RestObject;
 
 import java.util.List;

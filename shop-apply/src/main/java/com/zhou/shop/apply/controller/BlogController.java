@@ -1,7 +1,7 @@
 package com.zhou.shop.apply.controller;
 
 import com.zhou.shop.api.dto.BlogDto;
-import com.zhou.shop.api.entity.Blog;
+import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.apiServer.service.IBlogService;
 import com.zhou.shop.common.RestObject;
 import org.springframework.web.bind.annotation.GetMapping;

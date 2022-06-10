@@ -1,7 +1,7 @@
 package com.zhou.shop.apply.controller;
 
 import com.zhou.shop.api.dto.ItemDto;
-import com.zhou.shop.api.entity.Item;
+import com.zhou.shop.api.entity.privates.Item;
 import com.zhou.shop.api.vo.ItemVo;
 import com.zhou.shop.apiServer.service.IFlagService;
 import com.zhou.shop.apiServer.service.IItemService;

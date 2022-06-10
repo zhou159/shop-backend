@@ -2,7 +2,7 @@ package com.zhou.shop.apiServer.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhou.shop.api.dto.ItemDto;
-import com.zhou.shop.api.entity.Item;
+import com.zhou.shop.api.entity.privates.Item;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

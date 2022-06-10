@@ -2,7 +2,7 @@ package com.zhou.shop.apiServer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.dto.ItemDto;
-import com.zhou.shop.api.entity.Item;
+import com.zhou.shop.api.entity.privates.Item;
 import com.zhou.shop.api.vo.ItemVo;
 import com.zhou.shop.common.RestObject;
 

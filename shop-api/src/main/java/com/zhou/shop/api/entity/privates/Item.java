@@ -1,4 +1,4 @@
-package com.zhou.shop.api.entity;
+package com.zhou.shop.api.entity.privates;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;

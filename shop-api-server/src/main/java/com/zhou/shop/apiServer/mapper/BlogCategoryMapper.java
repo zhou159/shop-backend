@@ -1,7 +1,7 @@
 package com.zhou.shop.apiServer.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zhou.shop.api.entity.BlogCategory;
+import com.zhou.shop.api.entity.blog.BlogCategory;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

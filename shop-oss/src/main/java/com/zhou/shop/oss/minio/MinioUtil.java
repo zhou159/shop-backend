@@ -1,8 +1,7 @@
 package com.zhou.shop.oss.minio;
 
+import com.zhou.shop.common.exception.FileErrorException;
 import io.minio.*;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,26 +13,14 @@ import java.util.UUID;
 /**
  * minio工具类
  *
- * @author Administrator
+ * @author zhouxiong
+ * @since 2022.5.26 10:11:26
+ * @description minion 工具类
+ * @version 0.0.1-SNAPSHOT
  */
 @Component
 public class MinioUtil {
     private static final Integer DEFAULT_EXPIRY_TIME = 7 * 24 * 3600;
-
-    @ApiModelProperty("协议://域名(IP地址):端口号")
-    @Value("${minio.endpoint}")
-    private String endpoint;
-
-    @Value("${minio.accessKey}")
-    @ApiModelProperty("minio的登录名")
-    private String accessKey;
-
-    @Value("${minio.secretKey}")
-    @ApiModelProperty("minio的密码")
-    private String secretKey;
-
-    @Value("${minio.bucketName}")
-    private String bucketName;
 
     private MinioClient minioClient;
 
@@ -43,8 +30,8 @@ public class MinioUtil {
         } else {
             minioClient =
                     MinioClient.builder()
-                            .endpoint(this.endpoint)
-                            .credentials(this.accessKey, this.secretKey)
+                            .endpoint(MinioConfig.END_POINT)
+                            .credentials(MinioConfig.ACCESS_KEY, MinioConfig.SECRET_KEY)
                             .build();
         }
         return minioClient;
@@ -56,7 +43,7 @@ public class MinioUtil {
         try {
             flag =
                     getMinioClient()
-                            .bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+                            .bucketExists(BucketExistsArgs.builder().bucket(MinioConfig.BUCKET_NAME).build());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,7 +54,7 @@ public class MinioUtil {
         boolean flag = bucketExists();
         if (!flag) {
             try {
-                getMinioClient().makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
+                getMinioClient().makeBucket(MakeBucketArgs.builder().bucket(MinioConfig.BUCKET_NAME).build());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -91,7 +78,7 @@ public class MinioUtil {
                 getMinioClient()
                         .putObject(
                                 PutObjectArgs.builder()
-                                        .bucket(bucketName)
+                                        .bucket(MinioConfig.BUCKET_NAME)
                                         .object(objectName)
                                         .stream(stream, stream.available(), -1)
                                         .build());
@@ -149,7 +136,7 @@ public class MinioUtil {
                         getMinioClient()
                                 .statObject(
                                         StatObjectArgs.builder()
-                                                .bucket(bucketName)
+                                                .bucket(MinioConfig.BUCKET_NAME)
                                                 .object(objectName)
                                                 .build());
             } catch (Exception e) {
@@ -168,22 +155,22 @@ public class MinioUtil {
      */
     public String getObjectUrl(String objectName) {
         boolean flag = bucketExists();
-        String url = "";
+        StringBuilder url = new StringBuilder(MinioConfig.MINIO_URL);
         if (flag) {
             try {
                 GetObjectResponse object =
                         getMinioClient()
                                 .getObject(
                                         GetObjectArgs.builder()
-                                                .bucket(bucketName)
+                                                .bucket(MinioConfig.BUCKET_NAME)
                                                 .object(objectName)
                                                 .build());
-                url = object.object();
+                url.append(object.object());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return url;
+        return url.toString();
     }
 
     /**
@@ -195,7 +182,7 @@ public class MinioUtil {
      */
     public String upload(MultipartFile file, String folderName) {
         if (file.isEmpty() || file.getSize() == 0) {
-            return "文件为空";
+            throw new FileErrorException("文件为空！");
         }
         try {
             if (!bucketExists()) {
@@ -216,7 +203,7 @@ public class MinioUtil {
             return getObjectUrl(newName);
         } catch (Exception e) {
             e.printStackTrace();
-            return "上传失败";
+            throw new FileErrorException("上传失败!");
         }
     }
 }

@@ -23,7 +23,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) //服务器的异常
     public RestObject<String> handlerUserNotLoginException(Exception e){
-        return RestResponse.errRsp(403,"User Not Login!",e.getMessage());
+        return RestResponse.errRsp(403,"User Not Login, Please Login!",e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)  //就是定义处理什么异常
@@ -45,6 +45,13 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) //服务器的异常
     public RestObject<String> UserAccountHandler(Exception e){
         return RestResponse.errRsp(401,"User Account Error!",e.getMessage());
+    }
+
+    @ExceptionHandler(FileErrorException.class)  //就是定义处理什么异常
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK) //服务器的异常
+    public RestObject<String> FileErrorHandler(Exception e){
+        return RestResponse.errRsp(700,"File Type Error Or Is Empty! Please Check Out It!",e.getMessage());
     }
 
 }
