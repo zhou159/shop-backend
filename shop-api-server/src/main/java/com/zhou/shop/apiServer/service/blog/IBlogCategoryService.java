@@ -1,7 +1,7 @@
 package com.zhou.shop.apiServer.service.blog;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zhou.shop.api.dto.BlogCategoryListDto;
+import com.zhou.shop.api.dto.BlogCategoryListDTO;
 import com.zhou.shop.api.entity.blog.BlogCategory;
 import com.zhou.shop.common.RestObject;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,7 @@ public interface IBlogCategoryService extends IService<BlogCategory> {
      * @param userId
      * @return
      */
-    RestObject<List<BlogCategoryListDto>> queryCategoryList(String userId);
+    RestObject<List<BlogCategoryListDTO>> queryCategoryList(String userId);
 
     /**
      * 根据id查询

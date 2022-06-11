@@ -1,8 +1,8 @@
 package com.zhou.shop.apply.controller.privates;
 
-import com.zhou.shop.api.dto.ItemDto;
+import com.zhou.shop.api.dto.ItemDTO;
 import com.zhou.shop.api.entity.privates.Item;
-import com.zhou.shop.api.vo.ItemVo;
+import com.zhou.shop.api.vo.ItemVO;
 import com.zhou.shop.apiServer.service.IFlagService;
 import com.zhou.shop.apiServer.service.privates.IItemService;
 import com.zhou.shop.common.RestObject;
@@ -33,7 +33,7 @@ public class ItemController {
 
     @ApiOperation("新建商品")
     @PostMapping("/createItem")
-    public RestObject<String> createItem(@RequestBody ItemVo itemVo) {
+    public RestObject<String> createItem(@RequestBody ItemVO itemVo) {
         return iItemService.createItem(itemVo);
     }
 
@@ -45,13 +45,13 @@ public class ItemController {
 
     @ApiOperation("查询全部商品")
     @GetMapping("/retrieveAllItem")
-    public RestObject<List<ItemDto>> retrieveAllItem() {
+    public RestObject<List<ItemDTO>> retrieveAllItem() {
         return iItemService.retrieveAllItem();
     }
 
     @ApiOperation("按商品id更新")
     @PostMapping("/updateItemByItemId/{itemId}")
-    public RestObject<String> updateItemByItemId(@PathVariable String itemId, @RequestBody ItemVo itemVo) {
+    public RestObject<String> updateItemByItemId(@PathVariable String itemId, @RequestBody ItemVO itemVo) {
         return iItemService.updateItemByItemId(itemId, itemVo);
     }
 
@@ -63,7 +63,7 @@ public class ItemController {
 
     @ApiOperation("按商品名称查询")
     @PostMapping("/retrieveByItemName")
-    public RestObject<List<ItemDto>> retrieveItemByItemName(@RequestBody Item item) {
+    public RestObject<List<ItemDTO>> retrieveItemByItemName(@RequestBody Item item) {
         return iItemService.retrieveByItemName(item.getItemName());
     }
 }

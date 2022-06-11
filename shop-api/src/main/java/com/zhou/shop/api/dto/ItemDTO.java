@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
  *
  * @author 周雄
  */
-public class ItemDto {
+public class ItemDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -71,9 +72,9 @@ public class ItemDto {
     @ApiModelProperty(value = "标签名字")
     private String flagName;
 
-    public ItemDto() {}
+    public ItemDTO() {}
 
-    public ItemDto(
+    public ItemDTO(
             String itemId,
             String itemName,
             String shopId,
@@ -262,7 +263,7 @@ public class ItemDto {
 
     @Override
     public String toString() {
-        return "ItemDto{"
+        return "ItemDTO{"
                 + "itemId='"
                 + itemId
                 + '\''

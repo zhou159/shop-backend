@@ -1,7 +1,7 @@
 package com.zhou.shop.apiServer.service.blog;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zhou.shop.api.dto.BlogDto;
+import com.zhou.shop.api.dto.BlogDTO;
 import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.common.RestObject;
 
@@ -18,7 +18,7 @@ public interface IBlogService extends IService<Blog> {
      *
      * @return
      */
-    RestObject<List<BlogDto>> queryListDto();
+    RestObject<List<BlogDTO>> queryListDto();
 
     /**
      * 根据栏目id获取blogDto对象列表
@@ -34,5 +34,5 @@ public interface IBlogService extends IService<Blog> {
      * @param id
      * @return
      */
-    RestObject<BlogDto> queryById(String id);
+    RestObject<BlogDTO> queryById(String id);
 }

@@ -4,7 +4,7 @@ import com.zhou.shop.api.entity.Flag;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.oss.minio.MinioUtil;
-import com.zhou.shop.util.RedisUtil;
+import com.zhou.shop.oss.redis.RedisUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

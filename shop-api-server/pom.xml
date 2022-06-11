@@ -28,14 +28,20 @@
 
         <dependency>
             <groupId>com.zhou</groupId>
-            <artifactId>shop-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.zhou</groupId>
             <artifactId>shop-util</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhou</groupId>
+            <artifactId>shop-oss</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zhou</groupId>
+            <artifactId>shop-auth</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

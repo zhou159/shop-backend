@@ -60,4 +60,11 @@ public class Handler {
     public RestObject<String> handlerRedisException(Exception e) {
         return RestResponse.errRsp(1000, "Redis Error!", e.getMessage());
     }
+
+    @ExceptionHandler(ObjectFieldEmptyException.class) // 就是定义处理什么异常
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK) // 服务器的异常
+    public RestObject<String> handlerObjectFieldEmptyException(Exception e) {
+        return RestResponse.errRsp(800, "NotNull Filed Is Empty!", e.getMessage());
+    }
 }

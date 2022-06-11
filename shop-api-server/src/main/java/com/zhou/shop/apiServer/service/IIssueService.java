@@ -1,7 +1,7 @@
 package com.zhou.shop.apiServer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zhou.shop.api.dto.IssueModuleDto;
+import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.common.RestObject;
 
@@ -19,7 +19,7 @@ public interface IIssueService extends IService<Issue> {
      *
      * @return 模块表数组
      */
-    RestObject<List<IssueModuleDto>> getIssueModule();
+    RestObject<List<IssueModuleDTO>> getIssueModule();
 
     /**
      * 根据问题描述模糊查询

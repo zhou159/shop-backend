@@ -2,6 +2,7 @@ package com.zhou.shop.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
  * @date 2022/3/27 14:22
  * @description
  */
-public class BlogDto {
+public class BlogDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String blogId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -25,9 +27,9 @@ public class BlogDto {
 
     private String blogCategory;
 
-    public BlogDto() {}
+    public BlogDTO() {}
 
-    public BlogDto(
+    public BlogDTO(
             String blogId,
             LocalDateTime blogCreateTime,
             String blogTitle,
@@ -102,7 +104,7 @@ public class BlogDto {
 
     @Override
     public String toString() {
-        return "BlogDto{"
+        return "BlogDTO{"
                 + "blogId='"
                 + blogId
                 + '\''

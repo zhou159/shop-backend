@@ -1,6 +1,6 @@
 package com.zhou.shop.apply.controller.blog;
 
-import com.zhou.shop.api.dto.BlogDto;
+import com.zhou.shop.api.dto.BlogDTO;
 import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.apiServer.service.blog.IBlogService;
 import com.zhou.shop.common.RestObject;
@@ -26,12 +26,12 @@ public class BlogController {
     }
 
     @GetMapping("/getAllBlog")
-    public RestObject<List<BlogDto>> queryAllBlog(){
+    public RestObject<List<BlogDTO>> queryAllBlog(){
         return blogService.queryListDto();
     }
 
     @GetMapping("/getBlogById/{blogId}")
-    public RestObject<BlogDto> queryById(@PathVariable("blogId") String blogId) {
+    public RestObject<BlogDTO> queryById(@PathVariable("blogId") String blogId) {
         return blogService.queryById(blogId);
     }
 

@@ -1,19 +1,22 @@
 package com.zhou.shop.api.dto;
 
+import java.io.Serializable;
+
 /**
  * @author 周雄
  * @date 2022/3/27 10:28
  * @description
  */
-public class BlogCategoryListDto {
+public class BlogCategoryListDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String blogCategoryId;
     private String blogCategoryName;
     private String blogCategoryDescription;
     private String blogCount;
 
-    public BlogCategoryListDto() {}
+    public BlogCategoryListDTO() {}
 
-    public BlogCategoryListDto(
+    public BlogCategoryListDTO(
             String blogCategoryId,
             String blogCategoryName,
             String blogCategoryDescription,

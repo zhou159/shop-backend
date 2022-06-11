@@ -1,7 +1,7 @@
-package com.zhou.shop.util;
+package com.zhou.shop.oss.redis;
 
 import com.zhou.shop.common.exception.RedisException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class RedisUtil {
-    @Autowired
+
     @Resource(name = "myRedisTemplate")
     private RedisTemplate myRedisTemplate;
 
@@ -31,6 +31,8 @@ public class RedisUtil {
         try {
             myRedisTemplate.opsForValue().set(key, value);
             return "添加成功";
+        } catch (RedisConnectionFailureException e) {
+            throw new RedisException("redis连接失败!" + e);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RedisException("redis异常!" + e);
@@ -38,13 +40,13 @@ public class RedisUtil {
     }
 
     /**
-     * 设置一个带时间的String类键
+     * 设置一个带时间的String类键，默认单位为分钟
      *
      * @param key:key
      * @param value:value
      * @param time:时间，单位（分）
      */
-    public String setex(String key, Object value, Integer time) {
+    public String setex(String key, Object value, Long time) {
         try {
             myRedisTemplate.opsForValue().set(key, value, time, TimeUnit.MINUTES);
             return "添加成功";
@@ -54,10 +56,21 @@ public class RedisUtil {
         }
     }
 
-    public String setex(String key, Object value, Integer time, TimeUnit unit) {
+    /**
+     * 设置一个带时间的String类键
+     *
+     * @param key 键名
+     * @param value 键值
+     * @param time 时间数
+     * @param unit 时间单位
+     * @return
+     */
+    public String setex(String key, Object value, Long time, TimeUnit unit) {
         try {
             myRedisTemplate.opsForValue().set(key, value, time, unit);
             return "添加成功";
+        } catch (RedisConnectionFailureException e) {
+            throw new RedisException("redis连接失败!" + e);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RedisException("redis异常!" + e);

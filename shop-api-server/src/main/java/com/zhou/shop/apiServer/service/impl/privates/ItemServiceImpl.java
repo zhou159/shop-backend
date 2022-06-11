@@ -1,10 +1,10 @@
 package com.zhou.shop.apiServer.service.impl.privates;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhou.shop.api.dto.ItemDto;
+import com.zhou.shop.api.dto.ItemDTO;
 import com.zhou.shop.api.entity.Flag;
 import com.zhou.shop.api.entity.privates.Item;
-import com.zhou.shop.api.vo.ItemVo;
+import com.zhou.shop.api.vo.ItemVO;
 import com.zhou.shop.apiServer.mapper.privates.ItemMapper;
 import com.zhou.shop.apiServer.service.IFlagService;
 import com.zhou.shop.apiServer.service.privates.IItemService;
@@ -40,19 +40,19 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     }
 
     @Override
-    public RestObject<List<ItemDto>> retrieveAllItem() {
+    public RestObject<List<ItemDTO>> retrieveAllItem() {
         return RestResponse.makeOkRsp(itemMapper.retrieveAllItem());
     }
 
     @Override
-    public RestObject<List<ItemDto>> retrieveByItemName(String itemName) {
+    public RestObject<List<ItemDTO>> retrieveByItemName(String itemName) {
 
         return RestResponse.makeOkRsp(itemMapper.retrieveByItemName(itemName));
     }
 
     @Transactional(rollbackFor = ShopException.class)
     @Override
-    public RestObject<String> createItem(ItemVo itemVo) {
+    public RestObject<String> createItem(ItemVO itemVo) {
         String flagName = itemVo.getFlagName();
         Flag flag = iFlagService.retrieveByFlagName(flagName);
         if (flag == null) {
@@ -77,7 +77,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     }
 
     @Override
-    public RestObject<String> updateItemByItemId(String itemId, ItemVo itemVo) {
+    public RestObject<String> updateItemByItemId(String itemId, ItemVO itemVo) {
         String flagName = itemVo.getFlagName();
         Flag flag = iFlagService.retrieveByFlagName(flagName);
         if (flag == null) {

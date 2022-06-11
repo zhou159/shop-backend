@@ -5,18 +5,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
  * 商品前端传入对象
- *
+ * 个人理解的是vo是页面对象，也就是返回给前端的对象
  * @author 周雄
  * @since 2021-08-28
  */
 @TableName("item")
 @ApiModel(value = "Item对象")
-public class ItemVo {
+public class ItemVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商品id")
@@ -58,9 +59,9 @@ public class ItemVo {
     @ApiModelProperty(value = "商品图片")
     private String itemPicture;
 
-    public ItemVo() {}
+    public ItemVO() {}
 
-    public ItemVo(
+    public ItemVO(
             String itemId,
             String itemName,
             String shopId,
@@ -195,7 +196,7 @@ public class ItemVo {
 
     @Override
     public String toString() {
-        return "ItemVo{"
+        return "ItemVO{"
                 + "itemId='"
                 + itemId
                 + '\''

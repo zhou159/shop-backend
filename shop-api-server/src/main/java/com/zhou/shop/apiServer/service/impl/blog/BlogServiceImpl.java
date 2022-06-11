@@ -2,7 +2,7 @@ package com.zhou.shop.apiServer.service.impl.blog;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhou.shop.api.dto.BlogDto;
+import com.zhou.shop.api.dto.BlogDTO;
 import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.apiServer.mapper.blog.BlogMapper;
 import com.zhou.shop.apiServer.mapper.user.UserMapper;
@@ -36,13 +36,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
     @Override
-    public RestObject<List<BlogDto>> queryListDto() {
+    public RestObject<List<BlogDTO>> queryListDto() {
         List<Blog> blogs = blogMapper.selectList(null);
         return RestResponse.makeOkRsp(
                 blogs.stream()
                         .map(
                                 it -> {
-                                    BlogDto blogDto = new BlogDto();
+                                    BlogDTO blogDto = new BlogDTO();
                                     BeanUtils.copyProperties(it, blogDto);
                                     blogDto.setBlogCreatedName(
                                             userMapper
@@ -61,9 +61,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
     @Override
-    public RestObject<BlogDto> queryById(String id) {
+    public RestObject<BlogDTO> queryById(String id) {
         Blog blog = blogMapper.selectById(id);
-        BlogDto blogDto = new BlogDto();
+        BlogDTO blogDto = new BlogDTO();
         BeanUtils.copyProperties(blog, blogDto);
         blogDto.setBlogCreatedName(userMapper.selectById(blogDto.getBlogCreatedBy()).getUsername());
         return RestResponse.makeOkRsp(blogDto);

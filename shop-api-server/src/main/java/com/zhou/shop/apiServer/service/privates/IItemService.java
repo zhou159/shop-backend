@@ -1,9 +1,9 @@
 package com.zhou.shop.apiServer.service.privates;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zhou.shop.api.dto.ItemDto;
+import com.zhou.shop.api.dto.ItemDTO;
 import com.zhou.shop.api.entity.privates.Item;
-import com.zhou.shop.api.vo.ItemVo;
+import com.zhou.shop.api.vo.ItemVO;
 import com.zhou.shop.common.RestObject;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface IItemService extends IService<Item> {
      *
      * @return 商品dto对象
      */
-    RestObject<List<ItemDto>> retrieveAllItem();
+    RestObject<List<ItemDTO>> retrieveAllItem();
 
     /**
      * 按商品名查询商品
@@ -28,7 +28,7 @@ public interface IItemService extends IService<Item> {
      * @param itemName 商品名
      * @return 商品dto对象
      */
-    RestObject<List<ItemDto>> retrieveByItemName(String itemName);
+    RestObject<List<ItemDTO>> retrieveByItemName(String itemName);
 
     /**
      * 新增
@@ -36,7 +36,7 @@ public interface IItemService extends IService<Item> {
      * @param itemVo 前端传入对象
      * @return
      */
-    RestObject<String> createItem(ItemVo itemVo);
+    RestObject<String> createItem(ItemVO itemVo);
 
     /**
      * 根据id查询
@@ -53,7 +53,7 @@ public interface IItemService extends IService<Item> {
      * @param itemVo 前端对象
      * @return
      */
-    RestObject<String> updateItemByItemId(String itemId, ItemVo itemVo);
+    RestObject<String> updateItemByItemId(String itemId, ItemVO itemVo);
 
     /**
      * 根据id删除

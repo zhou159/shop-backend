@@ -1,7 +1,7 @@
 package com.zhou.shop.apiServer.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhou.shop.api.dto.IssueModuleDto;
+import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.apiServer.mapper.IssueMapper;
 import com.zhou.shop.apiServer.service.IIssueService;
@@ -38,7 +38,7 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
     }
 
     @Override
-    public RestObject<List<IssueModuleDto>> getIssueModule() {
+    public RestObject<List<IssueModuleDTO>> getIssueModule() {
         return RestResponse.makeOkRsp(issueMapper.getIssueModule());
     }
 

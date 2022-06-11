@@ -1,10 +1,12 @@
-package com.zhou.shop.api.vo;
+package com.zhou.shop.api.vo.user;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class UserLoginVo {
+public class UserVO implements Serializable {
+    private static final long serialVersionUID = 1L;
     @ApiModelProperty("用户id")
     private int id;
 
@@ -44,9 +46,9 @@ public class UserLoginVo {
     @ApiModelProperty(value = "用户信誉值")
     private Integer creditScore;
 
-    public UserLoginVo() {}
+    public UserVO() {}
 
-    public UserLoginVo(
+    public UserVO(
             int id,
             String idNumber,
             String trueName,
@@ -181,7 +183,7 @@ public class UserLoginVo {
 
     @Override
     public String toString() {
-        return "UserLoginVo{"
+        return "UserLoginVO{"
                 + "id="
                 + id
                 + ", idNumber='"
@@ -226,7 +228,7 @@ public class UserLoginVo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserLoginVo that = (UserLoginVo) o;
+        UserVO that = (UserVO) o;
         return id == that.id
                 && idNumber.equals(that.idNumber)
                 && trueName.equals(that.trueName)

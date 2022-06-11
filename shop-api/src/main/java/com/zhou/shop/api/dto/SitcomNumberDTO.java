@@ -1,13 +1,16 @@
 package com.zhou.shop.api.dto;
 
+import java.io.Serializable;
+
 /**
  * @author Administrator
  */
-public class SitcomNumberDto {
+public class SitcomNumberDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String maxNumber;
     private Integer count;
 
-    public SitcomNumberDto() {
+    public SitcomNumberDTO() {
     }
 
     public Integer getCount() {
@@ -18,7 +21,7 @@ public class SitcomNumberDto {
         this.count = count;
     }
 
-    public SitcomNumberDto(String maxNumber, Integer count) {
+    public SitcomNumberDTO(String maxNumber, Integer count) {
         this.maxNumber = maxNumber;
         this.count = count;
     }
@@ -33,7 +36,7 @@ public class SitcomNumberDto {
 
     @Override
     public String toString() {
-        return "SitcomNumberDto{" +
+        return "SitcomNumberDTO{" +
                 "maxNumber='" + maxNumber + '\'' +
                 ", count=" + count +
                 '}';

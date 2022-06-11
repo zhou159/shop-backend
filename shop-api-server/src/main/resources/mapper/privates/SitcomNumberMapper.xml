@@ -14,7 +14,7 @@
         where sitcom_id = #{sitcomId}
     </delete>
 
-    <resultMap id="readMaxSitcomNumberNumberMap" type="com.zhou.shop.api.dto.SitcomNumberDto">
+    <resultMap id="readMaxSitcomNumberNumberMap" type="com.zhou.shop.api.dto.SitcomNumberDTO">
         <result column="mx" property="maxNumber"/>
         <result column="cnt" property="count"/>
     </resultMap>

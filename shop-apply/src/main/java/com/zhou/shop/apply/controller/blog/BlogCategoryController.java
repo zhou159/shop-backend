@@ -1,6 +1,6 @@
 package com.zhou.shop.apply.controller.blog;
 
-import com.zhou.shop.api.dto.BlogCategoryListDto;
+import com.zhou.shop.api.dto.BlogCategoryListDTO;
 import com.zhou.shop.api.entity.blog.BlogCategory;
 import com.zhou.shop.apiServer.service.blog.IBlogCategoryService;
 import com.zhou.shop.common.RestObject;
@@ -30,7 +30,7 @@ public class BlogCategoryController {
 
     @GetMapping("/queryBlogCategoryListByUserId/{userId}")
     @ApiOperation("根据用户id查询博客栏目列表")
-    public RestObject<List<BlogCategoryListDto>> queryCategoryListByUserId(@PathVariable("userId") String userId){
+    public RestObject<List<BlogCategoryListDTO>> queryCategoryListByUserId(@PathVariable("userId") String userId){
         return blogCategoryService.queryCategoryList(userId);
     }
 

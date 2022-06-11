@@ -6,20 +6,12 @@ import com.zhou.shop.apiServer.mapper.user.UserMapper;
 import com.zhou.shop.apiServer.service.user.IUserService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
-import com.zhou.shop.common.enums.Source;
 import com.zhou.shop.common.exception.ShopException;
-import com.zhou.shop.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.List;
-
-import static com.zhou.shop.util.RandomUtil.createImage;
 
 /**
  * 服务实现类
@@ -80,33 +72,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         log.info("删除用户成功！用户id：" + userId);
         return RestResponse.makeOkRsp("删除成功！");
-    }
-
-    @Override
-    public void verifyCode(HttpSession session, HttpServletResponse response) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            String code =
-                    RandomUtil.createRandom(
-                            4, Source.numLetter, Source.numLetter.getSources().length());
-            createImage(code, baos);
-            // 将VerifyCode绑定session
-            session.setAttribute(VERIFY_CODE, code);
-            // 设置响应头
-            response.setHeader("Pragma", "no-cache");
-            // 设置响应头
-            response.setHeader("Cache-Control", "no-cache");
-            response.setHeader("Access-Control-Allow-Origin", "true");
-            // 在代理服务器端防止缓冲
-            response.setDateHeader("Expires", 0);
-            // 设置响应内容类型
-            response.setContentType("image/jpeg");
-
-            response.getOutputStream().write(baos.toByteArray());
-            response.getOutputStream().flush();
-            baos.close();
-        } catch (IOException e) {
-            throw new ShopException(e.getMessage());
-        }
     }
 }

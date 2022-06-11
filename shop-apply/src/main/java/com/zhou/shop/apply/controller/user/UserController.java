@@ -6,8 +6,6 @@ import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -54,11 +52,5 @@ public class UserController {
     @PostMapping("/deleteByUserId/{userId}")
     public RestObject<String> deleteUserById(@PathVariable String userId) {
         return iUserService.deleteUserById(userId);
-    }
-
-    @ApiOperation(value = "图形验证码")
-    @GetMapping("/verifyCode")
-    public void verifyCode(HttpSession session, HttpServletResponse response) {
-        iUserService.verifyCode(session, response);
     }
 }

@@ -2,7 +2,7 @@ package com.zhou.shop.apiServer.service.impl.blog;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhou.shop.api.dto.BlogCategoryListDto;
+import com.zhou.shop.api.dto.BlogCategoryListDTO;
 import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.api.entity.blog.BlogCategory;
 import com.zhou.shop.apiServer.mapper.blog.BlogCategoryMapper;
@@ -38,13 +38,13 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
     }
 
     @Override
-    public RestObject<List<BlogCategoryListDto>> queryCategoryList(String userId) {
+    public RestObject<List<BlogCategoryListDTO>> queryCategoryList(String userId) {
         QueryWrapper<BlogCategory> blogCategoryQueryWrapper = new QueryWrapper<>();
         blogCategoryQueryWrapper.eq("blog_category_created_by", userId);
         List<BlogCategory> blogCategories = blogCategoryMapper.selectList(blogCategoryQueryWrapper);
-        List<BlogCategoryListDto> blogCategoriesListTree = new ArrayList<>();
+        List<BlogCategoryListDTO> blogCategoriesListTree = new ArrayList<>();
         for (BlogCategory blogCategory : blogCategories) {
-            BlogCategoryListDto blogCategoryListTreeDto = new BlogCategoryListDto();
+            BlogCategoryListDTO blogCategoryListTreeDto = new BlogCategoryListDTO();
             BeanUtils.copyProperties(blogCategory,blogCategoryListTreeDto);
             QueryWrapper<Blog> blog = new QueryWrapper<>();
             blog.eq("blog_category", blogCategory.getBlogCategoryId());

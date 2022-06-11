@@ -1,4 +1,4 @@
-package com.zhou.shop.common.config;
+package com.zhou.shop.oss.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -9,8 +9,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-
-import java.net.UnknownHostException;
 
 /**
  * @author 周雄
@@ -23,7 +21,7 @@ public class RedisConfig {
 
     @Bean(name = "myRedisTemplate")
     public RedisTemplate<String, Object> myRedisTemplate(
-            RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
+            RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
 
         Jackson2JsonRedisSerializer<Object> objectJackson2JsonRedisSerializer =

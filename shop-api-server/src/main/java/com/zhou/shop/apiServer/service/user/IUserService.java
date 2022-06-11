@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.common.RestObject;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -54,12 +52,4 @@ public interface IUserService extends IService<User> {
      * @return
      */
     RestObject<String> deleteUserById(String userId);
-
-    /**
-     * 生成验证码
-     *
-     * @param session
-     * @param response
-     */
-    void verifyCode(HttpSession session, HttpServletResponse response);
 }

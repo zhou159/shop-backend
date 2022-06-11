@@ -1,19 +1,21 @@
 package com.zhou.shop.api.dto;
 
+import java.io.Serializable;
+
 /**
  * 问题模块数据返回对象
  *
  * @author 周雄
  */
-public class IssueModuleDto {
+public class IssueModuleDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String issueModuleCh;
     private String issueModuleEn;
 
-    public IssueModuleDto() {}
+    public IssueModuleDTO() {}
 
-    public IssueModuleDto(String issueModuleCh, String issueModuleEn) {
+    public IssueModuleDTO(String issueModuleCh, String issueModuleEn) {
         this.issueModuleCh = issueModuleCh;
         this.issueModuleEn = issueModuleEn;
     }
@@ -36,7 +38,7 @@ public class IssueModuleDto {
 
     @Override
     public String toString() {
-        return "IssueModuleDto{"
+        return "IssueModuleDTO{"
                 + "IssueModuleCh='"
                 + issueModuleCh
                 + '\''

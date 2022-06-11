@@ -1,6 +1,6 @@
 package com.zhou.shop.apply.controller;
 
-import com.zhou.shop.api.dto.IssueModuleDto;
+import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.apiServer.service.IIssueService;
 import com.zhou.shop.common.RestObject;
@@ -56,7 +56,7 @@ public class IssueController {
 
     @ApiOperation("查询全部问题板块")
     @GetMapping("/issueModule")
-    public RestObject<List<IssueModuleDto>> getIssueModule() {
+    public RestObject<List<IssueModuleDTO>> getIssueModule() {
         return iIssueService.getIssueModule();
     }
 
