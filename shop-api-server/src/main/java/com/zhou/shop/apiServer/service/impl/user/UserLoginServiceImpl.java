@@ -1,5 +1,6 @@
 package com.zhou.shop.apiServer.service.impl.user;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -18,7 +19,6 @@ import com.zhou.shop.common.exception.ShopException;
 import com.zhou.shop.common.exception.UserAccountException;
 import com.zhou.shop.oss.redis.RedisUtil;
 import com.zhou.shop.util.RandomUtil;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -61,14 +61,14 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         log.info("用户输入的账号：{}，密码：{}", userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
         // TODO NotBlank 注解失效 待解决 先手动判空
         // =====
-        if (StringUtils.isBlank(userLoginVo.getUuid())) {
+        if (StrUtil.isBlank(userLoginVo.getUuid())) {
             throw new ObjectFieldEmptyException("uuid不能为空！");
         }
         // =====
 
-        if (StringUtils.isBlank(userLoginVo.getUserAccount())
-                || StringUtils.isBlank(userLoginVo.getUserPassword())
-                || StringUtils.isBlank(userCode)) {
+        if (StrUtil.isBlank(userLoginVo.getUserAccount())
+                || StrUtil.isBlank(userLoginVo.getUserPassword())
+                || StrUtil.isBlank(userCode)) {
             throw new UserAccountException("账户、密码或验证码不能为空!");
         }
         if (userCode.equals(redisCode)) {
@@ -138,7 +138,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
             createImage(code, baos);
 
             // TODO NotBlank 注解失效 待解决 先手动判空
-            if (StringUtils.isBlank(userLoginUuidVO.getUuid())) {
+            if (StrUtil.isBlank(userLoginUuidVO.getUuid())) {
                 throw new ObjectFieldEmptyException("uuid不能为空！");
             }
 
@@ -176,7 +176,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
 
         // TODO 账户校验
         // 常规登录方式
-        if (StringUtils.isNotBlank(userLoginVo.getUserAccount())) {
+        if (StrUtil.isNotBlank(userLoginVo.getUserAccount())) {
             LambdaQueryWrapper<UserLogin> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(UserLogin::getUserAccount, userLoginVo.getUserAccount())
                     .eq(UserLogin::getUserPassword, userLoginVo.getUserPassword());

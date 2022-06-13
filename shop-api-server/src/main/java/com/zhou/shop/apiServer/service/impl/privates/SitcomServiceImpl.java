@@ -1,5 +1,6 @@
 package com.zhou.shop.apiServer.service.impl.privates;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.entity.privates.Sitcom;
@@ -10,7 +11,6 @@ import com.zhou.shop.apiServer.service.privates.ISitcomService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.common.exception.ShopException;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,11 +41,11 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
 
     @Override
     public RestObject<String> createSitcom(Sitcom sitcom) {
-        if (!StringUtils.isNotBlank(sitcom.getSitcomUpdateStatus())
+        if (!StrUtil.isNotBlank(sitcom.getSitcomUpdateStatus())
                 || sitcom.getSitcomUpdateStatus() == null) {
             throw new ShopException("连续剧更新状态不能为空！");
         }
-        if (!StringUtils.isNotBlank(sitcom.getSitcomWatchStatus())
+        if (!StrUtil.isNotBlank(sitcom.getSitcomWatchStatus())
                 || sitcom.getSitcomWatchStatus() == null) {
             throw new ShopException("连续剧观看状态不能为空！");
         }
@@ -83,11 +83,11 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
     @Override
     public RestObject<String> updateSitcomBySitcomId(String sitcomId, Sitcom sitcom) {
         sitcom.setSitcomId(sitcomId);
-        if (!StringUtils.isNotBlank(sitcom.getSitcomUpdateStatus())
+        if (!StrUtil.isNotBlank(sitcom.getSitcomUpdateStatus())
                 || sitcom.getSitcomUpdateStatus() == null) {
             throw new ShopException("连续剧更新状态不能为空！");
         }
-        if (!StringUtils.isNotBlank(sitcom.getSitcomWatchStatus())
+        if (!StrUtil.isNotBlank(sitcom.getSitcomWatchStatus())
                 || sitcom.getSitcomWatchStatus() == null) {
             throw new ShopException("连续剧观看状态不能为空！");
         }
