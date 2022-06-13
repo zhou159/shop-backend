@@ -2,7 +2,7 @@ package com.zhou.shop.auth.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.zhou.shop.api.vo.user.login.UserLoginVO;
+import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.common.BaseConstant;
 import com.zhou.shop.oss.redis.RedisUtil;
 import com.zhou.shop.util.UuidUtil;
@@ -26,12 +26,12 @@ public class JwtUtil {
      *
      * @return
      */
-    public String getToken(UserLoginVO userLoginVO) {
+    public String getToken(UserLoginDTO userLoginDTO, String password) {
         String token = "";
         token =
                 JWT.create()
-                        .withClaim(BaseConstant.TOKEN_USER_PWD, userLoginVO.getUserPassword())
-                        .sign(Algorithm.HMAC256(userLoginVO.getUserPassword()));
+                        .withClaim(BaseConstant.TOKEN_USER_ID, userLoginDTO.getUserId())
+                        .sign(Algorithm.HMAC256(password));
 
         String uuid = UuidUtil.getUuid();
         redisUtil.setex(uuid, token, 1L, TimeUnit.DAYS);

@@ -6,11 +6,15 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.zhou.shop.api.entity.user.User;
+import com.zhou.shop.api.entity.user.UserLogin;
+import com.zhou.shop.apiServer.service.user.IUserLoginService;
 import com.zhou.shop.apiServer.service.user.IUserService;
 import com.zhou.shop.apply.annotations.NotLogin;
 import com.zhou.shop.common.BaseConstant;
 import com.zhou.shop.common.exception.UserNotLoginException;
 import com.zhou.shop.oss.redis.RedisUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -30,15 +34,16 @@ import java.lang.reflect.Method;
 @Component
 public class UserLoginInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private RedisUtil redisUtil;
-    @Autowired
-    private IUserService userService;
+    Logger logger = LoggerFactory.getLogger(UserLoginInterceptor.class);
+    @Autowired private RedisUtil redisUtil;
+    @Autowired private IUserService userService;
+    @Autowired private IUserLoginService userLoginService;
 
     @Override
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+        final long startTime = System.currentTimeMillis();
         // 如果不是映射到方法直接通过
         if (!(handler instanceof HandlerMethod)) {
             return true;
@@ -48,14 +53,6 @@ public class UserLoginInterceptor implements HandlerInterceptor {
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
-
-        //        //检查是否有passtoken注释，有则跳过认证
-        //        if (method.isAnnotationPresent(PassToken.class)) {
-        //            PassToken passToken = method.getAnnotation(PassToken.class);
-        //            if (passToken.required()) {
-        //                return true;
-        //            }
-        //        }
 
         // 检查有没有跳过登录的注解
         if (method.isAnnotationPresent(NotLogin.class)) {
@@ -70,34 +67,35 @@ public class UserLoginInterceptor implements HandlerInterceptor {
             }
             String token = String.valueOf(redisUtil.get(token_UUID));
 
-            NotLogin notLogin = method.getAnnotation(NotLogin.class);
-            if (notLogin.required()) {
-                // 执行认证
-                if (token == null) {
-                    throw new UserNotLoginException("请登录!");
-                }
-                // 获取 token 中的 user id
-                String userId_token;
-                try {
-                    userId_token = JWT.decode(token).getClaim(BaseConstant.TOKEN_USER_ID).asString();
-                } catch (JWTDecodeException j) {
-                    throw new UserNotLoginException("请登录!");
-                }
-
-                final User byId = userService.getById(userId_token);
-                if (byId == null) {
-                    throw new UserNotLoginException("用户不存在，请重新登录");
-                }
-                // 验证 token
-                JWTVerifier jwtVerifier =
-                        JWT.require(Algorithm.HMAC256(String.valueOf(byId.getUserId()))).build();
-                try {
-                    jwtVerifier.verify(token);
-                } catch (JWTVerificationException e) {
-                    throw new UserNotLoginException("请登录!");
-                }
-                return true;
+            // 执行认证
+            if (token == null) {
+                throw new UserNotLoginException("请登录!");
             }
+            // 获取 token 中的 userId
+            String userIdToken;
+            try {
+                userIdToken = JWT.decode(token).getClaim(BaseConstant.TOKEN_USER_ID).asString();
+                logger.info("token中的用户id:{}", userIdToken);
+            } catch (JWTDecodeException j) {
+                throw new UserNotLoginException("请登录!");
+            }
+
+            final User byId = userService.getById(userIdToken);
+            if (byId == null) {
+                throw new UserNotLoginException("用户不存在，请重新登录");
+            }
+            final UserLogin one = userLoginService.lambdaQuery().eq(UserLogin::getUserId, byId.getUserId()).one();
+            // 验证 token
+            JWTVerifier jwtVerifier =
+                    JWT.require(Algorithm.HMAC256(String.valueOf(one.getUserPassword()))).build();
+            try {
+                jwtVerifier.verify(token);
+            } catch (JWTVerificationException e) {
+                throw new UserNotLoginException("请登录!");
+            }
+            final long endTime = System.currentTimeMillis();
+            logger.info("登录拦截器执行耗时:{} ms", endTime - startTime);
+            return true;
         }
         return true;
     }
@@ -108,10 +106,14 @@ public class UserLoginInterceptor implements HandlerInterceptor {
             HttpServletResponse response,
             Object handler,
             ModelAndView modelAndView)
-            throws Exception {}
+            throws Exception {
+        System.out.println("拦截器****");
+    }
 
     @Override
     public void afterCompletion(
             HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-            throws Exception {}
+            throws Exception {
+        System.out.println("拦截器****");
+    }
 }

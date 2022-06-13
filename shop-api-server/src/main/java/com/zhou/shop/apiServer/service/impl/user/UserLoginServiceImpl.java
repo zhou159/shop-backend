@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -73,8 +74,9 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         if (userCode.equals(redisCode)) {
             // 验证账号密码
             final UserLoginDTO userLoginDTO = loginVerify(userLoginVo);
+            Assert.notNull(userLoginDTO,"系统错误！");
             // 生成token
-            final String token = jwtUtil.getToken(userLoginVo);
+            final String token = jwtUtil.getToken(userLoginDTO,userLoginVo.getUserPassword());
             userLoginDTO.setToken(token);
             return RestResponse.makeOkRsp(userLoginDTO);
         } else {
@@ -182,6 +184,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
             if (Objects.isNull(userLogin)) {
                 throw new UserAccountException("账户、密码错误，请重新输入！");
             }
+            userLoginDTO.setUserId(userLogin.getUserId());
             BeanUtils.copyProperties(userLogin, userLoginDTO);
             return userLoginDTO;
         }

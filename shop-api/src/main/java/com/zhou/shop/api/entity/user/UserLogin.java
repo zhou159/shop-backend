@@ -13,6 +13,9 @@ public class UserLogin implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
+    private String id;
+
+    @TableField(value = "user_id")
     private String userId;
 
     @TableField("user_account")
@@ -23,43 +26,52 @@ public class UserLogin implements Serializable {
 
     public UserLogin() {}
 
-    public UserLogin(String userId, String userAccount, String userPassword) {
+    public UserLogin(String id, String userId, String userAccount, String userPassword) {
+        this.id = id;
         this.userId = userId;
         this.userAccount = userAccount;
         this.userPassword = userPassword;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public UserLogin setUserId(String userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
-        return this;
     }
 
     public String getUserAccount() {
         return userAccount;
     }
 
-    public UserLogin setUserAccount(String userAccount) {
+    public void setUserAccount(String userAccount) {
         this.userAccount = userAccount;
-        return this;
     }
 
     public String getUserPassword() {
         return userPassword;
     }
 
-    public UserLogin setUserPassword(String userPassword) {
+    public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
-        return this;
     }
 
     @Override
     public String toString() {
         return "UserLogin{"
-                + "userId='"
+                + "id='"
+                + id
+                + '\''
+                + ", userId='"
                 + userId
                 + '\''
                 + ", userAccount='"

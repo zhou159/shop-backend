@@ -1,7 +1,6 @@
 package com.zhou.shop.api.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * @author zhouxiong
@@ -48,25 +47,6 @@ public class UserLoginDTO implements Serializable {
 
     public void setUserPicture(String userPicture) {
         this.userPicture = userPicture;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        UserLoginDTO that = (UserLoginDTO) o;
-        return Objects.equals(token, that.token)
-                && Objects.equals(userId, that.userId)
-                && Objects.equals(userPicture, that.userPicture);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(token, userId, userPicture);
     }
 
     @Override
