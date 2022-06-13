@@ -1,11 +1,13 @@
 package com.zhou.shop.auth.jwt;
 
+import cn.hutool.core.lang.Snowflake;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.common.BaseConstant;
 import com.zhou.shop.oss.redis.RedisUtil;
-import com.zhou.shop.util.UuidUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class JwtUtil {
+    private final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
     @Autowired RedisUtil redisUtil;
 
     /**
@@ -27,14 +30,15 @@ public class JwtUtil {
      * @return
      */
     public String getToken(UserLoginDTO userLoginDTO, String password) {
-        String token = "";
-        token =
+        String tokenValue =
                 JWT.create()
                         .withClaim(BaseConstant.TOKEN_USER_ID, userLoginDTO.getUserId())
                         .sign(Algorithm.HMAC256(password));
 
-        String uuid = UuidUtil.getUuid();
-        redisUtil.setex(uuid, token, 1L, TimeUnit.DAYS);
-        return uuid;
+        final Snowflake snowflake = new Snowflake();
+        final String tokenKey = String.valueOf(snowflake.nextId());
+        logger.info("雪花算法生成token键值:{}", tokenKey);
+        redisUtil.setex(tokenKey, tokenValue, 1L, TimeUnit.DAYS);
+        return tokenKey;
     }
 }
