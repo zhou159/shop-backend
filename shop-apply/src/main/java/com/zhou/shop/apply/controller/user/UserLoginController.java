@@ -36,7 +36,6 @@ public class UserLoginController {
         return RestResponse.makeOkRsp(uuid);
     }
 
-    @NotLogin
     @ApiOperation(value = "图形验证码")
     @PostMapping("/verifyCode")
     public void verifyCode(
@@ -45,13 +44,11 @@ public class UserLoginController {
         userLoginService.verifyCode(userLoginUuidVO, response);
     }
 
-    @NotLogin
     @PostMapping("/login")
     public RestObject<UserLoginDTO> login(@RequestBody UserLoginVO userLoginVo) {
         return userLoginService.login(userLoginVo);
     }
 
-    @NotLogin
     @ApiOperation("通过账户方式注册")
     @PostMapping("/registerUsername")
     public RestObject<String> registerUsername(@RequestBody UserLoginVO userVo) {

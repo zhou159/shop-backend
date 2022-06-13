@@ -22,9 +22,9 @@ public class WebMVCConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/swagger-ui.html#/")
                 .excludePathPatterns("/swagger-resources/**")
-                .excludePathPatterns("/user/verifyCode")
-                .excludePathPatterns("/user/login")
-                .excludePathPatterns("/user/uuid")
+                .excludePathPatterns("/userLogin/verifyCode")
+                .excludePathPatterns("/userLogin/login")
+                .excludePathPatterns("/userLogin/uuid")
                 .excludePathPatterns("/error")
                 .excludePathPatterns("");    // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
     }
