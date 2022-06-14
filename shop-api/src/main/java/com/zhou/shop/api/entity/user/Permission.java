@@ -15,7 +15,7 @@ import java.util.Objects;
  * @date 2022/4/2 17:17
  * @description 权限表实体
  */
-@ApiModel("Permission对象")
+@ApiModel("权限")
 @TableName("permission")
 public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;

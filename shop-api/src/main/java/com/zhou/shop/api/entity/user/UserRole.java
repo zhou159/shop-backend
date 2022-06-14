@@ -15,7 +15,7 @@ import java.util.Objects;
  * @date 2022/4/2 17:30
  * @description
  */
-@ApiModel("UserRole对象")
+@ApiModel("用户角色")
 @TableName("user_role")
 public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -15,7 +15,7 @@ import java.util.Objects;
  * @date 2022/4/2 17:27
  * @description
  */
-@ApiModel("RolePermission对象")
+@ApiModel("角色权限")
 @TableName("role_permission")
 public class RolePermission implements Serializable {
     private static final long serialVersionUID = 1L;

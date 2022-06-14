@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * @since 2021-07-24
  */
 @TableName("updateLog")
-@ApiModel("update对象")
+@ApiModel("更新日志")
 public class UpdateLog implements Serializable {
     private static final long serialVersionUID = 1L;
 

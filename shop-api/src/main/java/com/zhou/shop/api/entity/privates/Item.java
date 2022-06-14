@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * @since 2021-06-24
  */
 @TableName("item")
-@ApiModel("Item对象")
+@ApiModel("商品")
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;

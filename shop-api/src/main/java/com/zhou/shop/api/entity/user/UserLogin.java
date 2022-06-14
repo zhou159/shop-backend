@@ -10,12 +10,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * @auther: 周雄
- * @Date: 2022/3/14 17:37
- * @Description:
+ * @auther: 周雄 @Date: 2022/3/14 17:37 @Description:
  */
 @TableName("user_login")
-@ApiModel("UserLogin对象")
+@ApiModel("用户登录")
 public class UserLogin implements Serializable {
     private static final long serialVersionUID = 1L;
 

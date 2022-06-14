@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2021-07-20
  */
 @TableName("unit")
-@ApiModel("Unit对象")
+@ApiModel("单位")
 public class Unit {
     private static final long serialVersionUID = 1L;
 

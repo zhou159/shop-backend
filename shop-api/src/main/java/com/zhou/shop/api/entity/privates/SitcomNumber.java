@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2021-08-21
  */
 @TableName("sitcom_number")
-@ApiModel("SitcomNumber对象")
+@ApiModel("剧集")
 public class SitcomNumber {
     private static final long serialVersionUID = 1L;
 

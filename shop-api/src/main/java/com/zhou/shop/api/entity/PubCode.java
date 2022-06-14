@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @date 2022/5/17 18:17
  * @description
  */
-@ApiModel("Pubcode对象")
+@ApiModel("码表")
 @TableName("pubcode")
 public class PubCode implements Serializable {
 

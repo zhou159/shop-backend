@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * @since 2021-08-26
  */
 @TableName("issue")
-@ApiModel("Issue对象")
+@ApiModel("问题")
 public class Issue implements Serializable {
     private static final long serialVersionUID = 1L;
 

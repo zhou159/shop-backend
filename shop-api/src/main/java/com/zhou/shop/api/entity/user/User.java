@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @since 2021-06-24
  */
 @TableName("user")
-@ApiModel("User对象")
+@ApiModel("用户")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

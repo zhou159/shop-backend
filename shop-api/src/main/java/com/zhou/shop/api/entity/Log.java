@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * @since 2021-06-24
  */
 @TableName("log")
-@ApiModel("log对象")
+@ApiModel("日志")
 public class Log implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @since 2021-06-24
  */
 @TableName("flag")
-@ApiModel("Flag对象")
+@ApiModel("标签")
 public class Flag implements Serializable {
 
     private static final long serialVersionUID = 1L;

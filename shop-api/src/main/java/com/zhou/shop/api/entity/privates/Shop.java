@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @since 2021-06-24
  */
 @TableName("shop")
-@ApiModel("Shop对象")
+@ApiModel("商店")
 public class Shop implements Serializable {
 
     private static final long serialVersionUID = 1L;
