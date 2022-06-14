@@ -11,37 +11,37 @@ import java.io.Serializable;
  * @since 2021-06-24
  */
 @TableName("shop")
-@ApiModel(value = "Shop对象")
+@ApiModel("Shop对象")
 public class Shop implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "商家表id")
+    @ApiModelProperty("商家表id")
     @TableId(value = "shop_id", type = IdType.ASSIGN_ID)
     private String shopId;
 
-    @ApiModelProperty(value = "商家店铺，超市名字")
+    @ApiModelProperty("商家店铺，超市名字")
     @TableField("shop_name")
     private String shopName;
 
-    @ApiModelProperty(value = "地址")
+    @ApiModelProperty("地址")
     @TableField("shop_address")
     private String shopAddress;
 
-    @ApiModelProperty(value = "备注")
+    @ApiModelProperty("备注")
     @TableField("shop_remark")
     private String shopRemark;
 
-    @ApiModelProperty(value = "地址")
+    @ApiModelProperty("地址")
     @TableField("shop_status")
     private String shopStatus;
 
-    @ApiModelProperty(value = "商店图片")
+    @ApiModelProperty("商店图片")
     @TableField("shop_picture")
     private String shopPicture;
 
     @TableLogic
-    @ApiModelProperty(value = "商店逻辑删除")
+    @ApiModelProperty("商店逻辑删除")
     @TableField("shop_deleted")
     private Integer shopDeleted;
 

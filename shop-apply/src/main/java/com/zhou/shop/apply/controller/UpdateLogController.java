@@ -3,6 +3,7 @@ package com.zhou.shop.apply.controller;
 import com.zhou.shop.api.entity.UpdateLog;
 import com.zhou.shop.apiServer.service.IUpdateLogService;
 import com.zhou.shop.common.RestObject;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/updateLog")
+@Api(tags = "更新日志")
 public class UpdateLogController {
 
     final IUpdateLogService iUpdateLogService;

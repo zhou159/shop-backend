@@ -25,6 +25,9 @@ public class WebMVCConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/userLogin/verifyCode")
                 .excludePathPatterns("/userLogin/login")
                 .excludePathPatterns("/userLogin/uuid")
+                .excludePathPatterns("/blog/**")
+                .excludePathPatterns("/blogCategory/**")
+                .excludePathPatterns("/updateLog/**")
                 .excludePathPatterns("/error")
                 .excludePathPatterns("");    // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
     }

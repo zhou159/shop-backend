@@ -1,6 +1,7 @@
 package com.zhou.shop.api.entity.blog;
 
 import com.baomidou.mybatisplus.annotation.*;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @date 2022/3/26 17:09
  * @description
  */
+@ApiModel("博客栏目")
 @TableName("blog_category")
 public class BlogCategory implements Serializable {
     private static final long serialVersionUID = 1L;

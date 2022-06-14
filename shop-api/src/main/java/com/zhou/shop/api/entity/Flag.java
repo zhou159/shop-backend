@@ -11,21 +11,21 @@ import java.io.Serializable;
  * @since 2021-06-24
  */
 @TableName("flag")
-@ApiModel(value = "Flag对象")
+@ApiModel("Flag对象")
 public class Flag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "标签id")
+    @ApiModelProperty("标签id")
     @TableId(value = "flag_id", type = IdType.ASSIGN_ID)
     private String flagId;
 
-    @ApiModelProperty(value = "标签名字")
+    @ApiModelProperty("标签名字")
     @TableField("flag_name")
     private String flagName;
 
     @TableLogic
-    @ApiModelProperty(value = "标签逻辑删除")
+    @ApiModelProperty("标签逻辑删除")
     @TableField("flag_deleted")
     private Integer flagDeleted;
 

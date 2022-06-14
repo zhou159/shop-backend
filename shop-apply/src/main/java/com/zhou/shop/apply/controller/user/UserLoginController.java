@@ -8,6 +8,7 @@ import com.zhou.shop.apply.annotations.NotLogin;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.util.UuidUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/userLogin")
+@Api(tags = "用户登录")
 public class UserLoginController {
 
     private final IUserLoginService userLoginService;
@@ -30,6 +32,7 @@ public class UserLoginController {
      * @return
      */
     @NotLogin
+    @ApiOperation(value = "uuid")
     @GetMapping("/uuid")
     public RestObject<String> obtainUuid() {
         String uuid = UuidUtil.getUuid();

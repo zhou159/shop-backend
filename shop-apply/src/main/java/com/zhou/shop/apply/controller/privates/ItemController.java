@@ -18,7 +18,7 @@ import java.util.List;
  * @author 周雄
  * @since 2021-06-24
  */
-@Api("商品")
+@Api(tags = "商品")
 @RestController
 @RequestMapping("/item")
 public class ItemController {

@@ -1,5 +1,6 @@
 package com.zhou.shop.api.vo.user.login;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.io.Serializable;
  *
  * @author zhouxiong
  */
+@ApiModel("用户登录前端对象")
 public class UserLoginVO implements Serializable {
     private static final long serialVersionUID = 1L;
 

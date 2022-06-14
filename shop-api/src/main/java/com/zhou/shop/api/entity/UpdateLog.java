@@ -13,28 +13,28 @@ import java.time.LocalDate;
  * @since 2021-07-24
  */
 @TableName("updateLog")
-@ApiModel(value = "update对象")
+@ApiModel("update对象")
 public class UpdateLog implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "更新日志表id")
+    @ApiModelProperty("更新日志表id")
     @TableId(value = "update_log_id", type = IdType.AUTO)
     private Integer updateLogId;
 
-    @ApiModelProperty(value = "更新日志创建时间")
+    @ApiModelProperty("更新日志创建时间")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @TableField("update_log_create_time")
     private LocalDate updateLogCreateTime;
 
-    @ApiModelProperty(value = "更新版本号")
+    @ApiModelProperty("更新版本号")
     @TableField("update_log_version")
     private String updateLogVersion;
 
-    @ApiModelProperty(value = "更新日志描述")
+    @ApiModelProperty("更新日志描述")
     @TableField("update_log_description")
     private String updateLogDescription;
 
-    @ApiModelProperty(value = "更新日志逻辑删除")
+    @ApiModelProperty("更新日志逻辑删除")
     @TableLogic
     @TableField("update_log_deleted")
     private Integer updateLogDeleted;

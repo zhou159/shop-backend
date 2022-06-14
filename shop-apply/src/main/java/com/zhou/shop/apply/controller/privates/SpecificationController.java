@@ -3,6 +3,7 @@ package com.zhou.shop.apply.controller.privates;
 import com.zhou.shop.api.entity.privates.Specification;
 import com.zhou.shop.apiServer.service.privates.ISpecificationService;
 import com.zhou.shop.common.RestObject;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/specification")
+@Api(tags = "规格")
 public class SpecificationController {
     private final ISpecificationService iSpecificationService;
 

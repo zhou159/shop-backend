@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -13,20 +14,21 @@ import java.io.Serializable;
  * @date 2022/5/17 18:17
  * @description
  */
+@ApiModel("Pubcode对象")
 @TableName("pubcode")
 public class PubCode implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "码表主键")
+    @ApiModelProperty("码表主键")
     @TableId(value = "pubcode_id", type = IdType.ASSIGN_ID)
     private String pubcodeId;
 
-    @ApiModelProperty(value = "码表名字")
+    @ApiModelProperty("码表名字")
     @TableField("pubcode_name")
     private String pubcodeName;
 
-    @ApiModelProperty(value = "码表类型")
+    @ApiModelProperty("码表类型")
     @TableField("pubcode_class_id")
     private String pubcodeClassId;
 

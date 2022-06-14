@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -14,23 +15,24 @@ import java.util.Objects;
  * @date 2022/4/2 17:17
  * @description 权限表实体
  */
+@ApiModel("Permission对象")
 @TableName("permission")
 public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "权限表id")
+    @ApiModelProperty("权限表id")
     @TableId(value = "permission_id", type = IdType.ASSIGN_ID)
     private String permissionId;
 
-    @ApiModelProperty(value = "前端索引")
+    @ApiModelProperty("前端索引")
     @TableField("reference")
     private String reference;
 
-    @ApiModelProperty(value = "权限名")
+    @ApiModelProperty("权限名")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty(value = "权限介绍")
+    @ApiModelProperty("权限介绍")
     @TableField("description")
     private String description;
 

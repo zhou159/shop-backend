@@ -4,6 +4,7 @@ import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.apiServer.service.IIssueService;
 import com.zhou.shop.common.RestObject;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/issue")
+@Api(tags = "问题")
 public class IssueController {
     private final IIssueService iIssueService;
 

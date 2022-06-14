@@ -9,20 +9,20 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2021-07-20
  */
 @TableName("unit")
-@ApiModel(value = "Unit对象")
+@ApiModel("Unit对象")
 public class Unit {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "单位id")
+    @ApiModelProperty("单位id")
     @TableId(value = "unit_id", type = IdType.ASSIGN_ID)
     private String unitId;
 
-    @ApiModelProperty(value = "单位名字")
+    @ApiModelProperty("单位名字")
     @TableField("unit_name")
     private String unitName;
 
     @TableLogic
-    @ApiModelProperty(value = "单位逻辑删除")
+    @ApiModelProperty("单位逻辑删除")
     @TableField("unit_deleted")
     private Integer unitDeleted;
 

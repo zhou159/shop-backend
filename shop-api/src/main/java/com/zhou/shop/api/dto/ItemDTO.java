@@ -1,7 +1,7 @@
 package com.zhou.shop.api.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -13,63 +13,65 @@ import java.time.LocalDateTime;
  *
  * @author 周雄
  */
+@ApiModel("后端商品返回对象")
 public class ItemDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "商品id")
+    @ApiModelProperty("商品id")
     private String itemId;
 
-    @ApiModelProperty(value = "商品名字")
+    @ApiModelProperty("商品名字")
     private String itemName;
 
-    @ApiModelProperty(value = "商店id")
+    @ApiModelProperty("商店id")
     private String shopId;
 
-    @ApiModelProperty(value = "商店名字")
+    @ApiModelProperty("商店名字")
     private String shopName;
 
-    @ApiModelProperty(value = "商店地址")
+    @ApiModelProperty("商店地址")
     private String shopAddress;
 
-    @ApiModelProperty(value = "商品备注")
+    @ApiModelProperty("商品备注")
     private String itemRemark;
 
-    @ApiModelProperty(value = "单位id")
-    @TableField("unit_id")
+    @ApiModelProperty("单位id")
     private String unitId;
 
-    @ApiModelProperty(value = "单位名字")
+    @ApiModelProperty("单位名字")
     private String unitName;
 
-    @ApiModelProperty(value = "商品价格")
+    @ApiModelProperty("商品价格")
     private BigDecimal price;
 
-    @ApiModelProperty(value = "规格id")
+    @ApiModelProperty("规格id")
     private String specificationId;
 
-    @ApiModelProperty(value = "规格名字")
+    @ApiModelProperty("规格名字")
     private String specificationName;
 
-    @ApiModelProperty(value = "一单位所含的数量")
+    @ApiModelProperty("一单位所含的数量")
     private Double itemUnitQuantity;
 
-    @ApiModelProperty(value = "展示的数据 规格+数量")
+    @ApiModelProperty("展示的数据 规格+数量")
     private String showQuantity;
 
+    @ApiModelProperty("商品更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemUpdateTime;
 
+    @ApiModelProperty("商品创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemCreateTime;
 
-    @ApiModelProperty(value = "商品图片")
+    @ApiModelProperty("商品图片")
     private String itemPicture;
 
-    @ApiModelProperty(value = "标签id")
+    @ApiModelProperty("标签id")
     private String flagId;
 
-    @ApiModelProperty(value = "标签名字")
+    @ApiModelProperty("标签名字")
     private String flagName;
 
     public ItemDTO() {}

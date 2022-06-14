@@ -3,6 +3,7 @@ package com.zhou.shop.apply.controller;
 import com.zhou.shop.api.entity.PubCode;
 import com.zhou.shop.apiServer.service.IPubCodeService;
 import com.zhou.shop.common.RestObject;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/pubcode")
+@Api(tags = "码表")
 public class PubCodeController {
 
     private final IPubCodeService ipubCodeService;

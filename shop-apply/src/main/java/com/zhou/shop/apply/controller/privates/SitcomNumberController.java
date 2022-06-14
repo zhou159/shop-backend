@@ -4,6 +4,7 @@ import com.zhou.shop.api.entity.privates.SitcomNumber;
 import com.zhou.shop.apiServer.service.privates.ISitcomNumberService;
 import com.zhou.shop.apiServer.service.privates.ISitcomService;
 import com.zhou.shop.common.RestObject;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/sitcomNumber")
+@Api(tags = "剧集")
 public class SitcomNumberController {
     final ISitcomNumberService iSitcomNumberService;
     final ISitcomService iSitcomService;

@@ -10,53 +10,55 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 商品前端传入对象
- * 个人理解的是vo是页面对象，也就是返回给前端的对象
+ * 商品前端传入对象 个人理解的是vo是页面对象，也就是返回给前端的对象
+ *
  * @author 周雄
  * @since 2021-08-28
  */
 @TableName("item")
-@ApiModel(value = "Item对象")
+@ApiModel("Item对象")
 public class ItemVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "商品id")
+    @ApiModelProperty("商品id")
     private String itemId;
 
-    @ApiModelProperty(value = "商品名字")
+    @ApiModelProperty("商品名字")
     private String itemName;
 
-    @ApiModelProperty(value = "商店id")
+    @ApiModelProperty("商店id")
     private String shopId;
 
-    @ApiModelProperty(value = "单位id")
+    @ApiModelProperty("单位id")
     private String unitId;
 
-    @ApiModelProperty(value = "规格id")
+    @ApiModelProperty("规格id")
     private String specificationId;
 
-    @ApiModelProperty(value = "一单位所含的数量")
+    @ApiModelProperty("一单位所含的数量")
     private Double itemUnitQuantity;
 
-    @ApiModelProperty(value = "商品备注")
+    @ApiModelProperty("商品备注")
     private String itemRemark;
 
-    @ApiModelProperty(value = "商品价格")
+    @ApiModelProperty("商品价格")
     private BigDecimal price;
 
-    @ApiModelProperty(value = "标签名")
+    @ApiModelProperty("标签名")
     private String flagName;
 
-    @ApiModelProperty(value = "标签id")
+    @ApiModelProperty("标签id")
     private String flagId;
 
+    @ApiModelProperty("商品更新时间")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemUpdateTime;
 
+    @ApiModelProperty("商品创建时间")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemCreateTime;
 
-    @ApiModelProperty(value = "商品图片")
+    @ApiModelProperty("商品图片")
     private String itemPicture;
 
     public ItemVO() {}

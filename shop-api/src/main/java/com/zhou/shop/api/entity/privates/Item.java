@@ -14,61 +14,63 @@ import java.time.LocalDateTime;
  * @since 2021-06-24
  */
 @TableName("item")
-@ApiModel(value = "Item对象")
+@ApiModel("Item对象")
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "商品id")
+    @ApiModelProperty("商品id")
     @TableId(value = "item_id", type = IdType.ASSIGN_ID)
     private String itemId;
 
-    @ApiModelProperty(value = "商品名字")
+    @ApiModelProperty("商品名字")
     @TableField("item_name")
     private String itemName;
 
-    @ApiModelProperty(value = "商店id")
+    @ApiModelProperty("商店id")
     @TableField("shop_id")
     private String shopId;
 
-    @ApiModelProperty(value = "单位id")
+    @ApiModelProperty("单位id")
     @TableField("unit_id")
     private String unitId;
 
-    @ApiModelProperty(value = "规格id")
+    @ApiModelProperty("规格id")
     @TableField("specification_id")
     private String specificationId;
 
-    @ApiModelProperty(value = "一单位所含的数量")
+    @ApiModelProperty("一单位所含的数量")
     @TableField("item_unit_quantity")
     private Double itemUnitQuantity;
 
-    @ApiModelProperty(value = "商品备注")
+    @ApiModelProperty("商品备注")
     @TableField("item_remark")
     private String itemRemark;
 
-    @ApiModelProperty(value = "商品价格")
+    @ApiModelProperty("商品价格")
     @TableField("price")
     private BigDecimal price;
 
-    @ApiModelProperty(value = "标签id")
+    @ApiModelProperty("标签id")
     @TableField("flag_id")
     private String flagId;
 
+    @ApiModelProperty("商品更新时间")
     @TableField(fill = FieldFill.UPDATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemUpdateTime;
 
+    @ApiModelProperty("商品创建时间")
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime itemCreateTime;
 
-    @ApiModelProperty(value = "商品图片")
+    @ApiModelProperty("商品图片")
     @TableField("item_picture")
     private String itemPicture;
 
     @TableLogic
-    @ApiModelProperty(value = "商品逻辑删除")
+    @ApiModelProperty("商品逻辑删除")
     @TableField("item_deleted")
     private Integer itemDeleted;
 

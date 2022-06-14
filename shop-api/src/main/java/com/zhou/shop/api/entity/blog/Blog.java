@@ -18,37 +18,37 @@ import java.time.LocalDateTime;
 public class Blog implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "博客id")
+    @ApiModelProperty("博客id")
     @TableId(value = "blog_id", type = IdType.ASSIGN_ID)
     private String blogId;
 
-    @ApiModelProperty(value = "博客创建时间")
+    @ApiModelProperty("博客创建时间")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("blog_create_time")
     private LocalDateTime blogCreateTime;
 
-    @ApiModelProperty(value = "博客标题")
+    @ApiModelProperty("博客标题")
     @TableField("blog_title")
     private String blogTitle;
 
-    @ApiModelProperty(value = "博客创建人")
+    @ApiModelProperty("博客创建人")
     @TableField("blog_create_by")
     private String blogCreatedBy;
 
-    @ApiModelProperty(value = "博客内容")
+    @ApiModelProperty("博客内容")
     @TableField("blog_text")
     private String blogText;
 
-    @ApiModelProperty(value = "博客所属栏目")
+    @ApiModelProperty("博客所属栏目")
     @TableField("blog_category")
     private String blogCategory;
 
-    @ApiModelProperty(value = "博客标签")
+    @ApiModelProperty("博客标签")
     @TableField("blog_flag")
     private String blogFlag;
 
     @TableLogic
-    @ApiModelProperty(value = "博客逻辑删除")
+    @ApiModelProperty("博客逻辑删除")
     @TableField("blog_deleted")
     private Integer blogDeleted;
 

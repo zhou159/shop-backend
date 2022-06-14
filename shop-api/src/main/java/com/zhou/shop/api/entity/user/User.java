@@ -11,25 +11,25 @@ import java.io.Serializable;
  * @since 2021-06-24
  */
 @TableName("user")
-@ApiModel(value = "User对象")
+@ApiModel("User对象")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty("用户id")
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String userId;
 
-    @ApiModelProperty(value = "用户账号")
+    @ApiModelProperty("用户账号")
     @TableField("username")
     private String username;
 
-    @ApiModelProperty(value = "用户头像")
+    @ApiModelProperty("用户头像")
     @TableField("user_picture")
     private String userPicture;
 
     @TableLogic
-    @ApiModelProperty(value = "用户逻辑删除")
+    @ApiModelProperty("用户逻辑删除")
     @TableField("user_deleted")
     private Integer userDeleted;
 

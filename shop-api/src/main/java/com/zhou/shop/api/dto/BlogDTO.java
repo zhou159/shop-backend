@@ -1,6 +1,8 @@
 package com.zhou.shop.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -10,21 +12,30 @@ import java.time.LocalDateTime;
  * @date 2022/3/27 14:22
  * @description
  */
+@ApiModel("博客后端返回对象")
 public class BlogDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("博客id")
     private String blogId;
 
+    @ApiModelProperty("博客创建时间")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime blogCreateTime;
 
+    @ApiModelProperty("博客标题")
     private String blogTitle;
 
+    @ApiModelProperty("博客创建人")
     private String blogCreatedBy;
 
+    @ApiModelProperty("博客创建人名字")
     private String blogCreatedName;
 
+    @ApiModelProperty("博客内容")
     private String blogText;
 
+    @ApiModelProperty("博客栏目")
     private String blogCategory;
 
     public BlogDTO() {}

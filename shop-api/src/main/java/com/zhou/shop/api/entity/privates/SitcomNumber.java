@@ -10,46 +10,46 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2021-08-21
  */
 @TableName("sitcom_number")
-@ApiModel(value = "SitcomNumber对象")
+@ApiModel("SitcomNumber对象")
 public class SitcomNumber {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "集数id")
+    @ApiModelProperty("集数id")
     @TableId(value = "sitcom_number_id", type = IdType.ASSIGN_ID)
     private String sitcomNumberId;
 
-    @ApiModelProperty(value = "观看时间")
-    @TableField(value = "sitcom_number_watch_time")
+    @ApiModelProperty("观看时间")
+    @TableField("sitcom_number_watch_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private String sitcomNumberWatchTime;
 
-    @ApiModelProperty(value = "连续剧id")
-    @TableField(value = "sitcom_id")
+    @ApiModelProperty("连续剧id")
+    @TableField("sitcom_id")
     private String sitcomId;
 
-    @ApiModelProperty(value = "集数名")
-    @TableField(value = "sitcom_number_name")
+    @ApiModelProperty("集数名")
+    @TableField("sitcom_number_name")
     private String sitcomNumberName;
 
-    @ApiModelProperty(value = "集数链接")
-    @TableField(value = "sitcom_number_url")
+    @ApiModelProperty("集数链接")
+    @TableField("sitcom_number_url")
     private String sitcomNumberUrl;
 
-    @ApiModelProperty(value = "集数链接备注")
-    @TableField(value = "sitcom_number_url_remark")
+    @ApiModelProperty("集数链接备注")
+    @TableField("sitcom_number_url_remark")
     private String sitcomNumberUrlRemark;
 
-    @ApiModelProperty(value = "集数备注")
-    @TableField(value = "sitcom_number_remark")
+    @ApiModelProperty("集数备注")
+    @TableField("sitcom_number_remark")
     private String sitcomNumberRemark;
 
-    @ApiModelProperty(value = "集数")
-    @TableField(value = "sitcom_number_number")
+    @ApiModelProperty("集数")
+    @TableField("sitcom_number_number")
     private String sitcomNumberNumber;
 
     @TableLogic
-    @ApiModelProperty(value = "集逻辑删除")
-    @TableField(value = "sitcom_number_deleted")
+    @ApiModelProperty("集逻辑删除")
+    @TableField("sitcom_number_deleted")
     private Integer sitcomNumberDeleted;
 
     public SitcomNumber() {}

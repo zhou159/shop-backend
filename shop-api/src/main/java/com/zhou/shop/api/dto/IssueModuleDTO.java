@@ -1,5 +1,8 @@
 package com.zhou.shop.api.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -7,10 +10,14 @@ import java.io.Serializable;
  *
  * @author 周雄
  */
+@ApiModel("问题后端返回对象")
 public class IssueModuleDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("问题模块中文")
     private String issueModuleCh;
+
+    @ApiModelProperty("问题模块英文")
     private String issueModuleEn;
 
     public IssueModuleDTO() {}

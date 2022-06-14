@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -14,15 +15,16 @@ import java.util.Objects;
  * @date 2022/4/2 17:30
  * @description
  */
+@ApiModel("UserRole对象")
 @TableName("user_role")
 public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty("用户id")
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String userId;
 
-    @ApiModelProperty(value = "角色id")
+    @ApiModelProperty("角色id")
     @TableField("role_id")
     private String roleId;
 

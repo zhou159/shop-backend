@@ -3,6 +3,7 @@ package com.zhou.shop.apply.controller.user;
 import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.apiServer.service.user.IUserService;
 import com.zhou.shop.common.RestObject;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@Api(tags = "用户")
 public class UserController {
 
     final IUserService iUserService;

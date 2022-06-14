@@ -9,71 +9,71 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2021-08-21
  */
 @TableName("sitcom")
-@ApiModel(value = "Sitcom对象")
+@ApiModel("Sitcom对象")
 public class Sitcom {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "连续剧id")
+    @ApiModelProperty("连续剧id")
     @TableId(value = "sitcom_id", type = IdType.ASSIGN_ID)
     private String sitcomId;
 
-    @ApiModelProperty(value = "连续剧名称")
-    @TableField(value = "sitcom_name")
+    @ApiModelProperty("连续剧名称")
+    @TableField("sitcom_name")
     private String sitcomName;
 
-    @ApiModelProperty(value = "开始观看日期")
-    @TableField(value = "sitcom_watch_start_time")
+    @ApiModelProperty("开始观看日期")
+    @TableField("sitcom_watch_start_time")
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private String sitcomWatchStartTime;
 
-    @ApiModelProperty(value = "结束观看时间")
+    @ApiModelProperty("结束观看时间")
     @TableField(value = "sitcom_watch_end_time", updateStrategy = FieldStrategy.IGNORED)
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private String sitcomWatchEndTime;
 
-    @ApiModelProperty(value = "连续剧更新状态（0：完结；1：连载；2：断更）")
-    @TableField(value = "sitcom_update_status")
+    @ApiModelProperty("连续剧更新状态（0：完结；1：连载；2：断更）")
+    @TableField("sitcom_update_status")
     private String sitcomUpdateStatus;
 
-    @ApiModelProperty(value = "连续剧封面图")
-    @TableField(value = "sitcom_picture")
+    @ApiModelProperty("连续剧封面图")
+    @TableField("sitcom_picture")
     private String sitcomPicture;
 
-    @ApiModelProperty(value = "连续剧链接")
-    @TableField(value = "sitcom_url")
+    @ApiModelProperty("连续剧链接")
+    @TableField("sitcom_url")
     private String sitcomUrl;
 
-    @ApiModelProperty(value = "备注")
-    @TableField(value = "sitcom_remark")
+    @ApiModelProperty("备注")
+    @TableField("sitcom_remark")
     private String sitcomRemark;
 
-    @ApiModelProperty(value = "连续剧观看状态（0：看完；1：观看中；2：放弃）")
-    @TableField(value = "sitcom_watch_status")
+    @ApiModelProperty("连续剧观看状态（0：看完；1：观看中；2：放弃）")
+    @TableField("sitcom_watch_status")
     private String sitcomWatchStatus;
 
-    @ApiModelProperty(value = "连续剧国家")
-    @TableField(value = "sitcom_country")
+    @ApiModelProperty("连续剧国家")
+    @TableField("sitcom_country")
     private String sitcomCountry;
 
-    @ApiModelProperty(value = "连续剧导演")
-    @TableField(value = "sitcom_director")
+    @ApiModelProperty("连续剧导演")
+    @TableField("sitcom_director")
     private String sitcomDirector;
 
-    @ApiModelProperty(value = "连续剧类型")
-    @TableField(value = "sitcom_type")
+    @ApiModelProperty("连续剧类型")
+    @TableField("sitcom_type")
     private String sitcomType;
 
-    @ApiModelProperty(value = "连续剧风格")
-    @TableField(value = "sitcom_style")
+    @ApiModelProperty("连续剧风格")
+    @TableField("sitcom_style")
     private String sitcomStyle;
 
-    @ApiModelProperty(value = "连续剧简介")
-    @TableField(value = "sitcom_intro")
+    @ApiModelProperty("连续剧简介")
+    @TableField("sitcom_intro")
     private String sitcomIntro;
 
     @TableLogic
-    @ApiModelProperty(value = "连续剧逻辑删除")
-    @TableField(value = "sitcom_deleted")
+    @ApiModelProperty("连续剧逻辑删除")
+    @TableField("sitcom_deleted")
     private Integer sitcomDeleted;
 
     public Sitcom() {}

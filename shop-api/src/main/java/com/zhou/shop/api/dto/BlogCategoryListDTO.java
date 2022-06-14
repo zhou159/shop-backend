@@ -1,5 +1,8 @@
 package com.zhou.shop.api.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -7,11 +10,20 @@ import java.io.Serializable;
  * @date 2022/3/27 10:28
  * @description
  */
+@ApiModel("博客栏目后端返回对象")
 public class BlogCategoryListDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("博客栏目id")
     private String blogCategoryId;
+
+    @ApiModelProperty("博客栏目名称")
     private String blogCategoryName;
+
+    @ApiModelProperty("博客栏目描述")
     private String blogCategoryDescription;
+
+    @ApiModelProperty("博客栏目下博客数量")
     private String blogCount;
 
     public BlogCategoryListDTO() {}

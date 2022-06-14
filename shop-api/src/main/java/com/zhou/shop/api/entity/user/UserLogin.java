@@ -3,24 +3,35 @@ package com.zhou.shop.api.entity.user;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
 /**
- * @Auther: 周雄 @Date: 2022/3/14 17:37 @Description:
+ * @auther: 周雄
+ * @Date: 2022/3/14 17:37
+ * @Description:
  */
+@TableName("user_login")
+@ApiModel("UserLogin对象")
 public class UserLogin implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("登陆表id")
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String id;
 
-    @TableField(value = "user_id")
+    @ApiModelProperty("登陆表用户id")
+    @TableField("user_id")
     private String userId;
 
+    @ApiModelProperty("登陆表用户账号")
     @TableField("user_account")
     private String userAccount;
 
+    @ApiModelProperty("登陆表用户密码")
     @TableField("user_password")
     private String userPassword;
 

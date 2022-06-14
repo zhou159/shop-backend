@@ -9,24 +9,24 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2021-07-20
  */
 @TableName("specification")
-@ApiModel(value = "Specification对象")
+@ApiModel("Specification对象")
 public class Specification {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "规格id")
+    @ApiModelProperty("规格id")
     @TableId(value = "specification_id", type = IdType.ASSIGN_ID)
     private String specificationId;
 
-    @ApiModelProperty(value = "规格名字")
+    @ApiModelProperty("规格名字")
     @TableField("specification_name")
     private String specificationName;
 
-    @ApiModelProperty(value = "规格说明")
+    @ApiModelProperty("规格说明")
     @TableField("specification_label")
     private String specificationLabel;
 
     @TableLogic
-    @ApiModelProperty(value = "规格说明")
+    @ApiModelProperty("规格说明")
     @TableField("specification_deleted")
     private Integer specificationDeleted;
 

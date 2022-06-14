@@ -1,5 +1,8 @@
 package com.zhou.shop.api.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -8,13 +11,17 @@ import java.io.Serializable;
  * @version: v1.0
  * @since 2022/6/11 15:53
  */
+@ApiModel("后端用户登录返回对象")
 public class UserLoginDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("token")
     private String token;
 
+    @ApiModelProperty("用户id")
     private String userId;
 
+    @ApiModelProperty("用户头像")
     private String userPicture;
 
     public UserLoginDTO() {}

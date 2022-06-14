@@ -13,49 +13,49 @@ import java.time.LocalDateTime;
  * @since 2021-08-26
  */
 @TableName("issue")
-@ApiModel(value = "Issue对象")
+@ApiModel("Issue对象")
 public class Issue implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "问题id")
+    @ApiModelProperty("问题id")
     @TableId(value = "issue_id", type = IdType.ASSIGN_ID)
     private String issueId;
 
-    @ApiModelProperty(value = "问题创建时间")
+    @ApiModelProperty("问题创建时间")
     @TableField("issue_create_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime issueCreateTime;
 
-    @ApiModelProperty(value = "问题描述")
+    @ApiModelProperty("问题描述")
     @TableField("issue_description")
     private String issueDescription;
 
-    @ApiModelProperty(value = "问题类型")
+    @ApiModelProperty("问题类型")
     @TableField("issue_type")
     private String issueType;
 
-    @ApiModelProperty(value = "问题模块")
+    @ApiModelProperty("问题模块")
     @TableField("issue_module")
     private String issueModule;
 
-    @ApiModelProperty(value = "问题状态（0：未解决；1：已解决；2：无法解决；3：暂缓解决）")
+    @ApiModelProperty("问题状态（0：未解决；1：已解决；2：无法解决；3：暂缓解决）")
     @TableField("issue_status")
     private String issueStatus;
 
-    @ApiModelProperty(value = "问题解决时间")
+    @ApiModelProperty("问题解决时间")
     @TableField("issue_solve_time")
     private LocalDateTime issueSolveTime;
 
-    @ApiModelProperty(value = "问题关闭时间")
+    @ApiModelProperty("问题关闭时间")
     @TableField("issue_close_time")
     private LocalDateTime issueCloseTime;
 
-    @ApiModelProperty(value = "问题提出人")
+    @ApiModelProperty("问题提出人")
     @TableField("issue_create_by")
     private String issueCreateBy;
 
     @TableLogic
-    @ApiModelProperty(value = "问题逻辑删除")
+    @ApiModelProperty("问题逻辑删除")
     @TableField("issue_deleted")
     private Integer issueDeleted;
 

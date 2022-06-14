@@ -1,12 +1,19 @@
 package com.zhou.shop.api.vo.user;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * @author 周雄
+ * @since 2021/6/24 21:25:45
+ */
+@ApiModel("用户前端对象")
 public class UserVO implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @ApiModelProperty("用户id")
     private int id;
 

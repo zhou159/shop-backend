@@ -3,6 +3,7 @@ package com.zhou.shop.apply.controller;
 import com.zhou.shop.api.entity.Flag;
 import com.zhou.shop.apiServer.service.IFlagService;
 import com.zhou.shop.common.RestObject;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/flag")
+@Api(tags = "标签")
 public class FlagController {
     private final IFlagService iFlagService;
 

@@ -35,6 +35,7 @@ public class BlogCategoryController {
     }
 
     @GetMapping("/queryBlogCategoryById/{blogCategoryId}")
+    @ApiOperation("根据博客栏目id查询博客栏目")
     public RestObject<BlogCategory> queryBlogCategoryById(
             @PathVariable("blogCategoryId") String blogCategoryId) {
         return blogCategoryService.queryBlogCategoryById(blogCategoryId);

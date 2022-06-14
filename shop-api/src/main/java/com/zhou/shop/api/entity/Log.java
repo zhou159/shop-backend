@@ -15,23 +15,23 @@ import java.time.LocalDateTime;
  * @since 2021-06-24
  */
 @TableName("log")
-@ApiModel(value = "log对象")
+@ApiModel("log对象")
 public class Log implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "日志主键")
+    @ApiModelProperty("日志主键")
     @TableId(value = "log_id", type = IdType.ASSIGN_ID)
     private String logId;
 
-    @ApiModelProperty(value = "日志状态")
+    @ApiModelProperty("日志状态")
     @TableField("log_status")
     private String logStatus;
 
-    @ApiModelProperty(value = "日志信息")
+    @ApiModelProperty("日志信息")
     @TableField("log_info")
     private String logInfo;
 
-    @ApiModelProperty(value = "日志时间")
+    @ApiModelProperty("日志时间")
     @TableField("log_time")
     private LocalDateTime logTime;
 

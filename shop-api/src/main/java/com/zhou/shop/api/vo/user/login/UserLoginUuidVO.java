@@ -1,5 +1,6 @@
 package com.zhou.shop.api.vo.user.login;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
@@ -12,10 +13,11 @@ import java.util.Objects;
  * @version: v1.0
  * @since 2022/6/11 11:50
  */
+@ApiModel("用户登录uuid前端对象")
 public class UserLoginUuidVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @NotBlank(message = "uuid布恩那个为空")
+    @NotBlank(message = "uuid不能为空")
     @ApiModelProperty("uuid")
     private String uuid;
 
