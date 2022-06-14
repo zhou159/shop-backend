@@ -41,15 +41,14 @@ public class UserLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(
-            HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+            HttpServletRequest request, HttpServletResponse response, Object handler) {
         final long startTime = System.currentTimeMillis();
         // 如果不是映射到方法直接通过
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
         // 从请求头中拿取token
-        String token_UUID = request.getHeader(BaseConstant.AUTHORIZATION_TOKEN_KEY);
+        String tokenUuid = request.getHeader(BaseConstant.AUTHORIZATION_TOKEN_KEY);
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
@@ -62,10 +61,10 @@ public class UserLoginInterceptor implements HandlerInterceptor {
             }
         } else {
             // 从redis中拿取token真实值
-            if (token_UUID == null) {
+            if (tokenUuid == null) {
                 throw new UserNotLoginException("用户信息已过期！请重新登录");
             }
-            String token = String.valueOf(redisUtil.get(token_UUID));
+            String token = String.valueOf(redisUtil.get(tokenUuid));
 
             // 执行认证
             if (token == null) {
@@ -94,7 +93,8 @@ public class UserLoginInterceptor implements HandlerInterceptor {
                 throw new UserNotLoginException("请登录!");
             }
             final long endTime = System.currentTimeMillis();
-            logger.info("登录拦截器执行耗时:{} ms", endTime - startTime);
+            logger.info("登录拦截器执行耗时:{}ms", endTime - startTime);
+            logger.info("用户:{}，调用接口:{}",byId.getUserId(),request.getRequestURI());
             return true;
         }
         return true;
@@ -107,13 +107,13 @@ public class UserLoginInterceptor implements HandlerInterceptor {
             Object handler,
             ModelAndView modelAndView)
             throws Exception {
-        System.out.println("拦截器****");
+        System.out.println("拦截器post**");
     }
 
     @Override
     public void afterCompletion(
             HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        System.out.println("拦截器****");
+        System.out.println("拦截器after**");
     }
 }
