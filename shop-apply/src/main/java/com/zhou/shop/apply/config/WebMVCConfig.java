@@ -2,13 +2,12 @@ package com.zhou.shop.apply.config;
 
 import com.zhou.shop.apply.interceptor.UserLoginInterceptor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+
 public class WebMVCConfig implements WebMvcConfigurer {
 
     @Bean
@@ -18,18 +17,18 @@ public class WebMVCConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authenticationInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/swagger-ui.html#/")
-                .excludePathPatterns("/swagger-resources/**")
-                .excludePathPatterns("/userLogin/verifyCode")
-                .excludePathPatterns("/userLogin/login")
-                .excludePathPatterns("/userLogin/uuid")
-                .excludePathPatterns("/blog/**")
-                .excludePathPatterns("/blogCategory/**")
-                .excludePathPatterns("/updateLog/**")
-                .excludePathPatterns("/error")
-                .excludePathPatterns("");    // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
+//        registry.addInterceptor(authenticationInterceptor())
+//                .addPathPatterns("/**")
+////                .excludePathPatterns("/swagger-ui.html#/")
+////                .excludePathPatterns("/swagger-resources/**")
+////                .excludePathPatterns("/userLogin/verifyCode")
+////                .excludePathPatterns("/userLogin/login")
+////                .excludePathPatterns("/userLogin/uuid")
+////                .excludePathPatterns("/blog/**")
+////                .excludePathPatterns("/blogCategory/**")
+////                .excludePathPatterns("/updateLog/**")
+////                .excludePathPatterns("/error")
+//                .excludePathPatterns("");    // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
     }
 
     @Override

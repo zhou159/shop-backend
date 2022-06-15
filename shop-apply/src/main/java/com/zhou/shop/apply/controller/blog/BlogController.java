@@ -34,13 +34,13 @@ public class BlogController {
         return blogService.queryListDto();
     }
 
-    @ApiOperation(value = "根据博客id查询博客")
+    @ApiOperation("根据博客id查询博客")
     @GetMapping("/getBlogById/{blogId}")
     public RestObject<BlogDTO> queryById(@PathVariable("blogId") String blogId) {
         return blogService.queryById(blogId);
     }
 
-    @ApiOperation(value = "根据博客栏目id查询博客栏目")
+    @ApiOperation("根据博客栏目id查询博客")
     @GetMapping("/getBlogByBlogCategoryId/{blogCategoryId}")
     public RestObject<List<Blog>> queryBlogByBlogCategoryId(@PathVariable("blogCategoryId") String blogCategoryId){
         return blogService.queryBlogByBlogCategoryId(blogCategoryId);

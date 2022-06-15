@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhou.shop.api.dto.SecurityUserDTO;
 import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.entity.user.UserLogin;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
@@ -55,6 +56,8 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
 
     @Override
     public RestObject<UserLoginDTO> login(UserLoginVO userLoginVo) {
+        final SecurityUserDTO securityUserDTO = new SecurityUserDTO();
+
         String redisCode = (String) redisUtil.get(userLoginVo.getUuid());
         String userCode = userLoginVo.getCheckCode().toUpperCase();
         log.info("redis验证码：{}，用户输入验证码：{}", redisCode, userCode);
