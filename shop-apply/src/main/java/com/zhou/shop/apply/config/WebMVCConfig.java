@@ -1,24 +1,29 @@
 package com.zhou.shop.apply.config;
 
-import com.zhou.shop.apply.interceptor.UserLoginInterceptor;
-import org.springframework.context.annotation.Bean;
+import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
+import org.springframework.web.servlet.config.annotation.*;
+/**
+ * web核心配置文件
+ *
+ * @author zhouxiong
+ * @description:
+ * @version: v1.0
+ *           v2.0 2022/6/16 00:13 引入sa-token的拦截器
+ * @since 2021/7/20 20:12
+ */
+@EnableWebMvc
 @Configuration
 public class WebMVCConfig implements WebMvcConfigurer {
 
-    @Bean
-    public UserLoginInterceptor authenticationInterceptor() {
-        return new UserLoginInterceptor();
-    }
+    //    public UserLoginInterceptor authenticationInterceptor() {
+    //        return new UserLoginInterceptor();
+    //    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authenticationInterceptor())
+        registry.addInterceptor(new SaAnnotationInterceptor())
+                // 添加所有请求到拦截器
                 .addPathPatterns("/**")
                 .excludePathPatterns("/swagger-ui.html#/")
                 .excludePathPatterns("/swagger-resources/**")
@@ -29,7 +34,8 @@ public class WebMVCConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/blogCategory/**")
                 .excludePathPatterns("/updateLog/**")
                 .excludePathPatterns("/error")
-                .excludePathPatterns("");    // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
+                // 拦截所有请求，与第二个类似，两者选其一，留在这是为了做个说明
+                .excludePathPatterns("");
     }
 
     @Override

@@ -43,6 +43,7 @@
         <easyexcel.version>3.1.1</easyexcel.version>
         <hutool-all.version>5.8.3</hutool-all.version>
         <bcprov-jdk15to18.version>1.71</bcprov-jdk15to18.version>
+        <sa-token.version>1.30.0</sa-token.version>
     </properties>
 
     <dependencies>
@@ -250,6 +251,14 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.2.9</version>
+        </dependency>
+
+        <!--sa-token-->
+        <!-- https://mvnrepository.com/artifact/cn.dev33/sa-token-spring-boot-starter -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <version>${sa-token.version}</version>
         </dependency>
 
     </dependencies>
