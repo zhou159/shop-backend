@@ -4,7 +4,6 @@ import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.apiServer.service.user.IUserLoginService;
-import com.zhou.shop.apply.annotations.NotLogin;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.util.UuidUtil;
@@ -31,7 +30,6 @@ public class UserLoginController {
      *
      * @return
      */
-    @NotLogin
     @ApiOperation(value = "uuid")
     @GetMapping("/uuid")
     public RestObject<String> obtainUuid() {
@@ -48,7 +46,7 @@ public class UserLoginController {
     }
 
     @PostMapping("/login")
-    public RestObject<UserLoginDTO> login(@RequestBody UserLoginVO userLoginVo) {
+    public RestObject<UserLoginDTO> login(@Valid @RequestBody UserLoginVO userLoginVo) {
         return userLoginService.login(userLoginVo);
     }
 

@@ -3,7 +3,7 @@ package com.zhou.shop.api.vo.user.login;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -21,18 +21,18 @@ public class UserLoginVO implements Serializable {
     @ApiModelProperty("用户邮箱")
     private String mail;
 
-    @NotNull
+    @NotBlank(message = "密码不能为空")
     @ApiModelProperty("用户密码")
     private String userPassword;
 
     @ApiModelProperty("用户账号")
     private String userAccount;
 
-    @NotNull
+    @NotBlank(message = "验证码不能为空")
     @ApiModelProperty("验证码")
     private String checkCode;
 
-    @NotNull
+    @NotBlank(message = "uuid不能为空")
     @ApiModelProperty("uuid")
     private String uuid;
 

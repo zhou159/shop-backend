@@ -1,5 +1,6 @@
 package com.zhou.shop.apiServer.service.impl.user;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -10,11 +11,9 @@ import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.apiServer.mapper.user.UserLoginMapper;
 import com.zhou.shop.apiServer.service.user.IUserLoginService;
-import com.zhou.shop.auth.jwt.JwtUtil;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.common.enums.Source;
-import com.zhou.shop.common.exception.ObjectFieldEmptyException;
 import com.zhou.shop.common.exception.ShopException;
 import com.zhou.shop.common.exception.UserAccountException;
 import com.zhou.shop.oss.redis.RedisUtil;
@@ -43,14 +42,15 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         implements IUserLoginService {
     private final UserLoginMapper userLoginMapper;
     private final RedisUtil redisUtil;
-    private final JwtUtil jwtUtil;
+    // private final JwtUtil jwtUtil;
+
     private final Logger log = LoggerFactory.getLogger(UserLoginServiceImpl.class);
 
     public UserLoginServiceImpl(
-            UserLoginMapper userLoginMapper, RedisUtil redisUtil, JwtUtil jwtUtil) {
+            UserLoginMapper userLoginMapper, RedisUtil redisUtil /*, JwtUtil jwtUtil*/) {
         this.userLoginMapper = userLoginMapper;
         this.redisUtil = redisUtil;
-        this.jwtUtil = jwtUtil;
+        // this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -59,24 +59,32 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         String userCode = userLoginVo.getCheckCode().toUpperCase();
         log.info("redis验证码：{}，用户输入验证码：{}", redisCode, userCode);
         log.info("用户输入的账号：{}，密码：{}", userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
-        // TODO NotBlank 注解失效 待解决 先手动判空
+        // TODO NotBlank 注解失效 待解决 先手动判空（已解决）
         // =====
-        if (StrUtil.isBlank(userLoginVo.getUuid())) {
-            throw new ObjectFieldEmptyException("uuid不能为空！");
-        }
+        //        if (StrUtil.isBlank(userLoginVo.getUuid())) {
+        //            throw new ObjectFieldEmptyException("uuid不能为空！");
+        //        }
         // =====
 
+        //如果三者全为空，则抛出异常
         if (StrUtil.isBlank(userLoginVo.getUserAccount())
-                || StrUtil.isBlank(userLoginVo.getUserPassword())
-                || StrUtil.isBlank(userCode)) {
+                && StrUtil.isEmpty(userLoginVo.getTel())
+                && StrUtil.isEmpty(userLoginVo.getMail())) {
             throw new UserAccountException("账户、密码或验证码不能为空!");
         }
+
+        //验证码正确
         if (userCode.equals(redisCode)) {
             // 验证账号密码
             final UserLoginDTO userLoginDTO = loginVerify(userLoginVo);
             Assert.notNull(userLoginDTO,"系统错误！");
-            // 生成token
-            final String token = jwtUtil.getToken(userLoginDTO,userLoginVo.getUserPassword());
+
+            // jwtUtil生成token
+            // final String token = jwtUtil.getToken(userLoginDTO,userLoginVo.getUserPassword());
+
+            // sa-token生成token
+            StpUtil.login(userLoginDTO.getUserId());
+            final String token = StpUtil.getTokenValue();
             userLoginDTO.setToken(token);
             return RestResponse.makeOkRsp(userLoginDTO);
         } else {
@@ -138,10 +146,11 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
             createImage(code, baos);
 
             // TODO NotBlank 注解失效 待解决 先手动判空
-            if (StrUtil.isBlank(userLoginUuidVO.getUuid())) {
-                throw new ObjectFieldEmptyException("uuid不能为空！");
-            }
-
+            //            if (StrUtil.isBlank(userLoginUuidVO.getUuid())) {
+            //                throw new ObjectFieldEmptyException("uuid不能为空！");
+            //            }
+            // 避免重复，将当前uuid键删除
+            redisUtil.del(userLoginUuidVO.getUuid());
             // 将VerifyCode存入redis
             redisUtil.setex(userLoginUuidVO.getUuid(), code, 1L, TimeUnit.DAYS);
 
@@ -172,7 +181,6 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      */
     private UserLoginDTO loginVerify(UserLoginVO userLoginVo) {
         final UserLoginDTO userLoginDTO = new UserLoginDTO();
-        // TODO 权限校验
 
         // TODO 账户校验
         // 常规登录方式

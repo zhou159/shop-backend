@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
  * @version: v1.0
  * @since 2022/6/11 16:25
  */
+@Deprecated
 @Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotLogin {
