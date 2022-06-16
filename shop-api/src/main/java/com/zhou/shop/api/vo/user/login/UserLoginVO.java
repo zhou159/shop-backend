@@ -3,6 +3,7 @@ package com.zhou.shop.api.vo.user.login;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -18,6 +19,7 @@ public class UserLoginVO implements Serializable {
     @ApiModelProperty("用户电话")
     private String tel;
 
+    @Email(message = "邮箱格式不正确")
     @ApiModelProperty("用户邮箱")
     private String mail;
 

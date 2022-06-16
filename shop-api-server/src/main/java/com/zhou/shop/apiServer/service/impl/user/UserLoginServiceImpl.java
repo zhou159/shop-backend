@@ -2,7 +2,7 @@ package com.zhou.shop.apiServer.service.impl.user;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import cn.hutool.extra.mail.MailUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.UserLoginDTO;
@@ -67,7 +67,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         // =====
 
         //如果三者全为空，则抛出异常
-        if (StrUtil.isBlank(userLoginVo.getUserAccount())
+        if (StrUtil.isEmpty(userLoginVo.getUserAccount())
                 && StrUtil.isEmpty(userLoginVo.getTel())
                 && StrUtil.isEmpty(userLoginVo.getMail())) {
             throw new UserAccountException("账户、密码或验证码不能为空!");
@@ -77,7 +77,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         if (userCode.equals(redisCode)) {
             // 验证账号密码
             final UserLoginDTO userLoginDTO = loginVerify(userLoginVo);
-            Assert.notNull(userLoginDTO,"系统错误！");
+            Assert.notNull(userLoginDTO, "登录异常！");
 
             // jwtUtil生成token
             // final String token = jwtUtil.getToken(userLoginDTO,userLoginVo.getUserPassword());
@@ -174,28 +174,57 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
     }
 
     /**
+     * 通过邮箱获取验证码
+     *
+     * @param mail 邮箱号
+     */
+    @Override
+    public void mailVerifyCode(String uuid, String mail) {
+        // 先删除，万一有重复的
+        redisUtil.del(uuid);
+        String mailVerifyCode =
+                RandomUtil.createRandom(6, Source.num, Source.num.getSources().length());
+        // 写入redis中，为期一个小时
+        redisUtil.setex(uuid, mailVerifyCode, 1L, TimeUnit.HOURS);
+        MailUtil.sendText(mail, "登录验证码", "【SHOP】您的登录验证码为：" + mailVerifyCode);
+    }
+
+    /**
      * 登录验证方法
      *
      * @param userLoginVo 前端传入对象
      * @return 验证成功与否
      */
     private UserLoginDTO loginVerify(UserLoginVO userLoginVo) {
-        final UserLoginDTO userLoginDTO = new UserLoginDTO();
-
         // TODO 账户校验
-        // 常规登录方式
+        // 账号密码登录方式
         if (StrUtil.isNotBlank(userLoginVo.getUserAccount())) {
-            LambdaQueryWrapper<UserLogin> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(UserLogin::getUserAccount, userLoginVo.getUserAccount())
-                    .eq(UserLogin::getUserPassword, userLoginVo.getUserPassword());
-            final UserLogin userLogin = this.baseMapper.selectOne(wrapper);
-            if (Objects.isNull(userLogin)) {
-                throw new UserAccountException("账户、密码错误，请重新输入！");
-            }
-            userLoginDTO.setUserId(userLogin.getUserId());
-            BeanUtils.copyProperties(userLogin, userLoginDTO);
+            final UserLoginDTO userLoginDTO =
+                    loginQuery(userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
+            return userLoginDTO;
+        }
+
+        // 邮件登录方式
+        if (StrUtil.isNotBlank(userLoginVo.getMail())) {
+            final UserLoginDTO userLoginDTO =
+                    loginQuery(userLoginVo.getMail(), userLoginVo.getUserPassword());
             return userLoginDTO;
         }
         return null;
+    }
+
+    private UserLoginDTO loginQuery(String account, String password) {
+        final UserLoginDTO userLoginDTO = new UserLoginDTO();
+        final UserLogin userLogin =
+                this.lambdaQuery()
+                        .eq(UserLogin::getUserAccount, account)
+                        .eq(UserLogin::getUserPassword, password)
+                        .one();
+        if (Objects.isNull(userLogin)) {
+            throw new UserAccountException("账户、密码错误，请重新输入！");
+        }
+        userLoginDTO.setUserId(userLogin.getUserId());
+        BeanUtils.copyProperties(userLogin, userLoginDTO);
+        return userLoginDTO;
     }
 }

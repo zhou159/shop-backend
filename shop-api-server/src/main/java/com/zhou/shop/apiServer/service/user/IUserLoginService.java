@@ -38,4 +38,10 @@ public interface IUserLoginService extends IService<UserLogin> {
      * @param response http响应
      */
     void verifyCode(@Valid UserLoginUuidVO userLoginUuidVO, HttpServletResponse response);
+
+    /**
+     * 邮箱验证码
+     * @param mail 邮箱号
+     */
+    void mailVerifyCode(String uuid,String mail);
 }
