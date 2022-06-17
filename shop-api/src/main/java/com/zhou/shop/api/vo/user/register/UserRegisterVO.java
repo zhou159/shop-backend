@@ -1,4 +1,4 @@
-package com.zhou.shop.api.vo.user.login;
+package com.zhou.shop.api.vo.user.register;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

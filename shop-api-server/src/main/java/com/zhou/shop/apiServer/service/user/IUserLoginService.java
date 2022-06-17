@@ -5,7 +5,7 @@ import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.entity.user.UserLogin;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
-import com.zhou.shop.api.vo.user.login.UserRegisterVO;
+import com.zhou.shop.api.vo.user.register.UserRegisterVO;
 import com.zhou.shop.common.RestObject;
 
 import javax.servlet.http.HttpServletResponse;
