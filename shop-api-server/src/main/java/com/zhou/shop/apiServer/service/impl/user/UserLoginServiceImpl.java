@@ -25,6 +25,7 @@ import com.zhou.shop.common.enums.SourceEnum;
 import com.zhou.shop.common.exception.ShopException;
 import com.zhou.shop.common.exception.UserAccountException;
 import com.zhou.shop.oss.redis.RedisUtil;
+import com.zhou.shop.util.ImageUtil;
 import com.zhou.shop.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +40,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
-import static com.zhou.shop.util.RandomUtil.createImage;
 
 /**
  * @author zhouxiong
@@ -128,15 +127,19 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         if (userCode.equals(redisCode)) {
             final String passwordEncrypt = passwordEncrypt(userRegisterVO.getUserPassword());
             userRegisterVO.setUserPassword(passwordEncrypt);
+
             final String userId = String.valueOf(new Snowflake().nextId());
+
             final User user = new User(userId);
             final UserLogin userLogin = new UserLogin(userId);
             final UserRole userRole = new UserRole(userId);
-
             //默认角色 普通用户(2)
             userRole.setRoleId(RoleEnum.USER.getRoleId());
+
             BeanUtils.copyProperties(userRegisterVO, user);
             BeanUtils.copyProperties(userRegisterVO, userLogin);
+
+            //查询数据库当前账号是否存在
             final UserLogin one =
                     this.lambdaQuery()
                             .eq(UserLogin::getUserAccount, userRegisterVO.getUserAccount())
@@ -144,9 +147,12 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
             if (!Objects.isNull(one)) {
                 throw new UserAccountException("该账号已被注册，请勿重复注册！");
             }
+
+            //插入
             userMapper.insert(user);
             userLoginMapper.insert(userLogin);
             userRoleMapper.insert(userRole);
+
             return RestResponse.makeOkRsp("注册成功！");
         }
         throw new UserAccountException("验证码不正确，请重新输入!");
@@ -156,8 +162,8 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
     public void verifyCode(@Valid UserLoginUuidVO userLoginUuidVO, HttpServletResponse response) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            String code = RandomUtil.createRandom(6, SourceEnum.numLetter, SourceEnum.numLetter.getLength());
-            createImage(code, baos);
+            String code = RandomUtil.createRandom(4, SourceEnum.numLetter, SourceEnum.numLetter.getLength());
+            ImageUtil.createImage(code, baos);
 
             // TODO NotBlank 注解失效 待解决 先手动判空
             //            if (StrUtil.isBlank(userLoginUuidVO.getUuid())) {
@@ -234,7 +240,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                         .eq(UserLogin::getUserAccount, account)
                         .eq(
                                 UserLogin::getUserPassword,
-                                SaSecureUtil.aesDecrypt(BaseConstant.AES_KEY, password))
+                                SaSecureUtil.aesEncrypt(BaseConstant.AES_KEY, password))
                         .one();
         if (Objects.isNull(userLogin)) {
             throw new UserAccountException("账户、密码错误，请重新输入！");
