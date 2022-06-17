@@ -1,6 +1,6 @@
 package com.zhou.shop.util;
 
-import com.zhou.shop.common.enums.Source;
+import com.zhou.shop.common.enums.SourceEnum;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,16 +10,16 @@ import java.io.OutputStream;
 
 /** @author Administrator */
 public class RandomUtil {
-    private static int width = 62;
-    private static int height = 25;
+    private static final int WIDTH = 62;
+    private static final int HEIGHT = 25;
 
     /** 生成随机验证码(数字，字母) */
-    public static String createRandom(int length, Source sources, int bound) {
+    public static String createRandom(int length, SourceEnum sources, int bound) {
         java.util.Random random = new java.util.Random(System.currentTimeMillis());
         StringBuffer randomCode = new StringBuffer();
         // 循环伪随机生成length个字符
         for (int j = 0; j < length; j++) {
-            randomCode.append(sources.sources.charAt(random.nextInt(bound)) + "");
+            randomCode.append(sources.getSources().charAt(random.nextInt(bound)) + "");
         }
         return randomCode.toString();
     }
@@ -32,7 +32,7 @@ public class RandomUtil {
      * @throws IOException
      */
     public static void createImage(String checkCode, OutputStream outputStream) throws IOException {
-        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage bi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics g = bi.getGraphics();
         setBackground(g);
         // setBorder(g);
@@ -53,7 +53,7 @@ public class RandomUtil {
         // 设置边框颜色
         g.setColor(Color.BLUE);
         // 边框区域
-        g.drawRect(1, 1, width - 2, height - 2);
+        g.drawRect(1, 1, WIDTH - 2, HEIGHT - 2);
     }
 
     /**
@@ -63,6 +63,6 @@ public class RandomUtil {
      */
     public static void setBackground(Graphics g) {
         g.setColor(Color.white);
-        g.fillRect(0, 0, width, height);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
     }
 }

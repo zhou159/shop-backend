@@ -18,8 +18,8 @@ public class UserLogin implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("登陆表id")
-    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
-    private String id;
+    @TableId(value = "user_login_id", type = IdType.ASSIGN_ID)
+    private String userLoginId;
 
     @ApiModelProperty("登陆表用户id")
     @TableField("user_id")
@@ -35,19 +35,23 @@ public class UserLogin implements Serializable {
 
     public UserLogin() {}
 
-    public UserLogin(String id, String userId, String userAccount, String userPassword) {
-        this.id = id;
+    public UserLogin(String userId) {
+        this.userId = userId;
+    }
+
+    public UserLogin(String userLoginId, String userId, String userAccount, String userPassword) {
+        this.userLoginId = userLoginId;
         this.userId = userId;
         this.userAccount = userAccount;
         this.userPassword = userPassword;
     }
 
-    public String getId() {
-        return id;
+    public String getUserLoginId() {
+        return userLoginId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserLoginId(String userLoginId) {
+        this.userLoginId = userLoginId;
     }
 
     public String getUserId() {
@@ -76,19 +80,6 @@ public class UserLogin implements Serializable {
 
     @Override
     public String toString() {
-        return "UserLogin{"
-                + "id='"
-                + id
-                + '\''
-                + ", userId='"
-                + userId
-                + '\''
-                + ", userAccount='"
-                + userAccount
-                + '\''
-                + ", userPassword='"
-                + userPassword
-                + '\''
-                + '}';
+        return "UserLogin{" + "userLoginId='" + userLoginId + '\'' + ", userId='" + userId + '\'' + ", userAccount='" + userAccount + '\'' + ", userPassword='" + userPassword + '\'' + '}';
     }
 }

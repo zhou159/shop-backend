@@ -17,7 +17,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("用户id")
-    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "user_id", type = IdType.INPUT)
     private String userId;
 
     @ApiModelProperty("用户账号")
@@ -34,6 +34,10 @@ public class User implements Serializable {
     private Integer userDeleted;
 
     public User() {}
+
+    public User(String userId) {
+        this.userId = userId;
+    }
 
     public User(String userId, String username, String userPicture) {
         this.userId = userId;

@@ -17,7 +17,7 @@ public class UuidUtil {
      * @return uuid字符串
      * @version: v1.0
      */
-    private static String getUuid(boolean uppercase, boolean existHyphen){
+    public static String getUuid(boolean uppercase, boolean existHyphen){
         if(uppercase && existHyphen){
             return UUID.randomUUID().toString().toUpperCase();
         }else if(uppercase){

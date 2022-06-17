@@ -21,7 +21,11 @@ public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("用户id")
-    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "user_role_id", type = IdType.ASSIGN_ID)
+    private String userRoleId;
+
+    @ApiModelProperty("用户id")
+    @TableField(value = "user_id")
     private String userId;
 
     @ApiModelProperty("角色id")
@@ -30,9 +34,22 @@ public class UserRole implements Serializable {
 
     public UserRole() {}
 
-    public UserRole(String userId, String roleId) {
+    public UserRole(String userId) {
+        this.userId = userId;
+    }
+
+    public UserRole(String userRoleId,String userId, String roleId) {
+        this.userRoleId = userRoleId;
         this.userId = userId;
         this.roleId = roleId;
+    }
+
+    public String getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(String userRoleId) {
+        this.userRoleId = userRoleId;
     }
 
     public String getUserId() {
@@ -68,6 +85,6 @@ public class UserRole implements Serializable {
 
     @Override
     public String toString() {
-        return "UserRole{" + "userId='" + userId + '\'' + ", roleId='" + roleId + '\'' + '}';
+        return "UserRole{" + "userRoleId='" + userRoleId + '\'' + ", userId='" + userId + '\'' + ", roleId='" + roleId + '\'' + '}';
     }
 }

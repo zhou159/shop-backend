@@ -76,6 +76,9 @@ public class BaseConstant {
     public static final String SHA_1_SIGNATURE_TYPE = "SHA-1";
     public static final String HMAC_SHA1_SIGNATURE_TYPE = "HmacSHA1";
 
+    /*=====加密相关信息 Encryption related information=====*/
+    public static final String AES_KEY = "SHOP_|-|[]AES/.H-==-KK///--_____KEY_...??//";
+
     /*=====token验证相关参数 Token verification related parameters=====*/
     public static final String TOKEN_USER_ID = "userId";
     public static final String TOKEN_USER_PWD = "userPassword";

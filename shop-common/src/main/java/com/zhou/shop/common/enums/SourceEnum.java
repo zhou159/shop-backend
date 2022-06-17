@@ -5,7 +5,7 @@ package com.zhou.shop.common.enums;
  *  */
 
 /** @author Administrator */
-public enum Source {
+public enum SourceEnum {
     /** 纯数字 */
     num("1234567890"),
 
@@ -94,13 +94,17 @@ public enum Source {
                     + "檬檐檩檀礁磷瞭瞬瞳瞪曙蹋蟋蟀嚎赡镣魏簇儡徽爵朦臊鳄糜癌懦豁臀藕藤瞻嚣鳍癞瀑襟璧戳攒孽蘑藻鳖蹭蹬簸簿"
                     + "蟹靡癣羹鬓攘蠕巍鳞糯譬霹躏髓蘸镶瓤矗");
 
-    public String sources;
+    private final String sources;
 
-    Source(String sources) {
+    SourceEnum(String sources) {
         this.sources = sources;
     }
 
     public String getSources() {
         return sources;
+    }
+
+    public Integer getLength(){
+        return getSources().length();
     }
 }

@@ -5,6 +5,7 @@ import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.entity.user.UserLogin;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
+import com.zhou.shop.api.vo.user.login.UserRegisterVO;
 import com.zhou.shop.common.RestObject;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,10 +27,10 @@ public interface IUserLoginService extends IService<UserLogin> {
     /**
      * 用户名方式注册
      *
-     * @param userVo 前端用户对象
+     * @param userRegisterVO 前端用户注册对象
      * @return
      */
-    RestObject<String> registerUsername(UserLoginVO userVo);
+    RestObject<String> register(UserRegisterVO userRegisterVO);
 
     /**
      * 生成验证码

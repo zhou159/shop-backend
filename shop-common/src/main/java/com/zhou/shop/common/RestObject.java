@@ -1,6 +1,6 @@
 package com.zhou.shop.common;
 
-import com.zhou.shop.common.enums.RestCode;
+import com.zhou.shop.common.enums.RestCodeEnum;
 
 /**
  * 接口返回对象
@@ -16,8 +16,8 @@ public class RestObject<T> {
         return code;
     }
 
-    public RestObject<T> setCode(RestCode restCode) {
-        this.code = restCode.code;
+    public RestObject<T> setCode(RestCodeEnum restCode) {
+        this.code = restCode.getCode();
         return this;
     }
 

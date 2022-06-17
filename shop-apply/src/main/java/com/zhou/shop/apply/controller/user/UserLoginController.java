@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Snowflake;
 import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
+import com.zhou.shop.api.vo.user.login.UserRegisterVO;
 import com.zhou.shop.apiServer.service.user.IUserLoginService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
@@ -28,12 +29,11 @@ public class UserLoginController {
     /**
      * 获取唯一标识,绑定验证码
      *
-     * @return
+     * @return uuid
      */
     @ApiOperation(value = "uuid")
     @GetMapping("/uuid")
     public RestObject<String> obtainUuid() {
-        // hutool生成的雪花算法
         final String uuid = String.valueOf(new Snowflake().nextId());
         return RestResponse.makeOkRsp(uuid);
     }
@@ -42,7 +42,6 @@ public class UserLoginController {
     @PostMapping("/verifyCode")
     public void verifyCode(
             @Valid @RequestBody UserLoginUuidVO userLoginUuidVO, HttpServletResponse response) {
-        // TODO NotBlank 注解失效 待解决 先手动判空
         userLoginService.verifyCode(userLoginUuidVO, response);
     }
 
@@ -58,9 +57,9 @@ public class UserLoginController {
         return userLoginService.login(userLoginVo);
     }
 
-    @ApiOperation("通过账户方式注册")
-    @PostMapping("/registerUsername")
-    public RestObject<String> registerUsername(@RequestBody UserLoginVO userVo) {
-        return userLoginService.registerUsername(userVo);
+    @ApiOperation("用户注册")
+    @PostMapping("/register")
+    public RestObject<String> registerUsername(@Valid @RequestBody UserRegisterVO userRegisterVO) {
+        return userLoginService.register(userRegisterVO);
     }
 }

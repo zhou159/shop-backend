@@ -5,14 +5,20 @@ package com.zhou.shop.common.enums;
  *
  * @author Administrator
  */
-public enum RestCode {
+public enum RestCodeEnum {
     /** 接口调用状态码 */
     SUCCESS(200),
     ERROR(500);
 
-    public int code;
+    public int getCode() {
+        return code;
+    }
 
-    RestCode(int code) {
+    private final int code;
+
+    RestCodeEnum(int code) {
         this.code = code;
     }
+
+
 }
