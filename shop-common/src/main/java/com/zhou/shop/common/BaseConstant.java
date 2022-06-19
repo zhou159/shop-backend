@@ -83,6 +83,12 @@ public class BaseConstant {
     public static final String TOKEN_USER_ID = "userId";
     public static final String TOKEN_USER_PWD = "userPassword";
 
+    /*=====邮件相关 Email related=====*/
+    public static final String MAIL_PREFIX = "【SHOP】";
+    public static final String MAIL_VERIFY_CODE_SUBJECT = MAIL_PREFIX+"登录验证码";
+    public static final String MAIL_VERIFY_CODE_CONTENT = MAIL_PREFIX+"您的登录验证码为：";
+    public static final String MAIL_PASSWORD_SUBJECT = MAIL_PREFIX+"找回密码";
+    public static final String MAIL_PASSWORD_CONTENT = MAIL_PREFIX+"您的密码是：";
     private BaseConstant() {
     }
 

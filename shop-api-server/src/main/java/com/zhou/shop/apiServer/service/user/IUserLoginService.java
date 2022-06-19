@@ -3,6 +3,7 @@ package com.zhou.shop.apiServer.service.user;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.entity.user.UserLogin;
+import com.zhou.shop.api.vo.user.UserForgetVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
@@ -28,9 +29,16 @@ public interface IUserLoginService extends IService<UserLogin> {
      * 用户名方式注册
      *
      * @param userRegisterVO 前端用户注册对象
-     * @return
+     * @return 注册信息
      */
     RestObject<String> register(UserRegisterVO userRegisterVO);
+
+    /**
+     * 忘记密码
+     * @param userForgetVO 前端传入对象
+     * @return 找回密码信息
+     */
+    RestObject<String> forgetPassword(UserForgetVO userForgetVO);
 
     /**
      * 生成验证码

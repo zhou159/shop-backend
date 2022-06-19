@@ -2,6 +2,7 @@ package com.zhou.shop.apply.controller.user;
 
 import cn.hutool.core.lang.Snowflake;
 import com.zhou.shop.api.dto.UserLoginDTO;
+import com.zhou.shop.api.vo.user.UserForgetVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
@@ -59,7 +60,13 @@ public class UserLoginController {
 
     @ApiOperation("用户注册")
     @PostMapping("/register")
-    public RestObject<String> registerUsername(@Valid @RequestBody UserRegisterVO userRegisterVO) {
+    public RestObject<String> register(@Valid @RequestBody UserRegisterVO userRegisterVO) {
         return userLoginService.register(userRegisterVO);
+    }
+
+    @ApiOperation("忘记密码")
+    @PostMapping("/forgetPassword")
+    public RestObject<String> forgetPassword(@Valid @RequestBody UserForgetVO userForgetVO) {
+        return userLoginService.forgetPassword(userForgetVO);
     }
 }

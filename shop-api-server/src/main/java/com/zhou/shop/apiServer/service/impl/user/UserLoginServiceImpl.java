@@ -3,6 +3,7 @@ package com.zhou.shop.apiServer.service.impl.user;
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.mail.MailUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,6 +11,7 @@ import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.api.entity.user.UserLogin;
 import com.zhou.shop.api.entity.user.UserRole;
+import com.zhou.shop.api.vo.user.UserForgetVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
@@ -22,11 +24,11 @@ import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.common.enums.RoleEnum;
 import com.zhou.shop.common.enums.SourceEnum;
+import com.zhou.shop.common.exception.CheckCodeErrorException;
 import com.zhou.shop.common.exception.ShopException;
 import com.zhou.shop.common.exception.UserAccountException;
 import com.zhou.shop.oss.redis.RedisUtil;
 import com.zhou.shop.util.ImageUtil;
-import com.zhou.shop.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -53,122 +55,107 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
 
     private final UserMapper userMapper;
     private final UserRoleMapper userRoleMapper;
-    // private final JwtUtil jwtUtil;
 
     private final Logger log = LoggerFactory.getLogger(UserLoginServiceImpl.class);
 
     public UserLoginServiceImpl(
             UserLoginMapper userLoginMapper,
-            RedisUtil redisUtil, /*, JwtUtil jwtUtil*/
+            RedisUtil redisUtil,
             UserMapper userMapper,
             UserRoleMapper userRoleMapper) {
         this.userLoginMapper = userLoginMapper;
         this.redisUtil = redisUtil;
-        // this.jwtUtil = jwtUtil;
         this.userMapper = userMapper;
         this.userRoleMapper = userRoleMapper;
     }
 
     @Override
     public RestObject<UserLoginDTO> login(UserLoginVO userLoginVo) {
-        String redisCode = (String) redisUtil.get(userLoginVo.getUuid());
-        String userCode = userLoginVo.getCheckCode().toUpperCase();
-        log.info("redis验证码：{}，用户输入验证码：{}", redisCode, userCode);
+        checkVerifyCode(userLoginVo.getUuid(), userLoginVo.getCheckCode());
         log.info("用户输入的账号：{}，密码：{}", userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
-        // TODO NotBlank 注解失效 待解决 先手动判空（已解决）
-        // =====
-        //        if (StrUtil.isBlank(userLoginVo.getUuid())) {
-        //            throw new ObjectFieldEmptyException("uuid不能为空！");
-        //        }
-        // =====
-
         //如果三者全为空，则抛出异常
         if (StrUtil.isEmpty(userLoginVo.getUserAccount())
                 && StrUtil.isEmpty(userLoginVo.getTel())
                 && StrUtil.isEmpty(userLoginVo.getMail())) {
             throw new UserAccountException("账户、密码或验证码不能为空!");
         }
-
-        //验证码正确
-        if (userCode.equals(redisCode)) {
-            // 验证账号密码
-            final UserLoginDTO userLoginDTO = loginVerify(userLoginVo);
-            Assert.notNull(userLoginDTO, "登录异常！");
-
-            // jwtUtil生成token
-            // final String token = jwtUtil.getToken(userLoginDTO,userLoginVo.getUserPassword());
-
-            // sa-token生成token
-            StpUtil.login(userLoginDTO.getUserId());
-            final String token = StpUtil.getTokenValue();
-            userLoginDTO.setToken(token);
-            return RestResponse.makeOkRsp(userLoginDTO);
-        } else {
-            throw new UserAccountException("验证码错误!");
-        }
+        // 验证账号密码
+        final UserLoginDTO userLoginDTO = loginVerify(userLoginVo);
+        Assert.notNull(userLoginDTO, "登录异常！");
+        // sa-token生成token
+        StpUtil.login(userLoginDTO.getUserId());
+        final String token = StpUtil.getTokenValue();
+        userLoginDTO.setToken(token);
+        return RestResponse.makeOkRsp(userLoginDTO);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public RestObject<String> register(UserRegisterVO userRegisterVO) {
-        // 获取验证码
-        String redisCode = (String) redisUtil.get(userRegisterVO.getUuid());
-        // 获取前端输入的验证码并将小写字母转成大写字母
-        String userCode = userRegisterVO.getCheckCode().toUpperCase();
-
-        log.info("redis验证码：{}，用户输入验证码：{}", redisCode, userCode);
+        checkVerifyCode(userRegisterVO.getUuid(), userRegisterVO.getCheckCode());
 
         if (StrUtil.isEmpty(userRegisterVO.getUserAccount())
                 && StrUtil.isEmpty(userRegisterVO.getTel())
                 && StrUtil.isEmpty(userRegisterVO.getMail())) {
             throw new UserAccountException("请输入有效账号!");
         }
+        // todo 注册流程严重耦合，需待优化
 
-        if (userCode.equals(redisCode)) {
-            final String passwordEncrypt = passwordEncrypt(userRegisterVO.getUserPassword());
-            userRegisterVO.setUserPassword(passwordEncrypt);
+        final UserRegisterVO encryptUrv = passwordEncrypt(userRegisterVO);
 
-            final String userId = String.valueOf(new Snowflake().nextId());
+        // 雪花算法生成用户id
+        final String userId = String.valueOf(new Snowflake().nextId());
 
-            final User user = new User(userId);
-            final UserLogin userLogin = new UserLogin(userId);
-            final UserRole userRole = new UserRole(userId);
-            //默认角色 普通用户(2)
-            userRole.setRoleId(RoleEnum.USER.getRoleId());
-
-            BeanUtils.copyProperties(userRegisterVO, user);
-            BeanUtils.copyProperties(userRegisterVO, userLogin);
-
-            //查询数据库当前账号是否存在
-            final UserLogin one =
-                    this.lambdaQuery()
-                            .eq(UserLogin::getUserAccount, userRegisterVO.getUserAccount())
-                            .one();
-            if (!Objects.isNull(one)) {
-                throw new UserAccountException("该账号已被注册，请勿重复注册！");
-            }
-
-            //插入
-            userMapper.insert(user);
-            userLoginMapper.insert(userLogin);
-            userRoleMapper.insert(userRole);
-
-            return RestResponse.makeOkRsp("注册成功！");
+        final User user = new User(userId);
+        final UserLogin userLogin = new UserLogin(userId);
+        final UserRole userRole = new UserRole(userId);
+        // 默认角色 普通用户(2)
+        userRole.setRoleId(RoleEnum.USER.getRoleId());
+        // copy 到user对象
+        BeanUtils.copyProperties(encryptUrv, user);
+        // copy 到userLogin对象
+        BeanUtils.copyProperties(encryptUrv, userLogin);
+        // 查询数据库当前账号是否存在
+        final UserLogin one =
+                this.lambdaQuery().eq(UserLogin::getUserAccount, encryptUrv.getUserAccount()).one();
+        if (!Objects.isNull(one)) {
+            throw new UserAccountException("该账号已被注册，请勿重复注册！");
         }
-        throw new UserAccountException("验证码不正确，请重新输入!");
+        // 插入
+        userMapper.insert(user);
+        userLoginMapper.insert(userLogin);
+        userRoleMapper.insert(userRole);
+        return RestResponse.makeOkRsp("注册成功！");
+    }
+
+    /**
+     * @param userForgetVO 前端传入对象
+     * @return
+     */
+    @Override
+    public RestObject<String> forgetPassword(UserForgetVO userForgetVO) {
+        if (StrUtil.isNotBlank(userForgetVO.getMail())) {
+            checkVerifyCode(userForgetVO.getUuid(), userForgetVO.getCheckCode());
+
+            final UserLogin one =
+                    this.lambdaQuery().eq(UserLogin::getUserAccount, userForgetVO.getMail()).one();
+            final String passwordDecrypt = passwordDecrypt(one.getUserPassword());
+            MailUtil.sendText(
+                    userForgetVO.getMail(),
+                    BaseConstant.MAIL_PASSWORD_SUBJECT,
+                    BaseConstant.MAIL_PASSWORD_CONTENT + passwordDecrypt);
+            return RestResponse.makeOkRsp("邮件已发送，请注意查收！");
+        }
+        throw new ShopException("请选择有效的验证方式！");
     }
 
     @Override
     public void verifyCode(@Valid UserLoginUuidVO userLoginUuidVO, HttpServletResponse response) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            String code = RandomUtil.createRandom(4, SourceEnum.numLetter, SourceEnum.numLetter.getLength());
+            String code = RandomUtil.randomString(SourceEnum.numLetter.getSources(), 4);
             ImageUtil.createImage(code, baos);
 
-            // TODO NotBlank 注解失效 待解决 先手动判空
-            //            if (StrUtil.isBlank(userLoginUuidVO.getUuid())) {
-            //                throw new ObjectFieldEmptyException("uuid不能为空！");
-            //            }
             // 避免重复，将当前uuid键删除
             redisUtil.del(userLoginUuidVO.getUuid());
             // 将VerifyCode存入redis
@@ -202,11 +189,31 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
     public void mailVerifyCode(String uuid, String mail) {
         // 先删除，万一有重复的
         redisUtil.del(uuid);
-        String mailVerifyCode =
-                RandomUtil.createRandom(6, SourceEnum.num, SourceEnum.num.getLength());
+        String mailVerifyCode = RandomUtil.randomString(SourceEnum.num.getSources(), 6);
         // 写入redis中，为期一个小时
         redisUtil.setex(uuid, mailVerifyCode, 1L, TimeUnit.HOURS);
-        MailUtil.sendText(mail, "登录验证码", "【SHOP】您的登录验证码为：" + mailVerifyCode);
+        MailUtil.sendText(
+                mail,
+                BaseConstant.MAIL_VERIFY_CODE_SUBJECT,
+                BaseConstant.MAIL_VERIFY_CODE_CONTENT + mailVerifyCode);
+    }
+
+    /**
+     * 验证码校验
+     *
+     * @param uuid uuid
+     * @param userCode 用户输入的
+     */
+    private void checkVerifyCode(String uuid, String userCode) {
+        // 获取验证码
+        String redisCode = (String) redisUtil.get(uuid);
+        // 获取前端输入的验证码并将小写字母转成大写字母
+        userCode = userCode.toUpperCase();
+
+        log.info("redis验证码：{}，用户输入验证码：{}", redisCode, userCode);
+        if (!StrUtil.equals(redisCode, userCode)) {
+            throw new CheckCodeErrorException("验证码输入错误！");
+        }
     }
 
     /**
@@ -216,23 +223,25 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      * @return 验证成功与否
      */
     private UserLoginDTO loginVerify(UserLoginVO userLoginVo) {
-        // TODO 账户校验
         // 账号密码登录方式
         if (StrUtil.isNotBlank(userLoginVo.getUserAccount())) {
-            final UserLoginDTO userLoginDTO =
-                    userQuery(userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
-            return userLoginDTO;
+            return userQuery(userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
         }
 
         // 邮件登录方式
         if (StrUtil.isNotBlank(userLoginVo.getMail())) {
-            final UserLoginDTO userLoginDTO =
-                    userQuery(userLoginVo.getMail(), userLoginVo.getUserPassword());
-            return userLoginDTO;
+            return userQuery(userLoginVo.getMail(), userLoginVo.getUserPassword());
         }
         return null;
     }
 
+    /**
+     * 用户查询
+     *
+     * @param account 登录凭证
+     * @param password 登录密码
+     * @return 查询出的用户登录实体
+     */
     private UserLoginDTO userQuery(String account, String password) {
         final UserLoginDTO userLoginDTO = new UserLoginDTO();
         final UserLogin userLogin =
@@ -243,9 +252,11 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                                 SaSecureUtil.aesEncrypt(BaseConstant.AES_KEY, password))
                         .one();
         if (Objects.isNull(userLogin)) {
-            throw new UserAccountException("账户、密码错误，请重新输入！");
+            throw new UserAccountException("用户凭证、密码有误，请重新输入！");
         }
+        final User user = userMapper.selectById(userLogin.getUserId());
         userLoginDTO.setUserId(userLogin.getUserId());
+        userLoginDTO.setUserPicture(user.getUserPicture());
         BeanUtils.copyProperties(userLogin, userLoginDTO);
         return userLoginDTO;
     }
@@ -258,11 +269,14 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      *
      * <p>使用对称加密一次即可
      *
-     * @param password 密码明文
-     * @return 密码密文
+     * @param userRegisterVO 前端传入注册的对象
+     * @return 密码加密后的注册对象
      */
-    private String passwordEncrypt(String password) {
-        return SaSecureUtil.aesEncrypt(BaseConstant.AES_KEY, password);
+    private UserRegisterVO passwordEncrypt(UserRegisterVO userRegisterVO) {
+        final String encryptPassword =
+                SaSecureUtil.aesEncrypt(BaseConstant.AES_KEY, userRegisterVO.getUserPassword());
+        userRegisterVO.setUserPassword(encryptPassword);
+        return userRegisterVO;
     }
 
     /**

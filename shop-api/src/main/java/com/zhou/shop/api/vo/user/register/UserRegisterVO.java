@@ -1,5 +1,6 @@
 package com.zhou.shop.api.vo.user.register;
 
+import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
  * @since 2022/6/17 15:42
  */
 @ApiModel("用户注册uuid前端对象")
-public class UserRegisterVO implements Serializable {
+public class UserRegisterVO extends UserLoginUuidVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("用户头像")
@@ -40,10 +41,6 @@ public class UserRegisterVO implements Serializable {
     @ApiModelProperty("验证码")
     private String checkCode;
 
-    @NotBlank(message = "uuid不能为空")
-    @ApiModelProperty("uuid")
-    private String uuid;
-
     public UserRegisterVO() {}
 
     public UserRegisterVO(
@@ -53,8 +50,7 @@ public class UserRegisterVO implements Serializable {
             String mail,
             String userPassword,
             String userAccount,
-            String checkCode,
-            String uuid) {
+            String checkCode) {
         this.userPicture = userPicture;
         this.username = username;
         this.tel = tel;
@@ -62,7 +58,6 @@ public class UserRegisterVO implements Serializable {
         this.userPassword = userPassword;
         this.userAccount = userAccount;
         this.checkCode = checkCode;
-        this.uuid = uuid;
     }
 
     public String getUserPicture() {
@@ -121,14 +116,6 @@ public class UserRegisterVO implements Serializable {
         this.checkCode = checkCode;
     }
 
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
     @Override
     public String toString() {
         return "UserRegisterVO{"
@@ -152,9 +139,6 @@ public class UserRegisterVO implements Serializable {
                 + '\''
                 + ", checkCode='"
                 + checkCode
-                + '\''
-                + ", uuid='"
-                + uuid
                 + '\''
                 + '}';
     }

@@ -120,4 +120,11 @@ public class Handler {
         logger.error("账号没有赋予此权限：{}",e.getPermission());
         return RestResponse.errRsp(500, "Permission Error!", e.getMessage());
     }
+
+    @ExceptionHandler(CheckCodeErrorException.class) // 就是定义处理什么异常
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK) // 服务器的异常
+    public RestObject<String> handlerCheckCodeErrorException(CheckCodeErrorException e) {
+        return RestResponse.errRsp(500, "CheckCode Error!", e.getMessage());
+    }
 }
