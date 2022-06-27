@@ -1,8 +1,10 @@
 package com.zhou.shop.apply.controller.user;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.Snowflake;
 import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.vo.user.UserForgetVO;
+import com.zhou.shop.api.vo.user.UserModifyVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
@@ -40,9 +42,9 @@ public class UserLoginController {
     }
 
     @ApiOperation(value = "图形验证码")
-    @PostMapping("/verifyCode")
+    @GetMapping("/verifyCode")
     public void verifyCode(
-            @Valid @RequestBody UserLoginUuidVO userLoginUuidVO, HttpServletResponse response) {
+            @Valid UserLoginUuidVO userLoginUuidVO, HttpServletResponse response) {
         userLoginService.verifyCode(userLoginUuidVO, response);
     }
 
@@ -53,9 +55,16 @@ public class UserLoginController {
         return RestResponse.makeOkRsp("发送成功，请注意查看！");
     }
 
+    @ApiOperation("用户登录")
     @PostMapping("/login")
     public RestObject<UserLoginDTO> login(@Valid @RequestBody UserLoginVO userLoginVo) {
         return userLoginService.login(userLoginVo);
+    }
+
+    @ApiOperation("用户注销登录")
+    @GetMapping("/loginOut")
+    public void loginOut() {
+        StpUtil.logout();
     }
 
     @ApiOperation("用户注册")
@@ -68,5 +77,11 @@ public class UserLoginController {
     @PostMapping("/forgetPassword")
     public RestObject<String> forgetPassword(@Valid @RequestBody UserForgetVO userForgetVO) {
         return userLoginService.forgetPassword(userForgetVO);
+    }
+
+    @ApiOperation("修改密码")
+    @PostMapping("/modifyPassword")
+    public RestObject<String> modifyPassword(@Valid @RequestBody UserModifyVO userModifyVO) {
+        return userLoginService.modifyPassword(userModifyVO);
     }
 }

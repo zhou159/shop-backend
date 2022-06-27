@@ -42,6 +42,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
                                                     "/blog/**",
                                                     "/blogCategory/**",
                                                     "/updateLog/**",
+                                                    "/common/**",
                                                     "/error")
                                             .check(r -> StpUtil.checkLogin());
 

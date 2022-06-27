@@ -112,16 +112,19 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
         </dependency>
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
             <version>${swagger-annotations-models.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
             <version>${swagger-annotations-models.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
@@ -238,7 +241,6 @@
             <artifactId>sa-token-spring-boot-starter</artifactId>
             <version>${sa-token.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -303,9 +305,6 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
-
         </plugins>
     </build>
-
-
 </project>

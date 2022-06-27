@@ -9,7 +9,6 @@
         <!-- <relativePath/> lookup parent from repository -->
     </parent>
 
-    <groupId>com.zhou</groupId>
     <artifactId>shop-application</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -48,6 +47,7 @@
                 <version>3.0.0</version>
             </plugin>
         </plugins>
+
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -67,5 +67,4 @@
             </resource>
         </resources>
     </build>
-
 </project>

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.entity.user.UserLogin;
 import com.zhou.shop.api.vo.user.UserForgetVO;
+import com.zhou.shop.api.vo.user.UserModifyVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
@@ -39,6 +40,13 @@ public interface IUserLoginService extends IService<UserLogin> {
      * @return 找回密码信息
      */
     RestObject<String> forgetPassword(UserForgetVO userForgetVO);
+
+    /**
+     * 修改密码
+     * @param userModifyVO 前端传入对象
+     * @return 修改成功与否
+     */
+    RestObject<String> modifyPassword(UserModifyVO userModifyVO);
 
     /**
      * 生成验证码

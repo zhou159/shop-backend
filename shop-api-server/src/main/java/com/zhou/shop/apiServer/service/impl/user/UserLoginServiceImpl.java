@@ -6,12 +6,15 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.mail.MailUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.api.entity.user.UserLogin;
 import com.zhou.shop.api.entity.user.UserRole;
 import com.zhou.shop.api.vo.user.UserForgetVO;
+import com.zhou.shop.api.vo.user.UserModifyVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
@@ -27,6 +30,7 @@ import com.zhou.shop.common.enums.SourceEnum;
 import com.zhou.shop.common.exception.CheckCodeErrorException;
 import com.zhou.shop.common.exception.ShopException;
 import com.zhou.shop.common.exception.UserAccountException;
+import com.zhou.shop.common.exception.UserNotLoginException;
 import com.zhou.shop.oss.redis.RedisUtil;
 import com.zhou.shop.util.ImageUtil;
 import org.slf4j.Logger;
@@ -40,6 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -159,6 +164,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
             // 避免重复，将当前uuid键删除
             redisUtil.del(userLoginUuidVO.getUuid());
             // 将VerifyCode存入redis
+            log.info("验证码为：{}，uuid为：{}", code, userLoginUuidVO.getUuid());
             redisUtil.setex(userLoginUuidVO.getUuid(), code, 1L, TimeUnit.HOURS);
 
             // 设置响应头
@@ -178,6 +184,36 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         } catch (IOException e) {
             throw new ShopException(e.getMessage());
         }
+    }
+
+    /**
+     * @param userModifyVO 前端传入对象
+     * @return
+     */
+    @Override
+    public RestObject<String> modifyPassword(UserModifyVO userModifyVO) {
+        String loginId = (String) StpUtil.getLoginId();
+        if (loginId == null) {
+            throw new UserNotLoginException("请先登录再执行操作！");
+        }
+        final List<UserLogin> userLogins =
+                userLoginMapper.selectList(
+                        new LambdaQueryWrapper<UserLogin>().eq(UserLogin::getUserId, loginId));
+        Assert.notNull(userLogins, "账号信息有误！");
+        // 为何直接取下标为0？因为设定的就是只要用户id相同，所有登录方式密码都相同（三方登录除外）
+        if (!passwordDecrypt(userLogins.get(0).getUserPassword())
+                .equals(userModifyVO.getUserOldPassword())) {
+            throw new UserAccountException("原密码不正确，请重新输入！");
+        }
+        if (!userModifyVO.getUserNewPassword().equals(userModifyVO.getUserNewPasswordRe())) {
+            throw new UserAccountException("两次新密码输入不同，请重新输入！");
+        }
+
+        final int update = userLoginMapper.update(null,
+                new LambdaUpdateWrapper<UserLogin>().set(UserLogin::getUserPassword,
+                        passwordEncrypt(userModifyVO.getUserNewPasswordRe())).eq(UserLogin::getUserId, loginId));
+
+        return update > 0 ? RestResponse.makeOkRsp("密码修改成功！") : RestResponse.makeErrRsp("密码修改失败！");
     }
 
     /**
@@ -273,10 +309,18 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      * @return 密码加密后的注册对象
      */
     private UserRegisterVO passwordEncrypt(UserRegisterVO userRegisterVO) {
-        final String encryptPassword =
-                SaSecureUtil.aesEncrypt(BaseConstant.AES_KEY, userRegisterVO.getUserPassword());
-        userRegisterVO.setUserPassword(encryptPassword);
+        userRegisterVO.setUserPassword(passwordEncrypt(userRegisterVO.getUserPassword()));
         return userRegisterVO;
+    }
+
+    /**
+     * 加密密码
+     *
+     * @param password 密码明文
+     * @return 密码密文
+     */
+    private String passwordEncrypt(String password) {
+        return SaSecureUtil.aesEncrypt(BaseConstant.AES_KEY, password);
     }
 
     /**
