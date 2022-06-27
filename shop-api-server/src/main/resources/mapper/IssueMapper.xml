@@ -11,34 +11,4 @@
         from information_schema.`TABLES`
         WHERE TABLE_SCHEMA = 'shop'
     </select>
-
-    <select id="retrieveByIssueDescription" resultType="com.zhou.shop.api.entity.Issue">
-        select *
-        from issue
-        where issue_description like '%${issueDescription}%'
-        and issue_status = '0'
-    </select>
-
-    <select id="readEffectiveIssue" resultType="com.zhou.shop.api.entity.Issue">
-        select issue_id,
-               issue_create_time,
-               issue_description,
-               (select pubcode_name from pubcode where pubcode_id = a.issue_type)   issue_type,
-               (select pubcode_name from pubcode where pubcode_id = a.issue_module) issue_module,
-               issue_status,
-               issue_solve_time,
-               issue_close_time,
-               issue_create_by,
-               issue_deleted
-        from issue a
-        where issue_status = '0'
-          and issue_deleted = '0'
-    </select>
-
-    <update id="updateIssueStatus">
-        update issue
-        set issue_status     = #{issue.issueStatus},
-            issue_solve_time = #{issue.issueSolveTime}
-        where issue_id = #{issueId};
-    </update>
 </mapper>

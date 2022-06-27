@@ -1,5 +1,6 @@
 package com.zhou.shop.apiServer.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.entity.Flag;
 import com.zhou.shop.apiServer.mapper.FlagMapper;
@@ -75,6 +76,6 @@ public class FlagServiceImpl extends ServiceImpl<FlagMapper, Flag> implements IF
 
     @Override
     public Flag retrieveByFlagName(String flagName) {
-        return flagMapper.retrieveByFlagName(flagName);
+        return flagMapper.selectOne(new LambdaQueryWrapper<Flag>().like(Flag::getFlagName,flagName));
     }
 }

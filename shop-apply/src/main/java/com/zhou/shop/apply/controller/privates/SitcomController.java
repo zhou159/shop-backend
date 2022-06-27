@@ -1,5 +1,6 @@
 package com.zhou.shop.apply.controller.privates;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.entity.privates.Sitcom;
 import com.zhou.shop.apiServer.service.privates.ISitcomService;
 import com.zhou.shop.common.RestObject;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author 周雄
  * @since 2021-08-21
  */
+@SaCheckRole("superAdmin")
 @RestController
 @RequestMapping("/sitcom")
 @Api(tags = "连续剧")

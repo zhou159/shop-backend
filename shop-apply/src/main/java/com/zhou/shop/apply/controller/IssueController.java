@@ -1,5 +1,7 @@
 package com.zhou.shop.apply.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.apiServer.service.IIssueService;
@@ -26,6 +28,7 @@ public class IssueController {
         this.iIssueService = iIssueService;
     }
 
+    @SaCheckLogin
     @ApiOperation("新增问题")
     @PostMapping("/createIssue")
     public RestObject<String> createIssue(@RequestBody Issue issue) {
@@ -44,12 +47,14 @@ public class IssueController {
         return iIssueService.retrieveAllIssue();
     }
 
+    @SaCheckLogin
     @ApiOperation("按id修改问题")
     @PostMapping("/updateIssueByIssueId/{issueId}")
     public RestObject<String> updateIssueByIssueId(@PathVariable String issueId, @RequestBody Issue issue) {
         return iIssueService.updateIssueByIssueId(issueId, issue);
     }
 
+    @SaCheckRole("superAdmin")
     @ApiOperation("按id删除问题")
     @PostMapping("/deleteByIssueId/{issueId}")
     public RestObject<String> deleteIssueById(@PathVariable String issueId) {
@@ -68,6 +73,7 @@ public class IssueController {
         return iIssueService.retrieveByIssueDescription(issue.getIssueDescription());
     }
 
+    @SaCheckLogin
     @ApiOperation("修改问题状态")
     @PostMapping("/updateIssueStatus/{issueId}")
     public RestObject<String> updateIssueStatus(@PathVariable String issueId, @RequestBody Issue issue) {

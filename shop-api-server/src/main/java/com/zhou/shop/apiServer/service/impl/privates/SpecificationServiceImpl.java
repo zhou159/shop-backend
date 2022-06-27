@@ -1,5 +1,6 @@
 package com.zhou.shop.apiServer.service.impl.privates;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.entity.privates.Specification;
 import com.zhou.shop.apiServer.mapper.privates.SpecificationMapper;
@@ -34,7 +35,9 @@ public class SpecificationServiceImpl extends ServiceImpl<SpecificationMapper, S
     @Override
     public RestObject<List<Specification>> retrieveBySpecificationName(String specificationName) {
         return RestResponse.makeOkRsp(
-                specificationMapper.retrieveBySpecificationName(specificationName));
+                specificationMapper.selectList(
+                        new LambdaQueryWrapper<Specification>()
+                                .like(Specification::getSpecificationName, specificationName)));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.zhou.shop.apply.controller.user;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.apiServer.service.user.IUserService;
 import com.zhou.shop.common.RestObject;
@@ -26,33 +28,46 @@ public class UserController {
         this.iUserService = iUserService;
     }
 
+    @SaCheckRole("admin")
     @ApiOperation("新增用户[需更改逻辑]")
     @PostMapping("/createUser")
     public RestObject<String> createUser(@RequestBody User user) {
         return iUserService.createUser(user);
     }
 
+    @SaCheckLogin
     @ApiOperation("按id查询用户")
     @GetMapping("/retrieveByUserId/{userId}")
     public RestObject<User> retrieveByUserId(@PathVariable String userId) {
         return iUserService.retrieveByUserId(userId);
     }
 
+    @SaCheckRole("superAdmin")
     @ApiOperation("查询全部用户信息")
     @GetMapping("/admin/retrieveAllUser")
     public RestObject<List<User>> retrieveAllUser() {
         return iUserService.retrieveAllUser();
     }
 
+    @SaCheckLogin
     @ApiOperation("按id修改用户")
-    @PostMapping("/updateUserByUserId/{userId}")
-    public RestObject<String> updateUserByUserId(@PathVariable String userId, @RequestBody User user) {
-        return iUserService.updateUserByUserId(userId, user);
+    @PostMapping("/updateUserByUserId")
+    public RestObject<String> updateUserByUserId(@RequestBody User user) {
+        return iUserService.updateUserByUserId(user);
     }
 
+    @SaCheckRole("superAdmin")
     @ApiOperation("按id删除用户")
     @PostMapping("/admin/deleteByUserId/{userId}")
     public RestObject<String> deleteUserById(@PathVariable String userId) {
         return iUserService.deleteUserById(userId);
     }
+
+    //绑定手机号[使用可能性不大，因为要钱]
+
+    //绑定邮箱
+
+    //更改手机号[]
+
+    //更改邮箱
 }

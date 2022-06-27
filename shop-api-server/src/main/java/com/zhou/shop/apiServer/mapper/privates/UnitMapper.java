@@ -3,9 +3,6 @@ package com.zhou.shop.apiServer.mapper.privates;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhou.shop.api.entity.privates.Unit;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * Mapper 接口
@@ -15,5 +12,4 @@ import java.util.List;
  */
 @Mapper
 public interface UnitMapper extends BaseMapper<Unit> {
-    List<Unit> retrieveByUnitName(@Param("unitName") String unitName);
 }

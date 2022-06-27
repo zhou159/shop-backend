@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhou.shop.apiServer.mapper.privates.ShopMapper">
-    <select id="retrieveByShopName" resultType="com.zhou.shop.api.entity.privates.Shop">
-        select * from shop.shop where shop_name like '%${shopName}%'
-    </select>
 </mapper>

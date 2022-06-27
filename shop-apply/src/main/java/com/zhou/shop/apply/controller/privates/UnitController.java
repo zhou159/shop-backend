@@ -1,5 +1,6 @@
 package com.zhou.shop.apply.controller.privates;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.entity.privates.Unit;
 import com.zhou.shop.apiServer.service.privates.IUnitService;
 import com.zhou.shop.common.RestObject;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author 周雄
  * @since 2021-07-20
  */
+@SaCheckRole("superAdmin")
 @RestController
 @RequestMapping("/unit")
 @Api(tags = "单位")

@@ -52,7 +52,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public RestObject<String> updateUserByUserId(String userId, User user) {
+    public RestObject<String> updateUserByUserId(User user) {
+        String userId = user.getUserId();
         user.setUserId(userId);
         int i = userMapper.updateById(user);
         if (i < 1) {

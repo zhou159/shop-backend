@@ -1,5 +1,6 @@
 package com.zhou.shop.apply.controller.privates;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.dto.ItemDTO;
 import com.zhou.shop.api.entity.privates.Item;
 import com.zhou.shop.api.vo.ItemVO;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author 周雄
  * @since 2021-06-24
  */
+@SaCheckRole("superAdmin")
 @Api(tags = "商品")
 @RestController
 @RequestMapping("/item")

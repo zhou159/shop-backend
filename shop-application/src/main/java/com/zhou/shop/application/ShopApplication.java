@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableConfigurationProperties
 @EnableTransactionManagement
-public class ShopApplication {
+public class
+ShopApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ShopApplication.class, args);

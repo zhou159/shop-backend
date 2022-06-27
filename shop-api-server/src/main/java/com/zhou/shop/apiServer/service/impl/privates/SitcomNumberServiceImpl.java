@@ -1,8 +1,8 @@
 package com.zhou.shop.apiServer.service.impl.privates;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhou.shop.api.dto.SitcomNumberDTO;
 import com.zhou.shop.api.entity.privates.Sitcom;
 import com.zhou.shop.api.entity.privates.SitcomNumber;
 import com.zhou.shop.apiServer.mapper.privates.SitcomMapper;
@@ -49,7 +49,9 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
     public RestObject<List<SitcomNumber>> retrieveBySitcomNumberName(
             String sitcomNumberName, String sitcomId) {
         return RestResponse.makeOkRsp(
-                sitcomNumberMapper.retrieveBySitcomNumberName(sitcomNumberName, sitcomId));
+                sitcomNumberMapper.selectList(
+                        new LambdaQueryWrapper<SitcomNumber>()
+                                .like(SitcomNumber::getSitcomNumberName, sitcomNumberName)));
     }
 
     @Override
@@ -73,10 +75,12 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
             throw new ShopException("这部连续剧已经看完了！");
         }
         /*获取当前电视剧集数*/
-        SitcomNumberDTO sitcomNumberDto2 =
-                sitcomNumberMapper.readSitcomNumberCnt(sitcomNumber.getSitcomId());
+        final Long count =
+                sitcomNumberMapper.selectCount(
+                        new LambdaQueryWrapper<SitcomNumber>()
+                                .eq(SitcomNumber::getSitcomId, sitcomNumber.getSitcomId()));
 
-        String sitcomNumberNumber = String.valueOf(sitcomNumberDto2.getCount() + 1);
+        String sitcomNumberNumber = String.valueOf(count + 1);
         String sitcomNumberName = "第" + sitcomNumberNumber + "集";
 
         sitcomNumber

@@ -47,11 +47,10 @@ public interface IShopService extends IService<Shop> {
     /**
      * 根据id修改
      *
-     * @param shopId id
      * @param shop 对象
      * @return
      */
-    RestObject<String> updateShopByShopId(String shopId, Shop shop);
+    RestObject<String> updateShopByShopId(Shop shop);
 
     /**
      * 根据id删除

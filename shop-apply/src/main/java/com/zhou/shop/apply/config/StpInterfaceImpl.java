@@ -46,29 +46,21 @@ public class StpInterfaceImpl implements StpInterface {
     public List<String> getPermissionList(Object loginId, String loginType) {
 
         final ArrayList<String> permissionNameList = new ArrayList<>();
-        userRoleService
-                .lambdaQuery()
-                .eq(UserRole::getUserId, loginId)
-                .list()
-                .forEach(
-                        userRole -> {
-                            rolePermissionService
-                                    .lambdaQuery()
-                                    .eq(RolePermission::getRoleId, userRole.getRoleId())
-                                    .list()
-                                    .forEach(
-                                            rolePermission -> {
-                                                permissionNameList.add(
-                                                        permissionService
-                                                                .lambdaQuery()
-                                                                .eq(
-                                                                        Permission::getPermissionId,
-                                                                        rolePermission
-                                                                                .getPermissionId())
-                                                                .one()
-                                                                .getName());
-                                            });
-                        });
+        for (UserRole userRole :
+                userRoleService.lambdaQuery().eq(UserRole::getUserId, loginId).list()) {
+            for (RolePermission rolePermission :
+                    rolePermissionService
+                            .lambdaQuery()
+                            .eq(RolePermission::getRoleId, userRole.getRoleId())
+                            .list()) {
+                permissionNameList.add(
+                        permissionService
+                                .lambdaQuery()
+                                .eq(Permission::getPermissionId, rolePermission.getPermissionId())
+                                .one()
+                                .getName());
+            }
+        }
         logger.info("用户：{}。权限列表：{}",loginId,permissionNameList);
         return permissionNameList;
     }
@@ -83,19 +75,15 @@ public class StpInterfaceImpl implements StpInterface {
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
         final ArrayList<String> roleNameList = new ArrayList<>();
-        userRoleService
-                .lambdaQuery()
-                .eq(UserRole::getUserId, loginId)
-                .list()
-                .forEach(
-                        userRole -> {
-                            roleNameList.add(
-                                    roleService
-                                            .lambdaQuery()
-                                            .eq(Role::getRoleId, userRole.getRoleId())
-                                            .one()
-                                            .getName());
-                        });
+        for (UserRole userRole :
+                userRoleService.lambdaQuery().eq(UserRole::getUserId, loginId).list()) {
+            roleNameList.add(
+                    roleService
+                            .lambdaQuery()
+                            .eq(Role::getRoleId, userRole.getRoleId())
+                            .one()
+                            .getName());
+        }
         logger.info("用户：{}。角色列表：{}",loginId,roleNameList);
         return roleNameList;
     }

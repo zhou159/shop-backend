@@ -1,5 +1,6 @@
 package com.zhou.shop.apply.controller.privates;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.entity.privates.Shop;
 import com.zhou.shop.apiServer.service.privates.IShopService;
 import com.zhou.shop.common.RestObject;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author 周雄
  * @since 2021-06-24
  */
+@SaCheckRole("superAdmin")
 @RestController
 @RequestMapping("/shop")
 @Api(tags = "商店")
@@ -44,9 +46,9 @@ public class ShopController {
     }
 
     @ApiOperation("按id修改商店")
-    @PostMapping("/updateShopByShopId/{shopId}")
-    public RestObject<String> updateShopByShopId(@PathVariable String shopId, @RequestBody Shop shop) {
-        return iShopService.updateShopByShopId(shopId, shop);
+    @PostMapping("/updateShopByShopId")
+    public RestObject<String> updateShopByShopId(@RequestBody Shop shop) {
+        return iShopService.updateShopByShopId(shop);
     }
 
     @ApiOperation("按id删除商店")

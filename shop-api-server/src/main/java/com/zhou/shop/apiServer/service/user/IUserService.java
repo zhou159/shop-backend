@@ -43,7 +43,7 @@ public interface IUserService extends IService<User> {
      * @param user 对象
      * @return
      */
-    RestObject<String> updateUserByUserId(String userId, User user);
+    RestObject<String> updateUserByUserId(User user);
 
     /**
      * 根据id删除

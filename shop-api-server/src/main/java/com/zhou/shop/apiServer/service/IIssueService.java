@@ -30,13 +30,6 @@ public interface IIssueService extends IService<Issue> {
     RestObject<List<Issue>> retrieveByIssueDescription(String issueDescription);
 
     /**
-     * 查询未解决的问题
-     *
-     * @return 问题数组
-     */
-    RestObject<List<Issue>> readEffectiveIssue();
-
-    /**
      * 修改问题状态
      *
      * @param issueId 问题ID

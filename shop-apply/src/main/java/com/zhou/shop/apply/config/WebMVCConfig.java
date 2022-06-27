@@ -1,8 +1,6 @@
 package com.zhou.shop.apply.config;
 
-import cn.dev33.satoken.interceptor.SaRouteInterceptor;
-import cn.dev33.satoken.router.SaRouter;
-import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,56 +31,58 @@ public class WebMVCConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(
-                        new SaRouteInterceptor(
-                                (req, res, handler) -> {
-                                    //公共权限
-                                    SaRouter.match("/**")
-                                            .notMatch(
-                                                    "/userLogin/**",
-                                                    "/blog/**",
-                                                    "/blogCategory/**",
-                                                    "/updateLog/**",
-                                                    "/common/**",
-                                                    "/error")
-                                            .check(r -> StpUtil.checkLogin());
-
-                                    //superAdmin权限配置
-                                    SaRouter.match(
-                                                    "/item/**",
-                                                    "/sitcom/**",
-                                                    "/sitcomNumber/**",
-                                                    "/shop/**",
-                                                    "/specification/**",
-                                                    "/unit/**")
-                                            .check(r -> StpUtil.checkRole("superAdmin"));
-
-                                    //admin权限配置
-                                    SaRouter.match(
-                                                    "/user/admin/**")
-                                            .check(r -> StpUtil.checkRole("admin"));
-
-                                    //user权限
-                                    SaRouter.match(
-                                                    "/user/**")
-                                            .check(r -> StpUtil.checkRole("user"));
-
-                                    //                                    SaRouter.match(
-                                    //
-                                    // "/user/retrieveAllUser",
-                                    //                                            r ->
-                                    // StpUtil.checkPermission("连续剧"));
-
-                                    // todo 拦截器将swagger也给拦截了，需待解决。
-                                }))
+        registry.addInterceptor(new SaAnnotationInterceptor())
+//                        new SaRouteInterceptor(
+//                                (req, res, handler) -> {
+//                                    //公共权限
+//                                    SaRouter.match("/**")
+//                                            .notMatch(
+//                                                    "/userLogin/**",
+//                                                    "/blog/**",
+//                                                    "/blogCategory/**",
+//                                                    "/updateLog/**",
+//                                                    "/sitcomNumber/**",
+//                                                    "/common/**",
+//                                                    "/error")
+//                                            .check(r -> StpUtil.checkLogin());
+//
+//                                    //superAdmin权限配置
+////                                    SaRouter.match(
+////                                                    "/item/**",
+////                                                    "/sitcom/**",
+////                                                    "/sitcomNumber/**",
+////                                                    "/shop/**",
+////                                                    "/specification/**",
+////                                                    "/unit/**")
+////                                            .check(r -> StpUtil.checkRole("superAdmin"));
+//
+//                                    //admin权限配置
+//                                    SaRouter.match(
+//                                                    "/user/admin/**")
+//                                            .check(r -> StpUtil.checkRole("admin"));
+//
+//                                    //user权限
+//                                    SaRouter.match(
+//                                                    "/user/**")
+//                                            .check(r -> StpUtil.checkRole("user"));
+//
+//                                    //                                    SaRouter.match(
+//                                    //
+//                                    // "/user/retrieveAllUser",
+//                                    //                                            r ->
+//                                    // StpUtil.checkPermission("连续剧"));
+//
+//                                    // todo 拦截器将swagger也给拦截了，需待解决。
+//                                }))
                 // 添加所有请求到拦截器
                 .addPathPatterns("/**");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html#")
-                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("swagger-ui.html#").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 

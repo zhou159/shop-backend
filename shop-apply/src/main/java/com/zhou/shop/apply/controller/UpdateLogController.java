@@ -1,5 +1,6 @@
 package com.zhou.shop.apply.controller;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.entity.UpdateLog;
 import com.zhou.shop.apiServer.service.IUpdateLogService;
 import com.zhou.shop.common.RestObject;
@@ -26,6 +27,7 @@ public class UpdateLogController {
         this.iUpdateLogService = iUpdateLogService;
     }
 
+    @SaCheckRole("superAdmin")
     @ApiOperation("新增更新日志")
     @PostMapping("/createUpdateLog")
     public RestObject<String> createUpdateLog(@RequestBody UpdateLog updateLog) {
@@ -44,12 +46,14 @@ public class UpdateLogController {
         return iUpdateLogService.retrieveAllUpdateLog();
     }
 
+    @SaCheckRole("superAdmin")
     @ApiOperation("按id修改更新日志")
     @PostMapping("/updateUpdateByUpdateLogId/{updateLogId}")
     public RestObject<String> updateUpdateByUpdateId(@PathVariable int updateLogId, @RequestBody UpdateLog updateLog) {
         return iUpdateLogService.updateUpdateByUpdateId(updateLogId,updateLog);
     }
 
+    @SaCheckRole("superAdmin")
     @ApiOperation("按id删除更新日志")
     @PostMapping("/deleteByUpdateLogId/{updateLogId}")
     public RestObject<String> deleteUpdateById(@PathVariable int updateLogId) {

@@ -1,5 +1,6 @@
 package com.zhou.shop.apiServer.service.impl.privates;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.entity.privates.Shop;
 import com.zhou.shop.apiServer.mapper.privates.ShopMapper;
@@ -32,7 +33,9 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public RestObject<List<Shop>> retrieveByShopName(String shopName) {
-        return RestResponse.makeOkRsp(shopMapper.retrieveByShopName(shopName));
+        return RestResponse.makeOkRsp(
+                shopMapper.selectList(
+                        new LambdaQueryWrapper<Shop>().like(Shop::getShopName, shopName)));
     }
 
     @Override
@@ -57,8 +60,8 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     }
 
     @Override
-    public RestObject<String> updateShopByShopId(String shopId, Shop shop) {
-        shop.setShopId(shopId);
+    public RestObject<String> updateShopByShopId(Shop shop) {
+        shop.setShopId(shop.getShopId());
         int i = shopMapper.updateById(shop);
         if (i < 1) {
             log.warn("修改商店失败！商店id:" + shopId);
