@@ -47,12 +47,19 @@ public class WebMVCConfig implements WebMvcConfigurer {
                                             .check(r -> StpUtil.checkLogin());
 
                                     SaRouter.match(
-                                            "/item/**",
-                                            r -> StpUtil.checkRoleOr("admin", "superAdmin"));
+                                                    "/item/**",
+                                                    "/sitcom/**",
+                                                    "/sitcomNumber/**",
+                                                    "/shop/**",
+                                                    "/specification/**",
+                                                    "/unit/**")
+                                            .check(r -> StpUtil.checkRole("superAdmin"));
 
-                                    SaRouter.match(
-                                            "/user/retrieveAllUser",
-                                            r -> StpUtil.checkPermission("连续剧"));
+                                    //                                    SaRouter.match(
+                                    //
+                                    // "/user/retrieveAllUser",
+                                    //                                            r ->
+                                    // StpUtil.checkPermission("连续剧"));
 
                                     // todo 拦截器将swagger也给拦截了，需待解决。
                                 }))
