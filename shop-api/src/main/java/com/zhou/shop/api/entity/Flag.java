@@ -31,9 +31,10 @@ public class Flag implements Serializable {
 
     public Flag() {}
 
-    public Flag(String flagId, String flagName) {
+    public Flag(String flagId, String flagName, Integer flagDeleted) {
         this.flagId = flagId;
         this.flagName = flagName;
+        this.flagDeleted = flagDeleted;
     }
 
     public String getFlagId() {
@@ -54,8 +55,25 @@ public class Flag implements Serializable {
         return this;
     }
 
+    public Integer getFlagDeleted() {
+        return flagDeleted;
+    }
+
+    public void setFlagDeleted(Integer flagDeleted) {
+        this.flagDeleted = flagDeleted;
+    }
+
     @Override
     public String toString() {
-        return "Flag{" + "flagId=" + flagId + ", flagName='" + flagName + '\'' + '}';
+        return "Flag{"
+                + "flagId='"
+                + flagId
+                + '\''
+                + ", flagName='"
+                + flagName
+                + '\''
+                + ", flagDeleted="
+                + flagDeleted
+                + '}';
     }
 }

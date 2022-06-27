@@ -45,11 +45,13 @@ public class UpdateLog implements Serializable {
             Integer updateLogId,
             LocalDate updateLogCreateTime,
             String updateLogVersion,
-            String updateLogDescription) {
+            String updateLogDescription,
+            Integer updateLogDeleted) {
         this.updateLogId = updateLogId;
         this.updateLogCreateTime = updateLogCreateTime;
         this.updateLogVersion = updateLogVersion;
         this.updateLogDescription = updateLogDescription;
+        this.updateLogDeleted = updateLogDeleted;
     }
 
     public Integer getUpdateLogId() {
@@ -88,6 +90,14 @@ public class UpdateLog implements Serializable {
         return this;
     }
 
+    public Integer getUpdateLogDeleted() {
+        return updateLogDeleted;
+    }
+
+    public void setUpdateLogDeleted(Integer updateLogDeleted) {
+        this.updateLogDeleted = updateLogDeleted;
+    }
+
     @Override
     public String toString() {
         return "UpdateLog{"
@@ -101,6 +111,8 @@ public class UpdateLog implements Serializable {
                 + ", updateLogDescription='"
                 + updateLogDescription
                 + '\''
+                + ", updateLogDeleted="
+                + updateLogDeleted
                 + '}';
     }
 }

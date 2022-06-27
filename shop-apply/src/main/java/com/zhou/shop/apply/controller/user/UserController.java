@@ -26,7 +26,7 @@ public class UserController {
         this.iUserService = iUserService;
     }
 
-    @ApiOperation("新增用户")
+    @ApiOperation("新增用户[需更改逻辑]")
     @PostMapping("/createUser")
     public RestObject<String> createUser(@RequestBody User user) {
         return iUserService.createUser(user);
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @ApiOperation("查询全部用户信息")
-    @GetMapping("/retrieveAllUser")
+    @GetMapping("/admin/retrieveAllUser")
     public RestObject<List<User>> retrieveAllUser() {
         return iUserService.retrieveAllUser();
     }
@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @ApiOperation("按id删除用户")
-    @PostMapping("/deleteByUserId/{userId}")
+    @PostMapping("/admin/deleteByUserId/{userId}")
     public RestObject<String> deleteUserById(@PathVariable String userId) {
         return iUserService.deleteUserById(userId);
     }

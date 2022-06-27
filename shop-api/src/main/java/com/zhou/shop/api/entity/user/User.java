@@ -39,10 +39,11 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(String userId, String username, String userPicture) {
+    public User(String userId, String username, String userPicture, Integer userDeleted) {
         this.userId = userId;
         this.username = username;
         this.userPicture = userPicture;
+        this.userDeleted = userDeleted;
     }
 
     public String getUserId() {
@@ -72,17 +73,28 @@ public class User implements Serializable {
         return this;
     }
 
+    public Integer getUserDeleted() {
+        return userDeleted;
+    }
+
+    public void setUserDeleted(Integer userDeleted) {
+        this.userDeleted = userDeleted;
+    }
+
     @Override
     public String toString() {
         return "User{"
-                + "userId="
+                + "userId='"
                 + userId
+                + '\''
                 + ", username='"
                 + username
                 + '\''
                 + ", userPicture='"
                 + userPicture
                 + '\''
+                + ", userDeleted="
+                + userDeleted
                 + '}';
     }
 }

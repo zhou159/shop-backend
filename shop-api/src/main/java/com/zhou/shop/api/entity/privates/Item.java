@@ -74,6 +74,10 @@ public class Item implements Serializable {
     @TableField("item_deleted")
     private Integer itemDeleted;
 
+    @ApiModelProperty("用户id")
+    @TableField("user_id")
+    private String userId;
+
     public Item(
             String itemId,
             String itemName,
@@ -86,7 +90,9 @@ public class Item implements Serializable {
             String flagId,
             LocalDateTime itemUpdateTime,
             LocalDateTime itemCreateTime,
-            String itemPicture) {
+            String itemPicture,
+            Integer itemDeleted,
+            String userId) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.shopId = shopId;
@@ -99,6 +105,8 @@ public class Item implements Serializable {
         this.itemUpdateTime = itemUpdateTime;
         this.itemCreateTime = itemCreateTime;
         this.itemPicture = itemPicture;
+        this.itemDeleted = itemDeleted;
+        this.userId = userId;
     }
 
     public Item() {}
@@ -211,6 +219,22 @@ public class Item implements Serializable {
         return this;
     }
 
+    public Integer getItemDeleted() {
+        return itemDeleted;
+    }
+
+    public void setItemDeleted(Integer itemDeleted) {
+        this.itemDeleted = itemDeleted;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Item{"
@@ -245,6 +269,11 @@ public class Item implements Serializable {
                 + itemCreateTime
                 + ", itemPicture='"
                 + itemPicture
+                + '\''
+                + ", itemDeleted="
+                + itemDeleted
+                + ", userId='"
+                + userId
                 + '\''
                 + '}';
     }

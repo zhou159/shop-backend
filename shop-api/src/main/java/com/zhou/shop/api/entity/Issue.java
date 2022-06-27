@@ -68,7 +68,8 @@ public class Issue implements Serializable {
             String issueStatus,
             LocalDateTime issueSolveTime,
             LocalDateTime issueCloseTime,
-            String issueCreateBy) {
+            String issueCreateBy,
+            Integer issueDeleted) {
         this.issueId = issueId;
         this.issueCreateTime = issueCreateTime;
         this.issueDescription = issueDescription;
@@ -78,6 +79,7 @@ public class Issue implements Serializable {
         this.issueSolveTime = issueSolveTime;
         this.issueCloseTime = issueCloseTime;
         this.issueCreateBy = issueCreateBy;
+        this.issueDeleted = issueDeleted;
     }
 
     public Issue() {}
@@ -163,6 +165,14 @@ public class Issue implements Serializable {
         return this;
     }
 
+    public Integer getIssueDeleted() {
+        return issueDeleted;
+    }
+
+    public void setIssueDeleted(Integer issueDeleted) {
+        this.issueDeleted = issueDeleted;
+    }
+
     @Override
     public String toString() {
         return "Issue{"
@@ -190,6 +200,8 @@ public class Issue implements Serializable {
                 + ", issueCreateBy='"
                 + issueCreateBy
                 + '\''
+                + ", issueDeleted="
+                + issueDeleted
                 + '}';
     }
 }

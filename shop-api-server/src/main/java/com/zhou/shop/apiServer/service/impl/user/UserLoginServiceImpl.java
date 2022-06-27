@@ -238,7 +238,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      * 验证码校验
      *
      * @param uuid uuid
-     * @param userCode 用户输入的
+     * @param userCode 用户输入的验证码
      */
     private void checkVerifyCode(String uuid, String userCode) {
         // 获取验证码
@@ -301,9 +301,9 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      * 密码加密
      *
      * <p>加密流程：后端将前端传入的密码字符串加盐后用默认钥匙对称加密一次， 加密的钥匙随机生成并写入在数据库中， 加密的钥匙写入数据库的时候用写死的钥匙再次加密一次，
-     * 然后后端再用MD5加密存入数据库。（未使用）
+     * 然后后端再用MD5加密存入数据库。（未使用） </p>
      *
-     * <p>使用对称加密一次即可
+     * <p>使用对称加密一次即可</p>
      *
      * @param userRegisterVO 前端传入注册的对象
      * @return 密码加密后的注册对象

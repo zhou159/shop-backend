@@ -54,15 +54,9 @@ public class SitcomNumber {
 
     public SitcomNumber() {}
 
-    public SitcomNumber(
-            String sitcomNumberId,
-            String sitcomNumberWatchTime,
-            String sitcomId,
-            String sitcomNumberName,
-            String sitcomNumberUrl,
-            String sitcomNumberUrlRemark,
-            String sitcomNumberRemark,
-            String sitcomNumberNumber) {
+    public SitcomNumber(String sitcomNumberId, String sitcomNumberWatchTime, String sitcomId, String sitcomNumberName,
+                        String sitcomNumberUrl, String sitcomNumberUrlRemark, String sitcomNumberRemark,
+                        String sitcomNumberNumber, Integer sitcomNumberDeleted) {
         this.sitcomNumberId = sitcomNumberId;
         this.sitcomNumberWatchTime = sitcomNumberWatchTime;
         this.sitcomId = sitcomId;
@@ -71,6 +65,7 @@ public class SitcomNumber {
         this.sitcomNumberUrlRemark = sitcomNumberUrlRemark;
         this.sitcomNumberRemark = sitcomNumberRemark;
         this.sitcomNumberNumber = sitcomNumberNumber;
+        this.sitcomNumberDeleted = sitcomNumberDeleted;
     }
 
     public String getSitcomNumberId() {
@@ -145,32 +140,16 @@ public class SitcomNumber {
         return this;
     }
 
+    public Integer getSitcomNumberDeleted() {
+        return sitcomNumberDeleted;
+    }
+
+    public void setSitcomNumberDeleted(Integer sitcomNumberDeleted) {
+        this.sitcomNumberDeleted = sitcomNumberDeleted;
+    }
+
     @Override
     public String toString() {
-        return "SitcomNumber{"
-                + "sitcomNumberId='"
-                + sitcomNumberId
-                + '\''
-                + ", sitcomNumberWatchTime="
-                + sitcomNumberWatchTime
-                + ", sitcomId='"
-                + sitcomId
-                + '\''
-                + ", sitcomNumberName='"
-                + sitcomNumberName
-                + '\''
-                + ", sitcomNumberUrl='"
-                + sitcomNumberUrl
-                + '\''
-                + ", sitcomNumberUrlRemark='"
-                + sitcomNumberUrlRemark
-                + '\''
-                + ", sitcomNumberRemark='"
-                + sitcomNumberRemark
-                + '\''
-                + ", sitcomNumberNumber='"
-                + sitcomNumberNumber
-                + '\''
-                + '}';
+        return "SitcomNumber{" + "sitcomNumberId='" + sitcomNumberId + '\'' + ", sitcomNumberWatchTime='" + sitcomNumberWatchTime + '\'' + ", sitcomId='" + sitcomId + '\'' + ", sitcomNumberName='" + sitcomNumberName + '\'' + ", sitcomNumberUrl='" + sitcomNumberUrl + '\'' + ", sitcomNumberUrlRemark='" + sitcomNumberUrlRemark + '\'' + ", sitcomNumberRemark='" + sitcomNumberRemark + '\'' + ", sitcomNumberNumber='" + sitcomNumberNumber + '\'' + ", sitcomNumberDeleted=" + sitcomNumberDeleted + '}';
     }
 }

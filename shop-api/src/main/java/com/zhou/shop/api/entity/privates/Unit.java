@@ -26,11 +26,17 @@ public class Unit {
     @TableField("unit_deleted")
     private Integer unitDeleted;
 
+    @ApiModelProperty("用户id")
+    @TableField("user_id")
+    private String userId;
+
     public Unit() {}
 
-    public Unit(String unitId, String unitName) {
+    public Unit(String unitId, String unitName, Integer unitDeleted, String userId) {
         this.unitId = unitId;
         this.unitName = unitName;
+        this.unitDeleted = unitDeleted;
+        this.userId = userId;
     }
 
     public String getUnitId() {
@@ -51,8 +57,36 @@ public class Unit {
         return this;
     }
 
+    public Integer getUnitDeleted() {
+        return unitDeleted;
+    }
+
+    public void setUnitDeleted(Integer unitDeleted) {
+        this.unitDeleted = unitDeleted;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
-        return "Unit{" + "unitId=" + unitId + ", unitName='" + unitName + '\'' + '}';
+        return "Unit{"
+                + "unitId='"
+                + unitId
+                + '\''
+                + ", unitName='"
+                + unitName
+                + '\''
+                + ", unitDeleted="
+                + unitDeleted
+                + ", userId='"
+                + userId
+                + '\''
+                + '}';
     }
 }

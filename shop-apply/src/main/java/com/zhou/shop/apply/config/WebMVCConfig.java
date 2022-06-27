@@ -36,6 +36,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
         registry.addInterceptor(
                         new SaRouteInterceptor(
                                 (req, res, handler) -> {
+                                    //公共权限
                                     SaRouter.match("/**")
                                             .notMatch(
                                                     "/userLogin/**",
@@ -46,6 +47,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
                                                     "/error")
                                             .check(r -> StpUtil.checkLogin());
 
+                                    //superAdmin权限配置
                                     SaRouter.match(
                                                     "/item/**",
                                                     "/sitcom/**",
@@ -54,6 +56,16 @@ public class WebMVCConfig implements WebMvcConfigurer {
                                                     "/specification/**",
                                                     "/unit/**")
                                             .check(r -> StpUtil.checkRole("superAdmin"));
+
+                                    //admin权限配置
+                                    SaRouter.match(
+                                                    "/user/admin/**")
+                                            .check(r -> StpUtil.checkRole("admin"));
+
+                                    //user权限
+                                    SaRouter.match(
+                                                    "/user/**")
+                                            .check(r -> StpUtil.checkRole("user"));
 
                                     //                                    SaRouter.match(
                                     //

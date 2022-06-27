@@ -110,7 +110,7 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerNotRoleException(NotRoleException e) {
         logger.error("账号没有赋予此角色：{}",e.getRole());
-        return RestResponse.errRsp(500, "Role Error!", e.getMessage());
+        return RestResponse.errRsp(500, "Role Error!", String.format("账号没有此角色:%s",e.getRole()));
     }
 
     @ExceptionHandler(NotPermissionException.class) // 就是定义处理什么异常
@@ -118,7 +118,7 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerNotPermissionException(NotPermissionException e) {
         logger.error("账号没有赋予此权限：{}",e.getPermission());
-        return RestResponse.errRsp(500, "Permission Error!", e.getMessage());
+        return RestResponse.errRsp(500, "Permission Error!", String.format("账号没有此权限:%s",e.getPermission()));
     }
 
     @ExceptionHandler(CheckCodeErrorException.class) // 就是定义处理什么异常

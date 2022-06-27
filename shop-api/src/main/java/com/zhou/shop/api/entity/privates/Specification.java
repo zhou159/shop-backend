@@ -30,13 +30,23 @@ public class Specification {
     @TableField("specification_deleted")
     private Integer specificationDeleted;
 
+    @ApiModelProperty("用户id")
+    @TableField("user_id")
+    private String userId;
+
     public Specification() {}
 
     public Specification(
-            String specificationId, String specificationName, String specificationLabel) {
+            String specificationId,
+            String specificationName,
+            String specificationLabel,
+            Integer specificationDeleted,
+            String userId) {
         this.specificationId = specificationId;
         this.specificationName = specificationName;
         this.specificationLabel = specificationLabel;
+        this.specificationDeleted = specificationDeleted;
+        this.userId = userId;
     }
 
     public String getSpecificationId() {
@@ -66,16 +76,38 @@ public class Specification {
         return this;
     }
 
+    public Integer getSpecificationDeleted() {
+        return specificationDeleted;
+    }
+
+    public void setSpecificationDeleted(Integer specificationDeleted) {
+        this.specificationDeleted = specificationDeleted;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Specification{"
-                + "specificationId="
+                + "specificationId='"
                 + specificationId
+                + '\''
                 + ", specificationName='"
                 + specificationName
                 + '\''
                 + ", specificationLabel='"
                 + specificationLabel
+                + '\''
+                + ", specificationDeleted="
+                + specificationDeleted
+                + ", userId='"
+                + userId
                 + '\''
                 + '}';
     }

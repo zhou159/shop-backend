@@ -76,6 +76,10 @@ public class Sitcom {
     @TableField("sitcom_deleted")
     private Integer sitcomDeleted;
 
+    @ApiModelProperty("用户id")
+    @TableField("user_id")
+    private String userId;
+
     public Sitcom() {}
 
     public Sitcom(
@@ -92,7 +96,9 @@ public class Sitcom {
             String sitcomDirector,
             String sitcomType,
             String sitcomStyle,
-            String sitcomIntro) {
+            String sitcomIntro,
+            Integer sitcomDeleted,
+            String userId) {
         this.sitcomId = sitcomId;
         this.sitcomName = sitcomName;
         this.sitcomWatchStartTime = sitcomWatchStartTime;
@@ -107,6 +113,8 @@ public class Sitcom {
         this.sitcomType = sitcomType;
         this.sitcomStyle = sitcomStyle;
         this.sitcomIntro = sitcomIntro;
+        this.sitcomDeleted = sitcomDeleted;
+        this.userId = userId;
     }
 
     public String getSitcomId() {
@@ -235,6 +243,22 @@ public class Sitcom {
         return this;
     }
 
+    public Integer getSitcomDeleted() {
+        return sitcomDeleted;
+    }
+
+    public void setSitcomDeleted(Integer sitcomDeleted) {
+        this.sitcomDeleted = sitcomDeleted;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Sitcom{"
@@ -244,10 +268,12 @@ public class Sitcom {
                 + ", sitcomName='"
                 + sitcomName
                 + '\''
-                + ", sitcomWatchStartTime="
+                + ", sitcomWatchStartTime='"
                 + sitcomWatchStartTime
-                + ", sitcomWatchEndTime="
+                + '\''
+                + ", sitcomWatchEndTime='"
                 + sitcomWatchEndTime
+                + '\''
                 + ", sitcomUpdateStatus='"
                 + sitcomUpdateStatus
                 + '\''
@@ -277,6 +303,11 @@ public class Sitcom {
                 + '\''
                 + ", sitcomIntro='"
                 + sitcomIntro
+                + '\''
+                + ", sitcomDeleted="
+                + sitcomDeleted
+                + ", userId='"
+                + userId
                 + '\''
                 + '}';
     }

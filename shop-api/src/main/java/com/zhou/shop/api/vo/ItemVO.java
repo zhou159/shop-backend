@@ -23,6 +23,9 @@ public class ItemVO implements Serializable {
     @ApiModelProperty("商品id")
     private String itemId;
 
+    @ApiModelProperty("用户id")
+    private String userId;
+
     @ApiModelProperty("商品名字")
     private String itemName;
 
@@ -65,6 +68,7 @@ public class ItemVO implements Serializable {
 
     public ItemVO(
             String itemId,
+            String userId,
             String itemName,
             String shopId,
             String unitId,
@@ -78,6 +82,7 @@ public class ItemVO implements Serializable {
             LocalDateTime itemCreateTime,
             String itemPicture) {
         this.itemId = itemId;
+        this.userId = userId;
         this.itemName = itemName;
         this.shopId = shopId;
         this.unitId = unitId;
@@ -196,11 +201,22 @@ public class ItemVO implements Serializable {
         this.itemPicture = itemPicture;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "ItemVO{"
                 + "itemId='"
                 + itemId
+                + '\''
+                + ", userId='"
+                + userId
                 + '\''
                 + ", itemName='"
                 + itemName

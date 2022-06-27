@@ -45,21 +45,22 @@ public class Shop implements Serializable {
     @TableField("shop_deleted")
     private Integer shopDeleted;
 
+    @ApiModelProperty("用户id")
+    @TableField("user_id")
+    private String userId;
+
     public Shop() {}
 
-    public Shop(
-            String shopId,
-            String shopName,
-            String shopAddress,
-            String shopRemark,
-            String shopStatus,
-            String shopPicture) {
+    public Shop(String shopId, String shopName, String shopAddress, String shopRemark, String shopStatus,
+                String shopPicture, Integer shopDeleted, String userId) {
         this.shopId = shopId;
         this.shopName = shopName;
         this.shopAddress = shopAddress;
         this.shopRemark = shopRemark;
         this.shopStatus = shopStatus;
         this.shopPicture = shopPicture;
+        this.shopDeleted = shopDeleted;
+        this.userId = userId;
     }
 
     public String getShopId() {
@@ -116,26 +117,24 @@ public class Shop implements Serializable {
         return this;
     }
 
+    public Integer getShopDeleted() {
+        return shopDeleted;
+    }
+
+    public void setShopDeleted(Integer shopDeleted) {
+        this.shopDeleted = shopDeleted;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
-        return "Shop{"
-                + "shopId="
-                + shopId
-                + ", shopName='"
-                + shopName
-                + '\''
-                + ", shopAddress='"
-                + shopAddress
-                + '\''
-                + ", shopRemark='"
-                + shopRemark
-                + '\''
-                + ", shopStatus='"
-                + shopStatus
-                + '\''
-                + ", shopPicture='"
-                + shopPicture
-                + '\''
-                + '}';
+        return "Shop{" + "shopId='" + shopId + '\'' + ", shopName='" + shopName + '\'' + ", shopAddress='" + shopAddress + '\'' + ", shopRemark='" + shopRemark + '\'' + ", shopStatus='" + shopStatus + '\'' + ", shopPicture='" + shopPicture + '\'' + ", shopDeleted=" + shopDeleted + ", userId='" + userId + '\'' + '}';
     }
 }
