@@ -39,7 +39,16 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerException(Exception e) {
+        e.printStackTrace();
         return RestResponse.makeErrRsp(e.getMessage());
+    }
+
+    @ExceptionHandler(NullPointerException.class) // 就是定义处理什么异常
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK) // 服务器的异常
+    public RestObject<String> handlerNullPointerException(Exception e) {
+        e.printStackTrace();
+        return RestResponse.makeErrRsp("出现NPE异常了，仔细检查参数或者程序!");
     }
 
     @ExceptionHandler(PermissionException.class) // 就是定义处理什么异常
@@ -110,7 +119,7 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerNotRoleException(NotRoleException e) {
         logger.error("账号没有赋予此角色：{}",e.getRole());
-        return RestResponse.errRsp(500, "Role Error!", String.format("账号没有此角色:%s",e.getRole()));
+        return RestResponse.errRsp(500, "Role Error!", "权限不足!");
     }
 
     @ExceptionHandler(NotPermissionException.class) // 就是定义处理什么异常
@@ -118,7 +127,7 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerNotPermissionException(NotPermissionException e) {
         logger.error("账号没有赋予此权限：{}",e.getPermission());
-        return RestResponse.errRsp(500, "Permission Error!", String.format("账号没有此权限:%s",e.getPermission()));
+        return RestResponse.errRsp(500, "Permission Error!", "权限不足!");
     }
 
     @ExceptionHandler(CheckCodeErrorException.class) // 就是定义处理什么异常

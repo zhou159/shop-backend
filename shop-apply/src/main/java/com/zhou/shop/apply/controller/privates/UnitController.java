@@ -40,9 +40,9 @@ public class UnitController {
     }
 
     @ApiOperation("查询全部单位")
-    @GetMapping("/retrieveAllUnit")
-    public RestObject<List<Unit>> retrieveAllUnit() {
-        return iUnitService.retrieveAllUnit();
+    @GetMapping("/retrieveAllUnit/{userId}")
+    public RestObject<List<Unit>> retrieveAllUnit(@PathVariable("userId")String userId) {
+        return iUnitService.retrieveAllUnit(userId);
     }
 
     @ApiOperation("按id修改单位")
@@ -60,6 +60,6 @@ public class UnitController {
     @ApiOperation("按单位名称查询")
     @PostMapping("/retrieveByUnitName")
     public RestObject<List<Unit>> retrieveUnitByShopName(@RequestBody Unit unit) {
-        return iUnitService.retrieveByUnitName(unit.getUnitName());
+        return iUnitService.retrieveByUnitName(unit.getUserId(), unit.getUnitName());
     }
 }

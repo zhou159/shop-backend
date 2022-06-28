@@ -17,7 +17,8 @@ import java.util.List;
 @Mapper
 public interface ItemMapper extends BaseMapper<Item> {
 
-    List<ItemDTO> retrieveAllItem();
+    List<ItemDTO> retrieveAllItem(@Param("userId") String userId);
 
-    List<ItemDTO> retrieveByItemName(@Param("itemName") String itemName);
+    List<ItemDTO> retrieveByItemName(
+            @Param("userId") String userId, @Param("itemName") String itemName);
 }

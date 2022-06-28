@@ -19,7 +19,7 @@ public interface IUnitService extends IService<Unit> {
      * @param unitName 单位名
      * @return 单位对象
      */
-    RestObject<List<Unit>> retrieveByUnitName(String unitName);
+    RestObject<List<Unit>> retrieveByUnitName(String userId,String unitName);
 
     /**
      * 新增
@@ -42,7 +42,7 @@ public interface IUnitService extends IService<Unit> {
      *
      * @return
      */
-    RestObject<List<Unit>> retrieveAllUnit();
+    RestObject<List<Unit>> retrieveAllUnit(String userId);
 
     /**
      * 根据id修改

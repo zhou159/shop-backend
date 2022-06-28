@@ -49,18 +49,11 @@ public class SitcomNumberController {
         return iSitcomNumberService.retrieveBySitcomNumberId(sitcomNumberId);
     }
 
-    @ApiOperation("查询全部剧集")
-    @GetMapping("/retrieveAllSitcomNumber")
-    public RestObject<List<SitcomNumber>> retrieveAllSitcomNumber() {
-        return iSitcomNumberService.retrieveAllSitcomNumber();
-    }
-
     @ApiOperation("按id修改剧集")
-    @PostMapping("/updateSitcomNumberBySitcomNumberId/{sitcomNumberId}")
+    @PostMapping("/updateSitcomNumberBySitcomNumberId")
     public RestObject<String> updateSitcomNumberBySitcomNumberId(
-            @PathVariable String sitcomNumberId, @RequestBody SitcomNumber sitcomNumber) {
-        return iSitcomNumberService.updateSitcomNumberBySitcomNumberId(
-                sitcomNumberId, sitcomNumber);
+            @RequestBody SitcomNumber sitcomNumber) {
+        return iSitcomNumberService.updateSitcomNumberBySitcomNumberId(sitcomNumber);
     }
 
     @ApiOperation("按id删除剧集")

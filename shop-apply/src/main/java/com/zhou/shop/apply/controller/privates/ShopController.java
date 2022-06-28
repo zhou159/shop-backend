@@ -40,9 +40,9 @@ public class ShopController {
     }
 
     @ApiOperation("查询全部商店")
-    @GetMapping("/retrieveAllShop")
-    public RestObject<List<Shop>> retrieveAllShop() {
-        return iShopService.retrieveAllShop();
+    @GetMapping("/retrieveAllShop/{userId}")
+    public RestObject<List<Shop>> retrieveAllShop(@PathVariable("userId")String userId) {
+        return iShopService.retrieveAllShop(userId);
     }
 
     @ApiOperation("按id修改商店")
@@ -60,6 +60,6 @@ public class ShopController {
     @ApiOperation("按商店名称查询")
     @PostMapping("/retrieveByShopName")
     public RestObject<List<Shop>> retrieveShopByShopName(@RequestBody Shop shop) {
-        return iShopService.retrieveByShopName(shop.getShopName());
+        return iShopService.retrieveByShopName(shop.getUserId(), shop.getShopName());
     }
 }

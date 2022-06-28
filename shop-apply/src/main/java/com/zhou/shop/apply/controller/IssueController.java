@@ -2,6 +2,7 @@ package com.zhou.shop.apply.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
+import com.zhou.shop.api.dto.IssueDTO;
 import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.apiServer.service.IIssueService;
@@ -43,15 +44,16 @@ public class IssueController {
 
     @ApiOperation("查询全部未解决的问题")
     @GetMapping("/retrieveAllIssue")
-    public RestObject<List<Issue>> retrieveAllIssue() {
+    public RestObject<List<IssueDTO>> retrieveAllIssue() {
         return iIssueService.retrieveAllIssue();
     }
 
     @SaCheckLogin
     @ApiOperation("按id修改问题")
-    @PostMapping("/updateIssueByIssueId/{issueId}")
-    public RestObject<String> updateIssueByIssueId(@PathVariable String issueId, @RequestBody Issue issue) {
-        return iIssueService.updateIssueByIssueId(issueId, issue);
+    @PostMapping("/updateIssueByIssueId/{userId}")
+    public RestObject<String> updateIssueByIssueId(
+            @PathVariable("userId") String userId, @RequestBody Issue issue) {
+        return iIssueService.updateIssueByIssueId(userId, issue);
     }
 
     @SaCheckRole("superAdmin")
@@ -69,7 +71,7 @@ public class IssueController {
 
     @ApiOperation("根据问题描述模糊查询")
     @PostMapping("/retrieveByIssueDescription")
-    public RestObject<List<Issue>> retrieveByIssueDescription(@RequestBody Issue issue) {
+    public RestObject<List<IssueDTO>> retrieveByIssueDescription(@RequestBody Issue issue) {
         return iIssueService.retrieveByIssueDescription(issue.getIssueDescription());
     }
 

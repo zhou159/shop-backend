@@ -40,14 +40,13 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     }
 
     @Override
-    public RestObject<List<ItemDTO>> retrieveAllItem() {
-        return RestResponse.makeOkRsp(itemMapper.retrieveAllItem());
+    public RestObject<List<ItemDTO>> retrieveAllItem(String userId) {
+        return RestResponse.makeOkRsp(itemMapper.retrieveAllItem(userId));
     }
 
     @Override
-    public RestObject<List<ItemDTO>> retrieveByItemName(String itemName) {
-
-        return RestResponse.makeOkRsp(itemMapper.retrieveByItemName(itemName));
+    public RestObject<List<ItemDTO>> retrieveByItemName(String userId, String itemName) {
+        return RestResponse.makeOkRsp(itemMapper.retrieveByItemName(userId, itemName));
     }
 
     @Transactional(rollbackFor = ShopException.class)

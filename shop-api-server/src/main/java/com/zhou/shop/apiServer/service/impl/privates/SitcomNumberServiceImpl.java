@@ -1,7 +1,6 @@
 package com.zhou.shop.apiServer.service.impl.privates;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.entity.privates.Sitcom;
 import com.zhou.shop.api.entity.privates.SitcomNumber;
@@ -40,9 +39,10 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
 
     @Override
     public RestObject<List<SitcomNumber>> retrieveBySitcomId(String sitcomId) {
-        QueryWrapper<SitcomNumber> wrapper = new QueryWrapper<>();
-        wrapper.eq("sitcom_id",sitcomId);
-        return RestResponse.makeOkRsp(sitcomNumberMapper.selectList(wrapper));
+        return RestResponse.makeOkRsp(
+                sitcomNumberMapper.selectList(
+                        new LambdaQueryWrapper<SitcomNumber>()
+                                .eq(SitcomNumber::getSitcomId, sitcomId)));
     }
 
     @Override
@@ -102,20 +102,14 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
     }
 
     @Override
-    public RestObject<List<SitcomNumber>> retrieveAllSitcomNumber() {
-        return RestResponse.makeOkRsp(sitcomNumberMapper.selectList(null));
-    }
-
-    @Override
-    public RestObject<String> updateSitcomNumberBySitcomNumberId(
-            String sitcomNumberId, SitcomNumber sitcomNumber) {
-        sitcomNumber.setSitcomNumberId(sitcomNumberId);
+    public RestObject<String> updateSitcomNumberBySitcomNumberId(SitcomNumber sitcomNumber) {
+        sitcomNumber.setSitcomNumberId(sitcomNumber.getSitcomNumberId());
         int b = sitcomNumberMapper.updateById(sitcomNumber);
         if (b < 1) {
-            log.warn("修改剧集失败！剧集id:" + sitcomNumberId);
+            log.warn("修改剧集失败！剧集id:" + sitcomNumber.getSitcomNumberId());
             throw new ShopException("修改剧集失败！");
         }
-        log.info("修改剧集成功！剧集id:" + sitcomNumberId);
+        log.info("修改剧集成功！剧集id:" + sitcomNumber.getSitcomNumberId());
         return RestResponse.makeOkRsp("修改成功！");
     }
 

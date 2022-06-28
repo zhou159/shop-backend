@@ -1,6 +1,7 @@
 package com.zhou.shop.apiServer.service.impl.privates;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.entity.privates.Sitcom;
@@ -76,13 +77,15 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
     }
 
     @Override
-    public RestObject<List<Sitcom>> retrieveAllSitcom() {
-        return RestResponse.makeOkRsp(sitcomMapper.selectList(null));
+    public RestObject<List<Sitcom>> retrieveAllSitcom(String userId) {
+        return RestResponse.makeOkRsp(
+                sitcomMapper.selectList(
+                        new LambdaQueryWrapper<Sitcom>().eq(Sitcom::getUserId, userId)));
     }
 
     @Override
-    public RestObject<String> updateSitcomBySitcomId(String sitcomId, Sitcom sitcom) {
-        sitcom.setSitcomId(sitcomId);
+    public RestObject<String> updateSitcomBySitcomId(Sitcom sitcom) {
+        sitcom.setSitcomId(sitcom.getSitcomId());
         if (!StrUtil.isNotBlank(sitcom.getSitcomUpdateStatus())
                 || sitcom.getSitcomUpdateStatus() == null) {
             throw new ShopException("连续剧更新状态不能为空！");
@@ -101,10 +104,10 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
         /*LambdaUpdateWrapper<Sitcom> wrapper = new LambdaUpdateWrapper<>();wrapper.set(Sitcom::getSitcomWatchEndTime,null).eq(Sitcom::getSitcomId,sitcomId);*/
         int b = sitcomMapper.updateById(sitcom);
         if (b < 1) {
-            log.warn("修改连续剧失败！连续剧id:" + sitcomId);
+            log.warn("修改连续剧失败！连续剧id:" + sitcom.getSitcomId());
             throw new ShopException("修改失败！");
         }
-        log.info("修改连续剧成功！连续剧id:" + sitcomId);
+        log.info("修改连续剧成功！连续剧id:" + sitcom.getSitcomId());
         return RestResponse.makeOkRsp("修改成功！");
     }
 

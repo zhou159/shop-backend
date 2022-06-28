@@ -17,9 +17,10 @@ public interface IShopService extends IService<Shop> {
      * 按商店名查询商品
      *
      * @param shopName 商店名
+     * @param userId 用户id
      * @return 商店对象
      */
-    RestObject<List<Shop>> retrieveByShopName(String shopName);
+    RestObject<List<Shop>> retrieveByShopName(String userId, String shopName);
 
     /**
      * 新增
@@ -42,7 +43,7 @@ public interface IShopService extends IService<Shop> {
      *
      * @return
      */
-    RestObject<List<Shop>> retrieveAllShop();
+    RestObject<List<Shop>> retrieveAllShop(String userId);
 
     /**
      * 根据id修改

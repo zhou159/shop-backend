@@ -3,6 +3,7 @@ package com.zhou.shop.apiServer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhou.shop.api.dto.IssueDTO;
 import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.api.entity.PubCode;
@@ -14,6 +15,7 @@ import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.common.exception.ShopException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,12 +42,13 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
     }
 
     @Override
-    public RestObject<List<Issue>> retrieveByIssueDescription(String issueDescription) {
-        return RestResponse.makeOkRsp(
+    public RestObject<List<IssueDTO>> retrieveByIssueDescription(String issueDescription) {
+        final List<Issue> issues =
                 issueMapper.selectList(
                         new LambdaQueryWrapper<Issue>()
                                 .like(Issue::getIssueDescription, issueDescription)
-                                .eq(Issue::getIssueStatus, "0")));
+                                .eq(Issue::getIssueStatus, "0"));
+        return RestResponse.makeOkRsp(issueDeal(issues));
     }
 
     @Override
@@ -62,7 +65,7 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
                                 .set(Issue::getIssueStatus, issueStatus)
                                 .set(Issue::getIssueSolveTime, LocalDateTime.now())
                                 .eq(Issue::getIssueId, issueId));
-        return update > 1 ? RestResponse.makeOkRsp("修改成功！") : RestResponse.makeErrRsp("修改失败！");
+        return update > 0 ? RestResponse.makeOkRsp("修改成功！") : RestResponse.makeErrRsp("修改失败！");
     }
 
     @Override
@@ -83,37 +86,51 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
     }
 
     @Override
-    public RestObject<List<Issue>> retrieveAllIssue() {
-        ArrayList<Issue> issueArrayList = new ArrayList<>();
-        for (Issue issue :
+    public RestObject<List<IssueDTO>> retrieveAllIssue() {
+        final List<Issue> issues =
                 issueMapper.selectList(
-                        new LambdaQueryWrapper<Issue>().eq(Issue::getIssueStatus, "0"))) {
-            issue.setIssueType(
-                    pubCodeMapper
-                            .selectOne(
-                                    new LambdaQueryWrapper<PubCode>()
-                                            .eq(PubCode::getPubcodeClassId, issue.getIssueType()))
-                            .getPubcodeName());
-            issue.setIssueModule(
-                    pubCodeMapper
-                            .selectOne(
-                                    new LambdaQueryWrapper<PubCode>()
-                                            .eq(PubCode::getPubcodeClassId, issue.getIssueModule()))
-                            .getPubcodeName());
-            issueArrayList.add(issue);
+                        new LambdaQueryWrapper<Issue>().eq(Issue::getIssueStatus, "0"));
+        return RestResponse.makeOkRsp(issueDeal(issues));
+    }
+
+    private List<IssueDTO> issueDeal(List<Issue> issues) {
+        List<IssueDTO> issueArrayList = new ArrayList<>();
+        for (Issue issue : issues) {
+            final IssueDTO issueDTO = new IssueDTO();
+            BeanUtils.copyProperties(issue, issueDTO);
+            final PubCode typePubCode =
+                    pubCodeMapper.selectOne(
+                            new LambdaQueryWrapper<PubCode>()
+                                    .eq(PubCode::getPubcodeId, issue.getIssueType()));
+            issueDTO.setIssueTypeName(typePubCode.getPubcodeName());
+
+            final PubCode modulePubCode =
+                    pubCodeMapper.selectOne(
+                            new LambdaQueryWrapper<PubCode>()
+                                    .eq(PubCode::getPubcodeId, issue.getIssueModule()));
+            issueDTO.setIssueModuleName(modulePubCode.getPubcodeName());
+
+            issueArrayList.add(issueDTO);
         }
-        return RestResponse.makeOkRsp(issueArrayList);
+
+        return issueArrayList;
     }
 
     @Override
-    public RestObject<String> updateIssueByIssueId(String issueId, Issue issue) {
-        issue.setIssueId(issueId);
+    public RestObject<String> updateIssueByIssueId(String userId, Issue issue) {
+        issue.setIssueId(issue.getIssueId());
+        final Issue issue1 =
+                issueMapper.selectOne(
+                        new LambdaQueryWrapper<Issue>().eq(Issue::getIssueId, issue.getIssueId()));
+        if (!issue1.getIssueCreateBy().equals(userId)) {
+            throw new ShopException("您不是问题创建者，无权修改！");
+        }
         int i = issueMapper.updateById(issue);
         if (i < 1) {
-            log.warn("修改问题失败！问题id:" + issueId);
+            log.warn("修改问题失败！问题id:" + issue.getIssueId());
             throw new ShopException("修改失败！");
         }
-        log.info("修改问题成功！问题id:" + issueId);
+        log.info("修改问题成功！问题id:" + issue.getIssueId());
         return RestResponse.makeOkRsp("修改成功！");
     }
 

@@ -32,10 +32,12 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     }
 
     @Override
-    public RestObject<List<Shop>> retrieveByShopName(String shopName) {
+    public RestObject<List<Shop>> retrieveByShopName(String userId, String shopName) {
         return RestResponse.makeOkRsp(
                 shopMapper.selectList(
-                        new LambdaQueryWrapper<Shop>().like(Shop::getShopName, shopName)));
+                        new LambdaQueryWrapper<Shop>()
+                                .like(Shop::getShopName, shopName)
+                                .eq(Shop::getUserId, userId)));
     }
 
     @Override
@@ -55,8 +57,9 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     }
 
     @Override
-    public RestObject<List<Shop>> retrieveAllShop() {
-        return RestResponse.makeOkRsp(shopMapper.selectList(null));
+    public RestObject<List<Shop>> retrieveAllShop(String userId) {
+        return RestResponse.makeOkRsp(
+                shopMapper.selectList(new LambdaQueryWrapper<Shop>().eq(Shop::getUserId, userId)));
     }
 
     @Override
@@ -64,10 +67,10 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         shop.setShopId(shop.getShopId());
         int i = shopMapper.updateById(shop);
         if (i < 1) {
-            log.warn("修改商店失败！商店id:" + shopId);
+            log.warn("修改商店失败！商店id:" + shop.getShopId());
             throw new ShopException("修改失败！");
         }
-        log.info("修改商店成功！商店id:" + shopId);
+        log.info("修改商店成功！商店id:" + shop.getShopId());
         return RestResponse.makeOkRsp("修改成功！");
     }
 

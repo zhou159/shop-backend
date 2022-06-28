@@ -40,16 +40,16 @@ public class SpecificationController {
     }
 
     @ApiOperation("查询全部规格")
-    @GetMapping("/retrieveAllSpecification")
-    public RestObject<List<Specification>> retrieveAllSpecification() {
-        return iSpecificationService.retrieveAllSpecification();
+    @GetMapping("/retrieveAllSpecification/{userId}")
+    public RestObject<List<Specification>> retrieveAllSpecification(@PathVariable("userId")String userId) {
+        return iSpecificationService.retrieveAllSpecification(userId);
     }
 
     @ApiOperation("按id修改规格")
-    @PostMapping("/updateSpecificationBySpecificationId/{specificationId}")
-    public RestObject<String> updateSpecificationBySpecificationId(@PathVariable String specificationId, @RequestBody Specification specification) {
-        return iSpecificationService.updateSpecificationBySpecificationId(
-                specificationId, specification);
+    @PostMapping("/updateSpecificationBySpecificationId")
+    public RestObject<String> updateSpecificationBySpecificationId(
+            @RequestBody Specification specification) {
+        return iSpecificationService.updateSpecificationBySpecificationId(specification);
     }
 
     @ApiOperation("按id删除规格")
@@ -62,6 +62,6 @@ public class SpecificationController {
     @PostMapping("/retrieveBySpecificationName")
     public RestObject<List<Specification>> retrieveSpecificationByShopName(@RequestBody Specification specification) {
         return iSpecificationService.retrieveBySpecificationName(
-                specification.getSpecificationName());
+                specification.getSpecificationName(), specification.getUserId());
     }
 }

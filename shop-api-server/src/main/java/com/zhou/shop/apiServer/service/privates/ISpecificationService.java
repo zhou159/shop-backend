@@ -16,10 +16,12 @@ public interface ISpecificationService extends IService<Specification> {
     /**
      * 按规格名查询规格
      *
+     * @param userId 用户id
      * @param specificationName 规格名
      * @return 数组，规格对象
      */
-    RestObject<List<Specification>> retrieveBySpecificationName(String specificationName);
+    RestObject<List<Specification>> retrieveBySpecificationName(
+            String userId, String specificationName);
 
     /**
      * 新增
@@ -41,17 +43,15 @@ public interface ISpecificationService extends IService<Specification> {
      *
      * @return
      */
-    RestObject<List<Specification>> retrieveAllSpecification();
+    RestObject<List<Specification>> retrieveAllSpecification(String userId);
 
     /**
      * 根据id修改
      *
-     * @param specificationId id
      * @param specification 对象
      * @return
      */
-    RestObject<String> updateSpecificationBySpecificationId(
-            String specificationId, Specification specification);
+    RestObject<String> updateSpecificationBySpecificationId(Specification specification);
 
     /**
      * 根据id删除

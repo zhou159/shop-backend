@@ -40,15 +40,15 @@ public class SitcomController {
     }
 
     @ApiOperation("查询全部连续剧")
-    @GetMapping("/retrieveAllSitcom")
-    public RestObject<List<Sitcom>> retrieveAllSitcom() {
-        return iSitcomService.retrieveAllSitcom();
+    @GetMapping("/retrieveAllSitcom/{userId}")
+    public RestObject<List<Sitcom>> retrieveAllSitcom(@PathVariable("userId")String userId) {
+        return iSitcomService.retrieveAllSitcom(userId);
     }
 
     @ApiOperation("按id修改连续剧")
-    @PostMapping("/updateSitcomBySitcomId/{sitcomId}")
-    public RestObject<String> updateSitcomBySitcomId(@PathVariable String sitcomId, @RequestBody Sitcom sitcom) {
-        return iSitcomService.updateSitcomBySitcomId(sitcomId, sitcom);
+    @PostMapping("/updateSitcomBySitcomId")
+    public RestObject<String> updateSitcomBySitcomId(@RequestBody Sitcom sitcom) {
+        return iSitcomService.updateSitcomBySitcomId(sitcom);
     }
 
     @ApiOperation("按id删除连续剧及其剧集")

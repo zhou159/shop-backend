@@ -46,9 +46,9 @@ public class ItemController {
     }
 
     @ApiOperation("查询全部商品")
-    @GetMapping("/retrieveAllItem")
-    public RestObject<List<ItemDTO>> retrieveAllItem() {
-        return iItemService.retrieveAllItem();
+    @GetMapping("/retrieveAllItem/{userId}")
+    public RestObject<List<ItemDTO>> retrieveAllItem(@PathVariable("userId")String userId) {
+        return iItemService.retrieveAllItem(userId);
     }
 
     @ApiOperation("按商品id更新")
@@ -66,6 +66,6 @@ public class ItemController {
     @ApiOperation("按商品名称查询")
     @PostMapping("/retrieveByItemName")
     public RestObject<List<ItemDTO>> retrieveItemByItemName(@RequestBody Item item) {
-        return iItemService.retrieveByItemName(item.getItemName());
+        return iItemService.retrieveByItemName(item.getItemName(),item.getUserId());
     }
 }

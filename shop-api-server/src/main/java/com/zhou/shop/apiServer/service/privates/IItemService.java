@@ -20,7 +20,7 @@ public interface IItemService extends IService<Item> {
      *
      * @return 商品dto对象
      */
-    RestObject<List<ItemDTO>> retrieveAllItem();
+    RestObject<List<ItemDTO>> retrieveAllItem(String userId);
 
     /**
      * 按商品名查询商品
@@ -28,7 +28,7 @@ public interface IItemService extends IService<Item> {
      * @param itemName 商品名
      * @return 商品dto对象
      */
-    RestObject<List<ItemDTO>> retrieveByItemName(String itemName);
+    RestObject<List<ItemDTO>> retrieveByItemName(String userId,String itemName);
 
     /**
      * 新增

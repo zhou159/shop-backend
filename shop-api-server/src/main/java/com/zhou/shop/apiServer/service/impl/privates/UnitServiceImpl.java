@@ -32,10 +32,12 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IU
     }
 
     @Override
-    public RestObject<List<Unit>> retrieveByUnitName(String unitName) {
+    public RestObject<List<Unit>> retrieveByUnitName(String userId, String unitName) {
         return RestResponse.makeOkRsp(
                 unitMapper.selectList(
-                        new LambdaQueryWrapper<Unit>().like(Unit::getUnitName, unitName)));
+                        new LambdaQueryWrapper<Unit>()
+                                .like(Unit::getUnitName, unitName)
+                                .eq(Unit::getUserId, userId)));
     }
 
     @Override
@@ -55,8 +57,9 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IU
     }
 
     @Override
-    public RestObject<List<Unit>> retrieveAllUnit() {
-        return RestResponse.makeOkRsp(unitMapper.selectList(null));
+    public RestObject<List<Unit>> retrieveAllUnit(String userId) {
+        return RestResponse.makeOkRsp(
+                unitMapper.selectList(new LambdaQueryWrapper<Unit>().eq(Unit::getUserId, userId)));
     }
 
     @Override

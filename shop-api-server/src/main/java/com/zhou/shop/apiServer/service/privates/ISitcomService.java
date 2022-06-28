@@ -36,16 +36,15 @@ public interface ISitcomService extends IService<Sitcom> {
      *
      * @return
      */
-    RestObject<List<Sitcom>> retrieveAllSitcom();
+    RestObject<List<Sitcom>> retrieveAllSitcom(String userId);
 
     /**
      * 根据id修改
      *
-     * @param sitcomId id
      * @param sitcom 对象
      * @return
      */
-    RestObject<String> updateSitcomBySitcomId(String sitcomId, Sitcom sitcom);
+    RestObject<String> updateSitcomBySitcomId(Sitcom sitcom);
 
     /**
      * 根据id删除

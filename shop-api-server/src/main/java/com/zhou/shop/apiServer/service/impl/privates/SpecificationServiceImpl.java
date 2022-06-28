@@ -33,11 +33,13 @@ public class SpecificationServiceImpl extends ServiceImpl<SpecificationMapper, S
     }
 
     @Override
-    public RestObject<List<Specification>> retrieveBySpecificationName(String specificationName) {
+    public RestObject<List<Specification>> retrieveBySpecificationName(
+            String userId, String specificationName) {
         return RestResponse.makeOkRsp(
                 specificationMapper.selectList(
                         new LambdaQueryWrapper<Specification>()
-                                .like(Specification::getSpecificationName, specificationName)));
+                                .like(Specification::getSpecificationName, specificationName)
+                                .eq(Specification::getUserId, userId)));
     }
 
     @Override
@@ -57,20 +59,22 @@ public class SpecificationServiceImpl extends ServiceImpl<SpecificationMapper, S
     }
 
     @Override
-    public RestObject<List<Specification>> retrieveAllSpecification() {
-        return RestResponse.makeOkRsp(specificationMapper.selectList(null));
+    public RestObject<List<Specification>> retrieveAllSpecification(String userId) {
+        return RestResponse.makeOkRsp(
+                specificationMapper.selectList(
+                        new LambdaQueryWrapper<Specification>()
+                                .eq(Specification::getUserId, userId)));
     }
 
     @Override
-    public RestObject<String> updateSpecificationBySpecificationId(
-            String specificationId, Specification specification) {
-        specification.setSpecificationId(specificationId);
+    public RestObject<String> updateSpecificationBySpecificationId(Specification specification) {
+        specification.setSpecificationId(specification.getSpecificationId());
         int i = specificationMapper.updateById(specification);
         if (i < 1) {
-            log.warn("修改规格失败");
+            log.warn("修改规格失败！规格id:" + specification.getSpecificationId());
             throw new ShopException("修改失败！");
         }
-        log.info("修改规格成功！规格id:" + specificationId);
+        log.info("修改规格成功！规格id:" + specification.getSpecificationId());
         return RestResponse.makeOkRsp("修改成功！");
     }
 
@@ -82,6 +86,6 @@ public class SpecificationServiceImpl extends ServiceImpl<SpecificationMapper, S
             throw new ShopException("删除失败！");
         }
         log.info("删除规格成功！规格id:" + specificationId);
-        return i > 0 ? RestResponse.makeOkRsp("删除成功！") : RestResponse.makeOkRsp("删除失败！");
+        return RestResponse.makeOkRsp("删除成功！");
     }
 }

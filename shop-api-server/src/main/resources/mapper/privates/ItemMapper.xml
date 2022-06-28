@@ -50,6 +50,7 @@
           and a.unit_id = c.unit_id
           and a.specification_id = d.specification_id
           and a.flag_id = e.flag_id
+          and a.user_id = #{userId}
     </select>
 
     <select id="retrieveByItemName" resultMap="itemMap">
@@ -81,5 +82,6 @@
           and a.specification_id = d.specification_id
           and a.flag_id = e.flag_id
           and a.item_name like '%${itemName}%'
+          and a.user_id = #{userId}
     </select>
 </mapper>

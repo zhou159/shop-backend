@@ -57,21 +57,12 @@ public interface ISitcomNumberService extends IService<SitcomNumber> {
     RestObject<SitcomNumber> retrieveBySitcomNumberId(@PathVariable String sitcomNumberId);
 
     /**
-     * 查询全部
-     *
-     * @return
-     */
-    RestObject<List<SitcomNumber>> retrieveAllSitcomNumber();
-
-    /**
      * 按id修改
      *
-     * @param sitcomNumberId 剧集id
      * @param sitcomNumber 对象
      * @return
      */
-    RestObject<String> updateSitcomNumberBySitcomNumberId(
-            String sitcomNumberId, SitcomNumber sitcomNumber);
+    RestObject<String> updateSitcomNumberBySitcomNumberId(SitcomNumber sitcomNumber);
 
     /**
      * 按id删除

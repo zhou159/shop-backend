@@ -1,5 +1,7 @@
 package com.zhou.shop.apply.controller;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaMode;
 import com.zhou.shop.api.entity.Flag;
 import com.zhou.shop.apiServer.service.IFlagService;
 import com.zhou.shop.common.RestObject;
@@ -25,6 +27,7 @@ public class FlagController {
         this.iFlagService = iFlagService;
     }
 
+    @SaCheckRole(value = {"superAdmin","admin"} ,mode = SaMode.OR)
     @ApiOperation("新增标签")
     @PostMapping("/createFlag")
     public RestObject<String> createFlag(@RequestBody Flag flag) {
@@ -43,12 +46,14 @@ public class FlagController {
         return iFlagService.retrieveAllFlag();
     }
 
+    @SaCheckRole(value = {"superAdmin","admin"} ,mode = SaMode.OR)
     @ApiOperation("按id修改标签")
     @PostMapping("/updateFlagByFlagId/{flagId}")
     public RestObject<String> updateFlagByFlagId(@PathVariable String flagId, @RequestBody Flag flag) {
         return iFlagService.updateFlagByFlagId(flagId, flag);
     }
 
+    @SaCheckRole(value = {"superAdmin","admin"} ,mode = SaMode.OR)
     @ApiOperation("按id删除标签")
     @PostMapping("/deleteByFlagId/{flagId}")
     public RestObject<String> deleteFlagById(@PathVariable String flagId) {
