@@ -13,7 +13,7 @@ import java.util.Objects;
  * @version: v1.0
  * @since 2022/6/11 11:50
  */
-@ApiModel("用户登录uuid前端对象")
+@ApiModel("前端用户登录uuid对象")
 public class UserLoginUuidVO implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -2,6 +2,8 @@ package com.zhou.shop.apiServer.service.user;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.entity.user.User;
+import com.zhou.shop.api.vo.user.UserBindEmailVO;
+import com.zhou.shop.api.vo.user.UserModifyEmailVO;
 import com.zhou.shop.common.RestObject;
 
 import java.util.List;
@@ -39,7 +41,6 @@ public interface IUserService extends IService<User> {
     /**
      * 根据id更新
      *
-     * @param userId id
      * @param user 对象
      * @return
      */
@@ -52,4 +53,18 @@ public interface IUserService extends IService<User> {
      * @return
      */
     RestObject<String> deleteUserById(String userId);
+
+    /**
+     * 绑定邮箱
+     * @param userBindEmailVO 用户绑定邮箱前端对象
+     * @return
+     */
+    RestObject<String> bindEmail(UserBindEmailVO userBindEmailVO);
+
+    /**
+     * 更换邮箱
+     * @param userModifyEmailVO 前端用户更换邮箱对象
+     * @return 信息
+     */
+    RestObject<String> modifyEmail(UserModifyEmailVO userModifyEmailVO);
 }

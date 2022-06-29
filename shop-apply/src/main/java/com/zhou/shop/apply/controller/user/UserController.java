@@ -3,12 +3,15 @@ package com.zhou.shop.apply.controller.user;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.entity.user.User;
+import com.zhou.shop.api.vo.user.UserBindEmailVO;
+import com.zhou.shop.api.vo.user.UserModifyEmailVO;
 import com.zhou.shop.apiServer.service.user.IUserService;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -63,11 +66,20 @@ public class UserController {
         return iUserService.deleteUserById(userId);
     }
 
-    //绑定手机号[使用可能性不大，因为要钱]
+    // 绑定手机号[使用可能性不大，因为发短信要钱~~~]
 
-    //绑定邮箱
+    @SaCheckLogin
+    @ApiOperation("绑定邮箱")
+    @PostMapping("/bindEmail")
+    public RestObject<String> bindEmail(@Valid @RequestBody UserBindEmailVO userBindEmailVO) {
+        return iUserService.bindEmail(userBindEmailVO);
+    }
+    // 更改手机号[]
 
-    //更改手机号[]
-
-    //更改邮箱
+    @SaCheckLogin
+    @ApiOperation("更换邮箱")
+    @PostMapping("/modifyEmail")
+    public RestObject<String> modifyEmail(@Valid @RequestBody UserModifyEmailVO userModifyEmailVO) {
+        return iUserService.modifyEmail(userModifyEmailVO);
+    }
 }

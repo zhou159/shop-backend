@@ -1,29 +1,29 @@
-package com.zhou.shop.api.vo.user.login;
+package com.zhou.shop.api.vo.user;
 
+import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * 前端登陆实体
- *
  * @author zhouxiong
+ * @description:
+ * @version: v1.0-2022/6/19 14:42-zhouxiong： 创建此类
+ * @since 2022/6/19 14:42
  */
-@ApiModel("前端用户登录对象")
-public class UserLoginVO extends UserLoginUuidVO implements Serializable {
+@ApiModel("前端忘记密码对象")
+public class UserForgetPasswordVO extends UserLoginUuidVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("用户电话")
     private String tel;
 
+    @Email(message = "邮箱地址格式错误！")
     @ApiModelProperty("用户邮箱")
     private String mail;
-
-    @NotBlank(message = "密码不能为空")
-    @ApiModelProperty("用户密码")
-    private String userPassword;
 
     @ApiModelProperty("用户账号")
     private String userAccount;
@@ -32,19 +32,12 @@ public class UserLoginVO extends UserLoginUuidVO implements Serializable {
     @ApiModelProperty("验证码")
     private String checkCode;
 
+    public UserForgetPasswordVO() {}
 
-
-    public UserLoginVO() {}
-
-    public UserLoginVO(
-            String tel,
-            String mail,
-            String userPassword,
-            String userAccount,
-            String checkCode) {
+    public UserForgetPasswordVO(
+            String tel, String mail, String userAccount, String checkCode) {
         this.tel = tel;
         this.mail = mail;
-        this.userPassword = userPassword;
         this.userAccount = userAccount;
         this.checkCode = checkCode;
     }
@@ -65,14 +58,6 @@ public class UserLoginVO extends UserLoginUuidVO implements Serializable {
         this.mail = mail;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
     public String getUserAccount() {
         return userAccount;
     }
@@ -89,19 +74,14 @@ public class UserLoginVO extends UserLoginUuidVO implements Serializable {
         this.checkCode = checkCode;
     }
 
-
-
     @Override
     public String toString() {
-        return "UserLoginVO{"
+        return "UserForgetPasswordVO{"
                 + "tel='"
                 + tel
                 + '\''
                 + ", mail='"
                 + mail
-                + '\''
-                + ", userPassword='"
-                + userPassword
                 + '\''
                 + ", userAccount='"
                 + userAccount
@@ -109,7 +89,6 @@ public class UserLoginVO extends UserLoginUuidVO implements Serializable {
                 + ", checkCode='"
                 + checkCode
                 + '\''
-
                 + '}';
     }
 }

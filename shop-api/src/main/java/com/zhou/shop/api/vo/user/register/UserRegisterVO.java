@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @version: v1.0-2022/6/17 15:42-zhouxiong： 创建此类
  * @since 2022/6/17 15:42
  */
-@ApiModel("用户注册uuid前端对象")
+@ApiModel("前端用户注册对象")
 public class UserRegisterVO extends UserLoginUuidVO implements Serializable {
     private static final long serialVersionUID = 1L;
 

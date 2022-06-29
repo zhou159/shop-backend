@@ -13,11 +13,13 @@ import com.zhou.shop.api.dto.UserLoginDTO;
 import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.api.entity.user.UserLogin;
 import com.zhou.shop.api.entity.user.UserRole;
-import com.zhou.shop.api.vo.user.UserForgetVO;
-import com.zhou.shop.api.vo.user.UserModifyVO;
+import com.zhou.shop.api.vo.user.UserForgetPasswordVO;
+import com.zhou.shop.api.vo.user.UserModifyPasswordVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
+import com.zhou.shop.apiServer.common.CommonMethodStatic;
+import com.zhou.shop.apiServer.common.CommonMethods;
 import com.zhou.shop.apiServer.mapper.user.UserLoginMapper;
 import com.zhou.shop.apiServer.mapper.user.UserMapper;
 import com.zhou.shop.apiServer.mapper.user.UserRoleMapper;
@@ -27,7 +29,6 @@ import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.common.enums.RoleEnum;
 import com.zhou.shop.common.enums.SourceEnum;
-import com.zhou.shop.common.exception.CheckCodeErrorException;
 import com.zhou.shop.common.exception.ShopException;
 import com.zhou.shop.common.exception.UserAccountException;
 import com.zhou.shop.common.exception.UserNotLoginException;
@@ -60,6 +61,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
 
     private final UserMapper userMapper;
     private final UserRoleMapper userRoleMapper;
+    private final CommonMethods commonMethods;
 
     private final Logger log = LoggerFactory.getLogger(UserLoginServiceImpl.class);
 
@@ -67,16 +69,18 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
             UserLoginMapper userLoginMapper,
             RedisUtil redisUtil,
             UserMapper userMapper,
-            UserRoleMapper userRoleMapper) {
+            UserRoleMapper userRoleMapper,
+            CommonMethods commonMethods) {
         this.userLoginMapper = userLoginMapper;
         this.redisUtil = redisUtil;
         this.userMapper = userMapper;
         this.userRoleMapper = userRoleMapper;
+        this.commonMethods = commonMethods;
     }
 
     @Override
     public RestObject<UserLoginDTO> login(UserLoginVO userLoginVo) {
-        checkVerifyCode(userLoginVo.getUuid(), userLoginVo.getCheckCode());
+        commonMethods.checkVerifyCode(userLoginVo.getUuid(), userLoginVo.getCheckCode());
         log.info("用户输入的账号：{}，密码：{}", userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
         //如果三者全为空，则抛出异常
         if (StrUtil.isEmpty(userLoginVo.getUserAccount())
@@ -97,7 +101,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
     @Transactional(rollbackFor = Exception.class)
     @Override
     public RestObject<String> register(UserRegisterVO userRegisterVO) {
-        checkVerifyCode(userRegisterVO.getUuid(), userRegisterVO.getCheckCode());
+        commonMethods.checkVerifyCode(userRegisterVO.getUuid(), userRegisterVO.getCheckCode());
 
         if (StrUtil.isEmpty(userRegisterVO.getUserAccount())
                 && StrUtil.isEmpty(userRegisterVO.getTel())
@@ -134,19 +138,23 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
     }
 
     /**
-     * @param userForgetVO 前端传入对象
+     * @param userForgetPasswordVO 前端传入对象
      * @return
      */
     @Override
-    public RestObject<String> forgetPassword(UserForgetVO userForgetVO) {
-        if (StrUtil.isNotBlank(userForgetVO.getMail())) {
-            checkVerifyCode(userForgetVO.getUuid(), userForgetVO.getCheckCode());
+    public RestObject<String> forgetPassword(UserForgetPasswordVO userForgetPasswordVO) {
+        if (StrUtil.isNotBlank(userForgetPasswordVO.getMail())) {
+            commonMethods.checkVerifyCode(
+                    userForgetPasswordVO.getUuid(), userForgetPasswordVO.getCheckCode());
 
             final UserLogin one =
-                    this.lambdaQuery().eq(UserLogin::getUserAccount, userForgetVO.getMail()).one();
-            final String passwordDecrypt = passwordDecrypt(one.getUserPassword());
+                    this.lambdaQuery()
+                            .eq(UserLogin::getUserAccount, userForgetPasswordVO.getMail())
+                            .one();
+            final String passwordDecrypt =
+                    CommonMethodStatic.passwordDecrypt(one.getUserPassword());
             MailUtil.sendText(
-                    userForgetVO.getMail(),
+                    userForgetPasswordVO.getMail(),
                     BaseConstant.MAIL_PASSWORD_SUBJECT,
                     BaseConstant.MAIL_PASSWORD_CONTENT + passwordDecrypt);
             return RestResponse.makeOkRsp("邮件已发送，请注意查收！");
@@ -187,11 +195,11 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
     }
 
     /**
-     * @param userModifyVO 前端传入对象
+     * @param userModifyPasswordVO 前端传入对象
      * @return
      */
     @Override
-    public RestObject<String> modifyPassword(UserModifyVO userModifyVO) {
+    public RestObject<String> modifyPassword(UserModifyPasswordVO userModifyPasswordVO) {
         String loginId = (String) StpUtil.getLoginId();
         if (loginId == null) {
             throw new UserNotLoginException("请先登录再执行操作！");
@@ -201,17 +209,25 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                         new LambdaQueryWrapper<UserLogin>().eq(UserLogin::getUserId, loginId));
         Assert.notNull(userLogins, "账号信息有误！");
         // 为何直接取下标为0？因为设定的就是只要用户id相同，所有登录方式密码都相同（三方登录除外）
-        if (!passwordDecrypt(userLogins.get(0).getUserPassword())
-                .equals(userModifyVO.getUserOldPassword())) {
+        if (!CommonMethodStatic.passwordDecrypt(userLogins.get(0).getUserPassword())
+                .equals(userModifyPasswordVO.getUserOldPassword())) {
             throw new UserAccountException("原密码不正确，请重新输入！");
         }
-        if (!userModifyVO.getUserNewPassword().equals(userModifyVO.getUserNewPasswordRe())) {
+        if (!userModifyPasswordVO
+                .getUserNewPassword()
+                .equals(userModifyPasswordVO.getUserNewPasswordRe())) {
             throw new UserAccountException("两次新密码输入不同，请重新输入！");
         }
 
-        final int update = userLoginMapper.update(null,
-                new LambdaUpdateWrapper<UserLogin>().set(UserLogin::getUserPassword,
-                        passwordEncrypt(userModifyVO.getUserNewPasswordRe())).eq(UserLogin::getUserId, loginId));
+        final int update =
+                userLoginMapper.update(
+                        null,
+                        new LambdaUpdateWrapper<UserLogin>()
+                                .set(
+                                        UserLogin::getUserPassword,
+                                        CommonMethodStatic.passwordEncrypt(
+                                                userModifyPasswordVO.getUserNewPasswordRe()))
+                                .eq(UserLogin::getUserId, loginId));
 
         return update > 0 ? RestResponse.makeOkRsp("密码修改成功！") : RestResponse.makeErrRsp("密码修改失败！");
     }
@@ -232,24 +248,6 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                 mail,
                 BaseConstant.MAIL_VERIFY_CODE_SUBJECT,
                 BaseConstant.MAIL_VERIFY_CODE_CONTENT + mailVerifyCode);
-    }
-
-    /**
-     * 验证码校验
-     *
-     * @param uuid uuid
-     * @param userCode 用户输入的验证码
-     */
-    private void checkVerifyCode(String uuid, String userCode) {
-        // 获取验证码
-        String redisCode = (String) redisUtil.get(uuid);
-        // 获取前端输入的验证码并将小写字母转成大写字母
-        userCode = userCode.toUpperCase();
-
-        log.info("redis验证码：{}，用户输入验证码：{}", redisCode, userCode);
-        if (!StrUtil.equals(redisCode, userCode)) {
-            throw new CheckCodeErrorException("验证码输入错误！");
-        }
     }
 
     /**
@@ -309,27 +307,9 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      * @return 密码加密后的注册对象
      */
     private UserRegisterVO passwordEncrypt(UserRegisterVO userRegisterVO) {
-        userRegisterVO.setUserPassword(passwordEncrypt(userRegisterVO.getUserPassword()));
+        userRegisterVO.setUserPassword(
+                CommonMethodStatic.passwordEncrypt(userRegisterVO.getUserPassword()));
         return userRegisterVO;
     }
 
-    /**
-     * 加密密码
-     *
-     * @param password 密码明文
-     * @return 密码密文
-     */
-    private String passwordEncrypt(String password) {
-        return SaSecureUtil.aesEncrypt(BaseConstant.AES_KEY, password);
-    }
-
-    /**
-     * 密码解密
-     *
-     * @param password 密码密文
-     * @return 密码明文
-     */
-    private String passwordDecrypt(String password) {
-        return SaSecureUtil.aesDecrypt(BaseConstant.AES_KEY, password);
-    }
 }

@@ -3,8 +3,8 @@ package com.zhou.shop.apply.controller.user;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.Snowflake;
 import com.zhou.shop.api.dto.UserLoginDTO;
-import com.zhou.shop.api.vo.user.UserForgetVO;
-import com.zhou.shop.api.vo.user.UserModifyVO;
+import com.zhou.shop.api.vo.user.UserForgetPasswordVO;
+import com.zhou.shop.api.vo.user.UserModifyPasswordVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
 import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
@@ -75,13 +75,13 @@ public class UserLoginController {
 
     @ApiOperation("忘记密码")
     @PostMapping("/forgetPassword")
-    public RestObject<String> forgetPassword(@Valid @RequestBody UserForgetVO userForgetVO) {
-        return userLoginService.forgetPassword(userForgetVO);
+    public RestObject<String> forgetPassword(@Valid @RequestBody UserForgetPasswordVO userForgetPasswordVO) {
+        return userLoginService.forgetPassword(userForgetPasswordVO);
     }
 
     @ApiOperation("修改密码")
     @PostMapping("/modifyPassword")
-    public RestObject<String> modifyPassword(@Valid @RequestBody UserModifyVO userModifyVO) {
-        return userLoginService.modifyPassword(userModifyVO);
+    public RestObject<String> modifyPassword(@Valid @RequestBody UserModifyPasswordVO userModifyPasswordVO) {
+        return userLoginService.modifyPassword(userModifyPasswordVO);
     }
 }

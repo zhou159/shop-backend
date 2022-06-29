@@ -13,8 +13,8 @@ import java.io.Serializable;
  * @version: v1.0-2022/6/19 14:42-zhouxiong： 创建此类
  * @since 2022/6/19 14:42
  */
-@ApiModel("用户前端对象")
-public class UserModifyVO extends UserLoginUuidVO implements Serializable {
+@ApiModel("前端修改密码对象")
+public class UserModifyPasswordVO extends UserLoginUuidVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotBlank(message = "原密码不能为空")
@@ -33,9 +33,9 @@ public class UserModifyVO extends UserLoginUuidVO implements Serializable {
     @ApiModelProperty("验证码")
     private String checkCode;
 
-    public UserModifyVO() {}
+    public UserModifyPasswordVO() {}
 
-    public UserModifyVO(
+    public UserModifyPasswordVO(
             String uuid,
             String userOldPassword,
             String userNewPassword,
@@ -82,7 +82,7 @@ public class UserModifyVO extends UserLoginUuidVO implements Serializable {
 
     @Override
     public String toString() {
-        return "UserModifyVO{"
+        return "UserModifyPasswordVO{"
                 + "userOldPassword='"
                 + userOldPassword
                 + '\''
