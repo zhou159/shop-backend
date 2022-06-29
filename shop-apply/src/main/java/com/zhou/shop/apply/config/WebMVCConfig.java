@@ -72,7 +72,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
 //                                    //                                            r ->
 //                                    // StpUtil.checkPermission("连续剧"));
 //
-//                                    // todo 拦截器将swagger也给拦截了，需待解决。
+//
 //                                }))
                 // 添加所有请求到拦截器
                 .addPathPatterns("/**");
@@ -80,11 +80,11 @@ public class WebMVCConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html#").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
+        //registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
-
 
     @Override
     public void addCorsMappings(CorsRegistry registry){

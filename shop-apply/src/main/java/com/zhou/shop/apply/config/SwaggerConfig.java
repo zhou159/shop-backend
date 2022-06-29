@@ -7,7 +7,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
  * @Description: swagger接口文档配置，便于前后端协同开发
  */
 @Configuration
-@EnableSwagger2 // 开启swagger
+//@EnableSwagger2 // 开启swagger
 public class SwaggerConfig {
 
     // 配置swagger的docket的bean实例
