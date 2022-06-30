@@ -1,15 +1,21 @@
 package com.zhou.shop.common;
 
 import com.zhou.shop.common.enums.RestCodeEnum;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 接口返回对象
  *
  * @author Administrator
  */
+@ApiModel("接口返回对象")
 public class RestObject<T> {
+    @ApiModelProperty("接口响应状态码")
     private int code;
+    @ApiModelProperty("接口响应信息")
     private String msg;
+    @ApiModelProperty("接口返回数据")
     private T data;
 
     public int getCode() {

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @date 2022/3/27 14:22
  * @description
  */
-@ApiModel("博客后端返回对象")
+@ApiModel("后端返回博客对象")
 public class BlogDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -22,6 +22,10 @@ public class BlogDTO implements Serializable {
     @ApiModelProperty("博客创建时间")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime blogCreateTime;
+
+    @ApiModelProperty("博客修改时间时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime blogUpdateTime;
 
     @ApiModelProperty("博客标题")
     private String blogTitle;
@@ -38,23 +42,35 @@ public class BlogDTO implements Serializable {
     @ApiModelProperty("博客栏目")
     private String blogCategory;
 
+    @ApiModelProperty("博客栏目名字")
+    private String blogCategoryName;
+
+    @ApiModelProperty("博客标签名字")
+    private String blogFlagName;
+
     public BlogDTO() {}
 
     public BlogDTO(
             String blogId,
             LocalDateTime blogCreateTime,
+            LocalDateTime blogUpdateTime,
             String blogTitle,
             String blogCreatedBy,
             String blogCreatedName,
             String blogText,
-            String blogCategory) {
+            String blogCategory,
+            String blogCategoryName,
+            String blogFlagName) {
         this.blogId = blogId;
         this.blogCreateTime = blogCreateTime;
+        this.blogUpdateTime = blogUpdateTime;
         this.blogTitle = blogTitle;
         this.blogCreatedBy = blogCreatedBy;
         this.blogCreatedName = blogCreatedName;
         this.blogText = blogText;
         this.blogCategory = blogCategory;
+        this.blogCategoryName = blogCategoryName;
+        this.blogFlagName = blogFlagName;
     }
 
     public String getBlogId() {
@@ -71,6 +87,14 @@ public class BlogDTO implements Serializable {
 
     public void setBlogCreateTime(LocalDateTime blogCreateTime) {
         this.blogCreateTime = blogCreateTime;
+    }
+
+    public LocalDateTime getBlogUpdateTime() {
+        return blogUpdateTime;
+    }
+
+    public void setBlogUpdateTime(LocalDateTime blogUpdateTime) {
+        this.blogUpdateTime = blogUpdateTime;
     }
 
     public String getBlogTitle() {
@@ -113,6 +137,22 @@ public class BlogDTO implements Serializable {
         this.blogCategory = blogCategory;
     }
 
+    public String getBlogCategoryName() {
+        return blogCategoryName;
+    }
+
+    public void setBlogCategoryName(String blogCategoryName) {
+        this.blogCategoryName = blogCategoryName;
+    }
+
+    public String getBlogFlagName() {
+        return blogFlagName;
+    }
+
+    public void setBlogFlagName(String blogFlagName) {
+        this.blogFlagName = blogFlagName;
+    }
+
     @Override
     public String toString() {
         return "BlogDTO{"
@@ -121,6 +161,8 @@ public class BlogDTO implements Serializable {
                 + '\''
                 + ", blogCreateTime="
                 + blogCreateTime
+                + ", blogUpdateTime="
+                + blogUpdateTime
                 + ", blogTitle='"
                 + blogTitle
                 + '\''
@@ -135,6 +177,12 @@ public class BlogDTO implements Serializable {
                 + '\''
                 + ", blogCategory='"
                 + blogCategory
+                + '\''
+                + ", blogCategoryName='"
+                + blogCategoryName
+                + '\''
+                + ", blogFlagName='"
+                + blogFlagName
                 + '\''
                 + '}';
     }

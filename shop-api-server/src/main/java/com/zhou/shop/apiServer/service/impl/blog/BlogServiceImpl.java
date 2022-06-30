@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.BlogDTO;
 import com.zhou.shop.api.entity.blog.Blog;
+import com.zhou.shop.api.vo.BlogVO;
+import com.zhou.shop.apiServer.common.CommonMethodStatic;
+import com.zhou.shop.apiServer.common.CommonMethods;
 import com.zhou.shop.apiServer.mapper.blog.BlogMapper;
 import com.zhou.shop.apiServer.mapper.user.UserMapper;
 import com.zhou.shop.apiServer.service.blog.IBlogService;
@@ -14,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,12 +31,14 @@ import java.util.stream.Collectors;
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IBlogService {
     private final BlogMapper blogMapper;
     private final UserMapper userMapper;
+    private final CommonMethods commonMethods;
 
     private final Logger log = LoggerFactory.getLogger(BlogServiceImpl.class);
 
-    public BlogServiceImpl(BlogMapper blogMapper, UserMapper userMapper) {
+    public BlogServiceImpl(BlogMapper blogMapper, UserMapper userMapper, CommonMethods commonMethods) {
         this.blogMapper = blogMapper;
         this.userMapper = userMapper;
+        this.commonMethods = commonMethods;
     }
 
     @Override
@@ -69,4 +75,31 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return RestResponse.makeOkRsp(blogDto);
     }
 
+    @Override
+    public RestObject<String> createBlog(BlogVO blogVO) {
+        //CommonMethodStatic.checkUserId(blogVO.getBlogCreatedBy(),"用户账号信息错误!");
+        final Blog blog = new Blog();
+        BeanUtils.copyProperties(blogVO,blog);
+        blog.setBlogCreateTime(LocalDateTime.now());
+        final int insert = blogMapper.insert(blog);
+        return insert > 0 ? RestResponse.makeOkRsp("发布成功!") : RestResponse.makeErrRsp("发布失败!");
+    }
+
+    @Override
+    public RestObject<String> updateBlog(BlogVO blogVO) {
+        //CommonMethodStatic.checkUserId(blogVO.getBlogCreatedBy(),"用户账号信息错误!");
+        final Blog blog = new Blog();
+        BeanUtils.copyProperties(blogVO,blog);
+        blog.setBlogUpdateTime(LocalDateTime.now());
+        final int i = blogMapper.updateById(blog);
+        return i > 0 ? RestResponse.makeOkRsp("修改成功!") : RestResponse.makeErrRsp("修改失败!");
+    }
+
+    @Override
+    public RestObject<String> deleteBlog(String blogId) {
+        final Blog blog = blogMapper.selectById(blogId);
+        CommonMethodStatic.checkUserId(blog.getBlogCreatedBy(),"该博客非您创建，无权删除!");
+        final int i = blogMapper.deleteById(blogId);
+        return i > 0 ? RestResponse.makeOkRsp("删除成功!") : RestResponse.makeErrRsp("删除失败!");
+    }
 }

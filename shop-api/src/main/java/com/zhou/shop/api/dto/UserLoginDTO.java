@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @version: v1.0
  * @since 2022/6/11 15:53
  */
-@ApiModel("后端用户登录返回对象")
+@ApiModel("后端返回用户登录对象")
 public class UserLoginDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

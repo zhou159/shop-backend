@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * @author Administrator
  */
-@ApiModel("后端剧集返回对象")
+@ApiModel("后端返回剧集对象")
 public class SitcomNumberDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

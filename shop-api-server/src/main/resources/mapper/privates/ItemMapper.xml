@@ -50,6 +50,7 @@
           and a.unit_id = c.unit_id
           and a.specification_id = d.specification_id
           and a.flag_id = e.flag_id
+          and e.flag_type = 'item'
           and a.user_id = #{userId}
     </select>
 
@@ -81,7 +82,8 @@
           and a.unit_id = c.unit_id
           and a.specification_id = d.specification_id
           and a.flag_id = e.flag_id
-          and a.item_name like '%${itemName}%'
+          and e.flag_type = 'item'
+          and a.item_name like concat(concat('%',#{itemName}),'%')
           and a.user_id = #{userId}
     </select>
 </mapper>

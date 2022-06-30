@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author 周雄
  */
-@ApiModel("问题后端返回对象")
+@ApiModel("后端返回问题模块对象")
 public class IssueModuleDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

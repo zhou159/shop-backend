@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  *
  * @author 周雄
  */
-@ApiModel("后端商品返回对象")
+@ApiModel("后端返回商品对象")
 public class ItemDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;

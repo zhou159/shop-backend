@@ -1,6 +1,8 @@
 package com.zhou.shop.apply.controller;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.zhou.shop.api.entity.Flag;
+import com.zhou.shop.apiServer.service.CommonService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.oss.minio.MinioUtil;
@@ -34,16 +36,24 @@ import java.util.Map;
 public class CommonController {
     private final MinioUtil minioUtil;
     private final RedisUtil redisUtil;
+    private final CommonService commonService;
 
-    public CommonController(MinioUtil minioUtil, RedisUtil redisUtil, RedisUtil redisUtil1) {
+    public CommonController(MinioUtil minioUtil, RedisUtil redisUtil, RedisUtil redisUtil1, CommonService commonService) {
         this.minioUtil = minioUtil;
         this.redisUtil = redisUtil1;
+        this.commonService = commonService;
     }
 
     @ApiOperation("文件上传")
     @PostMapping("/upload")
     public RestObject<String> upload(MultipartFile file) {
         return RestResponse.makeOkRsp(uploadFile(file, "item"));
+    }
+
+    @ApiOperation("获取前端可访问路径")
+    @GetMapping("/queryReferences")
+    public RestObject<List<JSONObject>> queryReferences(String userId) {
+        return commonService.queryReferences(userId);
     }
 
     @Autowired

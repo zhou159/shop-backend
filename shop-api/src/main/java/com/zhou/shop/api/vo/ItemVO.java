@@ -1,6 +1,5 @@
 package com.zhou.shop.api.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,8 +14,7 @@ import java.time.LocalDateTime;
  * @author 周雄
  * @since 2021-08-28
  */
-@TableName("item")
-@ApiModel("Item对象")
+@ApiModel("前端商品对象")
 public class ItemVO implements Serializable {
     private static final long serialVersionUID = 1L;
 

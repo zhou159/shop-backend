@@ -27,6 +27,11 @@ public class Blog implements Serializable {
     @TableField("blog_create_time")
     private LocalDateTime blogCreateTime;
 
+    @ApiModelProperty("博客修改时间时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("blog_update_time")
+    private LocalDateTime blogUpdateTime;
+
     @ApiModelProperty("博客标题")
     @TableField("blog_title")
     private String blogTitle;
@@ -57,6 +62,7 @@ public class Blog implements Serializable {
     public Blog(
             String blogId,
             LocalDateTime blogCreateTime,
+            LocalDateTime blogUpdateTime,
             String blogTitle,
             String blogCreatedBy,
             String blogText,
@@ -64,6 +70,7 @@ public class Blog implements Serializable {
             String blogFlag) {
         this.blogId = blogId;
         this.blogCreateTime = blogCreateTime;
+        this.blogUpdateTime = blogUpdateTime;
         this.blogTitle = blogTitle;
         this.blogCreatedBy = blogCreatedBy;
         this.blogText = blogText;
@@ -86,6 +93,15 @@ public class Blog implements Serializable {
 
     public Blog setBlogCreateTime(LocalDateTime blogCreateTime) {
         this.blogCreateTime = blogCreateTime;
+        return this;
+    }
+
+    public LocalDateTime getBlogUpdateTime() {
+        return blogUpdateTime;
+    }
+
+    public Blog setBlogUpdateTime(LocalDateTime blogUpdateTime) {
+        this.blogUpdateTime = blogUpdateTime;
         return this;
     }
 
@@ -134,6 +150,15 @@ public class Blog implements Serializable {
         return this;
     }
 
+    public Integer getBlogDeleted() {
+        return blogDeleted;
+    }
+
+    public Blog setBlogDeleted(Integer blogDeleted) {
+        this.blogDeleted = blogDeleted;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Blog{"
@@ -142,6 +167,8 @@ public class Blog implements Serializable {
                 + '\''
                 + ", blogCreateTime="
                 + blogCreateTime
+                + ", blogUpdateTime="
+                + blogUpdateTime
                 + ", blogTitle='"
                 + blogTitle
                 + '\''
@@ -157,6 +184,8 @@ public class Blog implements Serializable {
                 + ", blogFlag='"
                 + blogFlag
                 + '\''
+                + ", blogDeleted="
+                + blogDeleted
                 + '}';
     }
 }

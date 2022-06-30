@@ -1,6 +1,7 @@
 package com.zhou.shop.apply.config;
 
 import cn.dev33.satoken.stp.StpInterface;
+import cn.hutool.core.util.ArrayUtil;
 import com.zhou.shop.api.entity.user.Permission;
 import com.zhou.shop.api.entity.user.Role;
 import com.zhou.shop.api.entity.user.RolePermission;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -61,8 +63,12 @@ public class StpInterfaceImpl implements StpInterface {
                                 .getName());
             }
         }
-        logger.info("用户：{}。权限列表：{}",loginId,permissionNameList);
-        return permissionNameList;
+        //去重后的数组
+        final String[] distinct = ArrayUtil.distinct(permissionNameList.toArray(new String[permissionNameList.size()]));
+        //数组转换为列表
+        final List<String> objects = Arrays.asList(distinct);
+        logger.info("用户：{}。权限列表：{}",loginId,objects);
+        return objects;
     }
 
     /**
@@ -84,7 +90,11 @@ public class StpInterfaceImpl implements StpInterface {
                             .one()
                             .getName());
         }
-        logger.info("用户：{}。角色列表：{}",loginId,roleNameList);
-        return roleNameList;
+        //去重后的数组
+        final String[] distinct = ArrayUtil.distinct(roleNameList.toArray(new String[roleNameList.size()]));
+        //数组转换为列表
+        final List<String> objects = Arrays.asList(distinct);
+        logger.info("用户：{}。角色列表：{}",loginId,objects);
+        return objects;
     }
 }

@@ -1,16 +1,16 @@
 package com.zhou.shop.apply.controller.blog;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.zhou.shop.api.dto.BlogDTO;
 import com.zhou.shop.api.entity.blog.Blog;
+import com.zhou.shop.api.vo.BlogVO;
 import com.zhou.shop.apiServer.service.blog.IBlogService;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -44,5 +44,26 @@ public class BlogController {
     @GetMapping("/getBlogByBlogCategoryId/{blogCategoryId}")
     public RestObject<List<Blog>> queryBlogByBlogCategoryId(@PathVariable("blogCategoryId") String blogCategoryId){
         return blogService.queryBlogByBlogCategoryId(blogCategoryId);
+    }
+
+    @SaCheckLogin
+    @ApiOperation(value = "新增博客")
+    @PostMapping("/createBlog")
+    public RestObject<String> createBlog(@Valid @RequestBody BlogVO blogVO) {
+        return blogService.createBlog(blogVO);
+    }
+
+    @SaCheckLogin
+    @ApiOperation(value = "修改博客")
+    @PostMapping("/updateBlog")
+    public RestObject<String> updateBlog(@Valid @RequestBody BlogVO blogVO) {
+        return blogService.updateBlog(blogVO);
+    }
+
+    @SaCheckLogin
+    @ApiOperation(value = "删除博客")
+    @PostMapping("/deletedBlog")
+    public RestObject<String> deleteBlog(String blogId) {
+        return blogService.deleteBlog(blogId);
     }
 }

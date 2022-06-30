@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @date 2022/3/27 10:28
  * @description
  */
-@ApiModel("博客栏目后端返回对象")
+@ApiModel("后端返回博客栏目对象")
 public class BlogCategoryListDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

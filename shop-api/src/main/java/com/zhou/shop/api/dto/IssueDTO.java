@@ -1,6 +1,7 @@
 package com.zhou.shop.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
  * @version: v1.0-2022/6/28 15:37-zhouxiong： 创建此类
  * @since 2022/6/28 15:37
  */
+@ApiModel("后端返回问题对象")
 public class IssueDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

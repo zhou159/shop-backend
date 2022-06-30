@@ -37,8 +37,8 @@ public class CommonMethodStatic {
 
     /**
      * 检验用户id
-     * @param object
-     * @param message
+     * @param object 用户id
+     * @param message 报错信息
      */
     public static void checkUserId(Object object, String message){
         final Object loginId = StpUtil.getLoginId();

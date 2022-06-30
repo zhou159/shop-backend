@@ -55,7 +55,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         String flagName = itemVo.getFlagName();
         Flag flag = iFlagService.retrieveByFlagName(flagName);
         if (flag == null) {
-            iFlagService.createFlag(new Flag().setFlagName(flagName));
+            iFlagService.createFlag(new Flag().setFlagName(flagName).setFlagType("item"));
         }
         String flagId = iFlagService.retrieveByFlagName(flagName).getFlagId();
         Item item = new Item();
@@ -80,7 +80,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         String flagName = itemVo.getFlagName();
         Flag flag = iFlagService.retrieveByFlagName(flagName);
         if (flag == null) {
-            iFlagService.createFlag(new Flag().setFlagName(flagName));
+            iFlagService.createFlag(new Flag().setFlagName(flagName).setFlagType("item"));
         }
         String flagId = iFlagService.retrieveByFlagName(flagName).getFlagId();
         Item item = new Item();

@@ -29,12 +29,17 @@ public class Flag implements Serializable {
     @TableField("flag_deleted")
     private Integer flagDeleted;
 
+    @ApiModelProperty("标签类别")
+    @TableField("flag_type")
+    private String flagType;
+
     public Flag() {}
 
-    public Flag(String flagId, String flagName, Integer flagDeleted) {
+    public Flag(String flagId, String flagName, Integer flagDeleted, String flagType) {
         this.flagId = flagId;
         this.flagName = flagName;
         this.flagDeleted = flagDeleted;
+        this.flagType = flagType;
     }
 
     public String getFlagId() {
@@ -52,6 +57,15 @@ public class Flag implements Serializable {
 
     public Flag setFlagName(String flagName) {
         this.flagName = flagName;
+        return this;
+    }
+
+    public String getFlagType() {
+        return flagType;
+    }
+
+    public Flag setFlagType(String flagType) {
+        this.flagType = flagType;
         return this;
     }
 
@@ -74,6 +88,9 @@ public class Flag implements Serializable {
                 + '\''
                 + ", flagDeleted="
                 + flagDeleted
+                + ", flagType='"
+                + flagType
+                + '\''
                 + '}';
     }
 }
