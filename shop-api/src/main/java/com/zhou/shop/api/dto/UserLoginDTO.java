@@ -24,36 +24,51 @@ public class UserLoginDTO implements Serializable {
     @ApiModelProperty("用户头像")
     private String userPicture;
 
+    @ApiModelProperty("用户角色")
+    private String userRole;
+
     public UserLoginDTO() {}
 
-    public UserLoginDTO(String token, String userId, String userPicture) {
+    public UserLoginDTO(String token, String userId, String userPicture, String userRole) {
         this.token = token;
         this.userId = userId;
         this.userPicture = userPicture;
+        this.userRole = userRole;
     }
 
     public String getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public UserLoginDTO setToken(String token) {
         this.token = token;
+        return this;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public UserLoginDTO setUserId(String userId) {
         this.userId = userId;
+        return this;
     }
 
     public String getUserPicture() {
         return userPicture;
     }
 
-    public void setUserPicture(String userPicture) {
+    public UserLoginDTO setUserPicture(String userPicture) {
         this.userPicture = userPicture;
+        return this;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     @Override
@@ -67,6 +82,9 @@ public class UserLoginDTO implements Serializable {
                 + '\''
                 + ", userPicture='"
                 + userPicture
+                + '\''
+                + ", userRole='"
+                + userRole
                 + '\''
                 + '}';
     }

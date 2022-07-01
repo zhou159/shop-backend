@@ -32,6 +32,7 @@ public class BaseConstant {
     public static final String SUCCESS_DEFAULT_MSG = "success";
 
     /*=====网络相关 Network related=====*/
+    public static final String INNER_IP = "内网IP";
     public static final String AUTHORIZATION_TOKEN_KEY = "token";
     public static final String USER_AGENT = "User-Agent";
     public static final String LOCALHOST_IP = "127.0.0.1";
@@ -46,6 +47,7 @@ public class BaseConstant {
     public static final String CHARACTER_ENCODE_UTF8_UPPER = "UTF-8";
     public static final String CHARACTER_ENCODE_ISO88591 = "ISO-8859-1";
     public static final String CHARACTER_ENCODE_GBK = "GBK";
+    public static final String CHARACTER_ENCODE_GB2313 = "GB2313";
 
     /*=====常用符号  Common symbols=====*/
     public static final String SLASH = "/";

@@ -15,6 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -57,8 +58,8 @@ public class UserLoginController {
 
     @ApiOperation("用户登录")
     @PostMapping("/login")
-    public RestObject<UserLoginDTO> login(@Valid @RequestBody UserLoginVO userLoginVo) {
-        return userLoginService.login(userLoginVo);
+    public RestObject<UserLoginDTO> login(@Valid @RequestBody UserLoginVO userLoginVo, HttpServletRequest request) {
+        return userLoginService.login(userLoginVo,request);
     }
 
     @ApiOperation("用户注销登录")

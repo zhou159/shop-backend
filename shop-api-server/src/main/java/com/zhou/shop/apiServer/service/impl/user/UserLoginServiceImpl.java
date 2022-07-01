@@ -6,13 +6,12 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.mail.MailUtil;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.UserLoginDTO;
-import com.zhou.shop.api.entity.user.User;
-import com.zhou.shop.api.entity.user.UserLogin;
-import com.zhou.shop.api.entity.user.UserRole;
+import com.zhou.shop.api.entity.user.*;
 import com.zhou.shop.api.vo.user.UserForgetPasswordVO;
 import com.zhou.shop.api.vo.user.UserModifyPasswordVO;
 import com.zhou.shop.api.vo.user.login.UserLoginUuidVO;
@@ -20,9 +19,11 @@ import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
 import com.zhou.shop.apiServer.common.CommonMethodStatic;
 import com.zhou.shop.apiServer.common.CommonMethods;
+import com.zhou.shop.apiServer.mapper.user.RoleMapper;
 import com.zhou.shop.apiServer.mapper.user.UserLoginMapper;
 import com.zhou.shop.apiServer.mapper.user.UserMapper;
 import com.zhou.shop.apiServer.mapper.user.UserRoleMapper;
+import com.zhou.shop.apiServer.service.user.IUserLoginInfoService;
 import com.zhou.shop.apiServer.service.user.IUserLoginService;
 import com.zhou.shop.common.BaseConstant;
 import com.zhou.shop.common.RestObject;
@@ -39,12 +40,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -58,10 +60,12 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         implements IUserLoginService {
     private final UserLoginMapper userLoginMapper;
     private final RedisUtil redisUtil;
-
     private final UserMapper userMapper;
     private final UserRoleMapper userRoleMapper;
+    private static final String INNER_IP = "内网IP";
     private final CommonMethods commonMethods;
+    private final RoleMapper roleMapper;
+    private final IUserLoginInfoService userLoginInfoService;
 
     private final Logger log = LoggerFactory.getLogger(UserLoginServiceImpl.class);
 
@@ -70,30 +74,41 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
             RedisUtil redisUtil,
             UserMapper userMapper,
             UserRoleMapper userRoleMapper,
-            CommonMethods commonMethods) {
+            RoleMapper roleMapper,
+            CommonMethods commonMethods,
+            IUserLoginInfoService userLoginInfoService) {
         this.userLoginMapper = userLoginMapper;
         this.redisUtil = redisUtil;
         this.userMapper = userMapper;
         this.userRoleMapper = userRoleMapper;
+        this.roleMapper = roleMapper;
         this.commonMethods = commonMethods;
+        this.userLoginInfoService = userLoginInfoService;
     }
 
     @Override
-    public RestObject<UserLoginDTO> login(UserLoginVO userLoginVo) {
+    public RestObject<UserLoginDTO> login(UserLoginVO userLoginVo, HttpServletRequest request) {
+
         commonMethods.checkVerifyCode(userLoginVo.getUuid(), userLoginVo.getCheckCode());
         log.info("用户输入的账号：{}，密码：{}", userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
+
         //如果三者全为空，则抛出异常
         if (StrUtil.isEmpty(userLoginVo.getUserAccount())
                 && StrUtil.isEmpty(userLoginVo.getTel())
                 && StrUtil.isEmpty(userLoginVo.getMail())) {
             throw new UserAccountException("账户、密码或验证码不能为空!");
         }
+
         // 验证账号密码
         final UserLoginDTO userLoginDTO = loginVerify(userLoginVo);
-        Assert.notNull(userLoginDTO, "登录异常！");
+
         // sa-token生成token
         StpUtil.login(userLoginDTO.getUserId());
+
         final String token = StpUtil.getTokenValue();
+
+        loginInfo(userLoginDTO.getUserId(), request);
+
         userLoginDTO.setToken(token);
         return RestResponse.makeOkRsp(userLoginDTO);
     }
@@ -101,6 +116,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
     @Transactional(rollbackFor = Exception.class)
     @Override
     public RestObject<String> register(UserRegisterVO userRegisterVO) {
+
         commonMethods.checkVerifyCode(userRegisterVO.getUuid(), userRegisterVO.getCheckCode());
 
         if (StrUtil.isEmpty(userRegisterVO.getUserAccount())
@@ -137,10 +153,6 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         return RestResponse.makeOkRsp("注册成功！");
     }
 
-    /**
-     * @param userForgetPasswordVO 前端传入对象
-     * @return
-     */
     @Override
     public RestObject<String> forgetPassword(UserForgetPasswordVO userForgetPasswordVO) {
         if (StrUtil.isNotBlank(userForgetPasswordVO.getMail())) {
@@ -151,8 +163,13 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                     this.lambdaQuery()
                             .eq(UserLogin::getUserAccount, userForgetPasswordVO.getMail())
                             .one();
+
+            CommonMethodStatic.checkObjectNotNull(one, "账号信息有误，请重新输入！");
+
             final String passwordDecrypt =
                     CommonMethodStatic.passwordDecrypt(one.getUserPassword());
+
+            // 发送邮箱
             MailUtil.sendText(
                     userForgetPasswordVO.getMail(),
                     BaseConstant.MAIL_PASSWORD_SUBJECT,
@@ -194,10 +211,6 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         }
     }
 
-    /**
-     * @param userModifyPasswordVO 前端传入对象
-     * @return
-     */
     @Override
     public RestObject<String> modifyPassword(UserModifyPasswordVO userModifyPasswordVO) {
         String loginId = (String) StpUtil.getLoginId();
@@ -207,12 +220,15 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         final List<UserLogin> userLogins =
                 userLoginMapper.selectList(
                         new LambdaQueryWrapper<UserLogin>().eq(UserLogin::getUserId, loginId));
-        Assert.notNull(userLogins, "账号信息有误！");
+
+        CommonMethodStatic.checkObjectNotNull(userLogins, "账号信息有误！");
+
         // 为何直接取下标为0？因为设定的就是只要用户id相同，所有登录方式密码都相同（三方登录除外）
         if (!CommonMethodStatic.passwordDecrypt(userLogins.get(0).getUserPassword())
                 .equals(userModifyPasswordVO.getUserOldPassword())) {
             throw new UserAccountException("原密码不正确，请重新输入！");
         }
+
         if (!userModifyPasswordVO
                 .getUserNewPassword()
                 .equals(userModifyPasswordVO.getUserNewPasswordRe())) {
@@ -232,11 +248,6 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         return update > 0 ? RestResponse.makeOkRsp("密码修改成功！") : RestResponse.makeErrRsp("密码修改失败！");
     }
 
-    /**
-     * 通过邮箱获取验证码
-     *
-     * @param mail 邮箱号
-     */
     @Override
     public void mailVerifyCode(String uuid, String mail) {
         // 先删除，万一有重复的
@@ -266,7 +277,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         if (StrUtil.isNotBlank(userLoginVo.getMail())) {
             return userQuery(userLoginVo.getMail(), userLoginVo.getUserPassword());
         }
-        return null;
+        throw new UserAccountException("信息有误，请重新输入！");
     }
 
     /**
@@ -285,14 +296,63 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                                 UserLogin::getUserPassword,
                                 SaSecureUtil.aesEncrypt(BaseConstant.AES_KEY, password))
                         .one();
-        if (Objects.isNull(userLogin)) {
-            throw new UserAccountException("用户凭证、密码有误，请重新输入！");
-        }
+        CommonMethodStatic.checkObjectNotNull(userLogin, "用户凭证、密码有误，请重新输入！");
         final User user = userMapper.selectById(userLogin.getUserId());
-        userLoginDTO.setUserId(userLogin.getUserId());
-        userLoginDTO.setUserPicture(user.getUserPicture());
+
+        // 查询角色信息，使用查询集合
+        // 避免查询单行的情况，库里有多条数据的异常
+        // 默认获取第一个元素
+        final Role role =
+                roleMapper.selectById(
+                        userRoleMapper
+                                .selectList(
+                                        new LambdaQueryWrapper<UserRole>()
+                                                .eq(UserRole::getUserId, userLogin.getUserId()))
+                                .get(0)
+                                .getRoleId());
+
+        userLoginDTO
+                .setUserId(userLogin.getUserId())
+                .setUserPicture(user.getUserPicture())
+                .setUserRole(role.getName());
+
         BeanUtils.copyProperties(userLogin, userLoginDTO);
         return userLoginDTO;
+    }
+
+    /**
+     * 登录信息记录
+     *
+     * @param userId 用户id
+     * @param request 请求
+     */
+    private void loginInfo(String userId, HttpServletRequest request) {
+
+        final String ipAddress = CommonMethodStatic.getIpAddress(request);
+        final UserLoginInfo userLoginInfo = new UserLoginInfo(userId);
+        userLoginInfo.setUserLoginTime(LocalDateTime.now());
+        userLoginInfo.setNewest(1);
+
+        if (BaseConstant.INNER_IP.equals(ipAddress)) {
+            userLoginInfo.setUserLoginIp(BaseConstant.INNER_IP);
+            userLoginInfo.setUserLoginAddress(BaseConstant.INNER_IP);
+        } else {
+            String url = "http://whois.pconline.com.cn/ipJson.jsp?ip=" + ipAddress + "&json=true";
+            final JSONObject jsonObject = JSONObject.parseObject(CommonMethodStatic.loadJson(url));
+            userLoginInfo.setUserLoginIp(ipAddress);
+            userLoginInfo.setUserLoginAddress(jsonObject.getString("addr"));
+        }
+        // 查询ip归属地
+
+        // 更新表中该userId的登录信息状态
+        userLoginInfoService
+                .lambdaUpdate()
+                .eq(UserLoginInfo::getUserId, userId)
+                .eq(UserLoginInfo::getNewest, 1)
+                .set(UserLoginInfo::getNewest, 0)
+                .update();
+
+        userLoginInfoService.save(userLoginInfo);
     }
 
     /**

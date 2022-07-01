@@ -8,22 +8,25 @@ package com.zhou.shop.common.enums;
  */
 public enum RoleEnum {
     /** 管理员用户 */
-    ADMIM("1", "admin", "管理员", "管理员"),
+    ADMIM("1", "admin", "管理员", "管理员", 2),
     /** 超级管理员用户 */
-    SUPER_ADMIN("3", "superAdmin", "超级管理员", "超级管理员"),
+    SUPER_ADMIN("3", "superAdmin", "超级管理员", "超级管理员", 3),
     /** 普通用户 */
-    USER("2", "user", "普通用户", "普通用户");
+    USER("2", "user", "普通用户", "普通用户", 1);
 
     private final String roleId;
     private final String name;
     private final String description;
     private final String label;
 
-    RoleEnum(String roleId, String name, String description, String label) {
+    private final Integer level;
+
+    RoleEnum(String roleId, String name, String description, String label, Integer level) {
         this.roleId = roleId;
         this.name = name;
         this.description = description;
         this.label = label;
+        this.level = level;
     }
 
     public String getRoleId() {
@@ -40,5 +43,9 @@ public enum RoleEnum {
 
     public String getLabel() {
         return label;
+    }
+
+    public Integer getLevel() {
+        return level;
     }
 }

@@ -10,6 +10,7 @@ import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
 import com.zhou.shop.common.RestObject;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -22,9 +23,10 @@ public interface IUserLoginService extends IService<UserLogin> {
      * 用户登录
      *
      * @param userLoginVo 前端登录对象
+     * @param request 请求
      * @return 登录后用户信息
      */
-    RestObject<UserLoginDTO> login(UserLoginVO userLoginVo);
+    RestObject<UserLoginDTO> login(UserLoginVO userLoginVo, HttpServletRequest request);
 
     /**
      * 用户名方式注册

@@ -36,13 +36,18 @@ public class Role implements Serializable {
     @TableField("description")
     private String description;
 
+    @ApiModelProperty("角色级别（1：普通角色，2：管理员角色，3：超级管理角色）")
+    @TableField("level")
+    private String level;
+
     public Role() {}
 
-    public Role(String roleId, String label, String name, String description) {
+    public Role(String roleId, String label, String name, String description, String level) {
         this.roleId = roleId;
         this.label = label;
         this.name = name;
         this.description = description;
+        this.level = level;
     }
 
     public String getRoleId() {
@@ -77,6 +82,14 @@ public class Role implements Serializable {
         this.description = description;
     }
 
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,6 +120,9 @@ public class Role implements Serializable {
                 + '\''
                 + ", description='"
                 + description
+                + '\''
+                + ", level='"
+                + level
                 + '\''
                 + '}';
     }
