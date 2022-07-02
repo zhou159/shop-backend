@@ -33,17 +33,27 @@ public class UserLogin implements Serializable {
     @TableField("user_password")
     private String userPassword;
 
+    @ApiModelProperty("登陆账户类别")
+    @TableField("type")
+    private String type;
+
     public UserLogin() {}
 
     public UserLogin(String userId) {
         this.userId = userId;
     }
 
-    public UserLogin(String userLoginId, String userId, String userAccount, String userPassword) {
+    public UserLogin(
+            String userLoginId,
+            String userId,
+            String userAccount,
+            String userPassword,
+            String type) {
         this.userLoginId = userLoginId;
         this.userId = userId;
         this.userAccount = userAccount;
         this.userPassword = userPassword;
+        this.type = type;
     }
 
     public String getUserLoginId() {
@@ -78,8 +88,32 @@ public class UserLogin implements Serializable {
         this.userPassword = userPassword;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "UserLogin{" + "userLoginId='" + userLoginId + '\'' + ", userId='" + userId + '\'' + ", userAccount='" + userAccount + '\'' + ", userPassword='" + userPassword + '\'' + '}';
+        return "UserLogin{"
+                + "userLoginId='"
+                + userLoginId
+                + '\''
+                + ", userId='"
+                + userId
+                + '\''
+                + ", userAccount='"
+                + userAccount
+                + '\''
+                + ", userPassword='"
+                + userPassword
+                + '\''
+                + ", type='"
+                + type
+                + '\''
+                + '}';
     }
 }

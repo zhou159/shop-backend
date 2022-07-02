@@ -124,7 +124,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                 && StrUtil.isEmpty(userRegisterVO.getMail())) {
             throw new UserAccountException("请输入有效账号!");
         }
-        // todo 注册流程严重耦合，需待优化
+        // todo 注册流程严重耦合，需待优化。逻辑还需优化：比如账号类别无法识别。
 
         final UserRegisterVO encryptUrv = passwordEncrypt(userRegisterVO);
 
@@ -140,6 +140,9 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         BeanUtils.copyProperties(encryptUrv, user);
         // copy 到userLogin对象
         BeanUtils.copyProperties(encryptUrv, userLogin);
+//        if(){
+//            userLogin.setType("");
+//        }
         // 查询数据库当前账号是否存在
         final UserLogin one =
                 this.lambdaQuery().eq(UserLogin::getUserAccount, encryptUrv.getUserAccount()).one();
@@ -326,6 +329,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      * @param userId 用户id
      * @param request 请求
      */
+    @Transactional(rollbackFor = Exception.class)
     private void loginInfo(String userId, HttpServletRequest request) {
 
         final String ipAddress = CommonMethodStatic.getIpAddress(request);
@@ -353,6 +357,8 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                 .update();
 
         userLoginInfoService.save(userLoginInfo);
+
+        //todo 将当前登录信息发送到用户邮箱。
     }
 
     /**
