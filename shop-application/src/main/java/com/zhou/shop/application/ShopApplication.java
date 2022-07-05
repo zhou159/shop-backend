@@ -14,11 +14,9 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @SpringBootApplication
 @EnableConfigurationProperties
 @EnableTransactionManagement
-public class
-ShopApplication {
+public class ShopApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ShopApplication.class, args);
     }
-
 }
