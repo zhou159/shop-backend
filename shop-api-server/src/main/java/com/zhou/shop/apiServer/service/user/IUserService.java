@@ -56,6 +56,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 绑定邮箱
+     *
      * @param userBindEmailVO 用户绑定邮箱前端对象
      * @return
      */
@@ -63,6 +64,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 更换邮箱
+     *
      * @param userModifyEmailVO 前端用户更换邮箱对象
      * @return 信息
      */

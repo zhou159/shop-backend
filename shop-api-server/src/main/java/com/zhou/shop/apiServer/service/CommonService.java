@@ -15,6 +15,7 @@ public interface CommonService {
 
     /**
      * 查询用户可访问的前端路径
+     *
      * @param userId 用户id
      * @return 路径列表
      */

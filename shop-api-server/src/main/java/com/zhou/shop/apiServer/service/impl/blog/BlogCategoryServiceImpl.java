@@ -7,9 +7,9 @@ import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.api.entity.blog.BlogCategory;
 import com.zhou.shop.apiServer.mapper.blog.BlogCategoryMapper;
 import com.zhou.shop.apiServer.mapper.blog.BlogMapper;
+import com.zhou.shop.apiServer.service.blog.IBlogCategoryService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
-import com.zhou.shop.apiServer.service.blog.IBlogCategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -23,9 +23,9 @@ import java.util.List;
  * @date 2022/3/26 17:23
  * @description
  */
-
 @Service
-public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, BlogCategory> implements IBlogCategoryService {
+public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, BlogCategory>
+        implements IBlogCategoryService {
 
     private final BlogCategoryMapper blogCategoryMapper;
     private final BlogMapper blogMapper;
@@ -45,7 +45,7 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
         List<BlogCategoryListDTO> blogCategoriesListTree = new ArrayList<>();
         for (BlogCategory blogCategory : blogCategories) {
             BlogCategoryListDTO blogCategoryListTreeDto = new BlogCategoryListDTO();
-            BeanUtils.copyProperties(blogCategory,blogCategoryListTreeDto);
+            BeanUtils.copyProperties(blogCategory, blogCategoryListTreeDto);
             QueryWrapper<Blog> blog = new QueryWrapper<>();
             blog.eq("blog_category", blogCategory.getBlogCategoryId());
             Long aLong = blogMapper.selectCount(blog);

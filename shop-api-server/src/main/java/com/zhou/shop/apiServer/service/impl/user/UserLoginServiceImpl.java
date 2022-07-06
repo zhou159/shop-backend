@@ -19,10 +19,10 @@ import com.zhou.shop.api.vo.user.login.UserLoginVO;
 import com.zhou.shop.api.vo.user.register.UserRegisterVO;
 import com.zhou.shop.apiServer.common.CommonMethodStatic;
 import com.zhou.shop.apiServer.common.CommonMethods;
-import com.zhou.shop.apiServer.mapper.user.RoleMapper;
+import com.zhou.shop.apiServer.mapper.admin.RoleMapper;
+import com.zhou.shop.apiServer.mapper.admin.UserRoleMapper;
 import com.zhou.shop.apiServer.mapper.user.UserLoginMapper;
 import com.zhou.shop.apiServer.mapper.user.UserMapper;
-import com.zhou.shop.apiServer.mapper.user.UserRoleMapper;
 import com.zhou.shop.apiServer.service.user.IUserLoginInfoService;
 import com.zhou.shop.apiServer.service.user.IUserLoginService;
 import com.zhou.shop.common.BaseConstant;
@@ -58,11 +58,11 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin>
         implements IUserLoginService {
+    private static final String INNER_IP = "内网IP";
     private final UserLoginMapper userLoginMapper;
     private final RedisUtil redisUtil;
     private final UserMapper userMapper;
     private final UserRoleMapper userRoleMapper;
-    private static final String INNER_IP = "内网IP";
     private final CommonMethods commonMethods;
     private final RoleMapper roleMapper;
     private final IUserLoginInfoService userLoginInfoService;
@@ -92,7 +92,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         commonMethods.checkVerifyCode(userLoginVo.getUuid(), userLoginVo.getCheckCode());
         log.info("用户输入的账号：{}，密码：{}", userLoginVo.getUserAccount(), userLoginVo.getUserPassword());
 
-        //如果三者全为空，则抛出异常
+        // 如果三者全为空，则抛出异常
         if (StrUtil.isEmpty(userLoginVo.getUserAccount())
                 && StrUtil.isEmpty(userLoginVo.getTel())
                 && StrUtil.isEmpty(userLoginVo.getMail())) {
@@ -140,9 +140,9 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         BeanUtils.copyProperties(encryptUrv, user);
         // copy 到userLogin对象
         BeanUtils.copyProperties(encryptUrv, userLogin);
-//        if(){
-//            userLogin.setType("");
-//        }
+        //        if(){
+        //            userLogin.setType("");
+        //        }
         // 查询数据库当前账号是否存在
         final UserLogin one =
                 this.lambdaQuery().eq(UserLogin::getUserAccount, encryptUrv.getUserAccount()).one();
@@ -358,16 +358,16 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
 
         userLoginInfoService.save(userLoginInfo);
 
-        //todo 将当前登录信息发送到用户邮箱。
+        // todo 将当前登录信息发送到用户邮箱。
     }
 
     /**
      * 密码加密
      *
      * <p>加密流程：后端将前端传入的密码字符串加盐后用默认钥匙对称加密一次， 加密的钥匙随机生成并写入在数据库中， 加密的钥匙写入数据库的时候用写死的钥匙再次加密一次，
-     * 然后后端再用MD5加密存入数据库。（未使用） </p>
+     * 然后后端再用MD5加密存入数据库。（未使用）
      *
-     * <p>使用对称加密一次即可</p>
+     * <p>使用对称加密一次即可
      *
      * @param userRegisterVO 前端传入注册的对象
      * @return 密码加密后的注册对象
@@ -377,5 +377,4 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                 CommonMethodStatic.passwordEncrypt(userRegisterVO.getUserPassword()));
         return userRegisterVO;
     }
-
 }

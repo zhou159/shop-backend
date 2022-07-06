@@ -6,10 +6,10 @@ import com.zhou.shop.api.entity.user.Permission;
 import com.zhou.shop.api.entity.user.Role;
 import com.zhou.shop.api.entity.user.RolePermission;
 import com.zhou.shop.api.entity.user.UserRole;
-import com.zhou.shop.apiServer.service.user.IPermissionService;
-import com.zhou.shop.apiServer.service.user.IRolePermissionService;
-import com.zhou.shop.apiServer.service.user.IRoleService;
-import com.zhou.shop.apiServer.service.user.IUserRoleService;
+import com.zhou.shop.apiServer.service.admin.IPermissionService;
+import com.zhou.shop.apiServer.service.admin.IRolePermissionService;
+import com.zhou.shop.apiServer.service.admin.IRoleService;
+import com.zhou.shop.apiServer.service.admin.IUserRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +63,13 @@ public class StpInterfaceImpl implements StpInterface {
                                 .getName());
             }
         }
-        //去重后的数组
-        final String[] distinct = ArrayUtil.distinct(permissionNameList.toArray(new String[permissionNameList.size()]));
-        //数组转换为列表
+        // 去重后的数组
+        final String[] distinct =
+                ArrayUtil.distinct(
+                        permissionNameList.toArray(new String[permissionNameList.size()]));
+        // 数组转换为列表
         final List<String> objects = Arrays.asList(distinct);
-        logger.info("用户：{}。权限列表：{}",loginId,objects);
+        logger.info("用户：{}。权限列表：{}", loginId, objects);
         return objects;
     }
 
@@ -90,11 +92,12 @@ public class StpInterfaceImpl implements StpInterface {
                             .one()
                             .getName());
         }
-        //去重后的数组
-        final String[] distinct = ArrayUtil.distinct(roleNameList.toArray(new String[roleNameList.size()]));
-        //数组转换为列表
+        // 去重后的数组
+        final String[] distinct =
+                ArrayUtil.distinct(roleNameList.toArray(new String[roleNameList.size()]));
+        // 数组转换为列表
         final List<String> objects = Arrays.asList(distinct);
-        logger.info("用户：{}。角色列表：{}",loginId,objects);
+        logger.info("用户：{}。角色列表：{}", loginId, objects);
         return objects;
     }
 }

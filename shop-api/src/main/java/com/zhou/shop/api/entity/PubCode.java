@@ -15,66 +15,86 @@ import java.io.Serializable;
  * @description
  */
 @ApiModel("码表")
-@TableName("pubcode")
+@TableName("pub_code")
 public class PubCode implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("码表主键")
-    @TableId(value = "pubcode_id", type = IdType.ASSIGN_ID)
-    private String pubcodeId;
+    @TableId(value = "pub_code_id", type = IdType.ASSIGN_ID)
+    private String pubCodeId;
 
     @ApiModelProperty("码表名字")
-    @TableField("pubcode_name")
-    private String pubcodeName;
+    @TableField("pub_code_name")
+    private String pubCodeName;
 
     @ApiModelProperty("码表类型")
-    @TableField("pubcode_class_id")
-    private String pubcodeClassId;
+    @TableField("pub_code_class_id")
+    private String pubCodeClassId;
+
+    @ApiModelProperty("码表说明")
+    @TableField("pub_code_description")
+    private String pubCodeDescription;
 
     public PubCode() {}
 
-    public PubCode(String pubcodeId, String pubcodeName, String pubcodeClassId) {
-        this.pubcodeId = pubcodeId;
-        this.pubcodeName = pubcodeName;
-        this.pubcodeClassId = pubcodeClassId;
+    public PubCode(
+            String pubCodeId,
+            String pubCodeName,
+            String pubCodeClassId,
+            String pubCodeDescription) {
+        this.pubCodeId = pubCodeId;
+        this.pubCodeName = pubCodeName;
+        this.pubCodeClassId = pubCodeClassId;
+        this.pubCodeDescription = pubCodeDescription;
     }
 
-    public String getPubcodeId() {
-        return pubcodeId;
+    public String getPubCodeId() {
+        return pubCodeId;
     }
 
-    public void setPubcodeId(String pubcodeId) {
-        this.pubcodeId = pubcodeId;
+    public void setPubCodeId(String pubCodeId) {
+        this.pubCodeId = pubCodeId;
     }
 
-    public String getPubcodeName() {
-        return pubcodeName;
+    public String getPubCodeName() {
+        return pubCodeName;
     }
 
-    public void setPubcodeName(String pubcodeName) {
-        this.pubcodeName = pubcodeName;
+    public void setPubCodeName(String pubCodeName) {
+        this.pubCodeName = pubCodeName;
     }
 
-    public String getPubcodeClassId() {
-        return pubcodeClassId;
+    public String getPubCodeClassId() {
+        return pubCodeClassId;
     }
 
-    public void setPubcodeClassId(String pubcodeClassId) {
-        this.pubcodeClassId = pubcodeClassId;
+    public void setPubCodeClassId(String pubCodeClassId) {
+        this.pubCodeClassId = pubCodeClassId;
+    }
+
+    public String getPubCodeDescription() {
+        return pubCodeDescription;
+    }
+
+    public void setPubCodeDescription(String pubCodeDescription) {
+        this.pubCodeDescription = pubCodeDescription;
     }
 
     @Override
     public String toString() {
         return "PubCode{"
-                + "pubcodeId='"
-                + pubcodeId
+                + "pubCodeId='"
+                + pubCodeId
                 + '\''
-                + ", pubcodeName='"
-                + pubcodeName
+                + ", pubCodeName='"
+                + pubCodeName
                 + '\''
-                + ", pubcodeClassId='"
-                + pubcodeClassId
+                + ", pubCodeClassId='"
+                + pubCodeClassId
+                + '\''
+                + ", pubCodeDescription='"
+                + pubCodeDescription
                 + '\''
                 + '}';
     }

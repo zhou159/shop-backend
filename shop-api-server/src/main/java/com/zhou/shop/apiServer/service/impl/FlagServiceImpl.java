@@ -76,6 +76,7 @@ public class FlagServiceImpl extends ServiceImpl<FlagMapper, Flag> implements IF
 
     @Override
     public Flag retrieveByFlagName(String flagName) {
-        return flagMapper.selectOne(new LambdaQueryWrapper<Flag>().like(Flag::getFlagName,flagName));
+        return flagMapper.selectOne(
+                new LambdaQueryWrapper<Flag>().like(Flag::getFlagName, flagName));
     }
 }

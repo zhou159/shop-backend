@@ -62,8 +62,9 @@ public interface IUserLoginService extends IService<UserLogin> {
 
     /**
      * 邮箱验证码
+     *
      * @param uuid uuid
      * @param mail 邮箱号
      */
-    void mailVerifyCode(String uuid,String mail);
+    void mailVerifyCode(String uuid, String mail);
 }

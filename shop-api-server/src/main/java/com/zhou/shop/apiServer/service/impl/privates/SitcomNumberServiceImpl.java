@@ -56,7 +56,8 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
 
     @Override
     public RestObject<String> createSitcomNumber(SitcomNumber sitcomNumber) {
-        if ("".equals(sitcomNumber.getSitcomNumberWatchTime()) || sitcomNumber.getSitcomNumberWatchTime() == null) {
+        if ("".equals(sitcomNumber.getSitcomNumberWatchTime())
+                || sitcomNumber.getSitcomNumberWatchTime() == null) {
             sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now().toString());
         }
         int save = sitcomNumberMapper.insert(sitcomNumber);

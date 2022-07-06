@@ -47,6 +47,7 @@ public interface IBlogService extends IService<Blog> {
 
     /**
      * 修改博客
+     *
      * @param blogVO 前端传入博客对象
      * @return 信息
      */
@@ -54,11 +55,9 @@ public interface IBlogService extends IService<Blog> {
 
     /**
      * 删除博客
+     *
      * @param blogId 前端传入博客id
      * @return 信息
      */
     RestObject<String> deleteBlog(String blogId);
-
-
-
 }

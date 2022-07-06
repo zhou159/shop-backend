@@ -1,4 +1,4 @@
-package com.zhou.shop.apiServer.service.user;
+package com.zhou.shop.apiServer.service.admin;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.entity.user.RolePermission;

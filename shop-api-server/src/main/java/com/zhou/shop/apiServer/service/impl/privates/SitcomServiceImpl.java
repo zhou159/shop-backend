@@ -54,7 +54,7 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
                 && sitcom.getSitcomWatchStatus().equals(WATCH_STATUS_ZERO)) {
             throw new ShopException("连续剧还未完结，操作失败！");
         }
-        if("".equals(sitcom.getSitcomWatchEndTime())){
+        if ("".equals(sitcom.getSitcomWatchEndTime())) {
             sitcom.setSitcomWatchEndTime(null);
         }
         sitcom.setSitcomWatchStartTime(

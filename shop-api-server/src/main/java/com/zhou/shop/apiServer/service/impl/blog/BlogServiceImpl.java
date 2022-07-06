@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
  * @date 2022/3/26 17:22
  * @description
  */
-
 @Service
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IBlogService {
     private final BlogMapper blogMapper;
@@ -35,7 +34,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     private final Logger log = LoggerFactory.getLogger(BlogServiceImpl.class);
 
-    public BlogServiceImpl(BlogMapper blogMapper, UserMapper userMapper, CommonMethods commonMethods) {
+    public BlogServiceImpl(
+            BlogMapper blogMapper, UserMapper userMapper, CommonMethods commonMethods) {
         this.blogMapper = blogMapper;
         this.userMapper = userMapper;
         this.commonMethods = commonMethods;
@@ -77,9 +77,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Override
     public RestObject<String> createBlog(BlogVO blogVO) {
-        //CommonMethodStatic.checkUserId(blogVO.getBlogCreatedBy(),"用户账号信息错误!");
+        // CommonMethodStatic.checkUserId(blogVO.getBlogCreatedBy(),"用户账号信息错误!");
         final Blog blog = new Blog();
-        BeanUtils.copyProperties(blogVO,blog);
+        BeanUtils.copyProperties(blogVO, blog);
         blog.setBlogCreateTime(LocalDateTime.now());
         final int insert = blogMapper.insert(blog);
         return insert > 0 ? RestResponse.makeOkRsp("发布成功!") : RestResponse.makeErrRsp("发布失败!");
@@ -87,9 +87,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Override
     public RestObject<String> updateBlog(BlogVO blogVO) {
-        //CommonMethodStatic.checkUserId(blogVO.getBlogCreatedBy(),"用户账号信息错误!");
+        // CommonMethodStatic.checkUserId(blogVO.getBlogCreatedBy(),"用户账号信息错误!");
         final Blog blog = new Blog();
-        BeanUtils.copyProperties(blogVO,blog);
+        BeanUtils.copyProperties(blogVO, blog);
         blog.setBlogUpdateTime(LocalDateTime.now());
         final int i = blogMapper.updateById(blog);
         return i > 0 ? RestResponse.makeOkRsp("修改成功!") : RestResponse.makeErrRsp("修改失败!");
@@ -98,7 +98,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Override
     public RestObject<String> deleteBlog(String blogId) {
         final Blog blog = blogMapper.selectById(blogId);
-        CommonMethodStatic.checkUserId(blog.getBlogCreatedBy(),"该博客非您创建，无权删除!");
+        CommonMethodStatic.checkUserId(blog.getBlogCreatedBy(), "该博客非您创建，无权删除!");
         final int i = blogMapper.deleteById(blogId);
         return i > 0 ? RestResponse.makeOkRsp("删除成功!") : RestResponse.makeErrRsp("删除失败!");
     }

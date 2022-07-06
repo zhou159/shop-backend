@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhou.shop.apiServer.mapper.IssueMapper">
-    <resultMap id="issueModule" type="com.zhou.shop.api.dto.IssueModuleDTO">
-        <result column="tn" property="issueModuleEn"/>
-        <result column="tc" property="issueModuleCh"/>
-    </resultMap>
-
-    <select id="getIssueModule" resultMap="issueModule">
-        SELECT TABLE_NAME tn, TABLE_COMMENT tc
-        from information_schema.`TABLES`
-        WHERE TABLE_SCHEMA = 'shop'
-    </select>
 </mapper>

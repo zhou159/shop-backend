@@ -3,7 +3,6 @@ package com.zhou.shop.apply.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.dto.IssueDTO;
-import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.apiServer.service.IIssueService;
 import com.zhou.shop.common.RestObject;
@@ -61,12 +60,6 @@ public class IssueController {
     @PostMapping("/deleteByIssueId/{issueId}")
     public RestObject<String> deleteIssueById(@PathVariable String issueId) {
         return iIssueService.deleteIssueById(issueId);
-    }
-
-    @ApiOperation("查询全部问题板块")
-    @GetMapping("/issueModule")
-    public RestObject<List<IssueModuleDTO>> getIssueModule() {
-        return iIssueService.getIssueModule();
     }
 
     @ApiOperation("根据问题描述模糊查询")

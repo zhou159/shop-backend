@@ -1,7 +1,7 @@
-package com.zhou.shop.apiServer.mapper.user;
+package com.zhou.shop.apiServer.mapper.admin;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhou.shop.api.entity.user.Permission;
+import com.zhou.shop.apiServer.common.mybatisPlusExtend.ExpandBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,4 +11,4 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022/6/16 11:24
  */
 @Mapper
-public interface PermissionMapper extends BaseMapper<Permission> {}
+public interface PermissionMapper extends ExpandBaseMapper<Permission> {}

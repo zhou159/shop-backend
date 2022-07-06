@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.IssueDTO;
-import com.zhou.shop.api.dto.IssueModuleDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.api.entity.PubCode;
 import com.zhou.shop.apiServer.mapper.IssueMapper;
@@ -52,11 +51,6 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
     }
 
     @Override
-    public RestObject<List<IssueModuleDTO>> getIssueModule() {
-        return RestResponse.makeOkRsp(issueMapper.getIssueModule());
-    }
-
-    @Override
     public RestObject<String> updateIssueStatus(String issueId, String issueStatus) {
         final int update =
                 issueMapper.update(
@@ -101,14 +95,14 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
             final PubCode typePubCode =
                     pubCodeMapper.selectOne(
                             new LambdaQueryWrapper<PubCode>()
-                                    .eq(PubCode::getPubcodeId, issue.getIssueType()));
-            issueDTO.setIssueTypeName(typePubCode.getPubcodeName());
+                                    .eq(PubCode::getPubCodeId, issue.getIssueType()));
+            issueDTO.setIssueTypeName(typePubCode.getPubCodeName());
 
             final PubCode modulePubCode =
                     pubCodeMapper.selectOne(
                             new LambdaQueryWrapper<PubCode>()
-                                    .eq(PubCode::getPubcodeId, issue.getIssueModule()));
-            issueDTO.setIssueModuleName(modulePubCode.getPubcodeName());
+                                    .eq(PubCode::getPubCodeId, issue.getIssueModule()));
+            issueDTO.setIssueModuleName(modulePubCode.getPubCodeName());
 
             issueArrayList.add(issueDTO);
         }

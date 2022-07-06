@@ -1,14 +1,10 @@
 package com.zhou.shop.api.entity.user;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * @author 周雄
@@ -21,7 +17,7 @@ public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("权限表id")
-    @TableId(value = "permission_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "permission_id", type = IdType.NONE)
     private String permissionId;
 
     @ApiModelProperty("前端索引")
@@ -36,13 +32,46 @@ public class Permission implements Serializable {
     @TableField("description")
     private String description;
 
+    @ApiModelProperty("逻辑删除")
+    @TableField("deleted")
+    @TableLogic
+    private Integer deleted;
+
+    @ApiModelProperty("权限是否锁定（1：锁定）")
+    @TableField("locked")
+    private Integer locked;
+
+    @ApiModelProperty("权限锁定者")
+    @TableField("lockedBy")
+    private String lockedBy;
+
+    @ApiModelProperty("权限锁定时间")
+    @TableField("lockedTime")
+    private String lockedTime;
+
     public Permission() {}
 
-    public Permission(String permissionId, String reference, String name, String description) {
+    public Permission(String permissionId) {
+        this.permissionId = permissionId;
+    }
+
+    public Permission(
+            String permissionId,
+            String reference,
+            String name,
+            String description,
+            Integer deleted,
+            Integer locked,
+            String lockedBy,
+            String lockedTime) {
         this.permissionId = permissionId;
         this.reference = reference;
         this.name = name;
         this.description = description;
+        this.deleted = deleted;
+        this.locked = locked;
+        this.lockedBy = lockedBy;
+        this.lockedTime = lockedTime;
     }
 
     public String getPermissionId() {
@@ -81,20 +110,36 @@ public class Permission implements Serializable {
         return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Permission that = (Permission) o;
-        return permissionId.equals(that.permissionId)
-                && reference.equals(that.reference)
-                && name.equals(that.name)
-                && description.equals(that.description);
+    public Integer getDeleted() {
+        return deleted;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(permissionId, reference, name, description);
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
+
+    public Integer getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Integer locked) {
+        this.locked = locked;
+    }
+
+    public String getLockedBy() {
+        return lockedBy;
+    }
+
+    public void setLockedBy(String lockedBy) {
+        this.lockedBy = lockedBy;
+    }
+
+    public String getLockedTime() {
+        return lockedTime;
+    }
+
+    public void setLockedTime(String lockedTime) {
+        this.lockedTime = lockedTime;
     }
 
     @Override
@@ -112,6 +157,14 @@ public class Permission implements Serializable {
                 + ", description='"
                 + description
                 + '\''
+                + ", deleted="
+                + deleted
+                + ", locked="
+                + locked
+                + ", lockedBy="
+                + lockedBy
+                + ", lockedTime="
+                + lockedTime
                 + '}';
     }
 }

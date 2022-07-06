@@ -56,6 +56,7 @@ public interface IFlagService extends IService<Flag> {
 
     /**
      * 根据标签名查找标签
+     *
      * @param flagName 标签名
      * @return 标签对象
      */

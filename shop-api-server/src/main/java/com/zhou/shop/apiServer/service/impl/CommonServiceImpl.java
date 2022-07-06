@@ -5,10 +5,10 @@ import com.zhou.shop.api.entity.user.Permission;
 import com.zhou.shop.api.entity.user.RolePermission;
 import com.zhou.shop.api.entity.user.UserRole;
 import com.zhou.shop.apiServer.service.CommonService;
-import com.zhou.shop.apiServer.service.user.IPermissionService;
-import com.zhou.shop.apiServer.service.user.IRolePermissionService;
-import com.zhou.shop.apiServer.service.user.IRoleService;
-import com.zhou.shop.apiServer.service.user.IUserRoleService;
+import com.zhou.shop.apiServer.service.admin.IPermissionService;
+import com.zhou.shop.apiServer.service.admin.IRolePermissionService;
+import com.zhou.shop.apiServer.service.admin.IRoleService;
+import com.zhou.shop.apiServer.service.admin.IUserRoleService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import org.slf4j.Logger;
@@ -55,7 +55,6 @@ public class CommonServiceImpl implements CommonService {
                             .eq(RolePermission::getRoleId, userRole.getRoleId())
                             .list();
 
-
             // 遍历角色权限列表
             for (RolePermission rolePermission : rolePermissionList) {
 
@@ -69,19 +68,19 @@ public class CommonServiceImpl implements CommonService {
                 final String reference = permission.getReference();
                 final String name = permission.getName();
 
-                //采用HashMap去重
-                referenceMap.put(reference,name);
+                // 采用HashMap去重
+                referenceMap.put(reference, name);
             }
         }
         for (String s : referenceMap.keySet()) {
             final JSONObject entries = new JSONObject();
-            entries.put("reference",s);
-            entries.put("name",referenceMap.get(s));
+            entries.put("reference", s);
+            entries.put("name", referenceMap.get(s));
             referenceList.add(entries);
         }
 
         long endTime = System.currentTimeMillis();
-        log.info("路径列表:{},共耗时:{}ms", referenceList,endTime - startTime);
+        log.info("路径列表:{},共耗时:{}ms", referenceList, endTime - startTime);
         return RestResponse.makeOkRsp(referenceList);
     }
 }

@@ -13,10 +13,38 @@ import java.util.List;
  */
 public interface IPubCodeService extends IService<PubCode> {
     /**
-     * 根据classid查询
+     * 根据classId查询
      *
-     * @param pubcodeClassId
-     * @return
+     * @param pubCodeClassId 类别代码
+     * @return 根据类别代码查询出的码表集合
      */
-    RestObject<List<PubCode>> retrieveSitcomByClassId(String pubcodeClassId);
+    RestObject<List<PubCode>> retrieveSitcomByClassId(String pubCodeClassId);
+
+    /**
+     * 查询所有码表
+     * @return 码表集合
+     */
+    RestObject<List<PubCode>> retrieveAllPubCode();
+
+    /**
+     * 新增码表
+     * @param pubCode 码表对象
+     * @return 信息
+     */
+    RestObject<String> createPubCode(PubCode pubCode);
+
+    /**
+     * 修改码表
+     * @param pubCode 码表对象
+     * @return 信息
+     */
+    RestObject<String> updatePubCode(PubCode pubCode);
+
+    /**
+     * 删除码表
+     * @param pubCodeId 码表id
+     * @return 信息
+     */
+    RestObject<String> deletePubCode(String pubCodeId);
+
 }
