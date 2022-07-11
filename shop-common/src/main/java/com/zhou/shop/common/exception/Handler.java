@@ -25,6 +25,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerShareException(Exception e) {
+        logger.error(e.getMessage());
         return RestResponse.makeErrRsp(e.getMessage());
     }
 
@@ -32,6 +33,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerUserNotLoginException(Exception e) {
+        logger.error(e.getMessage());
         return RestResponse.errRsp(403, "User Not Login, Please Login!", e.getMessage());
     }
 
@@ -55,6 +57,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerPermission(Exception e) {
+        logger.error(e.getMessage());
         return RestResponse.errRsp(402, "Permission Error", e.getMessage());
     }
 
@@ -62,6 +65,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerUserAccountException(Exception e) {
+        logger.error(e.getMessage());
         return RestResponse.errRsp(401, "User Account Error!", e.getMessage());
     }
 
@@ -69,6 +73,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerFileErrorException(Exception e) {
+        logger.error(e.getMessage());
         return RestResponse.errRsp(
                 700, "File Type Error Or Is Empty! Please Check Out It!", e.getMessage());
     }
@@ -77,6 +82,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerRedisException(Exception e) {
+        logger.error(e.getMessage());
         return RestResponse.errRsp(1000, "Redis Error!", e.getMessage());
     }
 
@@ -84,6 +90,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerObjectFieldEmptyException(Exception e) {
+        logger.error(e.getMessage());
         return RestResponse.errRsp(800, "NotNull Filed Is Empty!", e.getMessage());
     }
 
@@ -134,6 +141,7 @@ public class Handler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerCheckCodeErrorException(CheckCodeErrorException e) {
+        logger.error(e.getMessage());
         return RestResponse.errRsp(500, "CheckCode Error!", e.getMessage());
     }
 }
