@@ -23,7 +23,7 @@
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
-            <version>8.4.1</version>
+            <version>${minio.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>guava</artifactId>

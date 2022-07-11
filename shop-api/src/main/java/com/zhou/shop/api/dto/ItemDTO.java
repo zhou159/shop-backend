@@ -115,14 +115,9 @@ public class ItemDTO implements Serializable {
         this.flagName = flagName;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getItemPicture() {
         return itemPicture;
     }
-
     public void setItemPicture(String itemPicture) {
         this.itemPicture = itemPicture;
     }

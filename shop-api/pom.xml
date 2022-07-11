@@ -9,7 +9,6 @@
         <!-- <relativePath/> lookup parent from repository -->
     </parent>
 
-    <groupId>com.zhou</groupId>
     <artifactId>shop-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -19,6 +18,4 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
-    <dependencies></dependencies>
 </project>
