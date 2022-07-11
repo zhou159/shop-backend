@@ -15,10 +15,6 @@
     <name>shop-util</name>
     <description>shop-util</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.zhou</groupId>

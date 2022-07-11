@@ -6,7 +6,6 @@
         <groupId>com.zhou</groupId>
         <artifactId>shop</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!-- <relativePath/> lookup parent from repository -->
     </parent>
 
     <artifactId>shop-api-server</artifactId>
@@ -15,9 +14,6 @@
     <name>shop-api-server</name>
     <description>shop-api-server</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>com.zhou</groupId>

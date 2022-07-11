@@ -6,7 +6,6 @@
         <groupId>com.zhou</groupId>
         <artifactId>shop</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!-- <relativePath/> lookup parent from repository -->
     </parent>
 
     <artifactId>shop-oss</artifactId>
@@ -16,7 +15,7 @@
     <description>shop-oss</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <minio.version>8.4.3</minio.version>
     </properties>
 
     <dependencies>

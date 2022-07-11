@@ -6,7 +6,6 @@
         <groupId>com.zhou</groupId>
         <artifactId>shop</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!-- <relativePath/> lookup parent from repository -->
     </parent>
 
     <artifactId>shop-application</artifactId>
@@ -39,12 +38,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
             </plugin>
         </plugins>
 

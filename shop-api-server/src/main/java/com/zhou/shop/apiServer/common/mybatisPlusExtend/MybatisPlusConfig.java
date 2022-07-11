@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022/7/6 11:34
  */
 @Configuration
-@MapperScan("com.zhou.shop.apiServer.mapper")
 public class MybatisPlusConfig {
     /**
      * 扩展mapper方法
