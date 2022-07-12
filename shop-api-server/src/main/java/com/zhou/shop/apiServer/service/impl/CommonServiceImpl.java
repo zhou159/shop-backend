@@ -7,13 +7,11 @@ import com.zhou.shop.api.entity.user.UserRole;
 import com.zhou.shop.apiServer.service.CommonService;
 import com.zhou.shop.apiServer.service.admin.IPermissionService;
 import com.zhou.shop.apiServer.service.admin.IRolePermissionService;
-import com.zhou.shop.apiServer.service.admin.IRoleService;
 import com.zhou.shop.apiServer.service.admin.IUserRoleService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,10 +28,18 @@ import java.util.Map;
 @Service
 public class CommonServiceImpl implements CommonService {
     private final Logger log = LoggerFactory.getLogger(CommonServiceImpl.class);
-    @Autowired IRoleService roleService;
-    @Autowired IPermissionService permissionService;
-    @Autowired IUserRoleService userRoleService;
-    @Autowired IRolePermissionService rolePermissionService;
+    private final IPermissionService permissionService;
+    private final IUserRoleService userRoleService;
+    private final IRolePermissionService rolePermissionService;
+
+    public CommonServiceImpl(
+            IPermissionService permissionService,
+            IUserRoleService userRoleService,
+            IRolePermissionService rolePermissionService) {
+        this.permissionService = permissionService;
+        this.userRoleService = userRoleService;
+        this.rolePermissionService = rolePermissionService;
+    }
 
     @Override
     public RestObject<List<JSONObject>> queryReferences(String userId) {
@@ -68,8 +74,11 @@ public class CommonServiceImpl implements CommonService {
                 final String reference = permission.getReference();
                 final String name = permission.getName();
 
-                // 采用HashMap去重
-                referenceMap.put(reference, name);
+                // 新增未锁定条件
+                if (permission.getLocked() == 0) {
+                    // 采用HashMap去重
+                    referenceMap.put(reference, name);
+                }
             }
         }
         for (String s : referenceMap.keySet()) {

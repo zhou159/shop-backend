@@ -1,6 +1,7 @@
 package com.zhou.shop.apply.controller.admin;
 
 import cn.dev33.satoken.annotation.SaCheckRole;
+import com.zhou.shop.api.dto.PermissionDTO;
 import com.zhou.shop.api.entity.user.Permission;
 import com.zhou.shop.api.vo.admin.PermissionAddVO;
 import com.zhou.shop.apiServer.service.admin.IPermissionService;
@@ -31,7 +32,7 @@ public class PermissionController {
 
     @ApiOperation("查询所有权限")
     @GetMapping("/retrieveAllPermission")
-    public RestObject<List<Permission>> retrieveAllPermission() {
+    public RestObject<List<PermissionDTO>> retrieveAllPermission() {
         return permissionService.retrieveAllPermission();
     }
 
@@ -48,9 +49,9 @@ public class PermissionController {
     }
 
     @ApiOperation("解锁权限")
-    @GetMapping("/unlLockPermission/{permissionId}")
+    @GetMapping("/unLockPermission/{permissionId}")
     public RestObject<String> unlLockPermission(@PathVariable("permissionId") String permissionId) {
-        return permissionService.unlLockPermission(permissionId);
+        return permissionService.unLockPermission(permissionId);
     }
 
     @ApiOperation("新增权限")

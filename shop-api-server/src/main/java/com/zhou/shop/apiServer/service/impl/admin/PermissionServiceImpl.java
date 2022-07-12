@@ -2,15 +2,20 @@ package com.zhou.shop.apiServer.service.impl.admin;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhou.shop.api.dto.PermissionDTO;
 import com.zhou.shop.api.entity.user.Permission;
 import com.zhou.shop.api.entity.user.RolePermission;
+import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.api.vo.admin.PermissionAddVO;
 import com.zhou.shop.apiServer.mapper.admin.PermissionMapper;
 import com.zhou.shop.apiServer.mapper.admin.RolePermissionMapper;
+import com.zhou.shop.apiServer.mapper.user.UserMapper;
 import com.zhou.shop.apiServer.service.admin.IPermissionService;
+import com.zhou.shop.common.BaseConstant;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.common.exception.ShopException;
@@ -34,17 +39,39 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     private final PermissionMapper permissionMapper;
     private final RolePermissionMapper rolePermissionMapper;
+    private final UserMapper userMapper;
+
+    private static final String PERMISSION_UNLOCKED = BaseConstant.ZERO_STR;
+    private static final String PERMISSION_LOCKED = BaseConstant.ONE_STR;
 
     public PermissionServiceImpl(
-            PermissionMapper permissionMapper, RolePermissionMapper rolePermissionMapper) {
+            PermissionMapper permissionMapper,
+            RolePermissionMapper rolePermissionMapper,
+            UserMapper userMapper) {
         this.permissionMapper = permissionMapper;
         this.rolePermissionMapper = rolePermissionMapper;
+        this.userMapper = userMapper;
     }
 
     @Override
-    public RestObject<List<Permission>> retrieveAllPermission() {
-        // 暂时选择查询全部
-        return RestResponse.makeOkRsp(permissionMapper.selectList(null));
+    public RestObject<List<PermissionDTO>> retrieveAllPermission() {
+        List<PermissionDTO> permissionDTOList = new ArrayList<>();
+        List<Permission> permissions = permissionMapper.selectList(null);
+        for (Permission permission : permissions) {
+
+            PermissionDTO permissionDTO = new PermissionDTO();
+            BeanUtils.copyProperties(permission, permissionDTO);
+            if (StrUtil.isNotEmpty(permission.getLockedBy())) {
+                User user =
+                        userMapper.selectOne(
+                                new LambdaQueryWrapper<User>()
+                                        .eq(User::getUserId, permission.getLockedBy()));
+                permissionDTO.setLockedByName(user.getUsername());
+            }
+            permissionDTOList.add(permissionDTO);
+        }
+        // 查询全部未锁定全权限
+        return RestResponse.makeOkRsp(permissionDTOList);
     }
 
     @Override
@@ -60,21 +87,23 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
                         null,
                         new LambdaUpdateWrapper<Permission>()
                                 .eq(Permission::getPermissionId, permissionId)
-                                .set(Permission::getLocked, "1")
+                                // 将权限管理排除
+                                .ne(Permission::getPermissionId, "10")
+                                .set(Permission::getLocked, PERMISSION_LOCKED)
                                 .set(Permission::getLockedBy, StpUtil.getLoginId())
                                 .set(Permission::getLockedTime, LocalDateTime.now()));
         return update > 0 ? RestResponse.makeOkRsp("锁定成功！") : RestResponse.makeErrRsp("锁定失败！");
     }
 
     @Override
-    public RestObject<String> unlLockPermission(String permissionId) {
+    public RestObject<String> unLockPermission(String permissionId) {
         int update =
                 permissionMapper.update(
                         null,
                         new LambdaUpdateWrapper<Permission>()
                                 .eq(Permission::getPermissionId, permissionId)
-                                .eq(Permission::getLocked, "1")
-                                .set(Permission::getLocked, "0")
+                                .eq(Permission::getLocked, PERMISSION_LOCKED)
+                                .set(Permission::getLocked, PERMISSION_UNLOCKED)
                                 .set(Permission::getLockedBy, null)
                                 .set(Permission::getLockedTime, null));
         return update > 0 ? RestResponse.makeOkRsp("解锁成功！") : RestResponse.makeErrRsp("解锁失败！");
@@ -111,7 +140,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Override
     public RestObject<String> deletePermission(String permissionId) {
-        //暂时未作其他判断，直接逻辑删除。
+        // 暂时未作其他判断，直接逻辑删除。
         int delete =
                 permissionMapper.delete(
                         new LambdaQueryWrapper<Permission>()

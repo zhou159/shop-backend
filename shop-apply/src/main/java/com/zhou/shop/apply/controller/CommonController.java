@@ -38,7 +38,11 @@ public class CommonController {
     private final RedisUtil redisUtil;
     private final CommonService commonService;
 
-    public CommonController(MinioUtil minioUtil, RedisUtil redisUtil, RedisUtil redisUtil1, CommonService commonService) {
+    public CommonController(
+            MinioUtil minioUtil,
+            RedisUtil redisUtil,
+            RedisUtil redisUtil1,
+            CommonService commonService) {
         this.minioUtil = minioUtil;
         this.redisUtil = redisUtil1;
         this.commonService = commonService;
@@ -56,13 +60,11 @@ public class CommonController {
         return commonService.queryReferences(userId);
     }
 
-    @Autowired
-    private WebApplicationContext applicationContext;
-
-
+    @Autowired private WebApplicationContext applicationContext;
 
     public List getAllUrl() {
-        RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+        RequestMappingHandlerMapping mapping =
+                applicationContext.getBean(RequestMappingHandlerMapping.class);
         // 获取url与类和方法的对应信息
         Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
 
@@ -71,14 +73,14 @@ public class CommonController {
             Map<String, String> map1 = new HashMap<String, String>();
             RequestMappingInfo info = m.getKey();
             HandlerMethod method = m.getValue();
-            //获取当前方法所在类名
+            // 获取当前方法所在类名
             Class<?> bean = method.getBeanType();
-            //使用反射获取当前类注解内容
+            // 使用反射获取当前类注解内容
             Api api = bean.getAnnotation(Api.class);
             RequestMapping requestMapping = bean.getAnnotation(RequestMapping.class);
             String[] value = requestMapping.value();
-            map1.put("parent",value[0]);
-            //获取方法上注解以及注解值
+            map1.put("parent", value[0]);
+            // 获取方法上注解以及注解值
             ApiOperation methodAnnotation = method.getMethodAnnotation(ApiOperation.class);
             String privilegeName = methodAnnotation.notes();
             PatternsRequestCondition p = info.getPatternsCondition();
@@ -101,7 +103,8 @@ public class CommonController {
 
     @ApiOperation("test")
     @PostMapping("/test")
-    public RestObject<String> test(@RequestPart("file")MultipartFile file, @RequestPart("flag") Flag flag){
+    public RestObject<String> test(
+            @RequestPart("file") MultipartFile file, @RequestPart("flag") Flag flag) {
         final String item = uploadFile(file, "item");
         System.out.println(item);
         System.out.println(flag.toString());
@@ -110,12 +113,11 @@ public class CommonController {
 
     @ApiOperation("test")
     @GetMapping("/redisTest")
-    public void RedisTest(){
-        redisUtil.set("1","1");
+    public void RedisTest() {
+        redisUtil.set("1", "1");
     }
 
-    private String uploadFile(MultipartFile file,String folderName){
+    private String uploadFile(MultipartFile file, String folderName) {
         return minioUtil.upload(file, folderName);
     }
-
 }

@@ -1,6 +1,7 @@
 package com.zhou.shop.apiServer.service.admin;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhou.shop.api.dto.PermissionDTO;
 import com.zhou.shop.api.entity.user.Permission;
 import com.zhou.shop.api.vo.admin.PermissionAddVO;
 import com.zhou.shop.common.RestObject;
@@ -19,7 +20,7 @@ public interface IPermissionService extends IService<Permission> {
      *
      * @return 权限集合
      */
-    RestObject<List<Permission>> retrieveAllPermission();
+    RestObject<List<PermissionDTO>> retrieveAllPermission();
 
     /**
      * 修改权限
@@ -43,7 +44,7 @@ public interface IPermissionService extends IService<Permission> {
      * @param permissionId 权限id
      * @return 解锁成功与否
      */
-    RestObject<String> unlLockPermission(String permissionId);
+    RestObject<String> unLockPermission(String permissionId);
 
     /**
      * 新增权限

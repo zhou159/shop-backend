@@ -2,15 +2,11 @@ package com.zhou.shop.oss.minio;
 
 import com.zhou.shop.common.exception.FileErrorException;
 import io.minio.*;
-import io.minio.errors.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -39,14 +35,6 @@ public class MinioUtil {
                             .build();
         }
         return minioClient;
-    }
-
-    public static void main(String[] args) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        MinioClient minioClient = MinioClient.builder()
-                .endpoint("http://114.116.11.39:9090")
-                .credentials("admin", "13551420591")
-                .build();
-        minioClient.bucketExists(BucketExistsArgs.builder().bucket("shop").build());
     }
 
     /** 检测桶是否存在 */
