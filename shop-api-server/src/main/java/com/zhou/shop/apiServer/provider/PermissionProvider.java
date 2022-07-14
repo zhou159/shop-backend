@@ -27,7 +27,7 @@ public class PermissionProvider {
                         + "LEFT JOIN\n"
                         + "\t`user` AS u \n"
                         + "ON p.lockedBy = u.user_id \n"
-                        + "where p.deleted = 0\na");
+                        + "where p.deleted = 0\n");
         if (StrUtil.isNotBlank(permission.getReference())) {
             sql.append("and p.reference like '%").append(permission.getReference()).append("%'");
         }
