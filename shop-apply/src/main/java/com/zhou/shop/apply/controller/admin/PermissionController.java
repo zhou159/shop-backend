@@ -65,4 +65,10 @@ public class PermissionController {
     public RestObject<String> deletePermission(@PathVariable("permissionId") String permissionId) {
         return permissionService.deletePermission(permissionId);
     }
+
+    @ApiOperation("条件查询权限")
+    @PostMapping("/searchPermission")
+    public RestObject<List<PermissionDTO>> searchPermission(@RequestBody Permission permission) {
+        return permissionService.searchPermission(permission);
+    }
 }

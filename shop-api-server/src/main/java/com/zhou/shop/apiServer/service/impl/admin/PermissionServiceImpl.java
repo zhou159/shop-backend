@@ -147,4 +147,11 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
                                 .eq(Permission::getPermissionId, permissionId));
         return delete > 0 ? RestResponse.makeOkRsp("删除成功！") : RestResponse.makeErrRsp("删除失败！");
     }
+
+    @Override
+    public RestObject<List<PermissionDTO>> searchPermission(Permission permission) {
+        return RestResponse.makeOkRsp(permissionMapper.queryPermission(permission));
+    }
+
+
 }

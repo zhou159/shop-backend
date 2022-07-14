@@ -60,4 +60,11 @@ public interface IPermissionService extends IService<Permission> {
      * @return 信息
      */
     RestObject<String> deletePermission(String permissionId);
+
+    /**
+     * 按条件查询权限
+     * @param permission 权限实体
+     * @return 权限信息集合
+     */
+    RestObject<List<PermissionDTO>> searchPermission(Permission permission);
 }
