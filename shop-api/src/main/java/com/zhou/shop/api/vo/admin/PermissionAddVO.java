@@ -3,6 +3,8 @@ package com.zhou.shop.api.vo.admin;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,15 +17,18 @@ import java.util.List;
 public class PermissionAddVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @NotBlank(message = "前端索引不能为空")
     @ApiModelProperty("前端索引")
     private String reference;
 
+    @NotBlank(message = "权限名不能为空")
     @ApiModelProperty("权限名")
     private String name;
 
     @ApiModelProperty("权限介绍")
     private String description;
 
+    @NotEmpty(message = "使用角色不能为空")
     @ApiModelProperty("角色id")
     private List<String> roleIds;
 
