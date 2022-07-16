@@ -5,12 +5,14 @@ import com.zhou.shop.api.dto.PermissionDTO;
 import com.zhou.shop.api.entity.user.Permission;
 import com.zhou.shop.api.vo.admin.PermissionAddVO;
 import com.zhou.shop.apiServer.service.admin.IPermissionService;
+import com.zhou.shop.apply.annotations.RequestLimit;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 权限和功能菜单目前暂时混为一谈
@@ -54,6 +56,7 @@ public class PermissionController {
         return permissionService.unLockPermission(permissionId);
     }
 
+    @RequestLimit
     @ApiOperation("新增权限")
     @PostMapping("/createPermission")
     public RestObject<String> createPermission(@RequestBody PermissionAddVO permissionAddVO) {
