@@ -1,15 +1,14 @@
 package com.zhou.shop.apply.aop;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.zhou.shop.apply.annotations.RequestLimit;
 import com.zhou.shop.common.exception.ShopException;
 import com.zhou.shop.oss.redis.RedisUtil;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -17,8 +16,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
-import java.util.Date;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,8 +31,6 @@ public class MyLogAspect {
 
     @Autowired
     RedisUtil redisUtil;
-
-    private final ConcurrentHashMap<HttpSession, String> sessionMap = new ConcurrentHashMap<>();
 
     @Pointcut("@annotation(com.zhou.shop.apply.annotations.RequestLimit)")
     public void limitCut() {
@@ -75,33 +70,33 @@ public class MyLogAspect {
     /**
      * 后置通知
      */
-    @After("limitCut()")
-    public void afterAdvice(JoinPoint joinPoint) {
-
-    }
-
-    /**
-     * 返回通知
-     */
-    @AfterReturning(value = "limitCut()", returning = "keys")
-    public void afterReturnAdvice(JoinPoint joinPoint, Object keys) {
-
-    }
-
-    /**
-     * 环绕通知
-     */
-    //@Around("limitCut()") // 引用切点
-    public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
-        // 执行方法
-        return joinPoint.proceed();
-    }
-
-    /**
-     * 异常通知
-     */
-    @AfterThrowing(value = "limitCut()", throwing = "ex")
-    public void afterThrowingAdvice(JoinPoint joinPoint, Exception ex) {
-
-    }
+//    @After("limitCut()")
+//    public void afterAdvice(JoinPoint joinPoint) {
+//
+//    }
+//
+//    /**
+//     * 返回通知
+//     */
+//    @AfterReturning(value = "limitCut()", returning = "keys")
+//    public void afterReturnAdvice(JoinPoint joinPoint, Object keys) {
+//
+//    }
+//
+//    /**
+//     * 环绕通知
+//     */
+//    //@Around("limitCut()") // 引用切点
+//    public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
+//        // 执行方法
+//        return joinPoint.proceed();
+//    }
+//
+//    /**
+//     * 异常通知
+//     */
+//    @AfterThrowing(value = "limitCut()", throwing = "ex")
+//    public void afterThrowingAdvice(JoinPoint joinPoint, Exception ex) {
+//
+//    }
 }
