@@ -27,11 +27,11 @@ public class PubCodeServiceImpl extends ServiceImpl<PubCodeMapper, PubCode>
     }
 
     @Override
-    public RestObject<List<PubCode>> retrieveSitcomByClassId(String pubCodeClassId) {
+    public RestObject<List<PubCode>> retrieveSitcomByTypeId(String pubCodeClassId) {
         return RestResponse.makeOkRsp(
                 pubCodeMapper.selectList(
                         new LambdaQueryWrapper<PubCode>()
-                                .eq(PubCode::getPubCodeClassId, pubCodeClassId)));
+                                .eq(PubCode::getPubCodeTypeId, pubCodeClassId)));
     }
 
     @Override

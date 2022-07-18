@@ -1,13 +1,11 @@
 package com.zhou.shop.api.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -29,24 +27,43 @@ public class PubCode implements Serializable {
     private String pubCodeName;
 
     @ApiModelProperty("码表类型")
-    @TableField("pub_code_class_id")
-    private String pubCodeClassId;
+    @TableField("pub_code_type_id")
+    private String pubCodeTypeId;
 
     @ApiModelProperty("码表说明")
     @TableField("pub_code_description")
     private String pubCodeDescription;
+
+    @ApiModelProperty("码表创建时间")
+    @TableField("pub_code_create_time")
+    private LocalDateTime pubCodeCreateTime;
+
+    @ApiModelProperty("码表更新时间")
+    @TableField("pub_code_update_time")
+    private LocalDateTime pubCodeUpdateTime;
+
+    @ApiModelProperty("逻辑删除")
+    @TableField("deleted")
+    @TableLogic
+    private Integer deleted;
 
     public PubCode() {}
 
     public PubCode(
             String pubCodeId,
             String pubCodeName,
-            String pubCodeClassId,
-            String pubCodeDescription) {
+            String pubCodeTypeId,
+            String pubCodeDescription,
+            LocalDateTime pubCodeCreateTime,
+            LocalDateTime pubCodeUpdateTime,
+            Integer deleted) {
         this.pubCodeId = pubCodeId;
         this.pubCodeName = pubCodeName;
-        this.pubCodeClassId = pubCodeClassId;
+        this.pubCodeTypeId = pubCodeTypeId;
         this.pubCodeDescription = pubCodeDescription;
+        this.pubCodeCreateTime = pubCodeCreateTime;
+        this.pubCodeUpdateTime = pubCodeUpdateTime;
+        this.deleted = deleted;
     }
 
     public String getPubCodeId() {
@@ -65,12 +82,12 @@ public class PubCode implements Serializable {
         this.pubCodeName = pubCodeName;
     }
 
-    public String getPubCodeClassId() {
-        return pubCodeClassId;
+    public String getPubCodeTypeId() {
+        return pubCodeTypeId;
     }
 
-    public void setPubCodeClassId(String pubCodeClassId) {
-        this.pubCodeClassId = pubCodeClassId;
+    public void setPubCodeTypeId(String pubCodeTypeId) {
+        this.pubCodeTypeId = pubCodeTypeId;
     }
 
     public String getPubCodeDescription() {
@@ -79,6 +96,30 @@ public class PubCode implements Serializable {
 
     public void setPubCodeDescription(String pubCodeDescription) {
         this.pubCodeDescription = pubCodeDescription;
+    }
+
+    public LocalDateTime getPubCodeCreateTime() {
+        return pubCodeCreateTime;
+    }
+
+    public void setPubCodeCreateTime(LocalDateTime pubCodeCreateTime) {
+        this.pubCodeCreateTime = pubCodeCreateTime;
+    }
+
+    public LocalDateTime getPubCodeUpdateTime() {
+        return pubCodeUpdateTime;
+    }
+
+    public void setPubCodeUpdateTime(LocalDateTime pubCodeUpdateTime) {
+        this.pubCodeUpdateTime = pubCodeUpdateTime;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -90,12 +131,18 @@ public class PubCode implements Serializable {
                 + ", pubCodeName='"
                 + pubCodeName
                 + '\''
-                + ", pubCodeClassId='"
-                + pubCodeClassId
+                + ", pubCodeTypeId='"
+                + pubCodeTypeId
                 + '\''
                 + ", pubCodeDescription='"
                 + pubCodeDescription
                 + '\''
+                + ", pubCodeCreateTime="
+                + pubCodeCreateTime
+                + ", pubCodeUpdateTime="
+                + pubCodeUpdateTime
+                + ", deleted="
+                + deleted
                 + '}';
     }
 }

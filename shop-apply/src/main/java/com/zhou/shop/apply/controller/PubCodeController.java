@@ -27,9 +27,9 @@ public class PubCodeController {
     }
 
     @ApiOperation("根据类别获取码表")
-    @GetMapping("/retrieveSitcomByClassId/{pubCodeClassId}")
-    public RestObject<List<PubCode>> retrieveSitcomByClassId(@PathVariable String pubCodeClassId) {
-        return ipubCodeService.retrieveSitcomByClassId(pubCodeClassId);
+    @GetMapping("/retrieveSitcomByClassId/{pubCodeTypeId}")
+    public RestObject<List<PubCode>> retrieveSitcomByClassId(@PathVariable String pubCodeTypeId) {
+        return ipubCodeService.retrieveSitcomByTypeId(pubCodeTypeId);
     }
 
     @SaCheckRole("superAdmin")
