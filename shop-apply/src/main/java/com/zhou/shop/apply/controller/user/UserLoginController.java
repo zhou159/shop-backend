@@ -1,5 +1,6 @@
 package com.zhou.shop.apply.controller.user;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.Snowflake;
 import com.zhou.shop.api.dto.UserLoginDTO;
@@ -84,5 +85,13 @@ public class UserLoginController {
     @PostMapping("/modifyPassword")
     public RestObject<String> modifyPassword(@Valid @RequestBody UserModifyPasswordVO userModifyPasswordVO) {
         return userLoginService.modifyPassword(userModifyPasswordVO);
+    }
+
+    @ApiOperation(value = "获取token")
+    @GetMapping("/getToken")
+    public RestObject<String> getToken() {
+        SaTokenInfo tokenValue = StpUtil.getTokenInfo();
+        System.out.println(tokenValue.toString());
+        return RestResponse.makeOkRsp((String) tokenValue.getLoginId());
     }
 }
