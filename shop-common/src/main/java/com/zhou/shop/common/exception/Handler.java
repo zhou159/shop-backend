@@ -118,7 +118,7 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerNotLoginException(NotLoginException e) {
         logger.error("登录异常：{}",e.getMessage());
-        return RestResponse.errRsp(407, "Login Error!", e.getMessage());
+        return RestResponse.errRsp(407, "Login Error!", "登录信息失效，请重新登录！");
     }
 
     @ExceptionHandler(NotRoleException.class) // 就是定义处理什么异常

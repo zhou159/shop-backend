@@ -18,5 +18,28 @@ public interface IPubCodeTypeService extends IService<PubCodeType> {
      */
     RestObject<List<PubCodeType>> getAllPubCodeType();
 
+    /**
+     * 新增码表类别信息
+     * @param pubCodeType 实体对象
+     * @return 信息
+     */
     RestObject<String> createPubCodeType(PubCodeType pubCodeType);
+
+    /**
+     * 更新码表类别信息
+     * @return 信息
+     */
+    RestObject<String> updatePubCodeType(PubCodeType pubCodeType);
+
+    /**
+     * 删除码表信息
+     * @return 信息
+     */
+    RestObject<String> deletePubCodeType(PubCodeType pubCodeType);
+
+    /**
+     * 修改码表类别状态
+     * @return 信息
+     */
+    RestObject<String> updateStatus(String pubCodeTypeId, Integer status);
 }
