@@ -118,7 +118,7 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerNotLoginException(NotLoginException e) {
         logger.error("登录异常：{}",e.getMessage());
-        return RestResponse.errRsp(500, "Login Error!", e.getMessage());
+        return RestResponse.errRsp(407, "Login Error!", e.getMessage());
     }
 
     @ExceptionHandler(NotRoleException.class) // 就是定义处理什么异常
@@ -126,7 +126,7 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerNotRoleException(NotRoleException e) {
         logger.error("账号没有赋予此角色：{}",e.getRole());
-        return RestResponse.errRsp(500, "Role Error!", "权限不足!");
+        return RestResponse.errRsp(408, "Role Error!", "权限不足!");
     }
 
     @ExceptionHandler(NotPermissionException.class) // 就是定义处理什么异常
@@ -134,7 +134,7 @@ public class Handler {
     @ResponseStatus(HttpStatus.OK) // 服务器的异常
     public RestObject<String> handlerNotPermissionException(NotPermissionException e) {
         logger.error("账号没有赋予此权限：{}",e.getPermission());
-        return RestResponse.errRsp(500, "Permission Error!", "权限不足!");
+        return RestResponse.errRsp(409, "Permission Error!", "权限不足!");
     }
 
     @ExceptionHandler(CheckCodeErrorException.class) // 就是定义处理什么异常
