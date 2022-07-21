@@ -1,6 +1,7 @@
 package com.zhou.shop.api.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -36,10 +37,12 @@ public class PubCode implements Serializable {
 
     @ApiModelProperty("码表创建时间")
     @TableField("pub_code_create_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime pubCodeCreateTime;
 
     @ApiModelProperty("码表更新时间")
     @TableField("pub_code_update_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime pubCodeUpdateTime;
 
     @ApiModelProperty("逻辑删除")

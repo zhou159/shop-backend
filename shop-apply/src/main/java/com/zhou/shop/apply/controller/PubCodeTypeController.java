@@ -1,6 +1,7 @@
 package com.zhou.shop.apply.controller;
 
 import cn.dev33.satoken.annotation.SaCheckRole;
+import com.zhou.shop.api.entity.PubCode;
 import com.zhou.shop.api.entity.PubCodeType;
 import com.zhou.shop.apiServer.service.IPubCodeTypeService;
 import com.zhou.shop.common.RestObject;
@@ -54,5 +55,11 @@ public class PubCodeTypeController {
     @GetMapping("/updatePubCodeTypeStatus")
     public RestObject<String> updatePubCodeTypeStatus(String pubCodeTypeId, Integer status){
         return pubCodeTypeService.updateStatus(pubCodeTypeId,status);
+    }
+
+    @ApiOperation("根据码表类别查询码表")
+    @GetMapping("/retrievePubCodeByType")
+    public RestObject<List<PubCode>> retrievePubCodeByType(String pubCodeTypeId){
+        return pubCodeTypeService.retrievePubCodeByTypeId(pubCodeTypeId);
     }
 }

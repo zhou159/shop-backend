@@ -1,14 +1,15 @@
 package com.zhou.shop.apiServer.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.entity.PubCode;
 import com.zhou.shop.apiServer.mapper.PubCodeMapper;
+import com.zhou.shop.apiServer.mapper.PubCodeTypeMapper;
 import com.zhou.shop.apiServer.service.IPubCodeService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,17 +22,28 @@ public class PubCodeServiceImpl extends ServiceImpl<PubCodeMapper, PubCode>
         implements IPubCodeService {
 
     private final PubCodeMapper pubCodeMapper;
+    private final PubCodeTypeMapper pubCodeTypeMapper;
 
-    public PubCodeServiceImpl(PubCodeMapper pubCodeMapper) {
+    public PubCodeServiceImpl(PubCodeMapper pubCodeMapper, PubCodeTypeMapper pubCodeTypeMapper) {
         this.pubCodeMapper = pubCodeMapper;
+        this.pubCodeTypeMapper = pubCodeTypeMapper;
     }
 
     @Override
-    public RestObject<List<PubCode>> retrieveSitcomByTypeId(String pubCodeClassId) {
-        return RestResponse.makeOkRsp(
-                pubCodeMapper.selectList(
-                        new LambdaQueryWrapper<PubCode>()
-                                .eq(PubCode::getPubCodeTypeId, pubCodeClassId)));
+    public RestObject<List<PubCode>> retrievePubCodeByType(String pubCodeType) {
+//        return RestResponse.makeOkRsp(
+//                pubCodeMapper.selectList(
+//                        new LambdaQueryWrapper<PubCode>()
+//                                .eq(
+//                                        PubCode::getPubCodeTypeId,
+//                                        pubCodeTypeMapper
+//                                                .selectOne(
+//                                                        new LambdaQueryWrapper<PubCodeType>()
+//                                                                .eq(
+//                                                                        PubCodeType::getPubCodeType,
+//                                                                        pubCodeType))
+//                                                .getId())));
+        return RestResponse.makeOkRsp(pubCodeMapper.queryByPubCode(pubCodeType));
     }
 
     @Override
@@ -41,6 +53,7 @@ public class PubCodeServiceImpl extends ServiceImpl<PubCodeMapper, PubCode>
 
     @Override
     public RestObject<String> createPubCode(PubCode pubCode) {
+        pubCode.setPubCodeCreateTime(LocalDateTime.now());
         int insert = pubCodeMapper.insert(pubCode);
         return insert > 0 ? RestResponse.makeOkRsp("新增成功！") : RestResponse.makeErrRsp("新增失败！");
     }

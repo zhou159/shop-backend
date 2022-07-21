@@ -3,6 +3,7 @@ package com.zhou.shop.apply.controller.admin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.dto.PermissionDTO;
 import com.zhou.shop.api.entity.user.Permission;
+import com.zhou.shop.api.entity.user.Role;
 import com.zhou.shop.api.vo.admin.PermissionAddVO;
 import com.zhou.shop.apiServer.service.admin.IPermissionService;
 import com.zhou.shop.apply.annotations.RequestLimit;
@@ -12,7 +13,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 权限和功能菜单目前暂时混为一谈
@@ -73,5 +73,11 @@ public class PermissionController {
     @PostMapping("/searchPermission")
     public RestObject<List<PermissionDTO>> searchPermission(@RequestBody Permission permission) {
         return permissionService.searchPermission(permission);
+    }
+
+    @ApiOperation("根据权限id查询角色列表")
+    @GetMapping("/queryRolesByPermissionId/{permissionId}")
+    public RestObject<List<Role>> queryRolesByPermissionId(@PathVariable String permissionId) {
+        return permissionService.queryRolesByPermissionId(permissionId);
     }
 }

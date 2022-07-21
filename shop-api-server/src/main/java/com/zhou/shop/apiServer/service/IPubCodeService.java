@@ -15,10 +15,10 @@ public interface IPubCodeService extends IService<PubCode> {
     /**
      * 根据classId查询
      *
-     * @param pubCodeClassId 类别代码
+     * @param pubCodeType 类别代码
      * @return 根据类别代码查询出的码表集合
      */
-    RestObject<List<PubCode>> retrieveSitcomByTypeId(String pubCodeClassId);
+    RestObject<List<PubCode>> retrievePubCodeByType(String pubCodeType);
 
     /**
      * 查询所有码表

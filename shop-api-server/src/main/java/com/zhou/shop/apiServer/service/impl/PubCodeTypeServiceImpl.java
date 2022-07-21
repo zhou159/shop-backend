@@ -1,8 +1,11 @@
 package com.zhou.shop.apiServer.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhou.shop.api.entity.PubCode;
 import com.zhou.shop.api.entity.PubCodeType;
+import com.zhou.shop.apiServer.mapper.PubCodeMapper;
 import com.zhou.shop.apiServer.mapper.PubCodeTypeMapper;
 import com.zhou.shop.apiServer.service.IPubCodeTypeService;
 import com.zhou.shop.common.RestObject;
@@ -19,12 +22,16 @@ import java.util.List;
  * @since 2022/7/18 15:24
  */
 @Service
-public class PubCodeTypeServiceImpl extends ServiceImpl<PubCodeTypeMapper, PubCodeType> implements IPubCodeTypeService {
+public class PubCodeTypeServiceImpl extends ServiceImpl<PubCodeTypeMapper, PubCodeType>
+        implements IPubCodeTypeService {
 
     private final PubCodeTypeMapper pubCodeTypeMapper;
+    private final PubCodeMapper pubCodeMapper;
 
-    public PubCodeTypeServiceImpl(PubCodeTypeMapper pubCodeTypeMapper) {
+    public PubCodeTypeServiceImpl(
+            PubCodeTypeMapper pubCodeTypeMapper, PubCodeMapper pubCodeMapper) {
         this.pubCodeTypeMapper = pubCodeTypeMapper;
+        this.pubCodeMapper = pubCodeMapper;
     }
 
     @Override
@@ -58,7 +65,28 @@ public class PubCodeTypeServiceImpl extends ServiceImpl<PubCodeTypeMapper, PubCo
 
     @Override
     public RestObject<String> updateStatus(String pubCodeTypeId, Integer status) {
-        int update = pubCodeTypeMapper.update(null, new LambdaUpdateWrapper<PubCodeType>().eq(PubCodeType::getId, pubCodeTypeId).set(PubCodeType::getTypeStatus, status));
+        int update =
+                pubCodeTypeMapper.update(
+                        null,
+                        new LambdaUpdateWrapper<PubCodeType>()
+                                .eq(PubCodeType::getId, pubCodeTypeId)
+                                .set(PubCodeType::getTypeStatus, status));
         return update > 0 ? RestResponse.makeOkRsp("修改成功！") : RestResponse.makeErrRsp("修改失败！");
+    }
+
+    @Override
+    public RestObject<List<PubCode>> retrievePubCodeByTypeId(String pubCodeType) {
+        List<PubCode> pubCodeList = pubCodeMapper.selectList(
+                new LambdaQueryWrapper<PubCode>()
+                        .eq(
+                                PubCode::getPubCodeTypeId,
+                                pubCodeTypeMapper
+                                        .selectOne(
+                                                new LambdaQueryWrapper<PubCodeType>()
+                                                        .eq(
+                                                                PubCodeType::getPubCodeType,
+                                                                pubCodeType))
+                                        .getId()));
+        return RestResponse.makeOkRsp(pubCodeList);
     }
 }

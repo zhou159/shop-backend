@@ -1,6 +1,7 @@
 package com.zhou.shop.apiServer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhou.shop.api.entity.PubCode;
 import com.zhou.shop.api.entity.PubCodeType;
 import com.zhou.shop.common.RestObject;
 
@@ -42,4 +43,11 @@ public interface IPubCodeTypeService extends IService<PubCodeType> {
      * @return 信息
      */
     RestObject<String> updateStatus(String pubCodeTypeId, Integer status);
+
+    /**
+     * 根据码表类别查询码表
+     * @param pubCodeType 类别
+     * @return 码表集合
+     */
+    RestObject<List<PubCode>> retrievePubCodeByTypeId(String pubCodeType);
 }

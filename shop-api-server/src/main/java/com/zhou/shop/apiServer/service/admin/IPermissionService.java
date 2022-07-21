@@ -3,6 +3,7 @@ package com.zhou.shop.apiServer.service.admin;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.dto.PermissionDTO;
 import com.zhou.shop.api.entity.user.Permission;
+import com.zhou.shop.api.entity.user.Role;
 import com.zhou.shop.api.vo.admin.PermissionAddVO;
 import com.zhou.shop.common.RestObject;
 
@@ -67,4 +68,11 @@ public interface IPermissionService extends IService<Permission> {
      * @return 权限信息集合
      */
     RestObject<List<PermissionDTO>> searchPermission(Permission permission);
+
+    /**
+     * 根据权限id查询角色列表
+     * @param permissionId 权限id
+     * @return 角色集合
+     */
+    RestObject<List<Role>> queryRolesByPermissionId(String permissionId);
 }

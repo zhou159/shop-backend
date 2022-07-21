@@ -8,10 +8,12 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.PermissionDTO;
 import com.zhou.shop.api.entity.user.Permission;
+import com.zhou.shop.api.entity.user.Role;
 import com.zhou.shop.api.entity.user.RolePermission;
 import com.zhou.shop.api.entity.user.User;
 import com.zhou.shop.api.vo.admin.PermissionAddVO;
 import com.zhou.shop.apiServer.mapper.admin.PermissionMapper;
+import com.zhou.shop.apiServer.mapper.admin.RoleMapper;
 import com.zhou.shop.apiServer.mapper.admin.RolePermissionMapper;
 import com.zhou.shop.apiServer.mapper.user.UserMapper;
 import com.zhou.shop.apiServer.service.admin.IPermissionService;
@@ -40,6 +42,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     private final PermissionMapper permissionMapper;
     private final RolePermissionMapper rolePermissionMapper;
     private final UserMapper userMapper;
+    private final RoleMapper roleMapper;
 
     private static final String PERMISSION_UNLOCKED = BaseConstant.ZERO_STR;
     private static final String PERMISSION_LOCKED = BaseConstant.ONE_STR;
@@ -47,10 +50,12 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     public PermissionServiceImpl(
             PermissionMapper permissionMapper,
             RolePermissionMapper rolePermissionMapper,
-            UserMapper userMapper) {
+            UserMapper userMapper,
+            RoleMapper roleMapper) {
         this.permissionMapper = permissionMapper;
         this.rolePermissionMapper = rolePermissionMapper;
         this.userMapper = userMapper;
+        this.roleMapper = roleMapper;
     }
 
     @Override
@@ -153,5 +158,25 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         return RestResponse.makeOkRsp(permissionMapper.queryPermission(permission));
     }
 
+    @Override
+    public RestObject<List<Role>> queryRolesByPermissionId(String permissionId) {
+        ArrayList<Role> roleList = new ArrayList<>();
+        // 根据权限id查询出角色权限列表
 
+        rolePermissionMapper
+                .selectList(
+                        new LambdaQueryWrapper<RolePermission>()
+                                .eq(RolePermission::getPermissionId, permissionId))
+                .forEach(
+                        rolePermission -> {
+                            Role role =
+                                    roleMapper.selectOne(
+                                            new LambdaQueryWrapper<Role>()
+                                                    .eq(
+                                                            Role::getRoleId,
+                                                            rolePermission.getRoleId()));
+                            roleList.add(role);
+                        });
+        return RestResponse.makeOkRsp(roleList);
+    }
 }
