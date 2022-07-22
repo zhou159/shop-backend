@@ -38,7 +38,7 @@ public class RolePermissionController {
 
     @ApiOperation("新增角色权限关联")
     @PostMapping("/addRolePermission")
-    public RestObject<String> addRolePermission(String rolePermissionId,String roleId) {
+    public RestObject<String> addRolePermission(String rolePermissionId, String roleId) {
         return rolePermissionService.addRolePermission(rolePermissionId,roleId);
     }
 }

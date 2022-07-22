@@ -7,6 +7,7 @@ import com.zhou.shop.apiServer.mapper.admin.RolePermissionMapper;
 import com.zhou.shop.apiServer.service.admin.IRolePermissionService;
 import com.zhou.shop.common.RestObject;
 import com.zhou.shop.common.RestResponse;
+import com.zhou.shop.common.exception.ShopException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -42,8 +43,17 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionMapper,
 
     @Override
     public RestObject<String> addRolePermission(String permissionId, String roleId) {
-        int insert = rolePermissionMapper.insert(
-                new RolePermission().setPermissionId(permissionId).setRoleId(roleId));
+        Long aLong =
+                rolePermissionMapper.selectCount(
+                        new LambdaQueryWrapper<RolePermission>()
+                                .eq(RolePermission::getPermissionId, permissionId)
+                                .eq(RolePermission::getRoleId, roleId));
+        if(aLong > 0){
+            throw new ShopException("该权限下该角色已存在，请勿重复操作！");
+        }
+        int insert =
+                rolePermissionMapper.insert(
+                        new RolePermission().setPermissionId(permissionId).setRoleId(roleId));
         return insert > 0 ? RestResponse.makeOkRsp("添加成功！") : RestResponse.makeErrRsp("添加失败！");
     }
 }
