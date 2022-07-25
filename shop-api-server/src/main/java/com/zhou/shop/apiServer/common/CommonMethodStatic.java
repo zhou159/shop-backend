@@ -19,37 +19,41 @@ import java.net.URLConnection;
  * @since 2022/6/29 16:27
  */
 public class CommonMethodStatic {
+
     /**
      * 验证对象是否为空
+     *
      * @param object 对象
      * @param message 如非空则抛出的异常信息
      */
-    public static void checkObjectNull(Object object, String message){
-        if(!ObjectUtils.isEmpty(object)){
+    public static void checkObjectNull(Object object, String message) {
+        if (!ObjectUtils.isEmpty(object)) {
             throw new ShopException(message);
         }
     }
 
     /**
      * 验证对象是否非空
+     *
      * @param object 对象
      * @param message 如空则抛出的异常信息
      */
-    public static void checkObjectNotNull(Object object, String message){
-        if(ObjectUtils.isEmpty(object)){
+    public static void checkObjectNotNull(Object object, String message) {
+        if (ObjectUtils.isEmpty(object)) {
             throw new ShopException(message);
         }
     }
 
     /**
      * 检验用户id
+     *
      * @param object 用户id
      * @param message 报错信息
      */
-    public static void checkUserId(Object object, String message){
+    public static void checkUserId(Object object, String message) {
         final Object loginId = StpUtil.getLoginId();
-        checkObjectNotNull(loginId,"用户未登录!");
-        if(!loginId.equals(object)){
+        checkObjectNotNull(loginId, "用户未登录!");
+        if (!loginId.equals(object)) {
             throw new ShopException(message);
         }
     }
@@ -77,27 +81,46 @@ public class CommonMethodStatic {
         return SaSecureUtil.aesDecrypt(BaseConstant.AES_KEY, password);
     }
 
+    /**
+     * 获取请求的ip地址
+     *
+     * @param request 请求
+     * @return IP地址
+     */
     public static String getIpAddress(HttpServletRequest request) {
-        // 目前则是网关ip
         String ip = request.getHeader("X-Real-IP");
-        if (ip != null && !"".equals(ip) && !BaseConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
-            return ip;
+        if (ip == null || ip.length() == 0 || BaseConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("x-forwarded-for");
         }
-        ip = request.getHeader("X-Forwarded-For");
-        if (ip != null && !"".equals(ip) && !BaseConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
-            int index = ip.indexOf(',');
-            if (index != -1) {
-                // 只获取第一个值
-                return ip.substring(0, index);
-            } else {
-                return ip;
+        if (ip == null || ip.length() == 0 || BaseConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || BaseConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || BaseConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+            if (ip.equals(BaseConstant.LOCALHOST_IP) || ip.equals(BaseConstant.LOCALHOST_IPV6)) {
+                return BaseConstant.INNER_IP;
             }
-        } else {
-            // 取不到真实ip则返回空，不能返回内网地址。
-            return BaseConstant.INNER_IP;
         }
+
+        // 多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
+        if (ip.length() > 15) {
+            if (ip.indexOf(BaseConstant.CHAR_COMMA) > 0) {
+                return ip.substring(0, ip.indexOf(","));
+            }
+        }
+
+        return ip;
     }
 
+    /**
+     * 远程调用获取结果的json值
+     *
+     * @param url url
+     * @return json字符串
+     */
     public static String loadJson(String url) {
         StringBuilder json = new StringBuilder();
         try {
@@ -105,8 +128,7 @@ public class CommonMethodStatic {
             URLConnection uc = urlObject.openConnection();
             uc.connect();
             InputStreamReader inn =
-                    new InputStreamReader(
-                            uc.getInputStream(), BaseConstant.CHARACTER_ENCODE_GB2313);
+                    new InputStreamReader(uc.getInputStream(), BaseConstant.CHARACTER_ENCODE_GBK);
 
             BufferedReader in = new BufferedReader(inn);
             String inputLine;

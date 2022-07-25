@@ -58,7 +58,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin>
         implements IUserLoginService {
-    private static final String INNER_IP = "内网IP";
     private final UserLoginMapper userLoginMapper;
     private final RedisUtil redisUtil;
     private final UserMapper userMapper;
@@ -330,14 +329,16 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
      * @param request 请求
      */
     @Transactional(rollbackFor = Exception.class)
-    private void loginInfo(String userId, HttpServletRequest request) {
+    void loginInfo(String userId, HttpServletRequest request) {
 
         final String ipAddress = CommonMethodStatic.getIpAddress(request);
+
         final UserLoginInfo userLoginInfo = new UserLoginInfo(userId);
         userLoginInfo.setUserLoginTime(LocalDateTime.now());
         userLoginInfo.setNewest(1);
 
         if (BaseConstant.INNER_IP.equals(ipAddress)) {
+            userLoginInfo.setUserId(userId + "-local");
             userLoginInfo.setUserLoginIp(BaseConstant.INNER_IP);
             userLoginInfo.setUserLoginAddress(BaseConstant.INNER_IP);
         } else {
@@ -346,7 +347,6 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
             userLoginInfo.setUserLoginIp(ipAddress);
             userLoginInfo.setUserLoginAddress(jsonObject.getString("addr"));
         }
-        // 查询ip归属地
 
         // 更新表中该userId的登录信息状态
         userLoginInfoService

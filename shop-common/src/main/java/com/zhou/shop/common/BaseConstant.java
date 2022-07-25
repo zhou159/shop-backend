@@ -36,6 +36,7 @@ public class BaseConstant {
     public static final String AUTHORIZATION_TOKEN_KEY = "token";
     public static final String USER_AGENT = "User-Agent";
     public static final String LOCALHOST_IP = "127.0.0.1";
+    public static final String LOCALHOST_IPV6 = "0:0:0:0:0:0:0:1";
     public static final String IP_UNKNOWN = "unknown";
     public static final String WEBSITE_SUFFIX = ".com";
     public static final String WEBSITE_PREFIX = "www.";
