@@ -71,7 +71,15 @@ public class IssueController {
     @SaCheckLogin
     @ApiOperation("修改问题状态")
     @PostMapping("/updateIssueStatus/{issueId}")
-    public RestObject<String> updateIssueStatus(@PathVariable String issueId, @RequestBody Issue issue) {
+    public RestObject<String> updateIssueStatus(
+            @PathVariable String issueId, @RequestBody Issue issue) {
         return iIssueService.updateIssueStatus(issueId, issue.getIssueStatus());
+    }
+
+    @SaCheckLogin
+    @ApiOperation("根据用户id查询问题信息")
+    @PostMapping("/retrieveByUserId/{userId}")
+    public RestObject<List<IssueDTO>> retrieveByUserId(@PathVariable String userId) {
+        return iIssueService.retrieveByUserId(userId);
     }
 }

@@ -35,7 +35,7 @@ public interface IIssueService extends IService<Issue> {
      * 新增
      *
      * @param issue 对象
-     * @return
+     * @return 信息
      */
     RestObject<String> createIssue(Issue issue);
 
@@ -43,22 +43,23 @@ public interface IIssueService extends IService<Issue> {
      * 根据id查询
      *
      * @param issueId id
-     * @return
+     * @return 信息
      */
     RestObject<Issue> retrieveByIssueId(String issueId);
 
     /**
      * 查询全部
      *
-     * @return
+     * @return 信息
      */
     RestObject<List<IssueDTO>> retrieveAllIssue();
 
     /**
      * 根据id修改
      *
+     * @param userId 修改问题的userId
      * @param issue 对象
-     * @return
+     * @return 信息
      */
     RestObject<String> updateIssueByIssueId(String userId, Issue issue);
 
@@ -66,7 +67,15 @@ public interface IIssueService extends IService<Issue> {
      * 根据id删除
      *
      * @param issueId id
-     * @return
+     * @return 信息
      */
     RestObject<String> deleteIssueById(String issueId);
+
+    /**
+     * 根据创建人id查询
+     *
+     * @param userId 用户Id
+     * @return 问题集合
+     */
+    RestObject<List<IssueDTO>> retrieveByUserId(String userId);
 }

@@ -87,6 +87,12 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
         return RestResponse.makeOkRsp(issueDeal(issues));
     }
 
+    /**
+     * 问题对象处理
+     *
+     * @param issues 问题集合
+     * @return 处理后的问题集合
+     */
     private List<IssueDTO> issueDeal(List<Issue> issues) {
         List<IssueDTO> issueArrayList = new ArrayList<>();
         for (Issue issue : issues) {
@@ -112,7 +118,6 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
 
     @Override
     public RestObject<String> updateIssueByIssueId(String userId, Issue issue) {
-        issue.setIssueId(issue.getIssueId());
         final Issue issue1 =
                 issueMapper.selectOne(
                         new LambdaQueryWrapper<Issue>().eq(Issue::getIssueId, issue.getIssueId()));
@@ -137,5 +142,13 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
         }
         log.info("删除问题成功，问题id:" + issueId);
         return RestResponse.makeOkRsp("删除成功！");
+    }
+
+    @Override
+    public RestObject<List<IssueDTO>> retrieveByUserId(String userId) {
+        final List<Issue> issues =
+                issueMapper.selectList(
+                        new LambdaQueryWrapper<Issue>().eq(Issue::getIssueCreateBy, userId));
+        return RestResponse.makeOkRsp(issueDeal(issues));
     }
 }
