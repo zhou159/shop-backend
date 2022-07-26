@@ -2,6 +2,7 @@ package com.zhou.shop.api.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -19,7 +20,7 @@ public class BlogVO implements Serializable {
     @ApiModelProperty("博客id")
     private String blogId;
 
-    @NotBlank(message = "博客标题不能为空!")
+    @Length(min = 10,max = 100, message = "博客标题长度在10-100之间")
     @ApiModelProperty("博客标题")
     private String blogTitle;
 

@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class IssueController {
     @SaCheckLogin
     @ApiOperation("新增问题")
     @PostMapping("/createIssue")
-    public RestObject<String> createIssue(@RequestBody Issue issue) {
+    public RestObject<String> createIssue(@Valid @RequestBody Issue issue) {
         return iIssueService.createIssue(issue);
     }
 
@@ -72,7 +73,7 @@ public class IssueController {
     @ApiOperation("修改问题状态")
     @PostMapping("/updateIssueStatus/{issueId}")
     public RestObject<String> updateIssueStatus(
-            @PathVariable String issueId, @RequestBody Issue issue) {
+            @PathVariable String issueId,@Valid @RequestBody Issue issue) {
         return iIssueService.updateIssueStatus(issueId, issue.getIssueStatus());
     }
 
