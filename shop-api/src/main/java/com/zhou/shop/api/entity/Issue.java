@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -28,17 +26,14 @@ public class Issue implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime issueCreateTime;
 
-    @Length(min = 10,max = 100, message = "问题描述长度在1-250之间")
     @ApiModelProperty("问题描述")
     @TableField("issue_description")
     private String issueDescription;
 
-    @NotBlank(message = "问题类型不能为空!")
     @ApiModelProperty("问题类型")
     @TableField("issue_type")
     private String issueType;
 
-    @NotBlank(message = "问题模块不能为空!")
     @ApiModelProperty("问题模块")
     @TableField("issue_module")
     private String issueModule;

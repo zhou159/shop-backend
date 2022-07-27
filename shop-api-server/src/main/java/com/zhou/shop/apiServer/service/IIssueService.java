@@ -3,6 +3,7 @@ package com.zhou.shop.apiServer.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhou.shop.api.dto.IssueDTO;
 import com.zhou.shop.api.entity.Issue;
+import com.zhou.shop.api.vo.IssueAddVo;
 import com.zhou.shop.common.RestObject;
 
 import java.util.List;
@@ -14,13 +15,6 @@ import java.util.List;
  * @since 2021-06-24
  */
 public interface IIssueService extends IService<Issue> {
-    /**
-     * 根据问题描述模糊查询
-     *
-     * @param issueDescription 问题描述
-     * @return 问题数组
-     */
-    RestObject<List<IssueDTO>> retrieveByIssueDescription(String issueDescription);
 
     /**
      * 修改问题状态
@@ -37,7 +31,7 @@ public interface IIssueService extends IService<Issue> {
      * @param issue 对象
      * @return 信息
      */
-    RestObject<String> createIssue(Issue issue);
+    RestObject<String> createIssue(IssueAddVo issue);
 
     /**
      * 根据id查询
@@ -78,4 +72,11 @@ public interface IIssueService extends IService<Issue> {
      * @return 问题集合
      */
     RestObject<List<IssueDTO>> retrieveByUserId(String userId);
+
+    /**
+     * 按条件查询问题
+     * @param issue 问题实体
+     * @return 问题集合
+     */
+    RestObject<List<IssueDTO>> searchIssue(Issue issue);
 }

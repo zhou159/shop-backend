@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.IssueDTO;
 import com.zhou.shop.api.entity.Issue;
 import com.zhou.shop.api.entity.PubCode;
+import com.zhou.shop.api.vo.IssueAddVo;
 import com.zhou.shop.apiServer.mapper.IssueMapper;
 import com.zhou.shop.apiServer.mapper.PubCodeMapper;
 import com.zhou.shop.apiServer.service.IIssueService;
@@ -40,15 +41,7 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
         this.pubCodeMapper = pubCodeMapper;
     }
 
-    @Override
-    public RestObject<List<IssueDTO>> retrieveByIssueDescription(String issueDescription) {
-        final List<Issue> issues =
-                issueMapper.selectList(
-                        new LambdaQueryWrapper<Issue>()
-                                .like(Issue::getIssueDescription, issueDescription)
-                                .eq(Issue::getIssueStatus, "0"));
-        return RestResponse.makeOkRsp(issueDeal(issues));
-    }
+
 
     @Override
     public RestObject<String> updateIssueStatus(String issueId, String issueStatus) {
@@ -63,9 +56,11 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
     }
 
     @Override
-    public RestObject<String> createIssue(Issue issue) {
-        issue.setIssueCreateTime(LocalDateTime.now());
-        int insert = issueMapper.insert(issue);
+    public RestObject<String> createIssue(IssueAddVo issue) {
+        Issue issue1 = new Issue();
+        BeanUtils.copyProperties(issue,issue1);
+        issue1.setIssueCreateTime(LocalDateTime.now());
+        int insert = issueMapper.insert(issue1);
         if (insert < 1) {
             log.warn("新增问题失败！");
             throw new ShopException("新增失败！");
@@ -150,5 +145,10 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
                 issueMapper.selectList(
                         new LambdaQueryWrapper<Issue>().eq(Issue::getIssueCreateBy, userId));
         return RestResponse.makeOkRsp(issueDeal(issues));
+    }
+
+    @Override
+    public RestObject<List<IssueDTO>> searchIssue(Issue issue) {
+        return RestResponse.makeOkRsp(issueMapper.search(issue));
     }
 }

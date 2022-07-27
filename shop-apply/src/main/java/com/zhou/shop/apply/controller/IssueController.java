@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import com.zhou.shop.api.dto.IssueDTO;
 import com.zhou.shop.api.entity.Issue;
+import com.zhou.shop.api.vo.IssueAddVo;
 import com.zhou.shop.apiServer.service.IIssueService;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class IssueController {
     @SaCheckLogin
     @ApiOperation("新增问题")
     @PostMapping("/createIssue")
-    public RestObject<String> createIssue(@Valid @RequestBody Issue issue) {
+    public RestObject<String> createIssue(@Valid @RequestBody IssueAddVo issue) {
         return iIssueService.createIssue(issue);
     }
 
@@ -63,18 +64,11 @@ public class IssueController {
         return iIssueService.deleteIssueById(issueId);
     }
 
-    @ApiOperation("根据问题描述模糊查询")
-    @PostMapping("/retrieveByIssueDescription")
-    public RestObject<List<IssueDTO>> retrieveByIssueDescription(@RequestBody Issue issue) {
-        return iIssueService.retrieveByIssueDescription(issue.getIssueDescription());
-    }
-
     @SaCheckLogin
     @ApiOperation("修改问题状态")
-    @PostMapping("/updateIssueStatus/{issueId}")
-    public RestObject<String> updateIssueStatus(
-            @PathVariable String issueId,@Valid @RequestBody Issue issue) {
-        return iIssueService.updateIssueStatus(issueId, issue.getIssueStatus());
+    @PostMapping("/updateIssueStatus")
+    public RestObject<String> updateIssueStatus(String issueId, String issueStatus) {
+        return iIssueService.updateIssueStatus(issueId, issueStatus);
     }
 
     @SaCheckLogin
@@ -82,5 +76,12 @@ public class IssueController {
     @PostMapping("/retrieveByUserId/{userId}")
     public RestObject<List<IssueDTO>> retrieveByUserId(@PathVariable String userId) {
         return iIssueService.retrieveByUserId(userId);
+    }
+
+    @SaCheckLogin
+    @ApiOperation("条件查询")
+    @PostMapping("/searchIssue")
+    public RestObject<List<IssueDTO>> searchIssue(@RequestBody Issue issue) {
+        return iIssueService.searchIssue(issue);
     }
 }
