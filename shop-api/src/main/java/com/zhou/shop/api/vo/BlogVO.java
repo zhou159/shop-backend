@@ -20,7 +20,7 @@ public class BlogVO implements Serializable {
     @ApiModelProperty("博客id")
     private String blogId;
 
-    @Length(min = 10,max = 100, message = "博客标题长度在10-100之间")
+    @Length(min = 5,max = 100, message = "博客标题长度在10-100之间")
     @ApiModelProperty("博客标题")
     private String blogTitle;
 

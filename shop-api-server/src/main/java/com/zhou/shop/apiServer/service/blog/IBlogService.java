@@ -17,7 +17,7 @@ public interface IBlogService extends IService<Blog> {
     /**
      * 根据用户id获取Dto对象列表
      *
-     * @return
+     * @return 博客集合
      */
     RestObject<List<BlogDTO>> queryListDto();
 

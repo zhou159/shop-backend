@@ -1,5 +1,6 @@
 package com.zhou.shop.api.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -39,6 +40,10 @@ public class BlogDTO implements Serializable {
     @ApiModelProperty("博客内容")
     private String blogText;
 
+    @ApiModelProperty("博客内容纯文本简介")
+    @TableField("blog_text_intro")
+    private String blogTextIntro;
+
     @ApiModelProperty("博客栏目")
     private String blogCategory;
 
@@ -50,17 +55,7 @@ public class BlogDTO implements Serializable {
 
     public BlogDTO() {}
 
-    public BlogDTO(
-            String blogId,
-            LocalDateTime blogCreateTime,
-            LocalDateTime blogUpdateTime,
-            String blogTitle,
-            String blogCreatedBy,
-            String blogCreatedName,
-            String blogText,
-            String blogCategory,
-            String blogCategoryName,
-            String blogFlagName) {
+    public BlogDTO(String blogId, LocalDateTime blogCreateTime, LocalDateTime blogUpdateTime, String blogTitle, String blogCreatedBy, String blogCreatedName, String blogText, String blogTextIntro, String blogCategory, String blogCategoryName, String blogFlagName) {
         this.blogId = blogId;
         this.blogCreateTime = blogCreateTime;
         this.blogUpdateTime = blogUpdateTime;
@@ -68,6 +63,7 @@ public class BlogDTO implements Serializable {
         this.blogCreatedBy = blogCreatedBy;
         this.blogCreatedName = blogCreatedName;
         this.blogText = blogText;
+        this.blogTextIntro = blogTextIntro;
         this.blogCategory = blogCategory;
         this.blogCategoryName = blogCategoryName;
         this.blogFlagName = blogFlagName;
@@ -129,6 +125,14 @@ public class BlogDTO implements Serializable {
         this.blogText = blogText;
     }
 
+    public String getBlogTextIntro() {
+        return blogTextIntro;
+    }
+
+    public void setBlogTextIntro(String blogTextIntro) {
+        this.blogTextIntro = blogTextIntro;
+    }
+
     public String getBlogCategory() {
         return blogCategory;
     }
@@ -155,35 +159,18 @@ public class BlogDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "BlogDTO{"
-                + "blogId='"
-                + blogId
-                + '\''
-                + ", blogCreateTime="
-                + blogCreateTime
-                + ", blogUpdateTime="
-                + blogUpdateTime
-                + ", blogTitle='"
-                + blogTitle
-                + '\''
-                + ", blogCreatedBy='"
-                + blogCreatedBy
-                + '\''
-                + ", blogCreatedName='"
-                + blogCreatedName
-                + '\''
-                + ", blogText='"
-                + blogText
-                + '\''
-                + ", blogCategory='"
-                + blogCategory
-                + '\''
-                + ", blogCategoryName='"
-                + blogCategoryName
-                + '\''
-                + ", blogFlagName='"
-                + blogFlagName
-                + '\''
-                + '}';
+        return "BlogDTO{" +
+                "blogId='" + blogId + '\'' +
+                ", blogCreateTime=" + blogCreateTime +
+                ", blogUpdateTime=" + blogUpdateTime +
+                ", blogTitle='" + blogTitle + '\'' +
+                ", blogCreatedBy='" + blogCreatedBy + '\'' +
+                ", blogCreatedName='" + blogCreatedName + '\'' +
+                ", blogText='" + blogText + '\'' +
+                ", blogTextIntro='" + blogTextIntro + '\'' +
+                ", blogCategory='" + blogCategory + '\'' +
+                ", blogCategoryName='" + blogCategoryName + '\'' +
+                ", blogFlagName='" + blogFlagName + '\'' +
+                '}';
     }
 }

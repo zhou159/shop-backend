@@ -44,6 +44,10 @@ public class Blog implements Serializable {
     @TableField("blog_text")
     private String blogText;
 
+    @ApiModelProperty("博客内容纯文本简介")
+    @TableField("blog_text_intro")
+    private String blogTextIntro;
+
     @ApiModelProperty("博客所属栏目")
     @TableField("blog_category")
     private String blogCategory;
@@ -59,23 +63,26 @@ public class Blog implements Serializable {
 
     public Blog() {}
 
-    public Blog(
-            String blogId,
-            LocalDateTime blogCreateTime,
-            LocalDateTime blogUpdateTime,
-            String blogTitle,
-            String blogCreatedBy,
-            String blogText,
-            String blogCategory,
-            String blogFlag) {
+    public Blog(String blogId,
+                LocalDateTime blogCreateTime,
+                LocalDateTime blogUpdateTime,
+                String blogTitle,
+                String blogCreatedBy,
+                String blogText,
+                String blogTextIntro,
+                String blogCategory,
+                String blogFlag,
+                Integer blogDeleted) {
         this.blogId = blogId;
         this.blogCreateTime = blogCreateTime;
         this.blogUpdateTime = blogUpdateTime;
         this.blogTitle = blogTitle;
         this.blogCreatedBy = blogCreatedBy;
         this.blogText = blogText;
+        this.blogTextIntro = blogTextIntro;
         this.blogCategory = blogCategory;
         this.blogFlag = blogFlag;
+        this.blogDeleted = blogDeleted;
     }
 
     public String getBlogId() {
@@ -132,6 +139,14 @@ public class Blog implements Serializable {
         return this;
     }
 
+    public String getBlogTextIntro() {
+        return blogTextIntro;
+    }
+
+    public void setBlogTextIntro(String blogTextIntro) {
+        this.blogTextIntro = blogTextIntro;
+    }
+
     public String getBlogCategory() {
         return blogCategory;
     }
@@ -161,31 +176,17 @@ public class Blog implements Serializable {
 
     @Override
     public String toString() {
-        return "Blog{"
-                + "blogId='"
-                + blogId
-                + '\''
-                + ", blogCreateTime="
-                + blogCreateTime
-                + ", blogUpdateTime="
-                + blogUpdateTime
-                + ", blogTitle='"
-                + blogTitle
-                + '\''
-                + ", blogCreatedBy='"
-                + blogCreatedBy
-                + '\''
-                + ", blogText='"
-                + blogText
-                + '\''
-                + ", blogCategory='"
-                + blogCategory
-                + '\''
-                + ", blogFlag='"
-                + blogFlag
-                + '\''
-                + ", blogDeleted="
-                + blogDeleted
-                + '}';
+        return "Blog{" +
+                "blogId='" + blogId + '\'' +
+                ", blogCreateTime=" + blogCreateTime +
+                ", blogUpdateTime=" + blogUpdateTime +
+                ", blogTitle='" + blogTitle + '\'' +
+                ", blogCreatedBy='" + blogCreatedBy + '\'' +
+                ", blogText='" + blogText + '\'' +
+                ", blogTextIntro='" + blogTextIntro + '\'' +
+                ", blogCategory='" + blogCategory + '\'' +
+                ", blogFlag='" + blogFlag + '\'' +
+                ", blogDeleted=" + blogDeleted +
+                '}';
     }
 }
