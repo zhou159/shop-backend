@@ -13,8 +13,8 @@ import java.io.OutputStream;
  * @since 2022/6/17 18:26
  */
 public class ImageUtil {
-    private static final int WIDTH = 62;
-    private static final int HEIGHT = 25;
+    private static final int WIDTH = 92;
+    private static final int HEIGHT = 35;
 
     /**
      * 生成图片(长，宽，高)
@@ -28,10 +28,10 @@ public class ImageUtil {
         Graphics g = bi.getGraphics();
         setBackground(g);
         // setBorder(g);
-        g.setFont(new Font("宋体", Font.BOLD, 20));
+        g.setFont(new Font("宋体", Font.BOLD, 30));
         g.setColor(Color.blue);
         // 将生成的随机字符串写在图片上
-        g.drawString(checkCode, 10, 20);
+        g.drawString(checkCode, 10, 30);
 
         ImageIO.write(bi, "jpg", outputStream);
     }
