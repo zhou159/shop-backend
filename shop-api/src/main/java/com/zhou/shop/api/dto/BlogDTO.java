@@ -50,12 +50,15 @@ public class BlogDTO implements Serializable {
     @ApiModelProperty("博客栏目名字")
     private String blogCategoryName;
 
+    @ApiModelProperty("博客标签")
+    private String blogFlag;
+
     @ApiModelProperty("博客标签名字")
     private String blogFlagName;
 
     public BlogDTO() {}
 
-    public BlogDTO(String blogId, LocalDateTime blogCreateTime, LocalDateTime blogUpdateTime, String blogTitle, String blogCreatedBy, String blogCreatedName, String blogText, String blogTextIntro, String blogCategory, String blogCategoryName, String blogFlagName) {
+    public BlogDTO(String blogId, LocalDateTime blogCreateTime, LocalDateTime blogUpdateTime, String blogTitle, String blogCreatedBy, String blogCreatedName, String blogText, String blogTextIntro, String blogCategory, String blogCategoryName, String blogFlag,String blogFlagName) {
         this.blogId = blogId;
         this.blogCreateTime = blogCreateTime;
         this.blogUpdateTime = blogUpdateTime;
@@ -66,6 +69,7 @@ public class BlogDTO implements Serializable {
         this.blogTextIntro = blogTextIntro;
         this.blogCategory = blogCategory;
         this.blogCategoryName = blogCategoryName;
+        this.blogFlag = blogFlag;
         this.blogFlagName = blogFlagName;
     }
 
@@ -149,6 +153,14 @@ public class BlogDTO implements Serializable {
         this.blogCategoryName = blogCategoryName;
     }
 
+    public String getBlogFlag() {
+        return blogFlag;
+    }
+
+    public void setBlogFlag(String blogFlag) {
+        this.blogFlag = blogFlag;
+    }
+
     public String getBlogFlagName() {
         return blogFlagName;
     }
@@ -170,6 +182,7 @@ public class BlogDTO implements Serializable {
                 ", blogTextIntro='" + blogTextIntro + '\'' +
                 ", blogCategory='" + blogCategory + '\'' +
                 ", blogCategoryName='" + blogCategoryName + '\'' +
+                ", blogFlag='" + blogFlag + '\'' +
                 ", blogFlagName='" + blogFlagName + '\'' +
                 '}';
     }

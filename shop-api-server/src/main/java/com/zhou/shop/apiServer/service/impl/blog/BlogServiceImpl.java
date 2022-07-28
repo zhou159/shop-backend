@@ -6,7 +6,6 @@ import com.zhou.shop.api.dto.BlogDTO;
 import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.api.vo.BlogVO;
 import com.zhou.shop.apiServer.common.CommonMethodStatic;
-import com.zhou.shop.apiServer.common.CommonMethods;
 import com.zhou.shop.apiServer.mapper.blog.BlogMapper;
 import com.zhou.shop.apiServer.mapper.user.UserMapper;
 import com.zhou.shop.apiServer.service.blog.IBlogService;
@@ -32,15 +31,13 @@ import java.util.stream.Collectors;
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IBlogService {
     private final BlogMapper blogMapper;
     private final UserMapper userMapper;
-    private final CommonMethods commonMethods;
 
     private final Logger log = LoggerFactory.getLogger(BlogServiceImpl.class);
 
     public BlogServiceImpl(
-            BlogMapper blogMapper, UserMapper userMapper, CommonMethods commonMethods) {
+            BlogMapper blogMapper, UserMapper userMapper) {
         this.blogMapper = blogMapper;
         this.userMapper = userMapper;
-        this.commonMethods = commonMethods;
     }
 
     @Override
@@ -79,7 +76,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Override
     public RestObject<String> createBlog(BlogVO blogVO) {
-        // CommonMethodStatic.checkUserId(blogVO.getBlogCreatedBy(),"用户账号信息错误!");
         final Blog blog = new Blog();
         BeanUtils.copyProperties(blogVO, blog);
         blog.setBlogTextIntro(blogTextOptimization(blogVO.getBlogText()));
@@ -90,9 +86,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Override
     public RestObject<String> updateBlog(BlogVO blogVO) {
-        // CommonMethodStatic.checkUserId(blogVO.getBlogCreatedBy(),"用户账号信息错误!");
         final Blog blog = new Blog();
         BeanUtils.copyProperties(blogVO, blog);
+        blog.setBlogTextIntro(blogTextOptimization(blogVO.getBlogText()));
         blog.setBlogUpdateTime(LocalDateTime.now());
         final int i = blogMapper.updateById(blog);
         return i > 0 ? RestResponse.makeOkRsp("修改成功!") : RestResponse.makeErrRsp("修改失败!");
@@ -117,10 +113,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     // 行内匹配，行内代码正则，匹配 ``
     private final static String MARKDOWN_LINE_CODE_REGEXP = "(?!<`)(`)([^`]+?)`(?!`)";
 
+    // 单行匹配，目录标识[[toc]]
+    private final static String TOC_REGEXP = "\\[\\[toc]]";
     // 单行匹配，标题正则 √
-    private final static String MARKDOWN_TITLE_REGEXP = "^(#{1,6}) (.*)";
+    private final static String MARKDOWN_TITLE_REGEXP = "(#{1,6}) (.*)";
     // 单行匹配，图片链接正则，匹配 ![]() √
-    private final static String MARKDOWN_IMAGE_LINK_REGEXP = "^!\\[(.*?)]\\((.*?)\\)$";
+    private final static String MARKDOWN_IMAGE_LINK_REGEXP = "^!\\[(.*?)\\]\\((.*?)\\)(\\{{1,3}.*)$";
     // 单行匹配，分割线正则，匹配 ***或---或___ √
     private final static String MARKDOWN_SEPARATE_LINE_REGEXP = "^(\\*|-|_)*$";
 
@@ -136,6 +134,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     private final static String MARKDOWN_CODE_BLOCK_START_REGEXP = "^[`]{3}\\s*\\w+$";
     // 匹配代码块的结尾
     private final static String MARKDOWN_CODE_BLOCK_END_REGEXP = "^[`]{3}$";
+    // 匹配tip开头 ::: tip
+    private final static String TIP_BLOCK_START_REGEXP = "^::: .*";
+    // 匹配tip结尾 ::: tip
+    private final static String TIP_BLOCK_END_REGEXP = "^:::";
+    // 匹配emoji表情 :m: :m::m:
+    private final static String EMOJI_REGEXP = ":.*:";
 
     private String regexp(String s){
         // 粗体
@@ -159,68 +163,91 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         // 普通链接
         Matcher simpleLinkMatcher = Pattern.compile(MARKDOWN_SIMPLE_LINK_REGEXP).matcher(s);
         if (simpleLinkMatcher.find()) {
-            s= simpleLinkMatcher.replaceAll("$2");
+            s = simpleLinkMatcher.replaceAll("$2");
         }
 
         // 行内代码
         Matcher lineCodeMatcher = Pattern.compile(MARKDOWN_LINE_CODE_REGEXP).matcher(s);
         if (lineCodeMatcher.find()) {
-            s= lineCodeMatcher.replaceAll("$2");
+            s = lineCodeMatcher.replaceAll("$2");
         }
 
+        Matcher tocMatcher = Pattern.compile(TOC_REGEXP).matcher(s);
+        if (tocMatcher.find()) {
+            s = tocMatcher.replaceAll("");
+        }
         // 标题行
         Matcher titleMatcher = Pattern.compile(MARKDOWN_TITLE_REGEXP).matcher(s);
         if (titleMatcher.find()) {
-            s= titleMatcher.replaceAll("$2");
+            s = titleMatcher.replaceAll("$2");
         }
 
         // 图片链接行，注意图片链接中如果匹配到斜体的"_"可能无法解析
         Matcher imageLinkMatcher = Pattern.compile(MARKDOWN_IMAGE_LINK_REGEXP).matcher(s);
         if (imageLinkMatcher.find()) {
-            s= imageLinkMatcher.replaceAll("$2");
+            s = imageLinkMatcher.replaceAll("$2");
         }
 
         // 分隔线行
         Matcher separateLineMatcher = Pattern.compile(MARKDOWN_SEPARATE_LINE_REGEXP).matcher(s);
         if (separateLineMatcher.find()) {
-            s= separateLineMatcher.replaceAll("$1");
+            s = separateLineMatcher.replaceAll("$1");
         }
 
         // 无序列表
         Matcher unorderedListMatcher = Pattern.compile(MARKDOWN_UNORDERED_LIST_REGEXP).matcher(s);
         if (unorderedListMatcher.find()) {
-            s= unorderedListMatcher.replaceAll("$2");
+            s = unorderedListMatcher.replaceAll("$2");
         }
 
         // 有序列表
         Matcher orderedListMatcher = Pattern.compile(MARKDOWN_ORDERED_LIST_REGEXP).matcher(s);
         if (orderedListMatcher.find()) {
-            s= orderedListMatcher.replaceAll("$2");
+            s = orderedListMatcher.replaceAll("$2");
         }
 
         // 简单引用
         Matcher simpleQuoteMatcher = Pattern.compile(MARKDOWN_SIMPLE_QUOTE_REGEXP).matcher(s);
         if (simpleQuoteMatcher.find()) {
-            s= simpleQuoteMatcher.replaceAll("$2");
+            s = simpleQuoteMatcher.replaceAll("$2");
         }
 
         //表格，直接去除
         Matcher tableRowMatcher = Pattern.compile(MARKDOWN_TABLE_ROW_REGEXP).matcher(s);
         if (tableRowMatcher.find()) {
-            s= tableRowMatcher.replaceAll("");
+            s = tableRowMatcher.replaceAll("");
         }
 
         // 代码块开头
         Matcher codeBlockStartMatcher = Pattern.compile(MARKDOWN_CODE_BLOCK_START_REGEXP).matcher(s);
         if (codeBlockStartMatcher.find()) {
-            s= codeBlockStartMatcher.replaceAll("");
+            s = codeBlockStartMatcher.replaceAll("");
         }
 
         // 代码块结尾
         Matcher codeBlockEndMatcher = Pattern.compile(MARKDOWN_CODE_BLOCK_END_REGEXP).matcher(s);
         if (codeBlockEndMatcher.find()) {
-            s= codeBlockEndMatcher.replaceAll("");
+            s = codeBlockEndMatcher.replaceAll("");
         }
+
+        // tip块开头
+        Matcher tipBlockStartMatcher = Pattern.compile(TIP_BLOCK_START_REGEXP).matcher(s);
+        if (tipBlockStartMatcher.find()) {
+            s = tipBlockStartMatcher.replaceAll("");
+        }
+
+        // tip块结尾
+        Matcher tipBlockEndMatcher = Pattern.compile(TIP_BLOCK_END_REGEXP).matcher(s);
+        if (tipBlockEndMatcher.find()) {
+            s = tipBlockEndMatcher.replaceAll("");
+        }
+
+        // emoji表情
+        Matcher emojiMatcher = Pattern.compile(EMOJI_REGEXP).matcher(s);
+        if (emojiMatcher.find()) {
+            s = emojiMatcher.replaceAll("");
+        }
+
         return s;
     }
 
@@ -236,6 +263,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         for (String value : split) {
             returnS.append(regexp(value));
             if (returnS.length() > 100) {
+                returnS = new StringBuilder(returnS.substring(0,100));
                 returnS.append("...");
                 break;
             }
