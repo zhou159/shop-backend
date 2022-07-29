@@ -148,8 +148,12 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
         if (!Objects.isNull(one)) {
             throw new UserAccountException("该账号已被注册，请勿重复注册！");
         }
+
         // 插入
+        user.setUserCreateTime(LocalDateTime.now());
         userMapper.insert(user);
+
+        userLogin.setUserLoginCreateTime(LocalDateTime.now());
         userLoginMapper.insert(userLogin);
         userRoleMapper.insert(userRole);
         return RestResponse.makeOkRsp("注册成功！");
@@ -245,6 +249,7 @@ public class UserLoginServiceImpl extends ServiceImpl<UserLoginMapper, UserLogin
                                         UserLogin::getUserPassword,
                                         CommonMethodStatic.passwordEncrypt(
                                                 userModifyPasswordVO.getUserNewPasswordRe()))
+                                .set(UserLogin::getUserLoginUpdateTime, LocalDateTime.now())
                                 .eq(UserLogin::getUserId, loginId));
 
         return update > 0 ? RestResponse.makeOkRsp("密码修改成功！") : RestResponse.makeErrRsp("密码修改失败！");

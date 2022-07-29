@@ -119,6 +119,7 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
         if (!issue1.getIssueCreateBy().equals(userId)) {
             throw new ShopException("您不是问题创建者，无权修改！");
         }
+        issue.setIssueUpdateTime(LocalDateTime.now());
         int i = issueMapper.updateById(issue);
         if (i < 1) {
             log.warn("修改问题失败！问题id:" + issue.getIssueId());

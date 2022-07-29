@@ -81,6 +81,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Override
     public RestObject<String> updatePermission(Permission permission) {
+        permission.setPermissionUpdateTime(LocalDateTime.now());
         int i = permissionMapper.updateById(permission);
         return i > 0 ? RestResponse.makeOkRsp("修改成功！") : RestResponse.makeErrRsp("修改失败！");
     }
@@ -124,6 +125,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         Permission permission = new Permission(permissionId);
         BeanUtils.copyProperties(permissionAddVO, permission);
 
+        permission.setPermissionCreateTime(LocalDateTime.now());
         int insert = permissionMapper.insert(permission);
 
         // 遍历前端传入的角色id集合

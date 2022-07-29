@@ -27,7 +27,7 @@ public interface IBlogService extends IService<Blog> {
      * @param blogCategoryId 博客栏目id
      * @return 该栏目下博客集合
      */
-    RestObject<List<Blog>> queryBlogByBlogCategoryId(String blogCategoryId);
+    RestObject<List<BlogDTO>> queryBlogByBlogCategoryId(String blogCategoryId);
 
     /**
      * 根据博客id获取对象

@@ -26,6 +26,11 @@ public class Issue implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime issueCreateTime;
 
+    @ApiModelProperty("问题更新时间时间")
+    @TableField("issue_update_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime issueUpdateTime;
+
     @ApiModelProperty("问题描述")
     @TableField("issue_description")
     private String issueDescription;
@@ -62,6 +67,7 @@ public class Issue implements Serializable {
     public Issue(
             String issueId,
             LocalDateTime issueCreateTime,
+            LocalDateTime issueUpdateTime,
             String issueDescription,
             String issueType,
             String issueModule,
@@ -72,6 +78,7 @@ public class Issue implements Serializable {
             Integer issueDeleted) {
         this.issueId = issueId;
         this.issueCreateTime = issueCreateTime;
+        this.issueUpdateTime = issueUpdateTime;
         this.issueDescription = issueDescription;
         this.issueType = issueType;
         this.issueModule = issueModule;
@@ -109,6 +116,14 @@ public class Issue implements Serializable {
     public Issue setIssueCreateTime(LocalDateTime issueCreateTime) {
         this.issueCreateTime = issueCreateTime;
         return this;
+    }
+
+    public LocalDateTime getIssueUpdateTime() {
+        return issueUpdateTime;
+    }
+
+    public void setIssueUpdateTime(LocalDateTime issueUpdateTime) {
+        this.issueUpdateTime = issueUpdateTime;
     }
 
     public String getIssueDescription() {
@@ -175,33 +190,18 @@ public class Issue implements Serializable {
 
     @Override
     public String toString() {
-        return "Issue{"
-                + "issueId='"
-                + issueId
-                + '\''
-                + ", issueCreateTime="
-                + issueCreateTime
-                + ", issueDescription='"
-                + issueDescription
-                + '\''
-                + ", issueType='"
-                + issueType
-                + '\''
-                + ", issueModule='"
-                + issueModule
-                + '\''
-                + ", issueStatus='"
-                + issueStatus
-                + '\''
-                + ", issueSolveTime="
-                + issueSolveTime
-                + ", issueCloseTime="
-                + issueCloseTime
-                + ", issueCreateBy='"
-                + issueCreateBy
-                + '\''
-                + ", issueDeleted="
-                + issueDeleted
-                + '}';
+        return "Issue{" +
+                "issueId='" + issueId + '\'' +
+                ", issueCreateTime=" + issueCreateTime +
+                ", issueUpdateTime=" + issueUpdateTime +
+                ", issueDescription='" + issueDescription + '\'' +
+                ", issueType='" + issueType + '\'' +
+                ", issueModule='" + issueModule + '\'' +
+                ", issueStatus='" + issueStatus + '\'' +
+                ", issueSolveTime=" + issueSolveTime +
+                ", issueCloseTime=" + issueCloseTime +
+                ", issueCreateBy='" + issueCreateBy + '\'' +
+                ", issueDeleted=" + issueDeleted +
+                '}';
     }
 }

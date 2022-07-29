@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -32,22 +33,30 @@ public class BlogCategory implements Serializable {
     @TableField("blog_category_description")
     private String blogCategoryDescription;
 
+    @ApiModelProperty("博客栏目创建时间")
+    @TableField("blog_category_create_time")
+    private LocalDateTime blogCategoryCreateTime;
+
+    @ApiModelProperty("博客栏目更新时间")
+    @TableField("blog_category_update_time")
+    private LocalDateTime blogCategoryUpdateTime;
+
     @TableLogic
     @ApiModelProperty("博客栏目逻辑删除")
     @TableField("blog_category_deleted")
     private Integer blogCategoryDeleted;
 
-    public BlogCategory() {}
+    public BlogCategory() {
+    }
 
-    public BlogCategory(
-            String blogCategoryId,
-            String blogCategoryName,
-            String blogCategoryCreatedBy,
-            String blogCategoryDescription) {
+    public BlogCategory(String blogCategoryId, String blogCategoryName, String blogCategoryCreatedBy, String blogCategoryDescription, LocalDateTime blogCategoryCreateTime, LocalDateTime blogCategoryUpdateTime, Integer blogCategoryDeleted) {
         this.blogCategoryId = blogCategoryId;
         this.blogCategoryName = blogCategoryName;
         this.blogCategoryCreatedBy = blogCategoryCreatedBy;
         this.blogCategoryDescription = blogCategoryDescription;
+        this.blogCategoryCreateTime = blogCategoryCreateTime;
+        this.blogCategoryUpdateTime = blogCategoryUpdateTime;
+        this.blogCategoryDeleted = blogCategoryDeleted;
     }
 
     public String getBlogCategoryId() {
@@ -77,6 +86,30 @@ public class BlogCategory implements Serializable {
         return this;
     }
 
+    public LocalDateTime getBlogCategoryCreateTime() {
+        return blogCategoryCreateTime;
+    }
+
+    public void setBlogCategoryCreateTime(LocalDateTime blogCategoryCreateTime) {
+        this.blogCategoryCreateTime = blogCategoryCreateTime;
+    }
+
+    public LocalDateTime getBlogCategoryUpdateTime() {
+        return blogCategoryUpdateTime;
+    }
+
+    public void setBlogCategoryUpdateTime(LocalDateTime blogCategoryUpdateTime) {
+        this.blogCategoryUpdateTime = blogCategoryUpdateTime;
+    }
+
+    public Integer getBlogCategoryDeleted() {
+        return blogCategoryDeleted;
+    }
+
+    public void setBlogCategoryDeleted(Integer blogCategoryDeleted) {
+        this.blogCategoryDeleted = blogCategoryDeleted;
+    }
+
     public String getBlogCategoryDescription() {
         return blogCategoryDescription;
     }
@@ -88,19 +121,6 @@ public class BlogCategory implements Serializable {
 
     @Override
     public String toString() {
-        return "BlogCategory{"
-                + "blogCategoryId='"
-                + blogCategoryId
-                + '\''
-                + ", blogCategoryName='"
-                + blogCategoryName
-                + '\''
-                + ", blogCategoryCreatedBy='"
-                + blogCategoryCreatedBy
-                + '\''
-                + ", blogCategoryDescription='"
-                + blogCategoryDescription
-                + '\''
-                + '}';
+        return "BlogCategory{" + "blogCategoryId='" + blogCategoryId + '\'' + ", blogCategoryName='" + blogCategoryName + '\'' + ", blogCategoryCreatedBy='" + blogCategoryCreatedBy + '\'' + ", blogCategoryDescription='" + blogCategoryDescription + '\'' + ", blogCategoryCreateTime='" + blogCategoryCreateTime + '\'' + ", blogCategoryUpdateTime='" + blogCategoryUpdateTime + '\'' + ", blogCategoryDeleted=" + blogCategoryDeleted + '}';
     }
 }

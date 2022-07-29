@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -49,10 +50,17 @@ public class Shop implements Serializable {
     @TableField("user_id")
     private String userId;
 
+    @ApiModelProperty("商店创建时间")
+    @TableField("shop_create_time")
+    private LocalDateTime shopCreateTime;
+
+    @ApiModelProperty("商店更新时间")
+    @TableField("shop_update_time")
+    private LocalDateTime shopUpdateTime;
+
     public Shop() {}
 
-    public Shop(String shopId, String shopName, String shopAddress, String shopRemark, String shopStatus,
-                String shopPicture, Integer shopDeleted, String userId) {
+    public Shop(String shopId, String shopName, String shopAddress, String shopRemark, String shopStatus, String shopPicture, Integer shopDeleted, String userId, LocalDateTime shopCreateTime, LocalDateTime shopUpdateTime) {
         this.shopId = shopId;
         this.shopName = shopName;
         this.shopAddress = shopAddress;
@@ -61,6 +69,8 @@ public class Shop implements Serializable {
         this.shopPicture = shopPicture;
         this.shopDeleted = shopDeleted;
         this.userId = userId;
+        this.shopCreateTime = shopCreateTime;
+        this.shopUpdateTime = shopUpdateTime;
     }
 
     public String getShopId() {
@@ -133,8 +143,35 @@ public class Shop implements Serializable {
         this.userId = userId;
     }
 
+    public LocalDateTime getShopCreateTime() {
+        return shopCreateTime;
+    }
+
+    public void setShopCreateTime(LocalDateTime shopCreateTime) {
+        this.shopCreateTime = shopCreateTime;
+    }
+
+    public LocalDateTime getShopUpdateTime() {
+        return shopUpdateTime;
+    }
+
+    public void setShopUpdateTime(LocalDateTime shopUpdateTime) {
+        this.shopUpdateTime = shopUpdateTime;
+    }
+
     @Override
     public String toString() {
-        return "Shop{" + "shopId='" + shopId + '\'' + ", shopName='" + shopName + '\'' + ", shopAddress='" + shopAddress + '\'' + ", shopRemark='" + shopRemark + '\'' + ", shopStatus='" + shopStatus + '\'' + ", shopPicture='" + shopPicture + '\'' + ", shopDeleted=" + shopDeleted + ", userId='" + userId + '\'' + '}';
+        return "Shop{" +
+                "shopId='" + shopId + '\'' +
+                ", shopName='" + shopName + '\'' +
+                ", shopAddress='" + shopAddress + '\'' +
+                ", shopRemark='" + shopRemark + '\'' +
+                ", shopStatus='" + shopStatus + '\'' +
+                ", shopPicture='" + shopPicture + '\'' +
+                ", shopDeleted=" + shopDeleted +
+                ", userId='" + userId + '\'' +
+                ", shopCreateTime='" + shopCreateTime + '\'' +
+                ", shopUpdateTime='" + shopUpdateTime + '\'' +
+                '}';
     }
 }

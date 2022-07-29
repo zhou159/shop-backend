@@ -50,8 +50,8 @@ public class CommonController {
 
     @ApiOperation("文件上传")
     @PostMapping("/upload")
-    public RestObject<String> upload(MultipartFile file) {
-        return RestResponse.makeOkRsp(uploadFile(file, "item"));
+    public RestObject<String> upload(MultipartFile file,String folderName) {
+        return RestResponse.makeOkRsp(uploadFile(file, folderName));
     }
 
     @ApiOperation("获取前端可访问路径")

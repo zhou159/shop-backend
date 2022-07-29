@@ -31,18 +31,6 @@ public class PubCodeServiceImpl extends ServiceImpl<PubCodeMapper, PubCode>
 
     @Override
     public RestObject<List<PubCode>> retrievePubCodeByType(String pubCodeType) {
-//        return RestResponse.makeOkRsp(
-//                pubCodeMapper.selectList(
-//                        new LambdaQueryWrapper<PubCode>()
-//                                .eq(
-//                                        PubCode::getPubCodeTypeId,
-//                                        pubCodeTypeMapper
-//                                                .selectOne(
-//                                                        new LambdaQueryWrapper<PubCodeType>()
-//                                                                .eq(
-//                                                                        PubCodeType::getPubCodeType,
-//                                                                        pubCodeType))
-//                                                .getId())));
         return RestResponse.makeOkRsp(pubCodeMapper.queryByPubCode(pubCodeType));
     }
 
@@ -60,6 +48,7 @@ public class PubCodeServiceImpl extends ServiceImpl<PubCodeMapper, PubCode>
 
     @Override
     public RestObject<String> updatePubCode(PubCode pubCode) {
+        pubCode.setPubCodeUpdateTime(LocalDateTime.now());
         int i = pubCodeMapper.updateById(pubCode);
         return i > 0 ? RestResponse.makeOkRsp("修改成功！") : RestResponse.makeErrRsp("修改失败！");
     }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -49,21 +50,21 @@ public class Permission implements Serializable {
     @TableField("lockedTime")
     private String lockedTime;
 
+    @ApiModelProperty("权限创建时间")
+    @TableField("permission_create_time")
+    private LocalDateTime permissionCreateTime;
+
+    @ApiModelProperty("权限修改时间")
+    @TableField("permission_update_time")
+    private LocalDateTime permissionUpdateTime;
+
     public Permission() {}
 
     public Permission(String permissionId) {
         this.permissionId = permissionId;
     }
 
-    public Permission(
-            String permissionId,
-            String reference,
-            String name,
-            String description,
-            Integer deleted,
-            Integer locked,
-            String lockedBy,
-            String lockedTime) {
+    public Permission(String permissionId, String reference, String name, String description, Integer deleted, Integer locked, String lockedBy, String lockedTime, LocalDateTime permissionCreateTime, LocalDateTime permissionUpdateTime) {
         this.permissionId = permissionId;
         this.reference = reference;
         this.name = name;
@@ -72,6 +73,8 @@ public class Permission implements Serializable {
         this.locked = locked;
         this.lockedBy = lockedBy;
         this.lockedTime = lockedTime;
+        this.permissionCreateTime = permissionCreateTime;
+        this.permissionUpdateTime = permissionUpdateTime;
     }
 
     public String getPermissionId() {
@@ -142,29 +145,35 @@ public class Permission implements Serializable {
         this.lockedTime = lockedTime;
     }
 
+    public LocalDateTime getPermissionCreateTime() {
+        return permissionCreateTime;
+    }
+
+    public void setPermissionCreateTime(LocalDateTime permissionCreateTime) {
+        this.permissionCreateTime = permissionCreateTime;
+    }
+
+    public LocalDateTime getPermissionUpdateTime() {
+        return permissionUpdateTime;
+    }
+
+    public void setPermissionUpdateTime(LocalDateTime permissionUpdateTime) {
+        this.permissionUpdateTime = permissionUpdateTime;
+    }
+
     @Override
     public String toString() {
-        return "Permission{"
-                + "permissionId='"
-                + permissionId
-                + '\''
-                + ", reference='"
-                + reference
-                + '\''
-                + ", name='"
-                + name
-                + '\''
-                + ", description='"
-                + description
-                + '\''
-                + ", deleted="
-                + deleted
-                + ", locked="
-                + locked
-                + ", lockedBy="
-                + lockedBy
-                + ", lockedTime="
-                + lockedTime
-                + '}';
+        return "Permission{" +
+                "permissionId='" + permissionId + '\'' +
+                ", reference='" + reference + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deleted=" + deleted +
+                ", locked=" + locked +
+                ", lockedBy='" + lockedBy + '\'' +
+                ", lockedTime='" + lockedTime + '\'' +
+                ", permissionCreateTime='" + permissionCreateTime + '\'' +
+                ", permissionUpdateTime='" + permissionUpdateTime + '\'' +
+                '}';
     }
 }

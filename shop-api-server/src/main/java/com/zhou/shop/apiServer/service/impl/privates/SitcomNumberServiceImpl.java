@@ -51,7 +51,8 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
         return RestResponse.makeOkRsp(
                 sitcomNumberMapper.selectList(
                         new LambdaQueryWrapper<SitcomNumber>()
-                                .like(SitcomNumber::getSitcomNumberName, sitcomNumberName)));
+                                .like(SitcomNumber::getSitcomNumberName, sitcomNumberName)
+                                .eq(SitcomNumber::getSitcomId,sitcomId)));
     }
 
     @Override
@@ -60,6 +61,7 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
                 || sitcomNumber.getSitcomNumberWatchTime() == null) {
             sitcomNumber.setSitcomNumberWatchTime(LocalDateTime.now().toString());
         }
+        sitcomNumber.setSitcomNumberCreateTime(LocalDateTime.now());
         int save = sitcomNumberMapper.insert(sitcomNumber);
         if (save < 1) {
             log.warn("新增剧集失败！");
@@ -87,7 +89,8 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
         sitcomNumber
                 .setSitcomNumberNumber(sitcomNumberNumber)
                 .setSitcomNumberName(sitcomNumberName)
-                .setSitcomNumberWatchTime(LocalDateTime.now().toString());
+                .setSitcomNumberWatchTime(LocalDateTime.now().toString())
+                .setSitcomNumberCreateTime(LocalDateTime.now());
         int save = sitcomNumberMapper.insert(sitcomNumber);
         if (save < 1) {
             log.warn("新增剧集失败！");
@@ -104,7 +107,7 @@ public class SitcomNumberServiceImpl extends ServiceImpl<SitcomNumberMapper, Sit
 
     @Override
     public RestObject<String> updateSitcomNumberBySitcomNumberId(SitcomNumber sitcomNumber) {
-        sitcomNumber.setSitcomNumberId(sitcomNumber.getSitcomNumberId());
+        sitcomNumber.setSitcomNumberUpdateTime(LocalDateTime.now());
         int b = sitcomNumberMapper.updateById(sitcomNumber);
         if (b < 1) {
             log.warn("修改剧集失败！剧集id:" + sitcomNumber.getSitcomNumberId());

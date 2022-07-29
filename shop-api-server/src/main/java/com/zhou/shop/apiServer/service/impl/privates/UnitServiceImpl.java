@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -42,6 +43,7 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IU
 
     @Override
     public RestObject<String> createUnit(Unit unit) {
+        unit.setUnitCreateTime(LocalDateTime.now());
         int insert = unitMapper.insert(unit);
         if (insert < 1) {
             log.warn("新增单位失败！");
@@ -65,6 +67,7 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IU
     @Override
     public RestObject<String> updateUnitByUnitId(String unitId, Unit unit) {
         unit.setUnitId(unitId);
+        unit.setUnitUpdateTime(LocalDateTime.now());
         int i = unitMapper.updateById(unit);
         if (i < 1) {
             log.warn("修改单位失败！单位id:" + unitId);

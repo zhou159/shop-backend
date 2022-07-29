@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -33,17 +34,28 @@ public class User implements Serializable {
     @TableField("user_deleted")
     private Integer userDeleted;
 
-    public User() {}
+    @ApiModelProperty("用户创建时间")
+    @TableField("user_create_time")
+    private LocalDateTime userCreateTime;
+
+    @ApiModelProperty("用户更新时间")
+    @TableField("user_update_time")
+    private LocalDateTime userUpdateTime;
+
+    public User() {
+    }
 
     public User(String userId) {
         this.userId = userId;
     }
 
-    public User(String userId, String username, String userPicture, Integer userDeleted) {
+    public User(String userId, String username, String userPicture, Integer userDeleted, LocalDateTime userCreateTime, LocalDateTime userUpdateTime) {
         this.userId = userId;
         this.username = username;
         this.userPicture = userPicture;
         this.userDeleted = userDeleted;
+        this.userCreateTime = userCreateTime;
+        this.userUpdateTime = userUpdateTime;
     }
 
     public String getUserId() {
@@ -77,24 +89,38 @@ public class User implements Serializable {
         return userDeleted;
     }
 
-    public void setUserDeleted(Integer userDeleted) {
+    public User setUserDeleted(Integer userDeleted) {
         this.userDeleted = userDeleted;
+        return this;
+    }
+
+    public LocalDateTime getUserCreateTime() {
+        return userCreateTime;
+    }
+
+    public User setUserCreateTime(LocalDateTime userCreateTime) {
+        this.userCreateTime = userCreateTime;
+        return this;
+    }
+
+    public LocalDateTime getUserUpdateTime() {
+        return userUpdateTime;
+    }
+
+    public User setUserUpdateTime(LocalDateTime userUpdateTime) {
+        this.userUpdateTime = userUpdateTime;
+        return this;
     }
 
     @Override
     public String toString() {
-        return "User{"
-                + "userId='"
-                + userId
-                + '\''
-                + ", username='"
-                + username
-                + '\''
-                + ", userPicture='"
-                + userPicture
-                + '\''
-                + ", userDeleted="
-                + userDeleted
-                + '}';
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", userPicture='" + userPicture + '\'' +
+                ", userDeleted=" + userDeleted +
+                ", userCreateTime=" + userCreateTime +
+                ", userUpdateTime=" + userUpdateTime +
+                '}';
     }
 }

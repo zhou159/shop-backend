@@ -5,13 +5,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 /**
  * @author 周雄
  * @since 2021-08-21
  */
 @TableName("sitcom_number")
 @ApiModel("剧集")
-public class SitcomNumber {
+public class SitcomNumber implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("集数id")
@@ -52,7 +55,29 @@ public class SitcomNumber {
     @TableField("sitcom_number_deleted")
     private Integer sitcomNumberDeleted;
 
+    @ApiModelProperty("集创建时间")
+    @TableField("sitcom_number_create_time")
+    private LocalDateTime sitcomNumberCreateTime;
+
+    @ApiModelProperty("集更新时间")
+    @TableField("sitcom_number_update_time")
+    private LocalDateTime sitcomNumberUpdateTime;
+
     public SitcomNumber() {}
+
+    public SitcomNumber(String sitcomNumberId, String sitcomNumberWatchTime, String sitcomId, String sitcomNumberName, String sitcomNumberUrl, String sitcomNumberUrlRemark, String sitcomNumberRemark, String sitcomNumberNumber, Integer sitcomNumberDeleted, LocalDateTime sitcomNumberCreateTime, LocalDateTime sitcomNumberUpdateTime) {
+        this.sitcomNumberId = sitcomNumberId;
+        this.sitcomNumberWatchTime = sitcomNumberWatchTime;
+        this.sitcomId = sitcomId;
+        this.sitcomNumberName = sitcomNumberName;
+        this.sitcomNumberUrl = sitcomNumberUrl;
+        this.sitcomNumberUrlRemark = sitcomNumberUrlRemark;
+        this.sitcomNumberRemark = sitcomNumberRemark;
+        this.sitcomNumberNumber = sitcomNumberNumber;
+        this.sitcomNumberDeleted = sitcomNumberDeleted;
+        this.sitcomNumberCreateTime = sitcomNumberCreateTime;
+        this.sitcomNumberUpdateTime = sitcomNumberUpdateTime;
+    }
 
     public SitcomNumber(String sitcomNumberId, String sitcomNumberWatchTime, String sitcomId, String sitcomNumberName,
                         String sitcomNumberUrl, String sitcomNumberUrlRemark, String sitcomNumberRemark,
@@ -148,8 +173,39 @@ public class SitcomNumber {
         this.sitcomNumberDeleted = sitcomNumberDeleted;
     }
 
+
+    public LocalDateTime getSitcomNumberCreateTime() {
+        return sitcomNumberCreateTime;
+    }
+
+    public SitcomNumber setSitcomNumberCreateTime(LocalDateTime sitcomNumberCreateTime) {
+        this.sitcomNumberCreateTime = sitcomNumberCreateTime;
+        return this;
+    }
+
+    public LocalDateTime getSitcomNumberUpdateTime() {
+        return sitcomNumberUpdateTime;
+    }
+
+    public SitcomNumber setSitcomNumberUpdateTime(LocalDateTime sitcomNumberUpdateTime) {
+        this.sitcomNumberUpdateTime = sitcomNumberUpdateTime;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "SitcomNumber{" + "sitcomNumberId='" + sitcomNumberId + '\'' + ", sitcomNumberWatchTime='" + sitcomNumberWatchTime + '\'' + ", sitcomId='" + sitcomId + '\'' + ", sitcomNumberName='" + sitcomNumberName + '\'' + ", sitcomNumberUrl='" + sitcomNumberUrl + '\'' + ", sitcomNumberUrlRemark='" + sitcomNumberUrlRemark + '\'' + ", sitcomNumberRemark='" + sitcomNumberRemark + '\'' + ", sitcomNumberNumber='" + sitcomNumberNumber + '\'' + ", sitcomNumberDeleted=" + sitcomNumberDeleted + '}';
+        return "SitcomNumber{" +
+                "sitcomNumberId='" + sitcomNumberId + '\'' +
+                ", sitcomNumberWatchTime='" + sitcomNumberWatchTime + '\'' +
+                ", sitcomId='" + sitcomId + '\'' +
+                ", sitcomNumberName='" + sitcomNumberName + '\'' +
+                ", sitcomNumberUrl='" + sitcomNumberUrl + '\'' +
+                ", sitcomNumberUrlRemark='" + sitcomNumberUrlRemark + '\'' +
+                ", sitcomNumberRemark='" + sitcomNumberRemark + '\'' +
+                ", sitcomNumberNumber='" + sitcomNumberNumber + '\'' +
+                ", sitcomNumberDeleted=" + sitcomNumberDeleted +
+                ", sitcomNumberCreateTime=" + sitcomNumberCreateTime +
+                ", sitcomNumberUpdateTime=" + sitcomNumberUpdateTime +
+                '}';
     }
 }

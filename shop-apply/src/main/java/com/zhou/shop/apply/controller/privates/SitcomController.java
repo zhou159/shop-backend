@@ -1,6 +1,7 @@
 package com.zhou.shop.apply.controller.privates;
 
 import cn.dev33.satoken.annotation.SaCheckRole;
+import com.zhou.shop.api.dto.SitcomDTO;
 import com.zhou.shop.api.entity.privates.Sitcom;
 import com.zhou.shop.apiServer.service.privates.ISitcomService;
 import com.zhou.shop.common.RestObject;
@@ -8,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -29,19 +31,19 @@ public class SitcomController {
 
     @ApiOperation("新增连续剧")
     @PostMapping("/createSitcom")
-    public RestObject<String> createSitcom(@RequestBody Sitcom sitcom) {
+    public RestObject<String> createSitcom(@Valid @RequestBody Sitcom sitcom) {
         return iSitcomService.createSitcom(sitcom);
     }
 
     @ApiOperation("按id查询连续剧")
     @GetMapping("/retrieveBySitcomId/{sitcomId}")
-    public RestObject<Sitcom> retrieveBySitcomId(@PathVariable String sitcomId) {
+    public RestObject<SitcomDTO> retrieveBySitcomId(@PathVariable String sitcomId) {
         return iSitcomService.retrieveBySitcomId(sitcomId);
     }
 
     @ApiOperation("查询全部连续剧")
     @GetMapping("/retrieveAllSitcom/{userId}")
-    public RestObject<List<Sitcom>> retrieveAllSitcom(@PathVariable("userId")String userId) {
+    public RestObject<List<SitcomDTO>> retrieveAllSitcom(@PathVariable("userId")String userId) {
         return iSitcomService.retrieveAllSitcom(userId);
     }
 

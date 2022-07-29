@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @auther: 周雄 @Date: 2022/3/14 17:37 @Description:
@@ -37,23 +38,28 @@ public class UserLogin implements Serializable {
     @TableField("type")
     private String type;
 
+    @ApiModelProperty("登录信息创建时间")
+    @TableField("user_login_create_time")
+    private LocalDateTime userLoginCreateTime;
+
+    @ApiModelProperty("登录信息更新时间")
+    @TableField("user_login_update_time")
+    private LocalDateTime userLoginUpdateTime;
+
     public UserLogin() {}
 
     public UserLogin(String userId) {
         this.userId = userId;
     }
 
-    public UserLogin(
-            String userLoginId,
-            String userId,
-            String userAccount,
-            String userPassword,
-            String type) {
+    public UserLogin(String userLoginId, String userId, String userAccount, String userPassword, String type, LocalDateTime userLoginCreateTime, LocalDateTime userLoginUpdateTime) {
         this.userLoginId = userLoginId;
         this.userId = userId;
         this.userAccount = userAccount;
         this.userPassword = userPassword;
         this.type = type;
+        this.userLoginCreateTime = userLoginCreateTime;
+        this.userLoginUpdateTime = userLoginUpdateTime;
     }
 
     public String getUserLoginId() {
@@ -96,24 +102,32 @@ public class UserLogin implements Serializable {
         this.type = type;
     }
 
+    public LocalDateTime getUserLoginCreateTime() {
+        return userLoginCreateTime;
+    }
+
+    public void setUserLoginCreateTime(LocalDateTime userLoginCreateTime) {
+        this.userLoginCreateTime = userLoginCreateTime;
+    }
+
+    public LocalDateTime getUserLoginUpdateTime() {
+        return userLoginUpdateTime;
+    }
+
+    public void setUserLoginUpdateTime(LocalDateTime userLoginUpdateTime) {
+        this.userLoginUpdateTime = userLoginUpdateTime;
+    }
+
     @Override
     public String toString() {
-        return "UserLogin{"
-                + "userLoginId='"
-                + userLoginId
-                + '\''
-                + ", userId='"
-                + userId
-                + '\''
-                + ", userAccount='"
-                + userAccount
-                + '\''
-                + ", userPassword='"
-                + userPassword
-                + '\''
-                + ", type='"
-                + type
-                + '\''
-                + '}';
+        return "UserLogin{" +
+                "userLoginId='" + userLoginId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userAccount='" + userAccount + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", type='" + type + '\'' +
+                ", userLoginCreateTime='" + userLoginCreateTime + '\'' +
+                ", userLoginUpdateTime='" + userLoginUpdateTime + '\'' +
+                '}';
     }
 }

@@ -48,6 +48,7 @@ public class PubCodeTypeServiceImpl extends ServiceImpl<PubCodeTypeMapper, PubCo
 
     @Override
     public RestObject<String> updatePubCodeType(PubCodeType pubCodeType) {
+        pubCodeType.setTypeUpdateTime(LocalDateTime.now());
         int i = pubCodeTypeMapper.updateById(pubCodeType);
         return i > 0 ? RestResponse.makeOkRsp("修改成功！") : RestResponse.makeErrRsp("修改失败！");
     }
@@ -70,7 +71,9 @@ public class PubCodeTypeServiceImpl extends ServiceImpl<PubCodeTypeMapper, PubCo
                         null,
                         new LambdaUpdateWrapper<PubCodeType>()
                                 .eq(PubCodeType::getId, pubCodeTypeId)
-                                .set(PubCodeType::getTypeStatus, status));
+                                .set(PubCodeType::getTypeStatus, status)
+                                .set(PubCodeType::getTypeUpdateTime, LocalDateTime.now()));
+
         return update > 0 ? RestResponse.makeOkRsp("修改成功！") : RestResponse.makeErrRsp("修改失败！");
     }
 

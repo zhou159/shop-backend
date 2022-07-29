@@ -1,6 +1,6 @@
 package com.zhou.shop.apiServer.service.impl.blog;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.BlogCategoryListDTO;
 import com.zhou.shop.api.entity.blog.Blog;
@@ -24,8 +24,7 @@ import java.util.List;
  * @description
  */
 @Service
-public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, BlogCategory>
-        implements IBlogCategoryService {
+public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, BlogCategory> implements IBlogCategoryService {
 
     private final BlogCategoryMapper blogCategoryMapper;
     private final BlogMapper blogMapper;
@@ -39,16 +38,12 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
 
     @Override
     public RestObject<List<BlogCategoryListDTO>> queryCategoryList(String userId) {
-        QueryWrapper<BlogCategory> blogCategoryQueryWrapper = new QueryWrapper<>();
-        blogCategoryQueryWrapper.eq("blog_category_created_by", userId);
-        List<BlogCategory> blogCategories = blogCategoryMapper.selectList(blogCategoryQueryWrapper);
+        List<BlogCategory> blogCategories = blogCategoryMapper.selectList(new LambdaQueryWrapper<BlogCategory>().eq(BlogCategory::getBlogCategoryCreatedBy, userId));
         List<BlogCategoryListDTO> blogCategoriesListTree = new ArrayList<>();
         for (BlogCategory blogCategory : blogCategories) {
             BlogCategoryListDTO blogCategoryListTreeDto = new BlogCategoryListDTO();
             BeanUtils.copyProperties(blogCategory, blogCategoryListTreeDto);
-            QueryWrapper<Blog> blog = new QueryWrapper<>();
-            blog.eq("blog_category", blogCategory.getBlogCategoryId());
-            Long aLong = blogMapper.selectCount(blog);
+            Long aLong = blogMapper.selectCount(new LambdaQueryWrapper<Blog>().eq(Blog::getBlogCategory, blogCategory.getBlogCategoryId()));
             blogCategoryListTreeDto.setBlogCount(aLong.toString() + "篇");
             blogCategoriesListTree.add(blogCategoryListTreeDto);
         }

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author 周雄
@@ -39,19 +40,20 @@ public class UpdateLog implements Serializable {
     @TableField("update_log_deleted")
     private Integer updateLogDeleted;
 
-    public UpdateLog() {}
+    @ApiModelProperty("更新日志更新时间")
+    @TableField("update_log_update_time")
+    private LocalDateTime updateLogUpdateTime;
 
-    public UpdateLog(
-            Integer updateLogId,
-            LocalDate updateLogCreateTime,
-            String updateLogVersion,
-            String updateLogDescription,
-            Integer updateLogDeleted) {
+    public UpdateLog() {
+    }
+
+    public UpdateLog(Integer updateLogId, LocalDate updateLogCreateTime, String updateLogVersion, String updateLogDescription, Integer updateLogDeleted, LocalDateTime updateLogUpdateTime) {
         this.updateLogId = updateLogId;
         this.updateLogCreateTime = updateLogCreateTime;
         this.updateLogVersion = updateLogVersion;
         this.updateLogDescription = updateLogDescription;
         this.updateLogDeleted = updateLogDeleted;
+        this.updateLogUpdateTime = updateLogUpdateTime;
     }
 
     public Integer getUpdateLogId() {
@@ -98,21 +100,24 @@ public class UpdateLog implements Serializable {
         this.updateLogDeleted = updateLogDeleted;
     }
 
+    public LocalDateTime getUpdateLogUpdateTime() {
+        return updateLogUpdateTime;
+    }
+
+    public UpdateLog setUpdateLogUpdateTime(LocalDateTime updateLogUpdateTime) {
+        this.updateLogUpdateTime = updateLogUpdateTime;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "UpdateLog{"
-                + "updateLogId="
-                + updateLogId
-                + ", updateLogCreateTime="
-                + updateLogCreateTime
-                + ", updateLogVersion='"
-                + updateLogVersion
-                + '\''
-                + ", updateLogDescription='"
-                + updateLogDescription
-                + '\''
-                + ", updateLogDeleted="
-                + updateLogDeleted
-                + '}';
+        return "UpdateLog{" +
+                "updateLogId=" + updateLogId +
+                ", updateLogCreateTime=" + updateLogCreateTime +
+                ", updateLogVersion='" + updateLogVersion + '\'' +
+                ", updateLogDescription='" + updateLogDescription + '\'' +
+                ", updateLogDeleted=" + updateLogDeleted +
+                ", updateLogUpdateTime=" + updateLogUpdateTime +
+                '}';
     }
 }

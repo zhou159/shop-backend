@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -42,6 +43,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public RestObject<String> createShop(Shop shop) {
+        shop.setShopCreateTime(LocalDateTime.now());
         int insert = shopMapper.insert(shop);
         if (insert < 1) {
             log.warn("新增商店失败！");
@@ -64,7 +66,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public RestObject<String> updateShopByShopId(Shop shop) {
-        shop.setShopId(shop.getShopId());
+        shop.setShopUpdateTime(LocalDateTime.now());
         int i = shopMapper.updateById(shop);
         if (i < 1) {
             log.warn("修改商店失败！商店id:" + shop.getShopId());

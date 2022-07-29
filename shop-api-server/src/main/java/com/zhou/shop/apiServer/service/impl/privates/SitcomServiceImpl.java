@@ -4,8 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhou.shop.api.dto.SitcomDTO;
+import com.zhou.shop.api.entity.PubCode;
 import com.zhou.shop.api.entity.privates.Sitcom;
 import com.zhou.shop.api.entity.privates.SitcomNumber;
+import com.zhou.shop.apiServer.mapper.PubCodeMapper;
 import com.zhou.shop.apiServer.mapper.privates.SitcomMapper;
 import com.zhou.shop.apiServer.mapper.privates.SitcomNumberMapper;
 import com.zhou.shop.apiServer.service.privates.ISitcomService;
@@ -14,11 +17,14 @@ import com.zhou.shop.common.RestResponse;
 import com.zhou.shop.common.exception.ShopException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 服务实现类
@@ -33,11 +39,13 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
     private static final String WATCH_END_TIME_NULL = "null";
     private final SitcomMapper sitcomMapper;
     private final SitcomNumberMapper sitcomNumberMapper;
+    private final PubCodeMapper pubCodeMapper;
     private final Logger log = LoggerFactory.getLogger(SitcomServiceImpl.class);
 
-    public SitcomServiceImpl(SitcomMapper sitcomMapper, SitcomNumberMapper sitcomNumberMapper) {
+    public SitcomServiceImpl(SitcomMapper sitcomMapper, SitcomNumberMapper sitcomNumberMapper, PubCodeMapper pubCodeMapper) {
         this.sitcomMapper = sitcomMapper;
         this.sitcomNumberMapper = sitcomNumberMapper;
+        this.pubCodeMapper = pubCodeMapper;
     }
 
     @Override
@@ -59,9 +67,10 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
         }
         sitcom.setSitcomWatchStartTime(
                 (sitcom.getSitcomWatchStartTime() == null
-                                || "".equals(sitcom.getSitcomWatchStartTime().toString()))
+                        || "".equals(sitcom.getSitcomWatchStartTime()))
                         ? LocalDate.now().toString()
                         : sitcom.getSitcomWatchStartTime());
+        sitcom.setSitcomCreateTime(LocalDateTime.now());
         int save = sitcomMapper.insert(sitcom);
         if (save < 1) {
             log.warn("新增连续剧失败！");
@@ -72,20 +81,22 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
     }
 
     @Override
-    public RestObject<Sitcom> retrieveBySitcomId(String sitcomId) {
-        return RestResponse.makeOkRsp(sitcomMapper.selectById(sitcomId));
+    public RestObject<SitcomDTO> retrieveBySitcomId(String sitcomId) {
+        Sitcom sitcom = sitcomMapper.selectById(sitcomId);
+        SitcomDTO sitcomDTO = new SitcomDTO();
+        BeanUtils.copyProperties(sitcom, sitcomDTO);
+        Optional.ofNullable(pubCodeMapper.selectOne(new LambdaQueryWrapper<PubCode>().eq(PubCode::getPubCodeId, sitcom.getSitcomType()))).ifPresent(s -> sitcomDTO.setSitcomTypeName(s.getPubCodeName()));
+        Optional.ofNullable(pubCodeMapper.selectOne(new LambdaQueryWrapper<PubCode>().eq(PubCode::getPubCodeId, sitcom.getSitcomCountry()))).ifPresent(s -> sitcomDTO.setSitcomCountryName(s.getPubCodeName()));
+        return RestResponse.makeOkRsp(sitcomDTO);
     }
 
     @Override
-    public RestObject<List<Sitcom>> retrieveAllSitcom(String userId) {
-        return RestResponse.makeOkRsp(
-                sitcomMapper.selectList(
-                        new LambdaQueryWrapper<Sitcom>().eq(Sitcom::getUserId, userId)));
+    public RestObject<List<SitcomDTO>> retrieveAllSitcom(String userId) {
+        return RestResponse.makeOkRsp(sitcomMapper.queryAllSitcom(userId));
     }
 
     @Override
     public RestObject<String> updateSitcomBySitcomId(Sitcom sitcom) {
-        sitcom.setSitcomId(sitcom.getSitcomId());
         if (!StrUtil.isNotBlank(sitcom.getSitcomUpdateStatus())
                 || sitcom.getSitcomUpdateStatus() == null) {
             throw new ShopException("连续剧更新状态不能为空！");
@@ -101,7 +112,7 @@ public class SitcomServiceImpl extends ServiceImpl<SitcomMapper, Sitcom> impleme
         if (sitcom.getSitcomWatchEndTime().equals(WATCH_END_TIME_NULL)) {
             sitcom.setSitcomWatchEndTime(null);
         }
-        /*LambdaUpdateWrapper<Sitcom> wrapper = new LambdaUpdateWrapper<>();wrapper.set(Sitcom::getSitcomWatchEndTime,null).eq(Sitcom::getSitcomId,sitcomId);*/
+        sitcom.setSitcomUpdateTime(LocalDateTime.now());
         int b = sitcomMapper.updateById(sitcom);
         if (b < 1) {
             log.warn("修改连续剧失败！连续剧id:" + sitcom.getSitcomId());

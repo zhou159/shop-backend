@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -60,6 +61,7 @@ public class UpdateLogServiceImpl extends ServiceImpl<UpdateLogMapper, UpdateLog
     @Override
     public RestObject<String> updateUpdateByUpdateId(Integer updateLogId, UpdateLog updateLog) {
         updateLog.setUpdateLogId(updateLogId);
+        updateLog.setUpdateLogUpdateTime(LocalDateTime.now());
         int i = updateLogMapper.updateById(updateLog);
         if (i < 1) {
             log.warn("修改更新日志失败！更新日志id:" + updateLogId);

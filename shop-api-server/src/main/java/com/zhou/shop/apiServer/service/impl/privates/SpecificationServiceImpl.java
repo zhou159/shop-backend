@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -44,6 +45,7 @@ public class SpecificationServiceImpl extends ServiceImpl<SpecificationMapper, S
 
     @Override
     public RestObject<String> createSpecification(Specification specification) {
+        specification.setSpecificationCreateTime(LocalDateTime.now());
         int insert = specificationMapper.insert(specification);
         if (insert < 1) {
             log.warn("新增规格失败！");
@@ -68,7 +70,7 @@ public class SpecificationServiceImpl extends ServiceImpl<SpecificationMapper, S
 
     @Override
     public RestObject<String> updateSpecificationBySpecificationId(Specification specification) {
-        specification.setSpecificationId(specification.getSpecificationId());
+        specification.setSpecificationUpdateTime(LocalDateTime.now());
         int i = specificationMapper.updateById(specification);
         if (i < 1) {
             log.warn("修改规格失败！规格id:" + specification.getSpecificationId());

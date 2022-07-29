@@ -2,10 +2,8 @@ package com.zhou.shop.apply.controller.blog;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.zhou.shop.api.dto.BlogDTO;
-import com.zhou.shop.api.entity.blog.Blog;
 import com.zhou.shop.api.vo.BlogVO;
 import com.zhou.shop.apiServer.service.blog.IBlogService;
-import com.zhou.shop.apply.annotations.RequestLimit;
 import com.zhou.shop.common.RestObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author 周雄
@@ -44,7 +41,7 @@ public class BlogController {
 
     @ApiOperation(value = "根据博客栏目id查询博客栏目")
     @GetMapping("/getBlogByBlogCategoryId/{blogCategoryId}")
-    public RestObject<List<Blog>> queryBlogByBlogCategoryId(@PathVariable("blogCategoryId") String blogCategoryId){
+    public RestObject<List<BlogDTO>> queryBlogByBlogCategoryId(@PathVariable("blogCategoryId") String blogCategoryId){
         return blogService.queryBlogByBlogCategoryId(blogCategoryId);
     }
 

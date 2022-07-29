@@ -1,6 +1,7 @@
 package com.zhou.shop.apiServer.service.privates;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhou.shop.api.dto.SitcomDTO;
 import com.zhou.shop.api.entity.privates.Sitcom;
 import com.zhou.shop.common.RestObject;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,14 +30,14 @@ public interface ISitcomService extends IService<Sitcom> {
      * @param sitcomId id
      * @return
      */
-    RestObject<Sitcom> retrieveBySitcomId(String sitcomId);
+    RestObject<SitcomDTO> retrieveBySitcomId(String sitcomId);
 
     /**
      * 查询全部
      *
      * @return
      */
-    RestObject<List<Sitcom>> retrieveAllSitcom(String userId);
+    RestObject<List<SitcomDTO>> retrieveAllSitcom(String userId);
 
     /**
      * 根据id修改

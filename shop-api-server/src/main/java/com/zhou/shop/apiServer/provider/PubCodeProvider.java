@@ -22,6 +22,7 @@ public class PubCodeProvider {
                         + "WHERE\n"
                         + "\tpct.deleted = 0 \n"
                         + "\tAND pc.deleted = 0 \n"
+                        + "\tAND pct.type_status = 1 \n"
                         + "\tAND pct.pub_code_type = '"
                         + pubCodeType
                         + "'");

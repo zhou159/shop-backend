@@ -1,6 +1,5 @@
 package com.zhou.shop.apiServer.service.impl.blog;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.shop.api.dto.BlogDTO;
 import com.zhou.shop.api.entity.blog.Blog;
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * @author 周雄
@@ -42,27 +40,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Override
     public RestObject<List<BlogDTO>> queryListDto() {
-        List<Blog> blogs = blogMapper.selectList(null);
-        return RestResponse.makeOkRsp(
-                blogs.stream()
-                        .map(
-                                it -> {
-                                    BlogDTO blogDto = new BlogDTO();
-                                    BeanUtils.copyProperties(it, blogDto);
-                                    blogDto.setBlogCreatedName(
-                                            userMapper
-                                                    .selectById(it.getBlogCreatedBy())
-                                                    .getUsername());
-                                    return blogDto;
-                                })
-                        .collect(Collectors.toList()));
+        return RestResponse.makeOkRsp(blogMapper.queryAllBlog());
     }
 
     @Override
-    public RestObject<List<Blog>> queryBlogByBlogCategoryId(String blogCategoryId) {
-        return RestResponse.makeOkRsp(
-                blogMapper.selectList(
-                        new QueryWrapper<Blog>().eq("blog_category", blogCategoryId)));
+    public RestObject<List<BlogDTO>> queryBlogByBlogCategoryId(String blogCategoryId) {
+        return RestResponse.makeOkRsp(blogMapper.queryAllByBlogCategoryId(blogCategoryId));
     }
 
     @Override
@@ -141,7 +124,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     // 匹配emoji表情 :m: :m::m:
     private final static String EMOJI_REGEXP = ":.*:";
 
-    private String regexp(String s){
+    private String regexp(String s) {
         // 粗体
         Matcher boldMatcher = Pattern.compile(MARKDOWN_BOLD_REGEXP).matcher(s);
         if (boldMatcher.find()) {
@@ -254,16 +237,17 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     /**
      * 博客内容优化
      * 保留纯文本，将超出100字符之后的替换成...
+     *
      * @param s 原字符串
      * @return 优化后的字符串
      */
-    private String blogTextOptimization(String s){
+    private String blogTextOptimization(String s) {
         StringBuilder returnS = new StringBuilder();
         String[] split = s.split("\n");
         for (String value : split) {
             returnS.append(regexp(value));
             if (returnS.length() > 100) {
-                returnS = new StringBuilder(returnS.substring(0,100));
+                returnS = new StringBuilder(returnS.substring(0, 100));
                 returnS.append("...");
                 break;
             }
